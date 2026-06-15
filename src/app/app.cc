@@ -4,6 +4,8 @@
 
 #include "cli.h"
 
+namespace A {}
+
 namespace compiler::app {
 void App::Run(const int argc, const char* const* const argv) {
   std::filesystem::path user_file_path =
