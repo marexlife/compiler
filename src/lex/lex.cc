@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace compiler::lexer {
+namespace compiler::lex {
 [[nodiscard]] std::vector<std::string> Lex(std::string_view source_text) {
   std::vector<std::string> result;
 

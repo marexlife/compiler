@@ -4,7 +4,7 @@
 #include <string_view>
 #include <vector>
 
-namespace compiler::lexer {
+namespace compiler::lex {
 [[nodiscard]] std::vector<std::string> Lex(std::string_view source_text);
 }
 #endif  // COMPILER_LEXER_LEXER_H_
