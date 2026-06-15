@@ -3,7 +3,7 @@
 namespace compiler::app {
 class App final {
  public:
-  App() = default;
+  constexpr App() = default;
   App(App&&) = delete;
   App& operator=(App&&) = delete;
   App(const App&) = delete;

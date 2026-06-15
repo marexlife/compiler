@@ -4,5 +4,6 @@ add_subdirectory(app)
 add_subdirectory(fetch)
 add_subdirectory(lex)
 add_subdirectory(parse)
-
 add_subdirectory(main)
+add_subdirectory(cli)
+
