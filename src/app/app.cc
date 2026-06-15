@@ -5,7 +5,7 @@
 #include "cli.h"
 
 namespace compiler::app {
-void App::Run(int argc, const char* const* const argv) {
+void App::Run(const int argc, const char* const* const argv) {
   std::filesystem::path user_file_path =
       compiler::cli::GetUserFilesPath(argc, argv);
 }
