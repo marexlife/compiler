@@ -3,6 +3,7 @@
 #include <filesystem>
 
 namespace compiler::cli {
-[[nodiscard]] std::filesystem::path GetUserFilesPath();
+[[nodiscard]] std::filesystem::path GetUserFilesPath(int argc,
+                                                     const char* const* argv);
 }
 #endif  // COMPILER_CLI_CLI_H_

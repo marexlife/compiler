@@ -3,16 +3,14 @@
 namespace compiler::app {
 class App final {
  public:
-  constexpr App() = default;
+  App() = delete;
   App(App&&) = delete;
   App& operator=(App&&) = delete;
   App(const App&) = delete;
   App& operator=(const App&) = delete;
-  ~App() = default;
+  ~App() = delete;
 
-  void Run();
-
- private:
+  static void Run(int argc, const char* const* argv);
 };
 }  // namespace compiler::app
 #endif  // COMPILER_APP_APP_H_
