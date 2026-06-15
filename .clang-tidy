@@ -1,4 +1,4 @@
-Checks: "cppcoreguidelines-*,performance-*,google-*,readability-*"
+Checks: "cppcoreguidelines-*,performance-*,google-*,readability-*,bugprone-*,clang-analyzer-*,portability-*,abseil-*"
 CheckOptions:
   - key: "readability-identifier-naming.ClassCase"
     value: CamelCase
