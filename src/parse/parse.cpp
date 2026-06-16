@@ -1,3 +1,4 @@
 #include "parse.h"
 
-namespace compiler::parse {}
+namespace compiler::parse {
+}
