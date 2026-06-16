@@ -1,7 +1,33 @@
 #include "parser.h"
 
-namespace compiler::parse {
-void Parser::Run() {
+#include <algorithm>
+#include <memory>
+#include <utility>
 
+#include "absl/container/inlined_vector.h"
+#include "ident_node.h"
+#include "token.h"
+#include "token_kind.h"
+
+namespace compiler::parse {
+void Parser::Run() noexcept {}
+
+absl::InlinedVector<std::unique_ptr<Node>, Parser::kNodesDefaultReserve>
+Parser::TransformToNodeVector(
+    absl::InlinedVector<lex::Token, kNodesDefaultReserve>&& input) {
+  absl::InlinedVector<std::unique_ptr<Node>, kNodesDefaultReserve> result{};
+
+  std::ranges::transform(input, result.begin(), TransformToNode);
+
+  return result;
 }
+
+std::unique_ptr<Node> Parser::TransformToNode(lex::Token& input) {
+  switch (input.token_kind()) {
+    case lex::TokenKind::kIdentifier:
+      return std::make_unique<IdentNode>(input.lexeme());
+    default:
+      std::unreachable();
+  }
 }
+}  // namespace compiler::parse

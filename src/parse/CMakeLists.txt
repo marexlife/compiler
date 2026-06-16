@@ -12,6 +12,8 @@ add_library(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
+    lex
+
     absl::base
     absl::statusor
     absl::inlined_vector

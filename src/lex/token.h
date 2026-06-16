@@ -12,18 +12,18 @@ class TokenFactory;
 class Token final {
  public:
   Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
-        TokenKind token_kind)
+        TokenKind token_kind) noexcept
       : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
 
-  Token(Token&&) = default;
+  Token(Token&&) noexcept = default;
+  Token& operator=(Token&&) noexcept = default;
 
-  Token& operator=(Token&&) = delete;
   Token(const Token&) = delete;
   Token& operator=(const Token&) = delete;
-  ~Token() = default;
+  ~Token() noexcept = default;
 
-  [[nodiscard]] std::string lexeme() const { return lexeme_; }
-  [[nodiscard]] TokenKind token_kind() const { return token_kind_; }
+  [[nodiscard]] std::string lexeme() const noexcept { return lexeme_; }
+  [[nodiscard]] TokenKind token_kind() const noexcept { return token_kind_; }
 
  private:
   std::string lexeme_{};

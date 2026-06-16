@@ -1,6 +1,7 @@
 #include "lexer.h"
 
 #include <absl/base/attributes.h>
+
 #include <string>
 
 #include "detail/char_table.h"
@@ -15,12 +16,13 @@ absl::InlinedVector<Token, Lexer::kVectorDefaultSize> Lexer::Run(
     switch (source_text_char) {
       case detail::CharTable::kSpace:
         [[fallthrough]];
-      case detail::CharTable::kNewLine:
+      case detail::CharTable::kNewLine: {
         Flush(result);
-        break;
-      default:
+      } break;
+      default: {
         last_word_.push_back(source_text_char);
         break;
+      }
     }
   }
 
