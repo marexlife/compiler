@@ -6,7 +6,7 @@
 #include <string_view>
 #include <utility>
 
-namespace compiler::cli {
+namespace compiler::cl {
 [[nodiscard]] std::expected<std::filesystem::path, std::string_view>
 Cli::GetUserFilesPath(const int argc, const char* const* const argv) {
   for (int i = 0; i < argc; ++i) {
@@ -35,4 +35,4 @@ Cli::GetUserFilesPath(const int argc, const char* const* const argv) {
 
   return std::unexpected("Path is out of argument range.");
 }
-}  // namespace compiler::cli
+}  // namespace compiler::cl

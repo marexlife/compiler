@@ -4,7 +4,7 @@
 #include <filesystem>
 #include <string_view>
 
-namespace compiler::cli {
+namespace compiler::cl {
 class Cli final {
  public:
   Cli() = default;
@@ -17,5 +17,5 @@ class Cli final {
   [[nodiscard]] static std::expected<std::filesystem::path, std::string_view>
   GetUserFilesPath(int argc, const char* const* argv);
 };
-}  // namespace compiler::cli
+}  // namespace compiler::cl
 #endif  // COMPILER_CLI_CLI_H_
