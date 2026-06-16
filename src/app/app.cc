@@ -5,7 +5,7 @@
 namespace A {}
 
 namespace compiler::app {
-void App::Run(const int argc, const char* const* const argv) {
+auto App::Run(const int argc, const char* const* const argv) -> void {
   const auto user_file_path = compiler::cli::GetUserFilesPath(argc, argv);
 }
 }  // namespace compiler::app

@@ -4,7 +4,8 @@
 #include <vector>
 
 namespace compiler::lex {
-[[nodiscard]] std::vector<std::string> Lex(std::string_view source_text) {
+[[nodiscard]] auto Lex(std::string_view source_text)
+    -> std::vector<std::string> {
   std::vector<std::string> result;
 
   for (const auto source_text_char : source_text) {
