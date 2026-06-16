@@ -1,5 +1,5 @@
-#include "app.h"
+#include "cli.h"
 
 auto main(const int argc, const char* const* const argv) -> int {
-  compiler::app::app::run(argc, argv);
+  const auto user_file_path = compiler::cli::get_user_files_path(argc, argv);
 }

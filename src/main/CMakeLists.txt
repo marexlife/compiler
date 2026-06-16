@@ -12,7 +12,10 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    app
+    lex
+    parse
+    cli
+    fetch
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
