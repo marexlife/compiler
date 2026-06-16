@@ -14,8 +14,8 @@ class Lexer final {
   Lexer& operator=(const Lexer&) = delete;
   ~Lexer() = default;
 
-  [[nodiscard]] static std::vector<std::string> Lex(
-      std::string_view source_text);
+  [[nodiscard]] static std::vector<std::string> Run(
+      std::basic_string_view<int> source_text);
 };
 }  // namespace compiler::lex
 #endif  // COMPILER_LEXER_LEXER_H_

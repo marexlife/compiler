@@ -2,12 +2,14 @@
 
 #include <cstddef>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "detail/char_table.h"
 
 namespace compiler::lex {
-std::vector<std::string> Lexer::Lex(const std::string_view source_text) {
+std::vector<std::string> Lexer::Run(
+    const std::basic_string_view<int> source_text) {
   std::vector<std::string> result{};
   {
     static const std::size_t kResultReserveAmount{100};
