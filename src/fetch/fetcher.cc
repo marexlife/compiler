@@ -6,7 +6,7 @@
 #include <string>
 
 namespace compiler::fetch {
-[[nodiscard]] std::basic_string<int> Fetcher::fetch(
+[[nodiscard]] std::basic_string<int> Fetcher::Fetch(
     const std::filesystem::path& filepath) {
   std::ifstream input_filestream{filepath};
 
