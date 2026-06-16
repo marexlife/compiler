@@ -1,5 +1,6 @@
 #include "app.h"
 
+#include <cstdlib>
 #include <exception>
 #include <filesystem>
 #include <functional>
@@ -20,7 +21,7 @@ void App::Run(const int argc, const char* const* const argv) {
     const auto result = lex::Lexer{}.Run(std::move(fetched_result));
   } else {
     std::println("{}", user_file_path.status().message());
-    return;
+    exit(0);
   }
 
 }
