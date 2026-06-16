@@ -11,6 +11,13 @@ add_library(${PROJECT_NAME}
     app.cc
 )
 
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    lex
+    parse
+    cl
+    fetch
+)
+
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
