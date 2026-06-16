@@ -12,20 +12,21 @@
 namespace compiler::parse {
 void Parser::Run() {}
 
-absl::InlinedVector<std::unique_ptr<Node>, Parser::kNodesDefaultReserve>
+absl::InlinedVector<std::unique_ptr<nodes::Node>, Parser::kNodesDefaultReserve>
 Parser::TransformToNodeVector(
     absl::InlinedVector<lex::Token, kNodesDefaultReserve>&& input) {
-  absl::InlinedVector<std::unique_ptr<Node>, kNodesDefaultReserve> result{};
+  absl::InlinedVector<std::unique_ptr<nodes::Node>, kNodesDefaultReserve>
+      result{};
 
   std::ranges::transform(input, result.begin(), TransformToNode);
 
   return result;
 }
 
-std::unique_ptr<Node> Parser::TransformToNode(lex::Token& input) {
+std::unique_ptr<nodes::Node> Parser::TransformToNode(lex::Token& input) {
   switch (input.token_kind()) {
     case lex::TokenKind::kIdentifier:
-      return std::make_unique<IdentNode>(input.lexeme());
+      return std::make_unique<nodes::IdentNode>(input.lexeme());
     default:
       std::unreachable();
   }

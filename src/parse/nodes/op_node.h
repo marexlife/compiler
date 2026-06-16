@@ -1,8 +1,8 @@
-#ifndef COMPILER_PARSE_OPNODE_H_
-#define COMPILER_PARSE_OPNODE_H_
+#ifndef COMPILER_PARSE_NODES_OPNODE_H_
+#define COMPILER_PARSE_NODES_OPNODE_H_
 #include "node.h"
 
-namespace compiler::parse {
+namespace compiler::parse::nodes {
 class OpNode final : public Node {
  public:
   OpNode() = default;
@@ -14,5 +14,5 @@ class OpNode final : public Node {
 
  private:
 };
-}  // namespace compiler::parse
-#endif  // COMPILER_PARSE_OPNODE_H_
+}  // namespace compiler::parse::nodes
+#endif  // COMPILER_PARSE_NODES_OPNODE_H_
