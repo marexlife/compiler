@@ -6,11 +6,10 @@
 #include <string>
 
 namespace compiler::fetch {
-[[nodiscard]] std::basic_string<int> Fetcher::Run(
-    const std::filesystem::path& filepath) {
+[[nodiscard]] std::string Fetcher::Run(const std::filesystem::path& filepath) {
   std::ifstream input_filestream{filepath};
 
-  std::basic_string<int> result{};
+  std::string result{};
   {
     static const std::size_t kResultReserveAmount{100};
 
@@ -18,7 +17,7 @@ namespace compiler::fetch {
   }
 
   while (!input_filestream.eof()) {
-    result += input_filestream.get();
+    result += static_cast<char>(input_filestream.get());
   }
 
   return result;

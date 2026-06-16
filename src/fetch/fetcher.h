@@ -13,7 +13,7 @@ class Fetcher final {
   Fetcher& operator=(const Fetcher&) = delete;
   ~Fetcher() = default;
 
-  [[nodiscard]] static std::basic_string<int> Run(
+  [[nodiscard]] static std::string Run(
       const std::filesystem::path& filepath);
 };
 }  // namespace compiler::fetch

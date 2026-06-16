@@ -9,12 +9,14 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     lexer.cc
+    detail/token_factory.cc
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     core
     
     absl::base
+    absl::statusor
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

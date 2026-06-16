@@ -23,8 +23,8 @@ void App::Run(const int argc, const char* const* const argv) {
     }
   });
 
-  const auto fetched_result = fetch::Fetcher::Run(file_system_path);
+  auto fetched_result = fetch::Fetcher::Run(file_system_path);
 
-  const auto result = lex::Lexer::Run(fetched_result);
+  const auto result = lex::Lexer{}.Run(std::move(fetched_result));
 }
 }  // namespace compiler::app

@@ -15,7 +15,8 @@ class Token final {
         TokenKind token_kind)
       : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
 
-  Token(Token&&) = delete;
+  Token(Token&&) = default;
+
   Token& operator=(Token&&) = delete;
   Token(const Token&) = delete;
   Token& operator=(const Token&) = delete;
