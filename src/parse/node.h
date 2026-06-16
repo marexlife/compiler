@@ -1,14 +1,14 @@
 #ifndef COMPILER_PARSE_NODE_H_
 #define COMPILER_PARSE_NODE_H_
 namespace compiler::parse {
-class Node final {
+class Node {
  public:
   Node() = default;
-  Node(Node&&) = delete;
+  Node(Node&&) = default;
   Node& operator=(Node&&) = delete;
   Node(const Node&) = delete;
   Node& operator=(const Node&) = delete;
-  ~Node() = default;
+  virtual ~Node() = default;
 
  private:
 };
