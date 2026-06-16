@@ -15,7 +15,7 @@ class Cli final {
   ~Cli() = default;
 
   [[nodiscard]] static absl::StatusOr<std::filesystem::path> GetUserFilesPath(
-      int argc, const char* const* argv) noexcept;
+      int argc, const char* const* argv);
 };
 }  // namespace compiler::cl
 #endif  // COMPILER_CL_CLI_H_

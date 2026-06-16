@@ -7,7 +7,7 @@
 
 namespace compiler::cl {
 [[nodiscard]] absl::StatusOr<std::filesystem::path> Cli::GetUserFilesPath(
-    const int argc, const char* const* const argv) noexcept {
+    const int argc, const char* const* const argv) {
   for (int i = 0; i < argc; ++i) {
     switch (i) {
       case 0: {
