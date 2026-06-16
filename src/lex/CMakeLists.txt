@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
-    lex.cpp
+    lexer.cc
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

@@ -8,13 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_executable(${PROJECT_NAME}
-    main.cpp
+    main.cc
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     lex
     parse
-    cli
+    cl
     fetch
 )
 

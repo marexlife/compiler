@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(cli)
+project(cl)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 23)
@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
-    cli.cpp
+    cli.cc
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
