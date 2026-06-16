@@ -12,7 +12,7 @@
 using compiler::cl::Cli;
 
 namespace compiler::app {
-int App::Run(const int argc, const char* const* const argv) {
+void App::Run(const int argc, const char* const* const argv) {
   if (const auto user_file_path = Cli::GetUserFilesPath(argc, argv);
       user_file_path.ok()) [[likely]] {
     auto fetched_result = fetch::Fetcher::Run(*user_file_path);
@@ -20,9 +20,8 @@ int App::Run(const int argc, const char* const* const argv) {
     const auto result = lex::Lexer{}.Run(std::move(fetched_result));
   } else {
     std::println("{}", user_file_path.status().message());
-    return 0;
+    return;
   }
 
-  return 0;
 }
 }  // namespace compiler::app
