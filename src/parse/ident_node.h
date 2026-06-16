@@ -1,11 +1,15 @@
 #ifndef COMPILER_PARSE_IDENTNODE_H_
 #define COMPILER_PARSE_IDENTNODE_H_
-#include "node.h"
+#include <string>
+
+#include "value_node.h"
 
 namespace compiler::parse {
-class IdentNode final : public Node {
+class IdentNode final : public ValueNode<std::string> {
+  using Super = ValueNode<std::string>;
+
  public:
-  IdentNode() = default;
+  explicit IdentNode(std::string&& value) : Super(std::move(value)) {}
   IdentNode(IdentNode&&) = default;
   IdentNode& operator=(IdentNode&&) = delete;
   IdentNode(const IdentNode&) = delete;
