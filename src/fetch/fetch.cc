@@ -12,7 +12,7 @@ namespace compiler::fetch {
 
   std::basic_string<int> result{};
   {
-    static const std::size_t kResultReserveAmount = 100;
+    static const std::size_t kResultReserveAmount{100};
 
     result.reserve(kResultReserveAmount);
   }

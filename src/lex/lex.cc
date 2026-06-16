@@ -11,7 +11,7 @@ namespace compiler::lex {
     -> std::vector<std::string> {
   std::vector<std::string> result{};
   {
-    static const std::size_t kResultReserveAmount = 100;
+    static const std::size_t kResultReserveAmount{100};
 
     result.reserve(kResultReserveAmount);
   }
@@ -21,9 +21,10 @@ namespace compiler::lex {
       case detail::CharTable::kSpace:
         [[fallthrough]];
       case detail::CharTable::kNewLine:
-        
+
         break;
       default:
+
         break;
     }
   }
