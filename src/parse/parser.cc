@@ -1,3 +1,7 @@
 #include "parser.h"
 
-namespace compiler::parse {}
+namespace compiler::parse {
+void Parser::Run() {
+
+}
+}

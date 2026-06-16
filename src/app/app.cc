@@ -1,9 +1,6 @@
 #include "app.h"
 
 #include <cstdlib>
-#include <exception>
-#include <filesystem>
-#include <functional>
 #include <print>
 
 #include "cli.h"

@@ -1,0 +1,15 @@
+class Player {
+    pub prop health: int = 10;
+}
+
+pub fn main() {
+    val plyer [share] = Player{};
+
+    player.health -= 10;
+
+    val xs: []int = [1, 2, 3];
+´
+    for x: int in xs {
+        print("x {}", x);
+    }
+}
