@@ -10,7 +10,7 @@ class App final {
   App& operator=(const App&) = delete;
   ~App() = delete;
 
-  static auto Run(int argc, const char* const* argv) -> void;
+  static auto Run(int argc, const char* const* argv) noexcept -> void;
 };
 }  // namespace compiler::app
 #endif  // COMPILER_APP_APP_H_

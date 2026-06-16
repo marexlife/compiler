@@ -5,7 +5,7 @@
 #include <string_view>
 
 namespace compiler::cli {
-[[nodiscard]] auto GetUserFilesPath(int argc, const char* const* argv)
+[[nodiscard]] auto GetUserFilesPath(int argc, const char* const* argv) noexcept
     -> std::expected<std::filesystem::path, std::string_view>;
 }
 #endif  // COMPILER_CLI_CLI_H_

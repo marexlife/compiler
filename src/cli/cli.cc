@@ -8,7 +8,7 @@
 
 namespace compiler::cli {
 [[nodiscard]] auto GetUserFilesPath(const int argc,
-                                    const char* const* const argv)
+                                    const char* const* const argv) noexcept
     -> std::expected<std::filesystem::path, std::string_view> {
   static const std::string_view kPathIsRelativeErrorMessage =
       "Path is relative.";
