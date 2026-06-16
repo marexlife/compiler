@@ -1,24 +1,17 @@
 cmake_minimum_required(VERSION 3.20)
-project(lex)
+project(cl)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CXX_CLANG_TIDY ON)
-
 add_library(${PROJECT_NAME}
-    lexer.cc
-    detail/token_factory.cc
+    cli.cc
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    core
-    
     absl::base
     absl::statusor
-    absl::inlined_vector
-    absl::flat_hash_map
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

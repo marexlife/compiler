@@ -1,0 +1,15 @@
+class Player {
+    int32 health = 10;
+}
+
+int Main() {
+    player [Share] := new Player{};
+
+    Xs := [1, 2, 3];
+´
+    for (val X in Xs) {
+        Print("x {}", x);
+    }
+
+    return 0;
+}
