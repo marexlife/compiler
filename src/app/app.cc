@@ -20,7 +20,7 @@ int App::Run(const int argc, const char* const* const argv) {
     const auto result = lex::Lexer{}.Run(std::move(fetched_result));
   } else {
     std::println("{}", user_file_path.status().message());
-    return -1;
+    return 0;
   }
 
   return 0;
