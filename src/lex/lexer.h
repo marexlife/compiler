@@ -9,9 +9,10 @@
 #include "detail/token_factory.h"
 
 namespace compiler::lex {
-inline constexpr std::size_t kLexerVectorDefaultSize{10};
 
 class Lexer final {
+  static constexpr std::size_t kVectorDefaultSize{10};
+
  public:
   Lexer() = default;
   Lexer(Lexer&&) = delete;
@@ -20,11 +21,11 @@ class Lexer final {
   Lexer& operator=(const Lexer&) = delete;
   ~Lexer() = default;
 
-  [[nodiscard]] absl::InlinedVector<Token, kLexerVectorDefaultSize> Run(
+  [[nodiscard]] absl::InlinedVector<Token, kVectorDefaultSize> Run(
       std::string&& source_text);
 
  private:
-  void Flush(absl::InlinedVector<Token, kLexerVectorDefaultSize>& result);
+  void Flush(absl::InlinedVector<Token, kVectorDefaultSize>& result);
 
   TokenFactory token_factory_{};
   std::string last_word_{};

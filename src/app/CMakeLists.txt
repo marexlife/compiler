@@ -16,6 +16,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     parse
     cl
     fetch
+
+    absl::base
+    absl::statusor
+    absl::inlined_vector
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

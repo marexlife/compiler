@@ -11,6 +11,12 @@ add_library(${PROJECT_NAME}
     cli.cc
 )
 
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    absl::base
+    absl::statusor
+    absl::inlined_vector
+)
+
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )

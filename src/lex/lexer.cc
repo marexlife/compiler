@@ -8,9 +8,9 @@
 #include "token.h"
 
 namespace compiler::lex {
-absl::InlinedVector<Token, kLexerVectorDefaultSize> Lexer::Run(
+absl::InlinedVector<Token, Lexer::kVectorDefaultSize> Lexer::Run(
     std::string&& source_text) {
-  absl::InlinedVector<Token, kLexerVectorDefaultSize> result{};
+  absl::InlinedVector<Token, kVectorDefaultSize> result{};
 
   for (const auto source_text_char : source_text) {
     switch (source_text_char) {
@@ -28,7 +28,7 @@ absl::InlinedVector<Token, kLexerVectorDefaultSize> Lexer::Run(
   return result;
 }
 
-void Lexer::Flush(absl::InlinedVector<Token, kLexerVectorDefaultSize>& result) {
+void Lexer::Flush(absl::InlinedVector<Token, kVectorDefaultSize>& result) {
   result.push_back(token_factory_.CreateToken(std::string{last_word_}));
 
   last_word_.clear();
