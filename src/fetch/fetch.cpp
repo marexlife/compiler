@@ -12,9 +12,9 @@ namespace compiler::fetch {
 
   std::basic_string<int> result{};
   {
-    static const std::size_t kResultReserveAmount{100};
+    static const std::size_t result_reserve_amount{100};
 
-    result.reserve(kResultReserveAmount);
+    result.reserve(result_reserve_amount);
   }
 
   while (!input_file_stream.eof()) {

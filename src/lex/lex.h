@@ -5,7 +5,7 @@
 #include <vector>
 
 namespace compiler::lex {
-[[nodiscard]] auto Lex(std::string_view source_text)
+[[nodiscard]] auto lex(std::string_view source_text)
     -> std::vector<std::string>;
 }
 #endif  // COMPILER_LEXER_LEXER_H_

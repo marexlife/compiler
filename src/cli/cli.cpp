@@ -7,13 +7,13 @@
 #include <utility>
 
 namespace compiler::cli {
-[[nodiscard]] auto GetUserFilesPath(const int argc,
-                                    const char* const* const argv) noexcept
+[[nodiscard]] auto get_user_files_path(const int argc,
+                                       const char* const* const argv) noexcept
     -> std::expected<std::filesystem::path, std::string_view> {
-  static const std::string_view kPathIsRelativeErrorMessage =
+  static const std::string_view path_is_relative_error_message =
       "Path is relative.";
 
-  static const std::string_view kPathIsOutOfArgumentRange =
+  static const std::string_view path_is_out_of_argument_range =
       "Path is out of argument range.";
 
   for (int i = 0; i < argc; ++i) {
@@ -27,7 +27,7 @@ namespace compiler::cli {
 
               if (path.is_relative()) [[unlikely]] {
                 return std::unexpected{
-                    kPathIsRelativeErrorMessage,
+                    path_is_relative_error_message,
                 };
               }
 
@@ -40,6 +40,6 @@ namespace compiler::cli {
     }
   }
 
-  return std::unexpected(kPathIsOutOfArgumentRange);
+  return std::unexpected(path_is_out_of_argument_range);
 }
 }  // namespace compiler::cli

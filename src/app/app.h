@@ -1,16 +1,16 @@
 #ifndef COMPILER_APP_APP_H_
 #define COMPILER_APP_APP_H_
 namespace compiler::app {
-class App final {
+class app final {
  public:
-  App() = delete;
-  App(App&&) = delete;
-  App& operator=(App&&) = delete;
-  App(const App&) = delete;
-  App& operator=(const App&) = delete;
-  ~App() = delete;
+  app() = delete;
+  app(app&&) = delete;
+  app& operator=(app&&) = delete;
+  app(const app&) = delete;
+  app& operator=(const app&) = delete;
+  ~app() = delete;
 
-  static auto Run(int argc, const char* const* argv) noexcept -> void;
+  static auto run(int argc, const char* const* argv) noexcept -> void;
 };
 }  // namespace compiler::app
 #endif  // COMPILER_APP_APP_H_

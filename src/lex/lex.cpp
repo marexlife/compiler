@@ -7,7 +7,7 @@
 #include "detail/char_table.h"
 
 namespace compiler::lex {
-[[nodiscard]] auto Lex(const std::string_view source_text)
+[[nodiscard]] auto lex(const std::string_view source_text)
     -> std::vector<std::string> {
   std::vector<std::string> result{};
   {
@@ -18,9 +18,9 @@ namespace compiler::lex {
 
   for (const auto source_text_char : source_text) {
     switch (source_text_char) {
-      case detail::CharTable::kSpace:
+      case detail::char_table::space:
         [[fallthrough]];
-      case detail::CharTable::kNewLine:
+      case detail::char_table::new_line:
 
         break;
       default:
