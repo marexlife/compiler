@@ -3,12 +3,12 @@
 namespace compiler::parse {
 class Node final {
  public:
-  Node() = delete;
+  Node() = default;
   Node(Node&&) = delete;
   Node& operator=(Node&&) = delete;
   Node(const Node&) = delete;
   Node& operator=(const Node&) = delete;
-  ~Node() = delete;
+  ~Node() = default;
 
  private:
 };
