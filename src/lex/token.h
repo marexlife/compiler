@@ -4,12 +4,15 @@
 
 #include <string>
 
+#include "passkey.h"
 #include "token_kind.h"
 
 namespace compiler::lex {
+class TokenFactory;
 class Token final {
  public:
-  Token(std::basic_string<int>&& lexeme, TokenKind token_kind)
+  Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
+        TokenKind token_kind)
       : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
 
   Token(Token&&) = delete;
@@ -18,11 +21,11 @@ class Token final {
   Token& operator=(const Token&) = delete;
   ~Token() = default;
 
-  [[nodiscard]] std::basic_string<int> lexeme() const { return lexeme_; }
+  [[nodiscard]] std::string lexeme() const { return lexeme_; }
   [[nodiscard]] TokenKind token_kind() const { return token_kind_; }
 
  private:
-  std::basic_string<int> lexeme_{};
+  std::string lexeme_{};
   TokenKind token_kind_{};
 };
 }  // namespace compiler::lex

@@ -7,6 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CXX_CLANG_TIDY ON)
 
-add_library(${PROJECT_NAME} INTERFACE
+add_library(${PROJECT_NAME}
+    passkey.cc
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )

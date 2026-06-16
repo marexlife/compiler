@@ -4,13 +4,17 @@
 
 #include <string_view>
 
-#include "absl/status/status.h"
+#include "passkey.h"
 #include "token.h"
 #include "token_kind.h"
 
 namespace compiler::lex {
 Token TokenFactory::CreateToken(std::string&& source_word) {
-  return Token{};
+  return Token{
+      core::Passkey<TokenFactory>{},
+      std::move(source_word),
+      Map(source_word),
+  };
 }
 
 [[nodiscard]] TokenKind TokenFactory::Map(std::string_view source_word) {
