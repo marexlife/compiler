@@ -8,13 +8,13 @@
 namespace compiler::fetch {
 [[nodiscard]] std::basic_string<int> Fetch(
     const std::filesystem::path& file_path) {
-  static const std::size_t kCharacterReservation = 100;
-
   std::ifstream input_file_stream{file_path};
 
   std::basic_string<int> result;
   {
-    result.reserve(kCharacterReservation);
+    static const std::size_t kResultReserveAmount = 100;
+
+    result.reserve(kResultReserveAmount);
   }
 
   while (!input_file_stream.eof()) {
