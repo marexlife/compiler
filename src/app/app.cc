@@ -12,19 +12,17 @@
 using compiler::cl::Cli;
 
 namespace compiler::app {
-void App::Run(const int argc, const char* const* const argv) {
-  const auto file_system_path = std::invoke([&] {
-    if (const auto user_file_path = Cli::GetUserFilesPath(argc, argv);
-        user_file_path.ok()) [[likely]] {
-      return *user_file_path;
-    } else {
-      std::println("{}", user_file_path.status().message());
-      std::terminate();
-    }
-  });
+int App::Run(const int argc, const char* const* const argv) {
+  if (const auto user_file_path = Cli::GetUserFilesPath(argc, argv);
+      user_file_path.ok()) [[likely]] {
+    auto fetched_result = fetch::Fetcher::Run(*user_file_path);
 
-  auto fetched_result = fetch::Fetcher::Run(file_system_path);
+    const auto result = lex::Lexer{}.Run(std::move(fetched_result));
+  } else {
+    std::println("{}", user_file_path.status().message());
+    return -1;
+  }
 
-  const auto result = lex::Lexer{}.Run(std::move(fetched_result));
+  return 0;
 }
 }  // namespace compiler::app
