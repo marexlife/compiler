@@ -19,6 +19,8 @@ void App::Run(const int argc, const char* const* const argv) {
     auto fetched_result = fetch::Fetcher::Run(*user_file_path);
 
     auto result = lex::Lexer{}.Run(std::move(fetched_result));
+
+    
   } else {
     std::println("{}", user_file_path.status().message());
     exit(0);
