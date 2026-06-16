@@ -9,6 +9,9 @@
 namespace compiler::lex {
 class Token final {
  public:
+  Token(std::basic_string<int>&& lexeme, TokenKind token_kind)
+      : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
+
   Token(Token&&) = delete;
   Token& operator=(Token&&) = delete;
   Token(const Token&) = delete;
@@ -19,9 +22,6 @@ class Token final {
   [[nodiscard]] TokenKind token_kind() const { return token_kind_; }
 
  private:
-  Token(std::basic_string<int>&& lexeme, TokenKind token_kind)
-      : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
-
   std::basic_string<int> lexeme_{};
   TokenKind token_kind_{};
 };

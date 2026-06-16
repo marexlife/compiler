@@ -1,24 +1,17 @@
 #include "lexer.h"
 
-#include <cstddef>
 #include <string>
-#include <string_view>
-#include <vector>
 
 #include "detail/char_table.h"
+#include "token.h"
 
 namespace compiler::lex {
-std::vector<std::string> Lexer::Run(
-    const std::basic_string_view<int> source_text) {
-  std::vector<std::string> result{};
-  {
-    static const std::size_t kResultReserveAmount{100};
+absl::InlinedVector<Token, Lexer::kVectorDefaultSize> Lexer::Run(
+    std::string&& source_text) {
+  absl::InlinedVector<Token, Lexer::kVectorDefaultSize> result{};
 
-    result.reserve(kResultReserveAmount);
-  }
-
-  for (const auto sourceTextChar : source_text) {
-    switch (sourceTextChar) {
+  for (const auto source_text_char : source_text) {
+    switch (source_text_char) {
       case detail::CharTable::kSpace:
         [[fallthrough]];
       case detail::CharTable::kNewLine:
@@ -31,5 +24,11 @@ std::vector<std::string> Lexer::Run(
   }
 
   return result;
+}
+
+void Lexer::Flush(
+    absl::InlinedVector<Token, Lexer::kVectorDefaultSize>& result) {
+  result.emplace_back(token_factory_.CreateToken(std::string{last_word_}));
+  last_word_.clear();
 }
 }  // namespace compiler::lex

@@ -1,16 +1,16 @@
 #ifndef COMPILER_LEX_LEXER_H_
 #define COMPILER_LEX_LEXER_H_
-#include <absl/container/flat_hash_map.h>
+#include <absl/container/inlined_vector.h>
 #include <absl/strings/string_view.h>
 
+#include <cstddef>
 #include <string>
-#include <string_view>
-#include <vector>
-
-#include "token_kind.h"
+#include "detail/token_factory.h"
 
 namespace compiler::lex {
 class Lexer final {
+  static const std::size_t kVectorDefaultSize{100};
+
  public:
   Lexer() = default;
   Lexer(Lexer&&) = delete;
@@ -19,11 +19,14 @@ class Lexer final {
   Lexer& operator=(const Lexer&) = delete;
   ~Lexer() = default;
 
-  [[nodiscard]] static std::vector<std::string> Run(
-      std::basic_string_view<int> source_text);
+  [[nodiscard]] absl::InlinedVector<Token, kVectorDefaultSize> Run(
+      std::string&& source_text);
 
  private:
+  void Flush(absl::InlinedVector<Token, Lexer::kVectorDefaultSize>& result);
 
+  TokenFactory token_factory_{};
+  std::string last_word_{};
 };
 }  // namespace compiler::lex
 #endif  // COMPILER_LEXER_LEXER_H_

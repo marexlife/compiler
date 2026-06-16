@@ -17,15 +17,13 @@ class TokenFactory final {
   TokenFactory& operator=(const TokenFactory&) = delete;
   ~TokenFactory() = default;
 
-  [[nodiscard]] absl::StatusOr<Token> CreateToken(
-      std::basic_string_view<int> source_word);
+  [[nodiscard]] Token CreateToken(std::string&& source_word);
 
  private:
+  [[nodiscard]] TokenKind Map(std::string_view source_word);
+
   const absl::flat_hash_map<std::string_view, TokenKind> mapping_{
-      {
-          "",
-          TokenKind::kIdentifier,
-      },
+
   };
 };
 }  // namespace compiler::lex
