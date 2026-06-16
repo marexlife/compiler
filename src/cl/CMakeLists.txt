@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.20)
+project(cl)
 
-include(${CMAKE_SOURCE_DIR}/CMake/MakeLib.cmake)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-MakeLib_Make(
-    cl
+add_library(${PROJECT_NAME}
     cli.cc
-    absl::base
 )
 
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    absl::base
+    absl::statusor
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

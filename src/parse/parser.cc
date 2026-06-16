@@ -5,12 +5,12 @@
 #include <utility>
 
 #include "absl/container/inlined_vector.h"
-#include "ident_node.h"
+#include "nodes/ident_node.h"
 #include "token.h"
 #include "token_kind.h"
 
 namespace compiler::parse {
-void Parser::Run() noexcept {}
+void Parser::Run() {}
 
 absl::InlinedVector<std::unique_ptr<Node>, Parser::kNodesDefaultReserve>
 Parser::TransformToNodeVector(

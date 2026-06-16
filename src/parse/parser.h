@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "absl/container/inlined_vector.h"
-#include "node.h"
+#include "nodes/node.h"
 #include "token.h"
 
 namespace compiler::parse {
@@ -19,7 +19,7 @@ class Parser final {
   Parser& operator=(const Parser&) = delete;
   ~Parser() = delete;
 
-  static void Run() noexcept;
+  static void Run();
 
  private:
   [[nodiscard]] static absl::InlinedVector<std::unique_ptr<Node>,
