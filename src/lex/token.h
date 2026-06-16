@@ -1,5 +1,7 @@
 #ifndef COMPILER_LEX_TOKEN_H_
 #define COMPILER_LEX_TOKEN_H_
+#include <absl/status/statusor.h>
+
 #include <string>
 
 #include "token_kind.h"
@@ -7,7 +9,6 @@
 namespace compiler::lex {
 class Token final {
  public:
-  
   Token(Token&&) = delete;
   Token& operator=(Token&&) = delete;
   Token(const Token&) = delete;

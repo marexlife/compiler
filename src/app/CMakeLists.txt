@@ -11,7 +11,7 @@ add_library(${PROJECT_NAME}
     app.cc
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(${PROJECT_NAME} PUBLIC
     lex
     parse
     cl

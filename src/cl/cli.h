@@ -1,5 +1,5 @@
-#ifndef COMPILER_CLI_CLI_H_
-#define COMPILER_CLI_CLI_H_
+#ifndef COMPILER_CL_CLI_H_
+#define COMPILER_CL_CLI_H_
 #include <expected>
 #include <filesystem>
 #include <string_view>
@@ -18,4 +18,4 @@ class Cli final {
   GetUserFilesPath(int argc, const char* const* argv);
 };
 }  // namespace compiler::cl
-#endif  // COMPILER_CLI_CLI_H_
+#endif  // COMPILER_CL_CLI_H_
