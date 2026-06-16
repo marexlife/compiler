@@ -14,11 +14,11 @@ using compiler::cl::Cli;
 namespace compiler::app {
 void App::Run(const int argc, const char* const* const argv) {
   const auto file_system_path = std::invoke([&] {
-    if (const auto user_file_path = Cli::GetUserFilesPath(argc, argv))
-        [[likely]] {
+    if (const auto user_file_path = Cli::GetUserFilesPath(argc, argv);
+        user_file_path.ok()) [[likely]] {
       return *user_file_path;
     } else {
-      std::println("{}", user_file_path.error());
+      std::println("{}", user_file_path.status().message());
       std::terminate();
     }
   });

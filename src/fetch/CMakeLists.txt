@@ -17,8 +17,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     absl::base
-
-    absl::base
     absl::statusor
     absl::inlined_vector
+    absl::flat_hash_map
 )

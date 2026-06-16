@@ -6,33 +6,30 @@
 #include <string_view>
 #include <utility>
 
+#include "absl/status/status.h"
+
 namespace compiler::cl {
-[[nodiscard]] std::expected<std::filesystem::path, std::string_view>
-Cli::GetUserFilesPath(const int argc, const char* const* const argv) {
+[[nodiscard]] absl::StatusOr<std::filesystem::path> Cli::GetUserFilesPath(
+    const int argc, const char* const* const argv) {
   for (int i = 0; i < argc; ++i) {
     switch (i) {
       case 0:
         continue;
       case 1:
-        return std::invoke(
-            [&] -> std::expected<std::filesystem::path, std::string_view> {
-              const std::filesystem::path path{argv[i]};
+        return std::invoke([&] -> absl::StatusOr<std::filesystem::path> {
+          const std::filesystem::path path{argv[i]};
 
-              if (path.is_relative()) [[unlikely]] {
-                return std::unexpected{
-                    "Path is relative.",
-                };
-              }
+          if (path.is_relative()) [[unlikely]] {
+            return absl::InvalidArgumentError("Path is relative.");
+          }
 
-              return std::expected<std::filesystem::path, std::string_view>{
-                  path,
-              };
-            });
+          return absl::StatusOr<std::filesystem::path>{path};
+        });
       default:
         std::unreachable();
     }
   }
 
-  return std::unexpected("Path is out of argument range.");
+  return absl::OutOfRangeError("Path is out of range");
 }
 }  // namespace compiler::cl

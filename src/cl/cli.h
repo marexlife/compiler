@@ -4,6 +4,8 @@
 #include <filesystem>
 #include <string_view>
 
+#include "absl/status/statusor.h"
+
 namespace compiler::cl {
 class Cli final {
  public:
@@ -14,8 +16,8 @@ class Cli final {
   Cli& operator=(const Cli&) = delete;
   ~Cli() = default;
 
-  [[nodiscard]] static std::expected<std::filesystem::path, std::string_view>
-  GetUserFilesPath(int argc, const char* const* argv);
+  [[nodiscard]] static absl::StatusOr<std::filesystem::path> GetUserFilesPath(
+      int argc, const char* const* argv);
 };
 }  // namespace compiler::cl
 #endif  // COMPILER_CL_CLI_H_
