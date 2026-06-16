@@ -11,6 +11,10 @@ add_library(${PROJECT_NAME}
     lexer.cc
 )
 
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    absl::statusor
+)
+
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
