@@ -20,5 +20,7 @@ void App::RunFileMode(std::filesystem::path filepath) {
   throw std::runtime_error("not implemented yet");
 }
 
-void App::RunShellMode() { throw std::runtime_error("not implemented yet"); }
+void App::RunShellMode() {
+  throw std::runtime_error("not implemented yet");
+}
 }  // namespace compiler::app
