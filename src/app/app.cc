@@ -1,8 +1,6 @@
 #include "app.h"
 
-#include <cstdint>
 #include <stdexcept>
-#include <string_view>
 
 #include "fetcher.h"
 #include "lexer.h"
