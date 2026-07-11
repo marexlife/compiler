@@ -1,25 +1,24 @@
 #include "app.h"
 
-#include <cstdlib>
-#include <print>
+#include <cstdint>
+#include <stdexcept>
+#include <string_view>
 
-#include "cli.h"
 #include "fetcher.h"
 #include "lexer.h"
 
-using compiler::cl::Cli;
-
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
-  if (const auto user_file_path = Cli::GetUserFilesPath(argc, argv);
-      user_file_path.ok()) [[likely]] {
-    auto fetched_result = fetch::Fetcher::Run(*user_file_path);
-
-    auto result = lex::Lexer{}.Run(std::move(fetched_result));
-  } else {
-    std::println("{}", user_file_path.status().message());
-
-    exit(0);
-  }
+  SelectAction(argc, argv, RunFileMode, RunShellMode);
 }
+
+void App::RunFileMode(std::filesystem::path filepath) {
+  auto fetched_result = fetch::Fetcher::Run(filepath);
+
+  auto result = lex::Lexer{}.Run(std::move(fetched_result));
+
+  throw std::runtime_error("not implemented yet");
+}
+
+void App::RunShellMode() { throw std::runtime_error("not implemented yet"); }
 }  // namespace compiler::app
