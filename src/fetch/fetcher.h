@@ -6,15 +6,15 @@
 namespace compiler::fetch {
 class Fetcher final {
  public:
-  Fetcher() = default;
+  Fetcher() = delete;
   Fetcher(Fetcher&&) = delete;
   Fetcher& operator=(Fetcher&&) = delete;
   Fetcher(const Fetcher&) = delete;
   Fetcher& operator=(const Fetcher&) = delete;
-  ~Fetcher() = default;
+  ~Fetcher() = delete;
 
   [[nodiscard]] static std::string Run(
-      const std::filesystem::path& filepath);
+      std::filesystem::path&& filepath);
 };
 }  // namespace compiler::fetch
 #endif  // COMPILER_FETCH_FETCHER_H_

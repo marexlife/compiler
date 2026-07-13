@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace compiler::lex {
-enum class TokenKind : std::uint8_t {
+enum class [[nodiscard]] TokenKind : std::uint8_t {
   kNone = 0,
   kIdentifier,
 };

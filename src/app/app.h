@@ -6,6 +6,7 @@
 #include "cli.h"
 
 namespace compiler::app {
+/// The main Application Logic
 class App final {
  public:
   App() = delete;
@@ -32,7 +33,7 @@ class App final {
     }
   }
 
-  static void RunFileMode(std::filesystem::path filepath);
+  static void RunFileMode(std::filesystem::path&& filepath);
   static void RunShellMode();
 };
 }  // namespace compiler::app

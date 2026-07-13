@@ -10,8 +10,8 @@ void App::Run(int argc, char** argv) {
   SelectAction(argc, argv, RunFileMode, RunShellMode);
 }
 
-void App::RunFileMode(std::filesystem::path filepath) {
-  auto fetched_result = fetch::Fetcher::Run(filepath);
+void App::RunFileMode(std::filesystem::path&& filepath) {
+  auto fetched_result = fetch::Fetcher::Run(std::move(filepath));
 
   auto result = lex::Lexer{}.Run(std::move(fetched_result));
 

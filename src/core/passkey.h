@@ -3,9 +3,10 @@
 #include <type_traits>
 
 namespace compiler::core {
+/// used for bridging between a Factory and an Object ctor
 template <typename Factory>
   requires std::is_class_v<Factory>
-class Passkey final {
+class [[nodiscard]] Passkey final {
   friend Factory;
 
  public:

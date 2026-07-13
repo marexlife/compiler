@@ -8,8 +8,8 @@
 #include "token_kind.h"
 
 namespace compiler::lex {
-class TokenFactory;
-class Token final {
+class [[nodiscard]] TokenFactory;
+class [[nodiscard]] Token final {
  public:
   Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
         TokenKind token_kind) noexcept
@@ -22,11 +22,15 @@ class Token final {
   Token& operator=(const Token&) = delete;
   ~Token() noexcept = default;
 
-  [[nodiscard]] std::string lexeme() const noexcept { return lexeme_; }
-  [[nodiscard]] TokenKind token_kind() const noexcept { return token_kind_; }
+  [[nodiscard]] std::string lexeme() const noexcept {
+    return lexeme_;
+  }
+  [[nodiscard]] TokenKind token_kind() const noexcept {
+    return token_kind_;
+  }
 
  private:
-  std::string lexeme_{};
+  std::string lexeme_;
   TokenKind token_kind_{};
 };
 }  // namespace compiler::lex

@@ -6,12 +6,13 @@
 #include <string>
 
 namespace compiler::fetch {
-[[nodiscard]] std::string Fetcher::Run(const std::filesystem::path& filepath) {
+[[nodiscard]] std::string Fetcher::Run(
+    std::filesystem::path&& filepath) {
   std::ifstream input_filestream{filepath};
 
-  std::string result{};
+  std::string result;
   {
-    static const std::size_t kResultReserveAmount{100};
+    static const std::size_t kResultReserveAmount = 100;
 
     result.reserve(kResultReserveAmount);
   }
