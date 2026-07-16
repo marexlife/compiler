@@ -1,4 +1,4 @@
-Checks: "cppcoreguidelines-*,performance-*,google-*,readability-*,portability-*"
+Checks: "*"
 WarningsAsErrors: "*"
 HeaderFileExtensions: "h"
 ImplementationFileExtensions: "cc"
