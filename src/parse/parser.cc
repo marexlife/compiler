@@ -31,7 +31,7 @@ std::unique_ptr<nodes::Node> Parser::TransformToNode(
     case lex::TokenKind::kIdentifier:
       return std::make_unique<nodes::IdentNode>(input.lexeme());
     case lex::TokenKind::kPrint:
-      return std::make_unique<nodes::IfNode>();
+      return std::make_unique<nodes::PrintNode>();
     case lex::TokenKind::kVar:
       return std::make_unique<nodes::VarNode>();
     default:
