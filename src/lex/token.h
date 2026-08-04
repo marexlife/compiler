@@ -15,7 +15,7 @@ class [[nodiscard]] Token final {
         TokenKind token_kind) noexcept
       : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
 
-  Token(Token&&) noexcept = default;
+  Token(Token&&) = default;
   Token& operator=(Token&&) noexcept = default;
 
   Token(const Token&) = delete;

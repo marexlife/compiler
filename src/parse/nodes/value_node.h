@@ -11,12 +11,8 @@ template <typename WrappedType, typename Tag = WrappedType>
            std::is_default_constructible_v<WrappedType>
 class ValueNode : public Node {
  public:
-  explicit ValueNode(WrappedType&& value) : value_(std::move(value)) {}
-  ValueNode(ValueNode&&) = default;
-  ValueNode& operator=(ValueNode&&) = delete;
-  ValueNode(const ValueNode&) = delete;
-  ValueNode& operator=(const ValueNode&) = delete;
-  ~ValueNode() override = default;
+  explicit ValueNode(WrappedType&& value)
+      : value_(std::move(value)) {}
 
   [[nodiscard]] const WrappedType& value() const { return value_; }
 

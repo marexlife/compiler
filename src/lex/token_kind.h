@@ -6,6 +6,8 @@ namespace compiler::lex {
 enum class [[nodiscard]] TokenKind : std::uint8_t {
   kNone = 0,
   kIdentifier,
+  kPrint,
+  kVar,
 };
 }
 #endif  // COMPILER_LEX_TOKENKIND_H_
