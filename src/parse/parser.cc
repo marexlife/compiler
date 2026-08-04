@@ -7,6 +7,7 @@
 #include "absl/container/inlined_vector.h"
 #include "nodes/ident_node.h"
 #include "nodes/if_node.h"
+#include "nodes/print_node.h"
 #include "nodes/var_node.h"
 #include "token.h"
 #include "token_kind.h"
