@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <string>
 
-#include "detail/token_factory.h"
+#include "token_factory.h"
 
 namespace compiler::lex {
 class [[nodiscard]] Lexer final {
