@@ -19,7 +19,7 @@ class Parser final {
   Parser& operator=(const Parser&) = delete;
   ~Parser() = delete;
 
-  static void Run();
+  static void Run(std::vector<lex::Token>&& input);
 
  private:
   [[nodiscard]] static std::vector<std::unique_ptr<Node>>
