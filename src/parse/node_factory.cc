@@ -1,5 +1,9 @@
 #include "node_factory.h"
 
+#include "ident_node.h"
+#include "print_node.h"
+#include "var_node.h"
+
 namespace compiler::parse {
 std::unique_ptr<Node> NodeFactory::NewNode(lex::Token& input) {
   switch (input.token_kind()) {

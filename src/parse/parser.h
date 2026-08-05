@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include "nodes/node.h"
+#include "node.h"
 #include "token.h"
 
 namespace compiler::parse {
