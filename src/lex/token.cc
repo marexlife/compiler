@@ -2,7 +2,7 @@
 
 namespace compiler::lex {
 std::uint8_t Token::ToBindingPower() {
-  switch (token_kind()) {
+  switch (kind()) {
     case lex::TokenKind::kVar:
       return 127;
     case lex::TokenKind::kPrint:

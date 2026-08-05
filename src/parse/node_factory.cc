@@ -6,7 +6,7 @@
 
 namespace compiler::parse {
 std::unique_ptr<Node> NodeFactory::NewNode(lex::Token& input) {
-  switch (input.token_kind()) {
+  switch (input.kind()) {
     case lex::TokenKind::kIdentifier:
       return std::make_unique<IdentNode>(input.lexeme());
     case lex::TokenKind::kPrint:

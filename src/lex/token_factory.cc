@@ -22,7 +22,7 @@ Token TokenFactory::CreateToken(std::string&& source_word) {
   if (mapping_.contains(source_word)) {
     return mapping_.at(source_word);
   } else {
-    return TokenKind::Identifier;
+    return TokenKind::kIdentifier;
   }
 }
 }  // namespace compiler::lex

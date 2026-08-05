@@ -13,7 +13,7 @@ class [[nodiscard]] Token final {
  public:
   Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
         TokenKind token_kind)
-      : lexeme_(std::move(lexeme)), token_kind_(token_kind) {}
+      : lexeme_(std::move(lexeme)), kind_(token_kind) {}
 
   Token(Token&&) = default;
   Token& operator=(Token&&) = default;
@@ -23,13 +23,13 @@ class [[nodiscard]] Token final {
   ~Token() = default;
 
   [[nodiscard]] std::string lexeme() const { return lexeme_; }
-  [[nodiscard]] TokenKind token_kind() const { return token_kind_; }
+  [[nodiscard]] TokenKind kind() const { return kind_; }
 
   [[nodiscard]] std::uint8_t ToBindingPower();
 
  private:
   std::string lexeme_;
-  TokenKind token_kind_{};
+  TokenKind kind_{};
 };
 }  // namespace compiler::lex
 #endif  // COMPILER_LEX_TOKEN_H_

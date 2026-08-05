@@ -19,6 +19,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     absl::statusor
     absl::inlined_vector
     absl::flat_hash_map
+
+    fmt
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
