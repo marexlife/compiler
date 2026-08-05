@@ -1,17 +1,17 @@
-#ifndef COMPILER_PARSE_NODES_NODE_FACTORY_H_
-#define COMPILER_PARSE_NODES_NODE_FACTORY_H_
+#ifndef COMPILER_PARSE_NODEFACTORY_H_
+#define COMPILER_PARSE_NODEFACTORY_H_
 #include <memory>
 
 #include "node.h"
 #include "token.h"
 
-namespace compiler::parse::nodes {
+namespace compiler::parse {
 class NodeFactory final {
  public:
   NodeFactory() = delete;
 
-  [[nodiscard]] static std::unique_ptr<nodes::Node> TransformToNode(
+  [[nodiscard]] static std::unique_ptr<Node> NewNode(
       lex::Token& input);
 };
-}  // namespace compiler::parse::nodes
-#endif  // COMPILER_PARSE_NODES_NODE_FACTORY_H_
+}  // namespace compiler::parse
+#endif  // COMPILER_PARSE_NODEFACTORY_H_

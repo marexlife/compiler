@@ -23,11 +23,8 @@ class Parser final {
   static void Run();
 
  private:
-  [[nodiscard]] static std::vector<std::unique_ptr<nodes::Node>>
+  [[nodiscard]] static std::vector<std::unique_ptr<Node>>
   TransformToNodeVector(std::vector<lex::Token>&& input);
-
-  [[nodiscard]] static std::unique_ptr<nodes::Node> TransformToNode(
-      lex::Token& input);
 };
 }  // namespace compiler::parse
 #endif  // COMPILER_PARSE_PARSER_H_

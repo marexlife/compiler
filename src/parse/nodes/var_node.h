@@ -2,10 +2,10 @@
 #define COMPILER_PARSE_NODES_VAR_NODE_H_
 #include "singal_node.h"
 
-namespace compiler::parse::nodes {
+namespace compiler::parse {
 class VarNode final : public SingalNode {
  public:
   VarNode() = default;
 };
-}  // namespace compiler::parse::nodes
+}  // namespace compiler::parse
 #endif  // COMPILER_PARSE_NODES_VAR_NODE_H_

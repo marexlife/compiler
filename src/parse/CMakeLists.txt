@@ -9,6 +9,7 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     parser.cc
+    node_factory.cc
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
