@@ -1,9 +1,10 @@
 #ifndef COMPILER_PARSE_PARSER_H_
 #define COMPILER_PARSE_PARSER_H_
 #include <cstddef>
+#include <cstdint>
 #include <memory>
+#include <vector>
 
-#include "absl/container/inlined_vector.h"
 #include "nodes/node.h"
 #include "token.h"
 
@@ -22,10 +23,12 @@ class Parser final {
   static void Run();
 
  private:
-  [[nodiscard]] static absl::InlinedVector<std::unique_ptr<nodes::Node>,
-                                           kNodesDefaultReserve>
-  TransformToNodeVector(
-      absl::InlinedVector<lex::Token, kNodesDefaultReserve>&& input);
+  [[nodiscard]] static std::vector<std::unique_ptr<nodes::Node>>
+  TransformToNodeVector(std::vector<lex::Token>&& input);
+
+  [[nodiscard]] static std::vector<std::int8_t> ToBindingPowerVec(
+      std::vector<lex::Token>& tokens);
+  [[nodiscard]] static std::int8_t ToBindingPower(lex::Token& token);
 
   [[nodiscard]] static std::unique_ptr<nodes::Node> TransformToNode(
       lex::Token& input);

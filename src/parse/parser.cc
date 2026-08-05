@@ -1,12 +1,14 @@
 #include "parser.h"
 
 #include <algorithm>
+#include <cstdint>
+#include <exception>
+#include <iostream>
 #include <memory>
 #include <utility>
+#include <vector>
 
-#include "absl/container/inlined_vector.h"
 #include "nodes/ident_node.h"
-#include "nodes/if_node.h"
 #include "nodes/print_node.h"
 #include "nodes/var_node.h"
 #include "token.h"
@@ -15,15 +17,24 @@
 namespace compiler::parse {
 void Parser::Run() {}
 
-absl::InlinedVector<std::unique_ptr<nodes::Node>,
-                    Parser::kNodesDefaultReserve>
-Parser::TransformToNodeVector(
-    absl::InlinedVector<lex::Token, kNodesDefaultReserve>&& input) {
-  absl::InlinedVector<std::unique_ptr<nodes::Node>,
-                      kNodesDefaultReserve>
-      result{};
+std::vector<std::unique_ptr<nodes::Node>>
+Parser::TransformToNodeVector(std::vector<lex::Token>&& input) {
+  std::vector<std::unique_ptr<nodes::Node>> result{};
+
+  for (auto& e : input) {
+  }
 
   return result;
+}
+
+std::vector<std::int8_t> Parser::ToBindingPowerVec(
+    std::vector<lex::Token>& tokens) {
+  std::vector<std::int8_t> binding_powers;
+  for (auto& e : tokens) {
+    binding_powers.emplace_back(ToBindingPower(e));
+  }
+
+  return binding_powers;
 }
 
 std::unique_ptr<nodes::Node> Parser::TransformToNode(

@@ -17,7 +17,15 @@ FetchContent_Declare(
     GIT_TAG v1.17.0
 )
 
+FetchContent_Declare(
+    LLVM
+    GIT_REPOSITORY https://github.com/llvm/llvm-project.git
+    GIT_TAG llvmorg-22.1.8
+)
+
+
 FetchContent_MakeAvailable(
+    LLVM
     ABSEIL
     GTEST
 )
