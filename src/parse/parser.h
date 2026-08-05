@@ -26,10 +26,6 @@ class Parser final {
   [[nodiscard]] static std::vector<std::unique_ptr<nodes::Node>>
   TransformToNodeVector(std::vector<lex::Token>&& input);
 
-  [[nodiscard]] static std::vector<std::int8_t> ToBindingPowerVec(
-      std::vector<lex::Token>& tokens);
-  [[nodiscard]] static std::int8_t ToBindingPower(lex::Token& token);
-
   [[nodiscard]] static std::unique_ptr<nodes::Node> TransformToNode(
       lex::Token& input);
 };

@@ -21,20 +21,10 @@ std::vector<std::unique_ptr<nodes::Node>>
 Parser::TransformToNodeVector(std::vector<lex::Token>&& input) {
   std::vector<std::unique_ptr<nodes::Node>> result{};
 
-  for (auto& e : input) {
-  }
+  const auto binding_powers = std::views::transform(
+      input, [](lex::Token& e) { return e.ToBindingPower(); });
 
   return result;
-}
-
-std::vector<std::int8_t> Parser::ToBindingPowerVec(
-    std::vector<lex::Token>& tokens) {
-  std::vector<std::int8_t> binding_powers;
-  for (auto& e : tokens) {
-    binding_powers.emplace_back(ToBindingPower(e));
-  }
-
-  return binding_powers;
 }
 
 std::unique_ptr<nodes::Node> Parser::TransformToNode(

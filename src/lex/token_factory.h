@@ -12,8 +12,8 @@ class TokenFactory final {
  public:
   TokenFactory()
       : mapping_({
-            {"print", TokenKind::Print},
-            {"var", TokenKind::Variable},
+            {"print", TokenKind::kPrint},
+            {"var", TokenKind::kVar},
         }) {}
 
   TokenFactory(TokenFactory&&) = delete;
