@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "detail/char_table.h"
+#include "char_table.h"
 #include "token.h"
 
 namespace compiler::lex {
