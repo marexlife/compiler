@@ -1,7 +1,6 @@
 #ifndef COMPILER_PARSE_PARSER_H_
 #define COMPILER_PARSE_PARSER_H_
 #include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <vector>
 

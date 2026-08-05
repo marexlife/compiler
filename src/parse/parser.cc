@@ -1,15 +1,9 @@
 #include "parser.h"
 
-#include <algorithm>
-#include <cstdint>
-#include <exception>
-#include <iostream>
 #include <memory>
-#include <utility>
 #include <vector>
 
 #include "token.h"
-#include "token_kind.h"
 
 namespace compiler::parse {
 void Parser::Run() {}
