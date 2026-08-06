@@ -7,6 +7,7 @@
 #include <string>
 
 #include "token_factory.h"
+#include "token_stream.h"
 
 namespace compiler::lex {
 class [[nodiscard]] Lexer final {
@@ -20,12 +21,13 @@ class [[nodiscard]] Lexer final {
   Lexer& operator=(const Lexer&) = delete;
   ~Lexer() = default;
 
-  [[nodiscard]] std::vector<Token> Run(std::string&& source_text);
+  [[nodiscard]] TokenStream Run(std::string&& source_text);
 
  private:
-  void Flush(std::vector<Token>& result);
+  void FlushStatement(TokenStream& result);
 
   TokenFactory token_factory_{};
+  Statement last_statement_;
   std::string last_word_{};
 };
 }  // namespace compiler::lex

@@ -25,8 +25,6 @@ class [[nodiscard]] Token final {
   [[nodiscard]] std::string lexeme() const { return lexeme_; }
   [[nodiscard]] TokenKind kind() const { return kind_; }
 
-  [[nodiscard]] std::optional<std::uint8_t> binding_power();
-
  private:
   std::string lexeme_;
   TokenKind kind_{};

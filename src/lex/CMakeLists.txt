@@ -9,7 +9,6 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     lexer.cc
-    token.cc
     token_factory.cc
 )
 

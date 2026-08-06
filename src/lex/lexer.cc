@@ -3,38 +3,37 @@
 #include <absl/base/attributes.h>
 
 #include <string>
-#include <vector>
 
 #include "char_table.h"
 #include "token.h"
+#include "token_stream.h"
 
 namespace compiler::lex {
-std::vector<Token> Lexer::Run(std::string&& source_text) {
-  std::vector<Token> result;
+TokenStream Lexer::Run(std::string&& source_text) {
+  TokenStream result;
 
-  result.reserve(kVectorDefaultSize);
+  result.Reserve(kVectorDefaultSize);
 
   for (const auto source_text_char : source_text) {
     switch (source_text_char) {
-      case detail::CharTable::kSpace:
-        [[fallthrough]];
-      case detail::CharTable::kNewLine: {
-        Flush(result);
-      } break;
-      default: {
+      case CharTable::kNewLine:
+        // ignore
+        break;
+      case CharTable::kSpace:
+        FlushStatement(result);
+      default:
         last_word_.push_back(source_text_char);
         break;
-      }
     }
   }
 
-  Flush(result);
+  FlushStatement(result);
 
   return result;
 }
 
-void Lexer::Flush(std::vector<Token>& result) {
-  result.push_back(
+void Lexer::FlushStatement(TokenStream& result) {
+  result.EmplaceBack(
       token_factory_.CreateToken(std::string{last_word_}));
 
   last_word_.clear();

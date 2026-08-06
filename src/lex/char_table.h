@@ -1,6 +1,6 @@
 #ifndef COMPILER_LEX_DETAIL_CHARTABLE_H_
 #define COMPILER_LEX_DETAIL_CHARTABLE_H_
-namespace compiler::lex::detail {
+namespace compiler::lex {
 class CharTable final {
  public:
   CharTable() = delete;
@@ -13,5 +13,5 @@ class CharTable final {
   static const int kSpace = ' ';
   static const int kNewLine = '\n';
 };
-}  // namespace compiler::lex::detail
+}  // namespace compiler::lex
 #endif  // COMPILER_LEX_DETAIL_CHARTABLE_H_

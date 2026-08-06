@@ -6,6 +6,7 @@
 
 #include "node.h"
 #include "token.h"
+#include "token_stream.h"
 
 namespace compiler::parse {
 class Parser final {
@@ -19,7 +20,7 @@ class Parser final {
   Parser& operator=(const Parser&) = delete;
   ~Parser() = delete;
 
-  static void Run(std::vector<lex::Token>&& input);
+  static void Run(lex::TokenStream&& input);
 
  private:
   [[nodiscard]] static std::vector<std::unique_ptr<Node>>

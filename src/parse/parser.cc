@@ -6,17 +6,13 @@
 
 #include "token.h"
 #include "token_kind.h"
+#include "token_stream.h"
 
 namespace compiler::parse {
-void Parser::Run(std::vector<lex::Token>&& tokens) {
-  std::vector<std::unique_ptr<Node>> result{};
+void Parser::Run(lex::TokenStream&& tokens) {
+  Node result{};
 
   for (auto& token : tokens) {
-    const auto binding_power = token.binding_power();
-
-    if (binding_power > 0) {
-    } else {
-    }
   }
 }
 
