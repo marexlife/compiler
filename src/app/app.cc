@@ -9,8 +9,6 @@
 #include "lex_printer.h"
 #include "lexer.h"
 #include "spdlog/spdlog.h"
-#include "statement.h"
-#include "token.h"
 
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
