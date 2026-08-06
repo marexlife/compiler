@@ -12,6 +12,7 @@ class CharTable final {
 
   static const int kSpace = ' ';
   static const int kNewLine = '\n';
+  static const int kSemicolon = ';';
 };
 }  // namespace compiler::lex
 #endif  // COMPILER_LEX_DETAIL_CHARTABLE_H_

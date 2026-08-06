@@ -5,6 +5,7 @@
 #include <string>
 
 #include "char_table.h"
+#include "statement.h"
 #include "token.h"
 #include "token_stream.h"
 
@@ -20,22 +21,30 @@ TokenStream Lexer::Run(std::string&& source_text) {
         // ignore
         break;
       case CharTable::kSpace:
-        FlushStatement(result);
+        PushToken();
+      case CharTable::kSemicolon:
+        PushStatement(result);
       default:
         last_word_.push_back(source_text_char);
         break;
     }
   }
 
-  FlushStatement(result);
+  PushStatement(result);
 
   return result;
 }
 
-void Lexer::FlushStatement(TokenStream& result) {
-  result.EmplaceBack(
+void Lexer::PushToken() {
+  last_statement_.EmplaceBack(
       token_factory_.CreateToken(std::string{last_word_}));
 
   last_word_.clear();
+}
+
+void Lexer::PushStatement(TokenStream& result) {
+  result.EmplaceBack(Statement{last_statement_});
+
+  last_statement_.Clear();
 }
 }  // namespace compiler::lex

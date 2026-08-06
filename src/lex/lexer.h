@@ -24,7 +24,8 @@ class [[nodiscard]] Lexer final {
   [[nodiscard]] TokenStream Run(std::string&& source_text);
 
  private:
-  void FlushStatement(TokenStream& result);
+  void PushToken();
+  void PushStatement(TokenStream& result);
 
   TokenFactory token_factory_{};
   Statement last_statement_;
