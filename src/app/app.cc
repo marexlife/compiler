@@ -1,11 +1,13 @@
 #include "app.h"
 
+#include <format>
 #include <iostream>
 #include <string>
+#include <utility>
 
 #include "fetcher.h"
 #include "lexer.h"
-#include "logger.h"
+#include "spdlog/spdlog.h"
 
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
@@ -33,18 +35,21 @@ void App::RunShellMode() {
     auto result = lexer_.Run(std::move(command));
 
     if (!result.ok()) {
-      std::cout << "Error: " << result.status().message() << '\n';
+      spdlog::error(
+          std::format("Error: {}", result.status().message()));
       std::cin.get();
+
       continue;
     }
 
     for (auto& e : *result) {
-      std::cout << "Statement: ";
+      spdlog::info("Statement: ");
 
       for (auto& e2 : e) {
-        std::cout << "Token: " << e2.lexeme() << ' ';
+        spdlog::info("Token: ", e2.lexeme());
       }
     }
+
     std::cout << "\n";
   }
 }
