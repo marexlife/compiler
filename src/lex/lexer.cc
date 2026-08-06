@@ -18,6 +18,7 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
   result.reserve(kVectorDefaultSize);
 
   std::optional<char> last_char_optional = std::nullopt;
+  bool is_first_time = true;
 
   for (const auto source_text_char : source_text) {
     switch (source_text_char) {
@@ -27,8 +28,9 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         // ignore
         break;
       case ' ':
-        std::cout << "Space\n";
-        PushToken();
+        if (!is_first_time) {
+          PushToken();
+        }
         break;
       case ';':
         PushStatement(result);
@@ -39,6 +41,7 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         break;
     }
 
+    is_first_time = false;
     last_char_optional = source_text_char;
   }
 
@@ -46,11 +49,9 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
     return absl::AbortedError("Lexer: Empty.");
   }
 
-  /*
-   * if (*last_char_optional != ';') [[unlikely]] {
-     return absl::AbortedError("The last has to be a ';'.");
-   }
-   */
+  if (*last_char_optional != ';') [[unlikely]] {
+    return absl::AbortedError("The last has to be a ';'.");
+  }
 
   return result;
 }
