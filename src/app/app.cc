@@ -46,7 +46,7 @@ void App::RunShellMode() {
       spdlog::info("Statement: ");
 
       for (auto& e2 : e) {
-        spdlog::info("Token: ", e2.lexeme());
+        spdlog::info(std::format("Token: {}", e2.lexeme()));
       }
     }
 
