@@ -28,7 +28,7 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         // ignore
         break;
       case ' ':
-        if (!is_first_time) {
+        if (!last_char_optional.has_value()) {
           PushToken();
         }
         break;
