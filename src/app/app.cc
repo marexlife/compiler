@@ -10,7 +10,8 @@
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
   SelectAction(
-      argc, argv, [this](auto filepath) { RunFileMode(filepath); },
+      argc, argv,
+      [this](auto&& filepath) { RunFileMode(std::move(filepath)); },
       [this]() { RunShellMode(); });
 }
 
