@@ -12,12 +12,7 @@ namespace compiler::app {
 /// The main Application Logic
 class App final {
  public:
-  App() = delete;
-  App(App&&) = delete;
-  App& operator=(App&&) = delete;
-  App(const App&) = delete;
-  App& operator=(const App&) = delete;
-  ~App() = delete;
+  App() = default;
 
   void Run(int argc, char** argv);
 
