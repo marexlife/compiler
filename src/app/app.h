@@ -1,10 +1,7 @@
 #ifndef COMPILER_APP_APP_H_
 #define COMPILER_APP_APP_H_
-#include <algorithm>
 #include <filesystem>
-#include <type_traits>
 
-#include "absl/functional/function_ref.h"
 #include "cli.h"
 #include "lexer.h"
 
