@@ -6,8 +6,11 @@
 #include <utility>
 
 #include "fetcher.h"
+#include "lex_printer.h"
 #include "lexer.h"
 #include "spdlog/spdlog.h"
+#include "statement.h"
+#include "token.h"
 
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
@@ -37,20 +40,13 @@ void App::RunShellMode() {
     if (!result.ok()) {
       spdlog::error(
           std::format("Error: {}", result.status().message()));
+
       std::cin.get();
 
       continue;
     }
 
-    for (auto& e : *result) {
-      spdlog::info("Statement: ");
-
-      for (auto& e2 : e) {
-        spdlog::info(std::format("Token: {}", e2.lexeme()));
-      }
-    }
-
-    std::cout << "\n";
+    lex::LexPrinter::PrintLexerResult(*result);
   }
 }
 }  // namespace compiler::app

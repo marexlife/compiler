@@ -16,6 +16,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     parse
     cl
     fetch
+    debug
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
