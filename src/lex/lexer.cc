@@ -54,6 +54,8 @@ void Lexer::PushToken() {
 }
 
 void Lexer::PushStatement(TokenStream& result) {
+  PushToken();
+
   result.push_back(Statement{last_statement_});
 
   last_statement_.clear();
