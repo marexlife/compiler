@@ -2,7 +2,6 @@
 
 #include <absl/base/attributes.h>
 
-#include <iostream>
 #include <optional>
 #include <string>
 
@@ -14,8 +13,6 @@
 
 namespace compiler::lex {
 absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
-  std::cout << "Lex Start\n\n";
-
   TokenStream result;
 
   core::Defer defer_reset{[&]() { Reset(); }};
@@ -23,12 +20,14 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
   result.reserve(kVectorDefaultSize);
 
   std::optional<char> last_char_optional = std::nullopt;
-  bool is_first_time = true;
+  bool last_char_was_default = true;
 
   for (const auto source_text_char : source_text) {
+    bool this_char_was_default = false;
+
     core::Defer defer_iter_end{[&]() {
-      is_first_time = false;
       last_char_optional = source_text_char;
+      last_char_was_default = this_char_was_default;
     }};
 
     switch (source_text_char) {
@@ -38,15 +37,16 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         // ignore
         break;
       case ' ':
-        if (!last_char_optional.has_value()) {
+        if (last_char_was_default) {
           PushToken();
         }
+
         break;
       case ';':
         PushStatement(result);
         break;
       default:
-        std::cout << "Default\n";
+        this_char_was_default = true;
         last_word_.push_back(source_text_char);
         break;
     }
@@ -60,8 +60,6 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
     return absl::AbortedError("The last has to be a ';'.");
   }
 
-  std::cout << "\nLex End\n\n";
-
   return result;
 }
 
@@ -71,7 +69,6 @@ void Lexer::Reset() {
 }
 
 void Lexer::PushToken() {
-  std::cout << "PushToken\n";
   last_statement_.emplace_back(
       token_factory_.CreateToken(std::string{last_word_}));
 
@@ -80,8 +77,6 @@ void Lexer::PushToken() {
 
 void Lexer::PushStatement(TokenStream& result) {
   PushToken();
-
-  std::cout << "Push Statement\n";
 
   result.push_back(Statement{last_statement_});
 
