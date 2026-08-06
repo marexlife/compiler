@@ -1,7 +1,9 @@
 #include "token.h"
 
+#include <optional>
+
 namespace compiler::lex {
-std::uint8_t Token::ToBindingPower() {
+std::optional<std::uint8_t> Token::binding_power() {
   switch (kind()) {
     case lex::TokenKind::kVar:
       return 127;

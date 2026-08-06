@@ -12,18 +12,26 @@ void Parser::Run(std::vector<lex::Token>&& tokens) {
   std::vector<std::unique_ptr<Node>> result{};
 
   for (auto& token : tokens) {
-    switch (token.kind()) {
-      case lex::TokenKind::kVar:
-        break;
-      case lex::TokenKind::kIdentifier:
-        break;
-      case lex::TokenKind::kPrint:
-        break;
-      case lex::TokenKind::kNone:
-        [[fallthrough]];
-      default:
-        std::terminate();
+    const auto binding_power = token.binding_power();
+
+    if (binding_power > 0) {
+    } else {
     }
+  }
+}
+
+void Parser::VisitToken(lex::Token& token) {
+  switch (token.kind()) {
+    case lex::TokenKind::kVar:
+      break;
+    case lex::TokenKind::kIdentifier:
+      break;
+    case lex::TokenKind::kPrint:
+      break;
+    case lex::TokenKind::kNone:
+      [[fallthrough]];
+    default:
+      std::terminate();
   }
 }
 }  // namespace compiler::parse
