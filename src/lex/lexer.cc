@@ -33,6 +33,8 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         last_word_.push_back(source_text_char);
         break;
     }
+
+    last_char_optional = source_text_char;
   }
 
   if (!last_char_optional.has_value()) [[unlikely]] {
