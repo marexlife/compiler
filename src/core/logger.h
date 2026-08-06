@@ -1,31 +1,24 @@
 #ifndef COMPILER_CORE_LOGGER_H_
 #define COMPILER_CORE_LOGGER_H_
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <type_traits>
+#include <spdlog/spdlog.h>
 
 namespace compiler::core {
-template <typename T>
-concept StringLike = std::is_same_v<T, std::string> ||
-                     std::is_same_v<T, std::string_view>;
+template <typename... Ts>
+concept InfoLoggable = requires(Ts... ts) { spdlog::info(ts...); };
+
+template <typename... Ts>
+concept ErrorLoggable = requires(Ts... ts) { spdlog::error(ts...); };
 
 class Logger final {
  public:
   Logger() = delete;
 
-  static void LogInfo(StringLike auto message) {
-    std::operator<<(
-        std::operator<<(std::operator<<(std::cout, "Info: "),
-                        message),
-        '\n');
+  static void LogInfo(InfoLoggable auto message) {
+    spdlog::info(message);
   }
 
-  static void LogError(StringLike auto message) {
-    std::operator<<(
-        std::operator<<(std::operator<<(std::cout, "Error: "),
-                        message),
-        '\n');
+  static void LogError(InfoLoggable auto message) {
+    spdlog::error(message);
   }
 };
 }  // namespace compiler::core
