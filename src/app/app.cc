@@ -1,5 +1,6 @@
 #include "app.h"
 
+#include <exception>
 #include <iostream>
 #include <string>
 
@@ -27,6 +28,17 @@ void App::RunShellMode() {
     std::string command;
     std::getline(std::cin, command);
     auto result = lexer_.Run(std::move(command));
+
+    if (!result.ok()) {
+      std::cout << result.status().message() << '\n';
+      std::terminate();
+    }
+
+    for (auto& e : *result) {
+      for (auto& e2 : e) {
+        std::cout << e2.lexeme() << ", ";
+      }
+    }
   }
 }
 }  // namespace compiler::app
