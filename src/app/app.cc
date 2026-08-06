@@ -31,9 +31,9 @@ void App::RunShellMode() {
   for (;;) {
     std::cout << "Input a command.\n";
 
-    std::string command;
-    std::getline(std::cin, command);
-    auto result = lexer_.Run(std::move(command));
+    std::string user_command;
+    std::getline(std::cin, user_command);
+    auto result = lexer_.Run(std::move(user_command));
 
     if (!result.ok()) {
       spdlog::error(
