@@ -1,6 +1,5 @@
 #include "app.h"
 
-#include <exception>
 #include <iostream>
 #include <string>
 
@@ -21,7 +20,8 @@ void App::RunFileMode(std::filesystem::path&& filepath) {
   auto result = lexer_.Run(std::move(fetched_result));
 
   std::cout << "Not implemented yet.";
-  std::terminate();
+  std::cin.get();
+  return;
 }
 
 void App::RunShellMode() {
@@ -32,7 +32,8 @@ void App::RunShellMode() {
 
     if (!result.ok()) {
       std::cout << "Error: " << result.status().message() << '\n';
-      std::terminate();
+      std::cin.get();
+      return;
     }
 
     for (auto& e : *result) {
