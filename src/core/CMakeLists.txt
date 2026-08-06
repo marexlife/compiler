@@ -9,6 +9,8 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     passkey.cc
+    panic.cc
+    logger.cc
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC

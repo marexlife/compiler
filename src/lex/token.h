@@ -2,6 +2,9 @@
 #define COMPILER_LEX_TOKEN_H_
 #include <absl/status/statusor.h>
 
+#include <cstdlib>
+#include <exception>
+#include <iostream>
 #include <string>
 
 #include "passkey.h"
@@ -17,6 +20,20 @@ class [[nodiscard]] Token final {
 
   [[nodiscard]] std::string lexeme() const { return lexeme_; }
   [[nodiscard]] TokenKind kind() const { return kind_; }
+
+  [[nodiscard]] auto binding_power() {
+    switch (kind_) {
+      case compiler::lex::TokenKind::kPrint:
+      case TokenKind::kNone:
+        std::cout << "TokenKind is None";
+        std::exit(-1);
+        break;
+      default:
+        std::cout << "TokenKind is Invalid";
+        std::exit(-1);
+        break;
+    }
+  }
 
  private:
   std::string lexeme_;
