@@ -35,14 +35,17 @@ void App::RunShellMode() {
     if (!result.ok()) {
       std::cout << "Error: " << result.status().message() << '\n';
       std::cin.get();
-      return;
+      continue;
     }
 
     for (auto& e : *result) {
+      std::cout << "Statement: ";
+
       for (auto& e2 : e) {
-        std::cout << e2.lexeme() << ", ";
+        std::cout << "Token: " << e2.lexeme() << ' ';
       }
     }
+    std::cout << "\n";
   }
 }
 }  // namespace compiler::app
