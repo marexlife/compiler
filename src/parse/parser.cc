@@ -1,8 +1,6 @@
 #include "parser.h"
 
 #include <exception>
-#include <memory>
-#include <vector>
 
 #include "token.h"
 #include "token_kind.h"
