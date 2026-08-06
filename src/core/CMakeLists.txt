@@ -9,6 +9,7 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     passkey.cc
+    panic.cc
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
@@ -16,6 +17,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     absl::statusor
     absl::inlined_vector
     absl::flat_hash_map
+
+    spdlog
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

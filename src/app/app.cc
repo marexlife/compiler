@@ -1,17 +1,23 @@
 #include "app.h"
 
+#include <format>
 #include <iostream>
 #include <string>
+#include <utility>
 
 #include "fetcher.h"
+#include "lex_printer.h"
 #include "lexer.h"
+#include "spdlog/spdlog.h"
+#include "statement.h"
+#include "token.h"
 
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
   SelectAction(
       argc, argv,
-      [this](auto&& filepath) { RunFileMode(std::move(filepath)); },
-      [this]() { RunShellMode(); });
+      [&](auto&& filepath) { RunFileMode(std::move(filepath)); },
+      [&]() { RunShellMode(); });
 }
 
 void App::RunFileMode(std::filesystem::path&& filepath) {
@@ -19,7 +25,6 @@ void App::RunFileMode(std::filesystem::path&& filepath) {
 
   auto result = lexer_.Run(std::move(fetched_result));
 
-  std::cout << "Not implemented yet.";
   std::cin.get();
   return;
 }
@@ -33,19 +38,15 @@ void App::RunShellMode() {
     auto result = lexer_.Run(std::move(command));
 
     if (!result.ok()) {
-      std::cout << "Error: " << result.status().message() << '\n';
+      spdlog::error(
+          std::format("Error: {}", result.status().message()));
+
       std::cin.get();
+
       continue;
     }
 
-    for (auto& e : *result) {
-      std::cout << "Statement: ";
-
-      for (auto& e2 : e) {
-        std::cout << "Token: " << e2.lexeme() << ' ';
-      }
-    }
-    std::cout << "\n";
+    lex::LexPrinter::PrintLexerResult(*result);
   }
 }
 }  // namespace compiler::app

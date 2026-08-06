@@ -28,6 +28,7 @@ class [[nodiscard]] Lexer final {
  private:
   void PushToken();
   void PushStatement(TokenStream& result);
+  void Reset();
 
   TokenFactory token_factory_{};
   Statement last_statement_{};
