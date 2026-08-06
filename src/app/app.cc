@@ -16,7 +16,7 @@ void App::Run(int argc, char** argv) {
 void App::RunFileMode(std::filesystem::path&& filepath) {
   auto fetched_result = fetch::Fetcher::Run(std::move(filepath));
 
-  const auto result = lexer_.Run(std::move(fetched_result));
+  auto result = lexer_.Run(std::move(fetched_result));
 
   std::cout << "Not implemented yet";
   std::terminate();
@@ -26,7 +26,7 @@ void App::RunShellMode() {
   for (;;) {
     std::string command;
     std::getline(std::cin, command);
-    const auto result = lexer_.Run(std::move(command));
+    auto result = lexer_.Run(std::move(command));
   }
 }
 }  // namespace compiler::app
