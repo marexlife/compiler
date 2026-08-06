@@ -20,7 +20,6 @@ void App::RunFileMode(std::filesystem::path&& filepath) {
 
   auto result = lexer_.Run(std::move(fetched_result));
 
-  core::Logger::LogInfo("");
   std::cin.get();
   return;
 }

@@ -1,12 +1,21 @@
 #include "panic.h"
 
 #include <format>
-#include <iostream>
 #include <string>
+
+#include "spdlog/spdlog.h"
 
 namespace compiler {
 void core::Panic(std::string_view message,
                  std::source_location source_location) {
+  spdlog::error(std::format(
+      R"({}
+
+with error:
+{}
+)",
+      SourceLocationAsString(source_location), message));
+
   std::exit(-1);
 }
 
