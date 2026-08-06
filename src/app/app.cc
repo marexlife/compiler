@@ -26,6 +26,8 @@ void App::RunFileMode(std::filesystem::path&& filepath) {
 
 void App::RunShellMode() {
   for (;;) {
+    std::cout << "Input a command.\n";
+
     std::string command;
     std::getline(std::cin, command);
     auto result = lexer_.Run(std::move(command));
