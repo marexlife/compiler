@@ -7,6 +7,7 @@
 
 #include "absl/status/status.h"
 #include "defer.h"
+#include "last_char_kind.h"
 #include "statement.h"
 #include "token.h"
 #include "token_stream.h"
@@ -20,14 +21,14 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
   result.reserve(kVectorDefaultSize);
 
   std::optional<char> last_char_optional = std::nullopt;
-  bool last_char_was_default = true;
+  LastCharKind last_char_kind = LastCharKind::kNone;
 
   for (const auto source_text_char : source_text) {
-    bool this_char_was_default = false;
+    LastCharKind this_char_kind = LastCharKind::kWasNotDefault;
 
     core::Defer defer_iter_end{[&]() {
       last_char_optional = source_text_char;
-      last_char_was_default = this_char_was_default;
+      last_char_kind = this_char_kind;
     }};
 
     switch (source_text_char) {
@@ -37,7 +38,7 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         // ignore
         break;
       case ' ':
-        if (last_char_was_default) {
+        if (last_char_kind == LastCharKind::kWasDefault) {
           PushToken();
         }
         break;
@@ -45,7 +46,7 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         PushStatement(result);
         break;
       default:
-        this_char_was_default = true;
+        this_char_kind = LastCharKind::kWasDefault;
         last_word_.push_back(source_text_char);
         break;
     }
