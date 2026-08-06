@@ -5,6 +5,7 @@
 
 #include "fetcher.h"
 #include "lexer.h"
+#include "logger.h"
 
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
@@ -19,7 +20,7 @@ void App::RunFileMode(std::filesystem::path&& filepath) {
 
   auto result = lexer_.Run(std::move(fetched_result));
 
-  std::cout << "Not implemented yet.";
+  core::Logger::LogInfo("");
   std::cin.get();
   return;
 }
