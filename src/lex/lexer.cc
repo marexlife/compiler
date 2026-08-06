@@ -40,7 +40,6 @@ absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
         if (last_char_was_default) {
           PushToken();
         }
-
         break;
       case ';':
         PushStatement(result);
