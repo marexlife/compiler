@@ -15,13 +15,6 @@ class [[nodiscard]] Token final {
         TokenKind token_kind)
       : lexeme_(std::move(lexeme)), kind_(token_kind) {}
 
-  Token(Token&&) = default;
-  Token& operator=(Token&&) = default;
-
-  Token(const Token&) = delete;
-  Token& operator=(const Token&) = delete;
-  ~Token() = default;
-
   [[nodiscard]] std::string lexeme() const { return lexeme_; }
   [[nodiscard]] TokenKind kind() const { return kind_; }
 

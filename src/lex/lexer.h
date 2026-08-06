@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <string>
 
+#include "absl/status/statusor.h"
 #include "token_factory.h"
 #include "token_stream.h"
 
@@ -21,14 +22,15 @@ class [[nodiscard]] Lexer final {
   Lexer& operator=(const Lexer&) = delete;
   ~Lexer() = default;
 
-  [[nodiscard]] TokenStream Run(std::string&& source_text);
+  [[nodiscard]] absl::StatusOr<TokenStream> Run(
+      std::string&& source_text);
 
  private:
   void PushToken();
   void PushStatement(TokenStream& result);
 
   TokenFactory token_factory_{};
-  Statement last_statement_;
+  Statement last_statement_{};
   std::string last_word_{};
 };
 }  // namespace compiler::lex

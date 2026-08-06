@@ -2,27 +2,32 @@
 
 #include <absl/base/attributes.h>
 
+#include <algorithm>
+#include <optional>
 #include <string>
+#include <string_view>
 
-#include "char_table.h"
+#include "absl/status/status.h"
 #include "statement.h"
 #include "token.h"
 #include "token_stream.h"
 
 namespace compiler::lex {
-TokenStream Lexer::Run(std::string&& source_text) {
+absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
   TokenStream result;
 
-  result.Reserve(kVectorDefaultSize);
+  result.reserve(kVectorDefaultSize);
+
+  std::optional<char> last_char_optional = std::nullopt;
 
   for (const auto source_text_char : source_text) {
     switch (source_text_char) {
-      case CharTable::kNewLine:
+      case '\n':
         // ignore
         break;
-      case CharTable::kSpace:
+      case ' ':
         PushToken();
-      case CharTable::kSemicolon:
+      case ';':
         PushStatement(result);
       default:
         last_word_.push_back(source_text_char);
@@ -30,21 +35,27 @@ TokenStream Lexer::Run(std::string&& source_text) {
     }
   }
 
-  PushStatement(result);
+  if (!last_char_optional.has_value()) [[unlikely]] {
+    return absl::AbortedError("Lexer: Empty.");
+  }
+
+  if (*last_char_optional != ';') [[unlikely]] {
+    return absl::AbortedError("The last has to be a ';'.");
+  }
 
   return result;
 }
 
 void Lexer::PushToken() {
-  last_statement_.EmplaceBack(
+  last_statement_.emplace_back(
       token_factory_.CreateToken(std::string{last_word_}));
 
   last_word_.clear();
 }
 
 void Lexer::PushStatement(TokenStream& result) {
-  result.EmplaceBack(Statement{last_statement_});
+  result.push_back(Statement{last_statement_});
 
-  last_statement_.Clear();
+  last_statement_.clear();
 }
 }  // namespace compiler::lex
