@@ -1,10 +1,7 @@
 #ifndef COMPILER_APP_APP_H_
 #define COMPILER_APP_APP_H_
-#include <algorithm>
 #include <filesystem>
-#include <type_traits>
 
-#include "absl/functional/function_ref.h"
 #include "cli.h"
 #include "lexer.h"
 
@@ -12,12 +9,7 @@ namespace compiler::app {
 /// The main Application Logic
 class App final {
  public:
-  App() = delete;
-  App(App&&) = delete;
-  App& operator=(App&&) = delete;
-  App(const App&) = delete;
-  App& operator=(const App&) = delete;
-  ~App() = delete;
+  App() = default;
 
   void Run(int argc, char** argv);
 
