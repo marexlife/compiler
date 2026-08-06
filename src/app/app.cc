@@ -1,35 +1,32 @@
 #include "app.h"
 
-#include <stdexcept>
+#include <iostream>
+#include <string>
 
 #include "fetcher.h"
 #include "lexer.h"
 
 namespace compiler::app {
 void App::Run(int argc, char** argv) {
-  SelectAction(argc, argv, RunFileMode, RunShellMode);
+  SelectAction(
+      argc, argv, [this](auto filepath) { RunFileMode(filepath); },
+      [this]() { RunShellMode(); });
 }
 
 void App::RunFileMode(std::filesystem::path&& filepath) {
   auto fetched_result = fetch::Fetcher::Run(std::move(filepath));
 
-  auto result = lex::Lexer{}.Run(std::move(fetched_result));
+  const auto result = lexer_.Run(std::move(fetched_result));
 
-  throw std::runtime_error("not implemented yet");
-}
-
-void App::SelectAction(int argc, char** argv,
-                       void (&file_action)(std::filesystem::path&&),
-                       void (&shell_action)()) {
-  if (auto user_filepath = cl::Cli::GetUserFilesPath(argc, argv);
-      user_filepath.ok()) [[likely]] {
-    file_action(std::move(*user_filepath));
-  } else {
-    shell_action();
-  }
+  std::cout << "Not implemented yet";
+  std::terminate();
 }
 
 void App::RunShellMode() {
-  throw std::runtime_error("not implemented yet");
+  for (;;) {
+    std::string command;
+    std::getline(std::cin, command);
+    const auto result = lexer_.Run(std::move(command));
+  }
 }
 }  // namespace compiler::app
