@@ -7,10 +7,10 @@
 namespace compiler::lex {
 void LexPrinter::PrintLexerResult(lex::TokenStream& token_stream) {
   for (lex::Statement statement : token_stream) {
-    spdlog::info("Statement:\n");
+    std::cout << "Statement:\n";
 
     for (lex::Token& token : statement) {
-      spdlog::info(std::format("  Token: {}", token.lexeme()));
+      std::cout << "  Token: {}" << token.lexeme() << '\n';
     }
   }
 
