@@ -20,7 +20,7 @@ void App::RunFileMode(std::filesystem::path&& filepath) {
 
   auto result = lexer_.Run(std::move(fetched_result));
 
-  std::cout << "Not implemented yet";
+  std::cout << "Not implemented yet.";
   std::terminate();
 }
 
@@ -31,7 +31,7 @@ void App::RunShellMode() {
     auto result = lexer_.Run(std::move(command));
 
     if (!result.ok()) {
-      std::cout << result.status().message() << '\n';
+      std::cout << "Error: " << result.status().message() << '\n';
       std::terminate();
     }
 
