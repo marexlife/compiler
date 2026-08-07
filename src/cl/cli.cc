@@ -24,7 +24,7 @@ Cli::GetUserFilesPath(const int argc, const char* const* const argv) {
         return absl::StatusOr<std::filesystem::path>{path};
       }
       default: {
-        std::unreachable();
+        std::ter();
       }
     }
   }
