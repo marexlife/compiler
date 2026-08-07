@@ -6,7 +6,6 @@
 
 #include "absl/status/status.h"
 
-
 namespace compiler::cl {
 [[nodiscard]] absl::StatusOr<std::filesystem::path>
 Cli::GetUserFilesPath(const int argc, const char* const* const argv) {
