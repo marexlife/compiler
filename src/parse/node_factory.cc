@@ -1,5 +1,7 @@
 #include "node_factory.h"
 
+#include <exception>
+
 #include "ident_node.h"
 #include "print_node.h"
 #include "var_node.h"
@@ -14,7 +16,7 @@ std::unique_ptr<Node> NodeFactory::NewNode(lex::Token& input) {
     case lex::TokenKind::kVar:
       return std::make_unique<VarNode>();
     default:
-      std::unreachable();
+      std::terminate();
   }
 }
 }  // namespace compiler::parse
