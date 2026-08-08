@@ -22,8 +22,8 @@ Token TokenFactory::createToken(std::string&& sourceWord)
 {
     if (mapping.contains(sourceWord)) {
         return mapping.at(sourceWord);
-    } else {
-        return TokenKind::Identifier;
     }
+
+    return TokenKind::Identifier;
 }
 } // namespace compiler::lex
