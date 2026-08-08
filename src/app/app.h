@@ -11,13 +11,13 @@ class App final {
  public:
   App() = default;
 
-  void Run(int argc, char** argv);
+  void run(int argc, char** argv);
 
   template <typename FileAction, typename ShellAction>
-  static void SelectAction(int argc, char** argv,
+  static void selectAction(int argc, char** argv,
                            FileAction file_action,
                            ShellAction shell_action) {
-    if (auto user_filepath = cl::Cli::GetUserFilesPath(argc, argv);
+    if (auto user_filepath = cl::Cli::getUserFilesPath(argc, argv);
         user_filepath.ok()) [[likely]] {
       file_action(std::move(*user_filepath));
     } else {
@@ -25,11 +25,11 @@ class App final {
     }
   }
 
-  void RunFileMode(std::filesystem::path&& filepath);
-  void RunShellMode();
+  void runFileMode(std::filesystem::path&& filepath);
+  void runShellMode();
 
  private:
-  lex::Lexer m_lexer{};
+  lex::Lexer lexer{};
 };
 }  // namespace compiler::app
 #endif  // COMPILER_APP_APP_H_

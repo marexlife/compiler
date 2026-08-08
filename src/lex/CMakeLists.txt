@@ -8,9 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
-    lexer.cc
-    token_factory.cc
-    lex_printer.cc
+    lexer.cpp
+    token_factory.cpp
+    lex_printer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC

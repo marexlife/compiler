@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_executable(${PROJECT_NAME}
-    main.cc
+    main.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE

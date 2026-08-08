@@ -10,29 +10,31 @@
 #include "token_factory.h"
 #include "token_stream.h"
 
-namespace compiler::lex {
-class [[nodiscard]] Lexer final {
-  static constexpr std::size_t kVectorDefaultSize{10};
+namespace compiler::lex 
+{
+class [[nodiscard]] Lexer final 
+{
+    static constexpr std::size_t vectorDefaultSize = 10;
 
- public:
-  Lexer() = default;
-  Lexer(Lexer&&) = delete;
-  Lexer& operator=(Lexer&&) = delete;
-  Lexer(const Lexer&) = delete;
-  Lexer& operator=(const Lexer&) = delete;
-  ~Lexer() = default;
+    public:
+    Lexer() = default;
+    Lexer(Lexer&&) = delete;
+    Lexer& operator=(Lexer&&) = delete;
+    Lexer(const Lexer&) = delete;
+    Lexer& operator=(const Lexer&) = delete;
+    ~Lexer() = default;
 
-  [[nodiscard]] absl::StatusOr<TokenStream> Run(
-      std::string&& source_text);
+    [[nodiscard]] absl::StatusOr<TokenStream> run(
+        std::string&& sourceText);
 
- private:
-  void PushToken();
-  void PushStatement(TokenStream& result);
-  void Reset();
+    private:
+    void pushToken();
+    void PushStatement(TokenStream& result);
+    void reset();
 
-  TokenFactory token_factory_{};
-  Statement last_statement_{};
-  std::string last_word_{};
+    TokenFactory tokenFactory{};
+    Statement lastStatement{};
+    std::string lastWord{};
 };
 }  // namespace compiler::lex
 #endif  // COMPILER_LEXER_LEXER_H_
