@@ -7,25 +7,26 @@
 #include "token_stream.h"
 
 namespace compiler::parse {
-void Parser::Run(lex::TokenStream&& tokens) {
+void Parser::Run(lex::TokenStream&& token_stream) {
   Node result{};
-
-  for (auto& token : tokens) {
+  
+  for (auto& statement : token_stream) {
+    ProcessStatement(statement);
   }
 }
 
-void Parser::VisitToken(lex::Token& token) {
+void Parser::ProcessStatement(lex::Statement& statement) {  
+  for (auto& token : statement) {
+    ProcessToken(token);
+  }
+}
+
+void Parser::ProcessToken(lex::Token& token) {
   switch (token.kind()) {
-    case lex::TokenKind::kVar:
-      break;
     case lex::TokenKind::kIdentifier:
       break;
-    case lex::TokenKind::kPrint:
-      break;
-    case lex::TokenKind::kNone:
-      [[fallthrough]];
     default:
-      std::terminate();
+      break;
   }
 }
 }  // namespace compiler::parse

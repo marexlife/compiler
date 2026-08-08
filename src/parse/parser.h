@@ -23,10 +23,8 @@ class Parser final {
   static void Run(lex::TokenStream&& input);
 
  private:
-  [[nodiscard]] static std::vector<std::unique_ptr<Node>>
-  TransformToNodeVector(std::vector<lex::Token>&& input);
-
-  void VisitToken(lex::Token& token);
+  static void ProcessStatement(lex::Statement &statement);
+  static void ProcessToken(lex::Token& token);
 };
 }  // namespace compiler::parse
 #endif  // COMPILER_PARSE_PARSER_H_
