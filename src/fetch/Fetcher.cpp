@@ -1,16 +1,16 @@
-#include "fetcher.h"
+#include "Fetcher.h"
 
-#include <cstddef>
 #include <filesystem>
 #include <fstream>
 #include <string>
 
 namespace compiler::fetch {
-[[nodiscard]] std::string Fetcher::run(std::filesystem::path&& filepath) 
+[[nodiscard]] std::string Fetcher::run(
+    std::filesystem::path&& filepath)
 {
-    std::ifstream inputFilestream{filepath};
+    std::ifstream inputFilestream { filepath };
     std::string result;
-    
+
     result.reserve(resultReserveAmount);
 
     while (!inputFilestream.eof()) {
@@ -19,4 +19,4 @@ namespace compiler::fetch {
 
     return result;
 }
-}  // namespace compiler::fetch
+} // namespace compiler::fetch

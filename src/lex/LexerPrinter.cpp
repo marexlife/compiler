@@ -1,8 +1,8 @@
-#include "lex_printer.h"
+#include "LexerPrinter.h"
 
 #include <spdlog/spdlog.h>
 
-#include "token_stream.h"
+#include "TokenStream.h"
 
 namespace compiler::lex {
 void LexerPrinter::printLexerResult(lex::TokenStream& tokenStream)

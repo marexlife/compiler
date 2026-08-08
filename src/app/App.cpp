@@ -1,13 +1,13 @@
-#include "app.h"
+#include "App.h"
 
 #include <format>
 #include <iostream>
 #include <string>
 #include <utility>
 
-#include "fetcher.h"
-#include "lex_printer.h"
-#include "lexer.h"
+#include "Fetcher.h"
+#include "Lexer.h"
+#include "LexerPrinter.h"
 #include "spdlog/spdlog.h"
 
 namespace compiler::app {
