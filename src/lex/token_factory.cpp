@@ -8,7 +8,8 @@
 #include "token.h"
 #include "token_kind.h"
 
-namespace compiler::lex {
+namespace compiler::lex 
+{
 Token TokenFactory::createToken(std::string&& sourceWord) 
 {
     return Token{
