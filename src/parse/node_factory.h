@@ -5,12 +5,14 @@
 #include "node.h"
 #include "token.h"
 
-namespace compiler::parse {
-class NodeFactory final {
+namespace compiler::parse 
+{
+class NodeFactory final 
+{
  public:
   NodeFactory() = delete;
 
-  [[nodiscard]] static std::unique_ptr<Node> NewNode(
+  [[nodiscard]] static std::unique_ptr<Node> newNode(
       lex::Token& input);
 };
 }  // namespace compiler::parse

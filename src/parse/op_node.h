@@ -2,8 +2,10 @@
 #define COMPILER_NODES_OPNODE_H_
 #include "node.h"
 
-namespace compiler::parse {
-class OpNode final : public Node {
+namespace compiler::parse 
+{
+class OpNode final : public Node 
+{
  public:
   OpNode() = default;
 

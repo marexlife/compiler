@@ -27,9 +27,9 @@ class [[nodiscard]] Lexer final
     [[nodiscard]] absl::StatusOr<TokenStream> run(
         std::string&& sourceText);
 
-    private:
+  private:
     void pushToken();
-    void PushStatement(TokenStream& result);
+    void pushStatement(TokenStream& result);
     void reset();
 
     TokenFactory tokenFactory{};

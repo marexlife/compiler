@@ -10,14 +10,22 @@
 #include "lexer.h"
 #include "spdlog/spdlog.h"
 
-namespace compiler::app {
+namespace compiler::app 
+{
 void App::run(int argc, char** argv) 
 {
-  selectAction(
-      argc, argv,
-      [&](auto&& filepath) { runFileMode(std::move(filepath)); },
-      [&]() { runShellMode(); }
-  );
+    selectAction(
+        argc, 
+        argv,
+        [&](auto&& filepath) 
+        { 
+            runFileMode(std::move(filepath)); 
+        },
+        [&]()
+        { 
+            runShellMode();
+        }
+    );
 }
 
 void App::runFileMode(std::filesystem::path&& filepath) 
@@ -46,7 +54,7 @@ void App::runShellMode()
             continue;
         }
 
-        lex::LexPrinter::PrintLexerResult(*result);
+        lex::LexPrinter::printLexerResult(*result);
     }
 }
 }  // namespace compiler::app

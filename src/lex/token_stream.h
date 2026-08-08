@@ -5,7 +5,8 @@
 
 #include "statement.h"
 
-namespace compiler::lex {
+namespace compiler::lex 
+{
 using TokenStream = std::vector<Statement>;
 }  // namespace compiler::lex
 #endif  // COMPILER_LEX_TOKENSTREAM_H_

@@ -12,7 +12,8 @@
 #include "token.h"
 #include "token_stream.h"
 
-namespace compiler::lex {
+namespace compiler::lex 
+{
 absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText) 
 {
     TokenStream result;

@@ -5,31 +5,32 @@
 #include "cli.h"
 #include "lexer.h"
 
-namespace compiler::app {
-/// The main Application Logic
-class App final {
- public:
-  App() = default;
+namespace compiler::app 
+{
+class App final
+{
+  public:
+    App() = default;
 
-  void run(int argc, char** argv);
+    void run(int argc, char** argv);
 
-  template <typename FileAction, typename ShellAction>
-  static void selectAction(int argc, char** argv,
-                           FileAction file_action,
-                           ShellAction shell_action) {
-    if (auto user_filepath = cl::Cli::getUserFilesPath(argc, argv);
-        user_filepath.ok()) [[likely]] {
-      file_action(std::move(*user_filepath));
-    } else {
-      shell_action();
+    template <typename FileAction, typename ShellAction>
+    static void selectAction(int argc, char** argv,
+                    FileAction file_action,
+                    ShellAction shell_action) {
+        if (auto user_filepath = cl::Cli::getUserFilesPath(argc, argv);
+            user_filepath.ok()) [[likely]] {
+            file_action(std::move(*user_filepath));
+        } else {
+            shell_action();
+        }
     }
-  }
 
-  void runFileMode(std::filesystem::path&& filepath);
-  void runShellMode();
+    void runFileMode(std::filesystem::path&& filepath);
+    void runShellMode();
 
- private:
-  lex::Lexer lexer{};
+  private:
+    lex::Lexer lexer{};
 };
 }  // namespace compiler::app
 #endif  // COMPILER_APP_APP_H_

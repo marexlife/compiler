@@ -6,7 +6,8 @@
 #include "token_kind.h"
 #include "token_stream.h"
 
-namespace compiler::parse {
+namespace compiler::parse 
+{
 void Parser::run(lex::TokenStream&& tokenStream) {
     Node result{};
   

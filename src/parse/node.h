@@ -1,7 +1,9 @@
 #ifndef COMPILER_PARSE_NODE_H_
 #define COMPILER_PARSE_NODE_H_
-namespace compiler::parse {
-class Node {
+namespace compiler::parse
+{
+class Node 
+{
  public:
   Node() = default;
   Node(Node&&) = default;

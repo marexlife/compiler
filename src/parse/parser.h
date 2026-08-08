@@ -8,10 +8,11 @@
 #include "token.h"
 #include "token_stream.h"
 
-namespace compiler::parse {
+namespace compiler::parse 
+{
 class Parser final 
 {
-	static const std::size_t kNodesDefaultReserve = 100;
+	static const std::size_t nodesDefaultReserve = 100;
 
   public:
 	Parser() = delete;

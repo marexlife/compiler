@@ -9,20 +9,22 @@
 #include "token_kind.h"
 
 namespace compiler::lex {
-Token TokenFactory::CreateToken(std::string&& source_word) {
-  return Token{
-      core::Passkey<TokenFactory>{},
-      std::move(source_word),
-      Map(source_word),
-  };
+Token TokenFactory::createToken(std::string&& sourceWord) 
+{
+    return Token{
+        core::Passkey<TokenFactory>{},
+        std::move(sourceWord),
+        map(sourceWord),
+    };
 }
 
-[[nodiscard]] TokenKind TokenFactory::Map(
-    std::string_view source_word) {
-  if (mapping_.contains(source_word)) {
-    return mapping_.at(source_word);
-  } else {
-    return TokenKind::Identifier;
-  }
+[[nodiscard]] TokenKind TokenFactory::map(
+    std::string_view sourceWord) 
+{
+    if (mapping_.contains(sourceWord)) {
+        return mapping_.at(sourceWord);
+    } else {
+        return TokenKind::Identifier;
+    }
 }
 }  // namespace compiler::lex
