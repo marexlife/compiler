@@ -71,7 +71,7 @@ void Lexer::Reset() {
 void Lexer::PushToken() {
   last_statement_.emplace_back(
       token_factory_.CreateToken(std::string{last_word_}));
-
+  
   last_word_.clear();
 }
 

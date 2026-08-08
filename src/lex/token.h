@@ -11,7 +11,7 @@
 #include "token_kind.h"
 
 namespace compiler::lex {
-class [[nodiscard]] TokenFactory;
+class TokenFactory;
 class [[nodiscard]] Token final {
  public:
   Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
@@ -21,9 +21,14 @@ class [[nodiscard]] Token final {
   [[nodiscard]] std::string lexeme() const { return lexeme_; }
   [[nodiscard]] TokenKind kind() const { return kind_; }
 
-  [[nodiscard]] auto binding_power() {
+  [[nodiscard]] std::uint8_t binding_power() {
     switch (kind_) {
       case compiler::lex::TokenKind::kPrint:
+        return 0;
+      case compiler::lex::TokenKind::kVar:
+        return 10;
+      case compiler::lex::TokenKind::kIdentifier:
+        return 1;
       case TokenKind::kNone:
         std::cout << "TokenKind is None";
         std::exit(-1);
