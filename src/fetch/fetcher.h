@@ -3,11 +3,9 @@
 #include <filesystem>
 #include <string>
 
-namespace compiler::fetch 
-{
-class Fetcher final 
-{
-  public:
+namespace compiler::fetch {
+class Fetcher final {
+public:
     static const std::size_t resultReserveAmount = 100;
 
     Fetcher() = delete;
@@ -18,7 +16,7 @@ class Fetcher final
     ~Fetcher() = delete;
 
     [[nodiscard]] static std::string run(
-      std::filesystem::path&& filepath);
+        std::filesystem::path&& filepath);
 };
-}  // namespace compiler::fetch
-#endif  // COMPILER_FETCH_FETCHER_H
+} // namespace compiler::fetch
+#endif // COMPILER_FETCH_FETCHER_H

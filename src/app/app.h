@@ -5,20 +5,19 @@
 #include "cli.h"
 #include "lexer.h"
 
-namespace compiler::app 
-{
-class App final
-{
-  public:
+namespace compiler::app {
+class App final {
+public:
     App() = default;
 
     void run(int argc, char** argv);
 
     template <typename FileAction, typename ShellAction>
     static void selectAction(int argc, char** argv,
-                    FileAction fileAction,
-                    ShellAction shellAction) {
-        if (auto user_filepath = cl::Cli::getUserFilesPath(argc, argv);
+        FileAction fileAction, ShellAction shellAction)
+    {
+        if (auto user_filepath
+            = cl::Cli::getUserFilesPath(argc, argv);
             user_filepath.ok()) [[likely]] {
             fileAction(std::move(*user_filepath));
         } else {
@@ -29,8 +28,8 @@ class App final
     void runFileMode(std::filesystem::path&& filepath);
     void runShellMode();
 
-  private:
-    lex::Lexer lexer{};
+private:
+    lex::Lexer lexer { };
 };
-}  // namespace compiler::app
-#endif  // COMPILER_APP_APP_H
+} // namespace compiler::app
+#endif // COMPILER_APP_APP_H

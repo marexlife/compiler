@@ -10,25 +10,16 @@
 #include "lexer.h"
 #include "spdlog/spdlog.h"
 
-namespace compiler::app 
-{
-void App::run(int argc, char** argv) 
+namespace compiler::app {
+void App::run(int argc, char** argv)
 {
     selectAction(
-        argc, 
-        argv,
-        [&](auto&& filepath) 
-        { 
-            runFileMode(std::move(filepath)); 
-        },
-        [&]()
-        { 
-            runShellMode();
-        }
-    );
+        argc, argv,
+        [&](auto&& filepath) { runFileMode(std::move(filepath)); },
+        [&]() { runShellMode(); });
 }
 
-void App::runFileMode(std::filesystem::path&& filepath) 
+void App::runFileMode(std::filesystem::path&& filepath)
 {
     auto fetchedResult = fetch::Fetcher::run(std::move(filepath));
 
@@ -47,7 +38,8 @@ void App::runShellMode()
         auto result = lexer.run(std::move(userCommand));
 
         if (!result.ok()) {
-            spdlog::error(std::format("Error: {}", result.status().message()));
+            spdlog::error(
+                std::format("Error: {}", result.status().message()));
 
             std::cin.get();
 
@@ -57,4 +49,4 @@ void App::runShellMode()
         lex::LexPrinter::printLexerResult(*result);
     }
 }
-}  // namespace compiler::app
+} // namespace compiler::app
