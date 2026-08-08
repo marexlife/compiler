@@ -45,7 +45,7 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
             }
             break;
           case ';':
-            PushStatement(result);
+            pushStatement(result);
             break;
           default:
             thisCharKind = LastCharKind::WasDefault;
@@ -73,12 +73,12 @@ void Lexer::reset()
 
 void Lexer::pushToken()
 {
-    lastStatement.emplace_back(tokenFactory.CreateToken(std::string{lastWord}));
+    lastStatement.emplace_back(tokenFactory.createToken(std::string{lastWord}));
   
     lastWord.clear();
 }
 
-void Lexer::PushStatement(TokenStream& result) 
+void Lexer::pushStatement(TokenStream& result) 
 {
     pushToken();
 

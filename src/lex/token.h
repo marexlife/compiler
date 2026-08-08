@@ -2,29 +2,32 @@
 #define COMPILER_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
+#include "passkey.h"
+#include "token_kind.h"
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <spdlog/spdlog.h>
 #include <string>
 
-#include "passkey.h"
-#include "token_kind.h"
-
-namespace compiler::lex
-{
+namespace compiler::lex {
 class TokenFactory;
 
-class [[nodiscard]] Token final 
-{
- public:
+class [[nodiscard]] Token final {
+public:
     Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
-    TokenKind tokenKind)
-    : lexeme(std::move(lexeme)), kind(tokenKind) {}
+        TokenKind tokenKind)
+        : lexeme(std::move(lexeme))
+        , kind(tokenKind)
+    {
+    }
 
-    [[nodiscard]] std::string lexeme() const { return lexeme; }
-    [[nodiscard]] TokenKind kind() const { return kind; }
+    [[nodiscard]] std::string getLexeme() const { return lexeme; }
 
-    [[nodiscard]] std::uint8_t binding_power() {
+    [[nodiscard]] TokenKind getKind() const { return kind; }
+
+    [[nodiscard]] std::uint8_t getBindingPower() const
+    {
         switch (kind) {
         case compiler::lex::TokenKind::Print:
             return 0;
@@ -43,9 +46,9 @@ class [[nodiscard]] Token final
         }
     }
 
- private:
+private:
     std::string lexeme;
-    TokenKind kind{};
+    TokenKind kind { };
 };
-}  // namespace compiler::lex
-#endif  // COMPILER_LEX_TOKEN_H
+} // namespace compiler::lex
+#endif // COMPILER_LEX_TOKEN_H

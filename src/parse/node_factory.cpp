@@ -6,13 +6,12 @@
 #include "print_node.h"
 #include "var_node.h"
 
-namespace compiler::parse 
+namespace compiler::parse {
+std::unique_ptr<Node> NodeFactory::newNode(lex::Token& input)
 {
-std::unique_ptr<Node> NodeFactory::newNode(lex::Token& input) 
-{
-    switch (input.kind()) {
+    switch (input.getKind()) {
     case lex::TokenKind::Identifier:
-        return std::make_unique<IdentNode>(input.lexeme());
+        return std::make_unique<IdentNode>(input.getLexeme());
     case lex::TokenKind::Print:
         return std::make_unique<PrintNode>();
     case lex::TokenKind::Var:
@@ -21,4 +20,4 @@ std::unique_ptr<Node> NodeFactory::newNode(lex::Token& input)
         std::terminate();
     }
 }
-}  // namespace compiler::parse
+} // namespace compiler::parse
