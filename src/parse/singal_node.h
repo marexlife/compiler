@@ -1,12 +1,10 @@
-#ifndef COMPILER_PARSE_SIGNAL_NODE_H
-#define COMPILER_PARSE_SIGNAL_NODE_H
+#ifndef COMPILER_PARSE_SIGNALNODE_H
+#define COMPILER_PARSE_SIGNALNODE_H
 #include "node.h"
 
-namespace compiler::parse 
-{
-class SingalNode : public Node 
-{
-  public:
+namespace compiler::parse {
+class SingalNode : public Node {
+public:
 };
-}  // namespace compiler::parse
-#endif  // COMPILER_PARSE_SIGNAL_NODE_H
+} // namespace compiler::parse
+#endif // COMPILER_PARSE_SIGNALNODE_H
