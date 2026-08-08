@@ -1,5 +1,5 @@
-#ifndef COMPILER_PARSE_PARSER_H_
-#define COMPILER_PARSE_PARSER_H_
+#ifndef COMPILER_PARSE_PARSER_H
+#define COMPILER_PARSE_PARSER_H
 #include <cstddef>
 #include <memory>
 #include <vector>
@@ -29,4 +29,4 @@ class Parser final
 	static void processToken(lex::Token& token);
 };
 }  // namespace compiler::parse
-#endif  // COMPILER_PARSE_PARSER_H_
+#endif  // COMPILER_PARSE_PARSER_H

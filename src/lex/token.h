@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_TOKEN_H_
-#define COMPILER_LEX_TOKEN_H_
+#ifndef COMPILER_LEX_TOKEN_H
+#define COMPILER_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
 #include <cstdlib>
@@ -48,4 +48,4 @@ class [[nodiscard]] Token final
     TokenKind kind{};
 };
 }  // namespace compiler::lex
-#endif  // COMPILER_LEX_TOKEN_H_
+#endif  // COMPILER_LEX_TOKEN_H

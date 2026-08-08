@@ -1,12 +1,13 @@
-#ifndef COMPILER_CORE_DEFER_H_
-#define COMPILER_CORE_DEFER_H_
+#ifndef COMPILER_CORE_DEFER_H
+#define COMPILER_CORE_DEFER_H
 namespace compiler::core 
 {
-template <typename F>
+template <typename Functor>
+	requires std::is_invocable_v<Functor>
 class Defer final 
 {
- public:
-	explicit Defer(F func) : deferdFunc(func) {}
+  public:
+	explicit Defer(Functor functor) : deferdFunc(functor) {}
 
 	Defer(Defer&&) = delete;
 	Defer& operator=(Defer&&) = delete;
@@ -15,8 +16,8 @@ class Defer final
 
 	~Defer() { deferdFunc(); }
 
- private:
-	F deferdFunc;
+  private:
+	Functor deferdFunc;
 };
 }  // namespace compiler::core
-#endif  // COMPILER_CORE_DEFER_H_
+#endif  // COMPILER_CORE_DEFER_H

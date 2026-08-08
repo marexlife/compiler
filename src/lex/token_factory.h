@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_TOKENFACTORY_H_
-#define COMPILER_LEX_TOKENFACTORY_H_
+#ifndef COMPILER_LEX_TOKENFACTORY_H
+#define COMPILER_LEX_TOKENFACTORY_H
 #include <absl/container/flat_hash_map.h>
 
 #include <string_view>
@@ -32,4 +32,4 @@ class TokenFactory final
     absl::flat_hash_map<std::string_view, TokenKind> mapping_;
 };
 }  // namespace compiler::lex
-#endif  // COMPILER_LEX_TOKENFACTORY_H_
+#endif  // COMPILER_LEX_TOKENFACTORY_H

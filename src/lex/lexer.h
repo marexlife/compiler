@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_LEXER_H_
-#define COMPILER_LEX_LEXER_H_
+#ifndef COMPILER_LEX_LEXER_H
+#define COMPILER_LEX_LEXER_H
 #include <absl/container/inlined_vector.h>
 #include <absl/strings/string_view.h>
 
@@ -37,4 +37,4 @@ class [[nodiscard]] Lexer final
     std::string lastWord{};
 };
 }  // namespace compiler::lex
-#endif  // COMPILER_LEXER_LEXER_H_
+#endif  // COMPILER_LEXER_LEXER_H

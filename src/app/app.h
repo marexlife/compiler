@@ -1,5 +1,5 @@
-#ifndef COMPILER_APP_APP_H_
-#define COMPILER_APP_APP_H_
+#ifndef COMPILER_APP_APP_H
+#define COMPILER_APP_APP_H
 #include <filesystem>
 
 #include "cli.h"
@@ -33,4 +33,4 @@ class App final
     lex::Lexer lexer{};
 };
 }  // namespace compiler::app
-#endif  // COMPILER_APP_APP_H_
+#endif  // COMPILER_APP_APP_H

@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_TOKENSTREAM_H_
-#define COMPILER_LEX_TOKENSTREAM_H_
+#ifndef COMPILER_LEX_TOKENSTREAM_H
+#define COMPILER_LEX_TOKENSTREAM_H
 #include <cstddef>
 #include <vector>
 
@@ -9,4 +9,4 @@ namespace compiler::lex
 {
 using TokenStream = std::vector<Statement>;
 }  // namespace compiler::lex
-#endif  // COMPILER_LEX_TOKENSTREAM_H_
+#endif  // COMPILER_LEX_TOKENSTREAM_H

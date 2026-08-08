@@ -1,5 +1,5 @@
-#ifndef COMPILER_PARSE_VALUENODE_H_
-#define COMPILER_PARSE_VALUENODE_H_
+#ifndef COMPILER_PARSE_VALUENODE_H
+#define COMPILER_PARSE_VALUENODE_H
 #include <type_traits>
 #include <utility>
 
@@ -22,4 +22,4 @@ class ValueNode : public Node
     WrappedType value{};
 };
 }  // namespace compiler::parse
-#endif  // COMPILER_PARSE_VALUENODE_H_
+#endif  // COMPILER_PARSE_VALUENODE_H

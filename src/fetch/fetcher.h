@@ -1,5 +1,5 @@
-#ifndef COMPILER_FETCH_FETCHER_H_
-#define COMPILER_FETCH_FETCHER_H_
+#ifndef COMPILER_FETCH_FETCHER_H
+#define COMPILER_FETCH_FETCHER_H
 #include <filesystem>
 #include <string>
 
@@ -21,4 +21,4 @@ class Fetcher final
       std::filesystem::path&& filepath);
 };
 }  // namespace compiler::fetch
-#endif  // COMPILER_FETCH_FETCHER_H_
+#endif  // COMPILER_FETCH_FETCHER_H
