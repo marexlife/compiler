@@ -29,7 +29,7 @@ public:
     void runShellMode();
 
 private:
-    lex::Lexer lexer { };
+    lex::Lexer lexer;
 };
 } // namespace compiler::app
 #endif // COMPILER_APP_APP_H
