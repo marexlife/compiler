@@ -1,6 +1,5 @@
 #ifndef COMPILER_PARSE_VALUENODE_H
 #define COMPILER_PARSE_VALUENODE_H
-#include <type_traits>
 #include <utility>
 
 #include "node.h"

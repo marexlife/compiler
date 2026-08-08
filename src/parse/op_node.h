@@ -2,14 +2,12 @@
 #define COMPILER_NODES_OPNODE_H
 #include "node.h"
 
-namespace compiler::parse 
-{
-class OpNode final : public Node 
-{
-  public:
-	OpNode() = default;
+namespace compiler::parse {
+class OpNode final : public Node {
+public:
+    OpNode() = default;
 
-  private:
+private:
 };
-}  // namespace compiler::parse
-#endif  // COMPILER_NODES_OPNODE_H
+} // namespace compiler::parse
+#endif // COMPILER_NODES_OPNODE_H

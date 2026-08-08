@@ -5,7 +5,6 @@
 #include "passkey.h"
 #include "token_kind.h"
 #include <cstdlib>
-#include <exception>
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include <string>

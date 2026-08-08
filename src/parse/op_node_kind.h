@@ -1,16 +1,14 @@
-#ifndef COMPILER_PARSE_OPNODEKIND_H_
-#define COMPILER_PARSE_OPNODEKIND_H_
+#ifndef COMPILER_PARSE_OPNODEKIND_H
+#define COMPILER_PARSE_OPNODEKIND_H
 #include <cstdint>
 
-namespace compiler::parse 
-{
-enum class [[nodiscard]] OpNodeKind : std::uint8_t 
-{
-	None = 0,
-	Plus,
-	Minus,
-	Multiply,
-	Divide,
+namespace compiler::parse {
+enum class [[nodiscard]] OpNodeKind : std::uint8_t {
+    None = 0,
+    Plus,
+    Minus,
+    Multiply,
+    Divide,
 };
 }
-#endif  // COMPILER_PARSE_OPNODEKIND_H_
+#endif // COMPILER_PARSE_OPNODEKIND_H
