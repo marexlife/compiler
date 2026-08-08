@@ -13,50 +13,51 @@
 #include "token_stream.h"
 
 namespace compiler::lex {
-absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) {
-  TokenStream result;
+absl::StatusOr<TokenStream> Lexer::Run(std::string&& source_text) 
+{
+    TokenStream result;
 
-  core::Defer defer_reset{[&]() { Reset(); }};
+    core::Defer defer_reset{[&]() { Reset(); }};
 
-  result.reserve(kVectorDefaultSize);
+    result.reserve(kVectorDefaultSize);
 
-  std::optional<char> last_char_optional = std::nullopt;
-  LastCharKind last_char_kind = LastCharKind::kNone;
+    std::optional<char> lastCharOptional = std::nullopt;
+    LastCharKind lastCharKind = LastCharKind::kNone;
 
-  for (const auto source_text_char : source_text) {
-    LastCharKind this_char_kind = LastCharKind::kWasNotDefault;
+    for (const auto sourceTextChar : source_text) {
+        LastCharKind thisCharKind = LastCharKind::kWasNotDefault;
 
-    core::Defer defer_iter_end{[&]() {
-      last_char_optional = source_text_char;
-      last_char_kind = this_char_kind;
-    }};
+        core::Defer defeIterEnd{[&]() {
+            lastCharOptional = sourceTextChar;
+            lastCharKind = thisCharKind;
+        }};
 
-    switch (source_text_char) {
-      case '\n':
-        [[fallthrough]];
-      case '\0':
-        // ignore
-        break;
-      case ' ':
-        if (last_char_kind == LastCharKind::kWasDefault) {
-          PushToken();
+        switch (sourceTextChar) {
+          case '\n':
+            [[fallthrough]];
+          case '\0':
+            // ignore
+            break;
+          case ' ':
+            if (lastCharKind == LastCharKind::kWasDefault) {
+              PushToken();
+            }
+            break;
+          case ';':
+            PushStatement(result);
+            break;
+          default:
+            thisCharKind = LastCharKind::kWasDefault;
+            last_word_.push_back(sourceTextChar);
+            break;
         }
-        break;
-      case ';':
-        PushStatement(result);
-        break;
-      default:
-        this_char_kind = LastCharKind::kWasDefault;
-        last_word_.push_back(source_text_char);
-        break;
-    }
   }
 
-  if (!last_char_optional.has_value()) [[unlikely]] {
+  if (!lastCharOptional.has_value()) [[unlikely]] {
     return absl::AbortedError("Lexer: Empty.");
   }
 
-  if (*last_char_optional != ';') [[unlikely]] {
+  if (*lastCharOptional != ';') [[unlikely]] {
     return absl::AbortedError("The last has to be a ';'.");
   }
 

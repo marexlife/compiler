@@ -29,7 +29,7 @@ class App final {
   void RunShellMode();
 
  private:
-  lex::Lexer lexer_{};
+  lex::Lexer m_lexer{};
 };
 }  // namespace compiler::app
 #endif  // COMPILER_APP_APP_H_

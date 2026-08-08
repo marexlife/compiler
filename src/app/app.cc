@@ -19,9 +19,9 @@ void App::Run(int argc, char** argv) {
 }
 
 void App::RunFileMode(std::filesystem::path&& filepath) {
-  auto fetched_result = fetch::Fetcher::Run(std::move(filepath));
+  auto fetchedResult = fetch::Fetcher::Run(std::move(filepath));
 
-  auto result = lexer_.Run(std::move(fetched_result));
+  auto lexedResult = m_lexer.Run(std::move(fetchedResult));
 
   std::cin.get();
   return;
@@ -31,9 +31,9 @@ void App::RunShellMode() {
   for (;;) {
     std::cout << "Input a command.\n";
 
-    std::string user_command;
-    std::getline(std::cin, user_command);
-    auto result = lexer_.Run(std::move(user_command));
+    std::string userCommand;
+    std::getline(std::cin, userCommand);
+    auto result = m_lexer.Run(std::move(userCommand));
 
     if (!result.ok()) {
       spdlog::error(

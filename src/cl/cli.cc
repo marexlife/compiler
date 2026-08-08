@@ -16,13 +16,13 @@ Cli::GetUserFilesPath(const int argc, const char* const* const argv) {
       case 1:
         continue;
       case 2: {
-        const std::filesystem::path path{argv[i]};
+        const std::filesystem::path path = argv[i];
 
         if (path.is_relative()) [[unlikely]] {
           return absl::InvalidArgumentError("Path is relative.");
         }
 
-        return absl::StatusOr<std::filesystem::path>{path};
+        return path;
       }
       default: {
         std::terminate();

@@ -23,7 +23,7 @@ void Parser::ProcessStatement(lex::Statement& statement) {
 
 void Parser::ProcessToken(lex::Token& token) {
   switch (token.kind()) {
-    case lex::TokenKind::kIdentifier:
+    case lex::TokenKind::Identifier:
       break;
     default:
       break;

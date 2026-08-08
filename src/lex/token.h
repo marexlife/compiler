@@ -15,19 +15,19 @@ class TokenFactory;
 class [[nodiscard]] Token final {
  public:
   Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
-        TokenKind token_kind)
-      : lexeme_(std::move(lexeme)), kind_(token_kind) {}
+        TokenKind tokenKind)
+      : m_lexeme(std::move(lexeme)), m_kind(tokenKind) {}
 
-  [[nodiscard]] std::string lexeme() const { return lexeme_; }
-  [[nodiscard]] TokenKind kind() const { return kind_; }
+  [[nodiscard]] std::string lexeme() const { return m_lexeme; }
+  [[nodiscard]] TokenKind kind() const { return m_kind; }
 
   [[nodiscard]] std::uint8_t binding_power() {
-    switch (kind_) {
-      case compiler::lex::TokenKind::kPrint:
+    switch (m_kind) {
+      case compiler::lex::TokenKind::Print:
         return 0;
-      case compiler::lex::TokenKind::kVar:
+      case compiler::lex::TokenKind::Var:
         return 10;
-      case compiler::lex::TokenKind::kIdentifier:
+      case compiler::lex::TokenKind::Identifier:
         return 1;
       case TokenKind::kNone:
         std::cout << "TokenKind is None";
@@ -41,8 +41,8 @@ class [[nodiscard]] Token final {
   }
 
  private:
-  std::string lexeme_;
-  TokenKind kind_{};
+  std::string m_lexeme;
+  TokenKind m_kind{};
 };
 }  // namespace compiler::lex
 #endif  // COMPILER_LEX_TOKEN_H_

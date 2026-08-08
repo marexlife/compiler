@@ -6,6 +6,8 @@
 namespace compiler::fetch {
 class Fetcher final {
  public:
+  static const std::size_t ResultReserveAmount = 100;
+
   Fetcher() = delete;
   Fetcher(Fetcher&&) = delete;
   Fetcher& operator=(Fetcher&&) = delete;
