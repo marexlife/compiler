@@ -1,30 +1,27 @@
-#ifndef COMPILER_PARSE_PARSER_H_
-#define COMPILER_PARSE_PARSER_H_
+#ifndef COMPILER_PARSE_PARSER_H
+#define COMPILER_PARSE_PARSER_H
 #include <cstddef>
-#include <memory>
-#include <vector>
 
-#include "node.h"
 #include "token.h"
 #include "token_stream.h"
 
 namespace compiler::parse {
 class Parser final {
-  static const std::size_t kNodesDefaultReserve = 100;
+    static const std::size_t nodesDefaultReserve = 100;
 
- public:
-  Parser() = delete;
-  Parser(Parser&&) = delete;
-  Parser& operator=(Parser&&) = delete;
-  Parser(const Parser&) = delete;
-  Parser& operator=(const Parser&) = delete;
-  ~Parser() = delete;
+public:
+    Parser() = delete;
+    Parser(Parser&&) = delete;
+    Parser& operator=(Parser&&) = delete;
+    Parser(const Parser&) = delete;
+    Parser& operator=(const Parser&) = delete;
+    ~Parser() = delete;
 
-  static void Run(lex::TokenStream&& input);
+    static void run(lex::TokenStream&& input);
 
- private:
-  static void ProcessStatement(lex::Statement &statement);
-  static void ProcessToken(lex::Token& token);
+private:
+    static void processStatement(lex::Statement& statement);
+    static void processToken(lex::Token& token);
 };
-}  // namespace compiler::parse
-#endif  // COMPILER_PARSE_PARSER_H_
+} // namespace compiler::parse
+#endif // COMPILER_PARSE_PARSER_H

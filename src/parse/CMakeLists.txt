@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
-    parser.cc
-    node_factory.cc
+    parser.cpp
+    node_factory.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC

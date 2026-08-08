@@ -1,13 +1,13 @@
-#ifndef COMPILER_DEBUG_LEXPRINER_H_
-#define COMPILER_DEBUG_LEXPRINER_H_
+#ifndef COMPILER_DEBUG_LEXPRINER_H
+#define COMPILER_DEBUG_LEXPRINER_H
 #include "token_stream.h"
 
 namespace compiler::lex {
-class LexPrinter final {
- public:
-  LexPrinter() = delete;
+class LexerPrinter final {
+public:
+    LexerPrinter() = delete;
 
-  static void PrintLexerResult(lex::TokenStream& token_stream);
+    static void printLexerResult(lex::TokenStream& tokenStream);
 };
-}  // namespace compiler::debug
-#endif  // COMPILER_DEBUG_LEXPRINER_H_
+} // namespace compiler::debug
+#endif // COMPILER_DEBUG_LEXPRINER_H

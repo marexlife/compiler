@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_TOKENFACTORY_H_
-#define COMPILER_LEX_TOKENFACTORY_H_
+#ifndef COMPILER_LEX_TOKENFACTORY_H
+#define COMPILER_LEX_TOKENFACTORY_H
 #include <absl/container/flat_hash_map.h>
 
 #include <string_view>
@@ -9,25 +9,27 @@
 
 namespace compiler::lex {
 class TokenFactory final {
- public:
-  TokenFactory()
-      : mapping_({
-            {"print", TokenKind::kPrint},
-            {"var", TokenKind::kVar},
-        }) {}
+public:
+    TokenFactory()
+        : mapping({
+              { "print", TokenKind::Print },
+              { "var", TokenKind::Var },
+          })
+    {
+    }
 
-  TokenFactory(TokenFactory&&) = delete;
-  TokenFactory& operator=(TokenFactory&&) = delete;
-  TokenFactory(const TokenFactory&) = delete;
-  TokenFactory& operator=(const TokenFactory&) = delete;
-  ~TokenFactory() = default;
+    TokenFactory(TokenFactory&&) = delete;
+    TokenFactory& operator=(TokenFactory&&) = delete;
+    TokenFactory(const TokenFactory&) = delete;
+    TokenFactory& operator=(const TokenFactory&) = delete;
+    ~TokenFactory() = default;
 
-  [[nodiscard]] Token CreateToken(std::string&& source_word);
+    [[nodiscard]] Token createToken(std::string&& sourceWord);
 
- private:
-  [[nodiscard]] TokenKind Map(std::string_view source_word);
+private:
+    [[nodiscard]] TokenKind map(std::string_view sourceWord);
 
-  absl::flat_hash_map<std::string_view, TokenKind> mapping_;
+    absl::flat_hash_map<std::string_view, TokenKind> mapping;
 };
-}  // namespace compiler::lex
-#endif  // COMPILER_LEX_TOKENFACTORY_H_
+} // namespace compiler::lex
+#endif // COMPILER_LEX_TOKENFACTORY_H

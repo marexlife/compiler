@@ -1,13 +1,13 @@
-#ifndef COMPILER_LEX_TOKENKIND_H_
-#define COMPILER_LEX_TOKENKIND_H_
+#ifndef COMPILER_LEX_TOKENKIND_H
+#define COMPILER_LEX_TOKENKIND_H
 #include <cstdint>
 
 namespace compiler::lex {
 enum class [[nodiscard]] TokenKind : std::uint8_t {
-  kNone = 0,
-  kIdentifier,
-  kPrint,
-  kVar,
+    None = 0,
+    Identifier,
+    Print,
+    Var,
 };
 }
-#endif  // COMPILER_LEX_TOKENKIND_H_
+#endif // COMPILER_LEX_TOKENKIND_H

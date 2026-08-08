@@ -1,35 +1,35 @@
-#ifndef COMPILER_APP_APP_H_
-#define COMPILER_APP_APP_H_
+#ifndef COMPILER_APP_APP_H
+#define COMPILER_APP_APP_H
 #include <filesystem>
 
 #include "cli.h"
 #include "lexer.h"
 
 namespace compiler::app {
-/// The main Application Logic
 class App final {
- public:
-  App() = default;
+public:
+    App() = default;
 
-  void Run(int argc, char** argv);
+    void run(int argc, char** argv);
 
-  template <typename FileAction, typename ShellAction>
-  static void SelectAction(int argc, char** argv,
-                           FileAction file_action,
-                           ShellAction shell_action) {
-    if (auto user_filepath = cl::Cli::GetUserFilesPath(argc, argv);
-        user_filepath.ok()) [[likely]] {
-      file_action(std::move(*user_filepath));
-    } else {
-      shell_action();
+    template <typename FileAction, typename ShellAction>
+    static void selectAction(int argc, char** argv,
+        FileAction fileAction, ShellAction shellAction)
+    {
+        if (auto user_filepath
+            = cl::Cli::getUserFilesPath(argc, argv);
+            user_filepath.ok()) [[likely]] {
+            fileAction(std::move(*user_filepath));
+        } else {
+            shellAction();
+        }
     }
-  }
 
-  void RunFileMode(std::filesystem::path&& filepath);
-  void RunShellMode();
+    void runFileMode(std::filesystem::path&& filepath);
+    void runShellMode();
 
- private:
-  lex::Lexer lexer_{};
+private:
+    lex::Lexer lexer { };
 };
-}  // namespace compiler::app
-#endif  // COMPILER_APP_APP_H_
+} // namespace compiler::app
+#endif // COMPILER_APP_APP_H
