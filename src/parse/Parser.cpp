@@ -1,9 +1,9 @@
-#include "parser.h"
+#include "Parser.h"
 
-#include "node.h"
-#include "token.h"
-#include "token_kind.h"
-#include "token_stream.h"
+#include "Node.h"
+#include "Token.h"
+#include "TokenKind.h"
+#include "TokenStream.h"
 
 namespace compiler::parse {
 void Parser::run(lex::TokenStream&& tokenStream)

@@ -2,7 +2,7 @@
 #define COMPILER_LEX_STATEMENT_H
 #include <vector>
 
-#include "token.h"
+#include "Token.h"
 
 namespace compiler::lex {
 using Statement = std::vector<Token>;

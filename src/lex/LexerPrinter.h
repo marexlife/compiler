@@ -1,6 +1,6 @@
 #ifndef COMPILER_DEBUG_LEXPRINER_H
 #define COMPILER_DEBUG_LEXPRINER_H
-#include "token_stream.h"
+#include "TokenStream.h"
 
 namespace compiler::lex {
 class LexerPrinter final {

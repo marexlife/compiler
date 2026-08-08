@@ -2,16 +2,15 @@
 #define COMPILER_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
-#include "passkey.h"
-#include "token_kind.h"
 #include <cstdlib>
 #include <iostream>
-#include <spdlog/spdlog.h>
 #include <string>
 
-namespace compiler::lex {
-class TokenFactory;
+#include "Passkey.h"
+#include "TokenKind.h"
 
+namespace compiler::lex {
+class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
 public:
     Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
@@ -22,18 +21,12 @@ public:
     }
 
     [[nodiscard]] std::string getLexeme() const { return lexeme; }
-
     [[nodiscard]] TokenKind getKind() const { return kind; }
 
-    [[nodiscard]] std::uint8_t getBindingPower() const
+    [[nodiscard]] auto getBindingPower()
     {
         switch (kind) {
         case compiler::lex::TokenKind::Print:
-            return 0;
-        case compiler::lex::TokenKind::Var:
-            return 10;
-        case compiler::lex::TokenKind::Identifier:
-            return 1;
         case TokenKind::None:
             std::cout << "TokenKind is None";
             std::exit(-1);

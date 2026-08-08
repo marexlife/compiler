@@ -2,7 +2,7 @@
 #define COMPILER_LEX_TOKENSTREAM_H
 #include <vector>
 
-#include "statement.h"
+#include "Statement.h"
 
 namespace compiler::lex {
 using TokenStream = std::vector<Statement>;

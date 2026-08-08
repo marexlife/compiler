@@ -2,8 +2,8 @@
 #define COMPILER_APP_APP_H
 #include <filesystem>
 
-#include "cli.h"
-#include "lexer.h"
+#include "Cli.h"
+#include "Lexer.h"
 
 namespace compiler::app {
 class App final {

@@ -1,6 +1,6 @@
 #ifndef COMPILER_PARSE_OPNODE_H
 #define COMPILER_PARSE_OPNODE_H
-#include "node.h"
+#include "Node.h"
 
 namespace compiler::parse {
 class OpNode final : public Node {

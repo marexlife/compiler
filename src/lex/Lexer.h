@@ -6,9 +6,9 @@
 #include <cstddef>
 #include <string>
 
+#include "TokenFactory.h"
+#include "TokenStream.h"
 #include "absl/status/statusor.h"
-#include "token_factory.h"
-#include "token_stream.h"
 
 namespace compiler::lex {
 class [[nodiscard]] Lexer final {
@@ -31,8 +31,8 @@ private:
     void reset();
 
     TokenFactory tokenFactory { };
-    Statement lastStatement { };
-    std::string lastWord { };
+    Statement lastStatement;
+    std::string lastWord;
 };
 } // namespace compiler::lex
 #endif // COMPILER_LEXER_LEXER_H

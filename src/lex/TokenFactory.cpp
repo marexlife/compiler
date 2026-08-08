@@ -1,12 +1,12 @@
-#include "token_factory.h"
+#include "TokenFactory.h"
 
 #include <absl/strings/string_view.h>
 
 #include <string_view>
 
-#include "passkey.h"
-#include "token.h"
-#include "token_kind.h"
+#include "Passkey.h"
+#include "Token.h"
+#include "TokenKind.h"
 
 namespace compiler::lex {
 Token TokenFactory::createToken(std::string&& sourceWord)

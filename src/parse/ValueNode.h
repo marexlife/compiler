@@ -2,7 +2,7 @@
 #define COMPILER_PARSE_VALUENODE_H
 #include <utility>
 
-#include "node.h"
+#include "Node.h"
 
 namespace compiler::parse {
 template <typename WrappedType, typename Tag = WrappedType>

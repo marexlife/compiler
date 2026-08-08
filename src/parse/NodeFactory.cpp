@@ -1,10 +1,10 @@
-#include "node_factory.h"
+#include "NodeFactory.h"
 
 #include <exception>
 
-#include "ident_node.h"
-#include "print_node.h"
-#include "var_node.h"
+#include "IdentNode.h"
+#include "PrintNode.h"
+#include "VarNode.h"
 
 namespace compiler::parse {
 std::unique_ptr<Node> NodeFactory::newNode(lex::Token& input)

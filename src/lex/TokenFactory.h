@@ -4,8 +4,8 @@
 
 #include <string_view>
 
-#include "token.h"
-#include "token_kind.h"
+#include "Token.h"
+#include "TokenKind.h"
 
 namespace compiler::lex {
 class TokenFactory final {

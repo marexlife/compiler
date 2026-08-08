@@ -1,6 +1,6 @@
 #ifndef COMPILER_PARSE_PRINTNODE_H
 #define COMPILER_PARSE_PRINTNODE_H
-#include "singal_node.h"
+#include "SingalNode.h"
 
 namespace compiler::parse {
 class PrintNode final : public SingalNode {

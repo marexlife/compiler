@@ -2,7 +2,7 @@
 #define COMPILER_PARSE_IDENTNODE_H
 #include <string>
 
-#include "value_node.h"
+#include "ValueNode.h"
 
 namespace compiler::parse {
 using IdentNode = ValueNode<std::string, class IdentNodeTag>;

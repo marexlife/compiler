@@ -2,8 +2,8 @@
 #define COMPILER_PARSE_NODEFACTORY_H
 #include <memory>
 
-#include "node.h"
-#include "token.h"
+#include "Node.h"
+#include "Token.h"
 
 namespace compiler::parse {
 class NodeFactory final {

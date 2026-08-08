@@ -2,8 +2,8 @@
 #define COMPILER_PARSE_PARSER_H
 #include <cstddef>
 
-#include "token.h"
-#include "token_stream.h"
+#include "Token.h"
+#include "TokenStream.h"
 
 namespace compiler::parse {
 class Parser final {
@@ -17,7 +17,7 @@ public:
     Parser& operator=(const Parser&) = delete;
     ~Parser() = delete;
 
-    static void run(lex::TokenStream&& input);
+    static void run(lex::TokenStream&& tokenStream);
 
 private:
     static void processStatement(lex::Statement& statement);

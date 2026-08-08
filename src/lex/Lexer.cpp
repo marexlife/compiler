@@ -1,24 +1,23 @@
-#include "lexer.h"
+#include "Lexer.h"
 
 #include <absl/base/attributes.h>
 
 #include <optional>
 #include <string>
 
+#include "Defer.h"
+#include "LastCharKind.h"
+#include "Statement.h"
+#include "Token.h"
+#include "TokenStream.h"
 #include "absl/status/status.h"
-#include "defer.h"
-#include "last_char_kind.h"
-#include "statement.h"
-#include "token.h"
-#include "token_stream.h"
 
-namespace compiler::lex 
-{
-absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText) 
+namespace compiler::lex {
+absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
 {
     TokenStream result;
 
-    core::Defer deferReset{[&]() { reset(); }};
+    core::Defer deferReset { [&]() { reset(); } };
 
     result.reserve(vectorDefaultSize);
 
@@ -28,26 +27,26 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
     for (const auto sourceTextChar : sourceText) {
         LastCharKind thisCharKind = LastCharKind::WasNotDefault;
 
-        core::Defer defeIterEnd{[&]() {
+        core::Defer defeIterEnd { [&]() {
             lastCharOptional = sourceTextChar;
             lastCharKind = thisCharKind;
-        }};
+        } };
 
         switch (sourceTextChar) {
-          case '\n':
+        case '\n':
             [[fallthrough]];
-          case '\0':
+        case '\0':
             // ignore
             break;
-          case ' ':
+        case ' ':
             if (lastCharKind == LastCharKind::WasDefault) {
-              pushToken();
+                pushToken();
             }
             break;
-          case ';':
+        case ';':
             pushStatement(result);
             break;
-          default:
+        default:
             thisCharKind = LastCharKind::WasDefault;
             lastWord.push_back(sourceTextChar);
             break;
@@ -65,7 +64,7 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
     return result;
 }
 
-void Lexer::reset() 
+void Lexer::reset()
 {
     lastStatement.clear();
     lastWord.clear();
@@ -73,17 +72,18 @@ void Lexer::reset()
 
 void Lexer::pushToken()
 {
-    lastStatement.emplace_back(tokenFactory.createToken(std::string{lastWord}));
-  
+    lastStatement.emplace_back(
+        tokenFactory.createToken(std::string { lastWord }));
+
     lastWord.clear();
 }
 
-void Lexer::pushStatement(TokenStream& result) 
+void Lexer::pushStatement(TokenStream& result)
 {
     pushToken();
 
-    result.push_back(Statement{lastStatement});
+    result.push_back(Statement { lastStatement });
 
     lastStatement.clear();
 }
-}  // namespace compiler::lex
+} // namespace compiler::lex

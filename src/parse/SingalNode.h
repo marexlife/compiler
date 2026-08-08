@@ -1,6 +1,6 @@
 #ifndef COMPILER_PARSE_SIGNALNODE_H
 #define COMPILER_PARSE_SIGNALNODE_H
-#include "node.h"
+#include "Node.h"
 
 namespace compiler::parse {
 class SingalNode : public Node {
