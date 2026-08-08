@@ -16,13 +16,13 @@ class App final
 
     template <typename FileAction, typename ShellAction>
     static void selectAction(int argc, char** argv,
-                    FileAction file_action,
-                    ShellAction shell_action) {
+                    FileAction fileAction,
+                    ShellAction shellAction) {
         if (auto user_filepath = cl::Cli::getUserFilesPath(argc, argv);
             user_filepath.ok()) [[likely]] {
-            file_action(std::move(*user_filepath));
+            fileAction(std::move(*user_filepath));
         } else {
-            shell_action();
+            shellAction();
         }
     }
 
