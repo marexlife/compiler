@@ -46,7 +46,7 @@ void App::runShellMode()
             continue;
         }
 
-        lex::LexPrinter::printLexerResult(*result);
+        lex::LexerPrinter::printLexerResult(*result);
     }
 }
 } // namespace compiler::app

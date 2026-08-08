@@ -5,7 +5,7 @@
 #include "token_stream.h"
 
 namespace compiler::lex {
-void LexPrinter::printLexerResult(lex::TokenStream& tokenStream)
+void LexerPrinter::printLexerResult(lex::TokenStream& tokenStream)
 {
     for (lex::Statement statement : tokenStream) {
         std::cout << "Statement:\n";

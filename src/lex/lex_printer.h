@@ -3,9 +3,9 @@
 #include "token_stream.h"
 
 namespace compiler::lex {
-class LexPrinter final {
+class LexerPrinter final {
 public:
-    LexPrinter() = delete;
+    LexerPrinter() = delete;
 
     static void printLexerResult(lex::TokenStream& tokenStream);
 };
