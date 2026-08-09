@@ -1,7 +1,8 @@
 #include "Cli.h"
 
-#include <exception>
+#include <cstddef>
 #include <filesystem>
+#include <utility>
 
 #include "absl/status/status.h"
 
@@ -9,13 +10,18 @@ namespace compiler::cl {
 [[nodiscard]] absl::StatusOr<std::filesystem::path>
 Cli::getUserFilesPath(const int argc, const char* const* const argv)
 {
-    for (int i = 0; i < argc; ++i) {
+    for (std::size_t i = 0; std::cmp_less(i, argc); ++i) {
         switch (i) {
         case 0:
             [[fallthrough]];
         case 1:
             continue;
-        case 2: {
+        default:
+            if (argv[i] == nullptr) {
+                return absl::InvalidArgumentError(
+                    "Argument is null.");
+            }
+
             const std::filesystem::path path = argv[i];
 
             if (path.is_relative()) [[unlikely]] {
@@ -24,9 +30,6 @@ Cli::getUserFilesPath(const int argc, const char* const* const argv)
             }
 
             return path;
-        }
-        default:
-            std::terminate();
         }
     }
 
