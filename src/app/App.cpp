@@ -47,6 +47,8 @@ B. 'clear;' to clear the screen in Shell mode
 C. list files that should be compiled)";
 
     std::cout << helpScreen;
+
+    std::exit(-1);
 }
 
 void App::compile(std::string &&sourceCode) {
