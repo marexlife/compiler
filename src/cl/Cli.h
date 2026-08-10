@@ -16,7 +16,8 @@ public:
 
     [[nodiscard]] static absl::StatusOr<
         std::vector<std::filesystem::path>>
-    getUserFilesPath(int argc, const char* const* argv);
+    getUserFilesPath(int argc, 
+        char** argv);
 };
 } // namespace compiler::cl
 #endif // COMPILER_CL_CLI_H
