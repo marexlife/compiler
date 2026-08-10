@@ -20,8 +20,10 @@ void App::run(int argc, char** argv)
 
     selectAction(
         std::move(userFilePaths),
-        [&](auto&& filepath) { compileFiles(std::move(filepath)); },
-        [&]() { runShellMode(); });
+        [&](auto&& filepath) {
+            App::compileFiles(std::move(filepath));
+        },
+        [&]() { App::runShellMode(); });
 }
 
 void App::compileFiles(std::vector<std::filesystem::path>&& filepaths)
@@ -56,7 +58,7 @@ std::string App::queryUserCommand()
 
 void App::executeUserCommand(std::string&& userCommand)
 {
-    auto lexerResult = lexer.run(std::move(userCommand));
+    auto lexerResult = this->lexer.run(std::move(userCommand));
 
     if (!lexerResult.ok()) {
         core::Logger::logError(lexerResult.status());

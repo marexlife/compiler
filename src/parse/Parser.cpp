@@ -11,14 +11,14 @@ void Parser::run(lex::TokenStream&& tokenStream)
     Node result { };
 
     for (auto& statement : tokenStream) {
-        processStatement(statement);
+        Parser::processStatement(statement);
     }
 }
 
 void Parser::processStatement(lex::Statement& statement)
 {
     for (auto& token : statement) {
-        processToken(token);
+        Parser::processToken(token);
     }
 }
 
