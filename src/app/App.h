@@ -31,10 +31,12 @@ public:
         }
     }
 
-    void runFileMode(std::vector<std::filesystem::path>&& filepaths);
+    void compileFiles(std::vector<std::filesystem::path>&& filepaths);
+    void compileFile(std::filesystem::path& filepath);
+
     void runShellMode();
     [[nodiscard]] static std::string queryUserCommand();
-    void executeUserCommand(std::string &&);
+    void executeUserCommand(std::string&&);
 
 private:
     lex::Lexer lexer;
