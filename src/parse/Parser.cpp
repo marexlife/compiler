@@ -18,7 +18,7 @@ void Parser::run(lex::TokenStream &&tokenStream) {
 
 void Parser::processStatement(lex::Statement &statement) {
     for (auto &token : statement) {
-        std::uint8_t bindingPower = token.getBindingPower();
+        const std::uint8_t bindingPower = token.getBindingPower();
 
         Parser::processToken(token);
     }
