@@ -33,6 +33,8 @@ public:
 
     void runFileMode(std::vector<std::filesystem::path>&& filepaths);
     void runShellMode();
+    [[nodiscard]] static std::string queryUserCommand();
+    void executeUserCommand(std::string &&);
 
 private:
     lex::Lexer lexer;

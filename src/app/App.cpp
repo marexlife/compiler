@@ -11,6 +11,7 @@
 #include "Lexer.h"
 #include "LexerPrinter.h"
 #include "Logger.h"
+#include "Parser.h"
 
 namespace compiler::app {
 void App::run(int argc, char** argv)
@@ -38,24 +39,39 @@ void App::runFileMode(std::vector<std::filesystem::path>&& filepaths)
     }
 }
 
+std::string App::queryUserCommand()
+{
+    std::cout << "Input a command.\n";
+
+    std::string userCommand;
+    std::getline(std::cin, userCommand);
+
+    return userCommand;
+}
+
+void App::executeUserCommand(std::string&& userCommand)
+{
+    auto lexerResult = lexer.run(std::move(userCommand));
+
+    if (!lexerResult.ok()) {
+        core::Logger::logError(lexerResult.status());
+
+        std::cin.get();
+
+        return;
+    }
+
+    lex::LexerPrinter::printLexerResult(*lexerResult);
+
+    parse::Parser::run(std::move(*lexerResult));
+}
+
 void App::runShellMode()
 {
     for (;;) {
-        std::cout << "Input a command.\n";
+        std::string userCommand = queryUserCommand();
 
-        std::string userCommand;
-        std::getline(std::cin, userCommand);
-        auto result = lexer.run(std::move(userCommand));
-
-        if (!result.ok()) {
-            core::Logger::logError(result.status());
-
-            std::cin.get();
-
-            continue;
-        }
-
-        lex::LexerPrinter::printLexerResult(*result);
+        executeUserCommand(std::move(userCommand));
     }
 }
 } // namespace compiler::app
