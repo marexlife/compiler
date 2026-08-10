@@ -15,8 +15,10 @@
 namespace compiler::app {
 void App::run(int argc, char** argv)
 {
+    auto userFiles = cl::Cli::getUserFilesPath(argc, argv);
+
     selectAction(
-        argc, argv,
+        std::move(userFiles),
         [&](auto&& filepath) { runFileMode(std::move(filepath)); },
         [&]() { runShellMode(); });
 }
