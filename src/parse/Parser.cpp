@@ -4,28 +4,31 @@
 #include "Token.h"
 #include "TokenKind.h"
 #include "TokenStream.h"
+#include <cstdint>
 
 namespace compiler::parse {
-void Parser::run(lex::TokenStream&& tokenStream) {
+void Parser::run(lex::TokenStream &&tokenStream) {
     Node result{};
 
-    for (auto& statement : tokenStream) {
+    for (auto &statement : tokenStream) {
         Parser::processStatement(statement);
     }
 }
 
-void Parser::processStatement(lex::Statement& statement) {
-    for (auto& token : statement) {
+void Parser::processStatement(lex::Statement &statement) {
+    for (auto &token : statement) {
+        std::uint8_t bindingPower = token.getBindingPower();
+
         Parser::processToken(token);
     }
 }
 
-void Parser::processToken(lex::Token& token) {
+void Parser::processToken(lex::Token &token) {
     switch (token.getKind()) {
-        case lex::TokenKind::Identifier:
-            break;
-        default:
-            break;
+    case lex::TokenKind::Identifier:
+        break;
+    default:
+        break;
     }
 }
-}  // namespace compiler::parse
+} // namespace compiler::parse

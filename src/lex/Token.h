@@ -2,10 +2,13 @@
 #define COMPILER_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
+#include <cstddef>
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <string_view>
 
+#include "Logger.h"
 #include "Passkey.h"
 #include "TokenKind.h"
 
@@ -20,18 +23,35 @@ class [[nodiscard]] Token final {
     [[nodiscard]] std::string getLexeme() const { return lexeme; }
     [[nodiscard]] TokenKind getKind() const { return kind; }
 
-    [[nodiscard]] auto getBindingPower() {
+    [[nodiscard]] std::uint8_t getBindingPower() const {
         switch (kind) {
-        case compiler::lex::TokenKind::Print:
+        case compiler::lex::TokenKind::Print: {
+            static const std::uint8_t bindingPower = 100;
+
+            return bindingPower;
+        } break;
+        case compiler::lex::TokenKind::Var: {
+            static const std::uint8_t bindingPower = 30;
+
+            return bindingPower;
+        } break;
+        case compiler::lex::TokenKind::Identifier: {
+            static const std::uint8_t bindingPower = 10;
+
+            return bindingPower;
+        } break;
         case TokenKind::None:
-            std::cout << "TokenKind is None";
-            std::exit(-1);
+            core::Logger::logFatal(
+                std::string_view{"TokenKind is none"});
             break;
         default:
-            std::cout << "TokenKind is Invalid";
+            core::Logger::logFatal(
+                std::string_view{"TokenKind is Invalid"});
             std::exit(-1);
             break;
         }
+
+        core::Logger::logFatal(std::string_view{"No Token selected"});
     }
 
   private:

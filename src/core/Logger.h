@@ -16,11 +16,11 @@ class Logger final {
     static void logInfo(std::string_view message);
     static void logInfo(std::string &&message);
     static void logError(std::string &&message);
-    static void logFatal(std::string &&message);
     static void logError(std::string_view message);
-    static void logFatal(std::string_view message);
     static void logError(absl::Status error);
-    static void logFatal(absl::Status error);
+    [[noreturn]] static void logFatal(std::string &&message);
+    [[noreturn]] static void logFatal(std::string_view message);
+    [[noreturn]] static void logFatal(absl::Status error);
 };
 } // namespace compiler::core
 #endif // COMPILER_CORE_LOGGER_H
