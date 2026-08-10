@@ -23,8 +23,8 @@ void App::run(int argc, char **argv) {
 
     App::selectAction(
         std::move(userFilePaths),
-        [&](std::vector<std::filesystem::path> &&filepath) {
-            App::compileFiles(std::move(filepath));
+        [&](std::vector<std::filesystem::path> &&filepaths) {
+            App::compileFiles(std::move(filepaths));
         },
         [&]() { App::runShellMode(); });
 }
