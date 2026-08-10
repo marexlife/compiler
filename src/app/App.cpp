@@ -58,7 +58,7 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
             std::string_view{"is not a directory"});
     }
 
-    std::string sourceCode = fetch::Fetcher::run(std::move(argument));
+    std::string sourceCode = fetch::Fetcher::run(argument);
 
     const absl::StatusOr<lex::TokenStream> lexedResult =
         lexer.run(std::move(sourceCode));
