@@ -50,7 +50,6 @@ C. list files that should be compiled)";
 }
 
 void App::compileFile(std::string_view argument, std::size_t fileId) {
-
     bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
