@@ -5,8 +5,7 @@
 #include "Node.h"
 
 namespace compiler::parse {
-template <typename WrappedType, typename Tag = WrappedType>
-class ValueNode : public Node {
+template <typename WrappedType> class ValueNode : public Node {
   public:
     explicit ValueNode(WrappedType &&value)
         : value(std::move(value)) {}

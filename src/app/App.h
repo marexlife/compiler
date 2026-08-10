@@ -2,6 +2,7 @@
 #define COMPILER_APP_APP_H
 #include "Lexer.h"
 #include <cstddef>
+#include <string_view>
 
 namespace compiler::app {
 class App final {
@@ -21,11 +22,23 @@ class App final {
                              ShellAction shellAction) {
         if (argc < 2) {
             shellAction();
-        } else {
-            fileAction(argc, argv);
+            return;
         }
+
+        const std::string_view firstArgument = argv[1];
+
+        static const std::string_view helpCommand = "--help";
+
+        if (firstArgument == helpCommand) {
+            showHelpScreen();
+
+            return;
+        }
+
+        fileAction(argc, argv);
     }
 
+    static void showHelpScreen();
     void compileFiles(int argc, char *argv[]);
     void compileFile(std::string_view argument, std::size_t fileId);
 

@@ -2,8 +2,15 @@
 #include "spdlog/spdlog.h"
 #include <cstdlib>
 #include <string>
+#include <string_view>
 
 namespace compiler::core {
+void Logger::logInfo(std::string &&message) { spdlog::info(message); }
+
+void Logger::logInfo(std::string_view message) {
+    spdlog::info(message);
+}
+
 void Logger::logFatal(std::string &&message) {
     spdlog::error(message);
 

@@ -13,6 +13,8 @@ class Logger final {
     Logger &operator=(const Logger &) = delete;
     ~Logger() = delete;
 
+    static void logInfo(std::string_view message);
+    static void logInfo(std::string &&message);
     static void logError(std::string &&message);
     static void logFatal(std::string &&message);
     static void logError(std::string_view message);

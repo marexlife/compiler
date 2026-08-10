@@ -6,10 +6,10 @@
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <thread>
 #include <utility>
 #include <vector>
 
-#include "Cli.h"
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
@@ -29,12 +29,28 @@ void App::run(int argc, char *argv[]) {
 }
 
 void App::compileFiles(int argc, char *argv[]) {
-    for (std::size_t i = 0; std::cmp_less(i, argc); ++i) {
-        App::compileFile(std::string_view{argv[i]}, i + 1);
+    std::vector<std::jthread> workers;
+
+    workers.reserve(argc - 1);
+
+    for (std::size_t i = 1; std::cmp_less(i, argc); ++i) {
+        workers.emplace_back(std::jthread([&]() {
+            App::compileFile(std::string_view{argv[i]}, i + 1);
+        }));
     }
 }
 
+void App::showHelpScreen() {
+    static const std::string_view helpScreen = R"(Help screen:
+A. --help to get to here
+B. clear to clear the screen in Shell mode
+C. list files that should be compiled)";
+
+    std::cout << helpScreen;
+}
+
 void App::compileFile(std::string_view argument, std::size_t fileId) {
+    
     bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
