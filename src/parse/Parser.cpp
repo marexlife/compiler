@@ -1,6 +1,7 @@
 #include "Parser.h"
 
 #include "Node.h"
+#include "Statement.h"
 #include "Token.h"
 #include "TokenKind.h"
 #include "TokenStream.h"
@@ -10,7 +11,7 @@ namespace compiler::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
     Node result{};
 
-    for (auto &statement : tokenStream) {
+    for (lex::Statement &statement : tokenStream) {
         Parser::processStatement(statement);
     }
 }
