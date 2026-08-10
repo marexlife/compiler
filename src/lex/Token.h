@@ -43,12 +43,9 @@ class [[nodiscard]] Token final {
         case TokenKind::None:
             core::Logger::logFatal(
                 std::string_view{"TokenKind is none"});
-            break;
         default:
             core::Logger::logFatal(
                 std::string_view{"TokenKind is Invalid"});
-            std::exit(-1);
-            break;
         }
 
         core::Logger::logFatal(std::string_view{"No Token selected"});
