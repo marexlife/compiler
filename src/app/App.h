@@ -25,7 +25,7 @@ public:
         }
     }
 
-    void runFileMode(std::filesystem::path&& filepath);
+    void runFileMode(std::vector<std::filesystem::path>&& filepaths);
     void runShellMode();
 
 private:

@@ -3,13 +3,16 @@
 #include <cstddef>
 #include <filesystem>
 #include <utility>
+#include <vector>
 
 #include "absl/status/status.h"
 
 namespace compiler::cl {
-[[nodiscard]] absl::StatusOr<std::filesystem::path>
+[[nodiscard]] absl::StatusOr<std::vector<std::filesystem::path>>
 Cli::getUserFilesPath(const int argc, const char* const* const argv)
 {
+    std::vector<std::filesystem::path> results;
+
     for (std::size_t i = 0; std::cmp_less(i, argc); ++i) {
         switch (i) {
         case 0:
@@ -29,10 +32,10 @@ Cli::getUserFilesPath(const int argc, const char* const* const argv)
                     "Path is relative.");
             }
 
-            return path;
+            results.emplace_back(path);
         }
     }
 
-    return absl::OutOfRangeError("Path is out of range");
+    return results;
 }
 } // namespace compiler::cl

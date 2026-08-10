@@ -1,9 +1,11 @@
 #include "App.h"
 
+#include <cstdlib>
 #include <format>
 #include <iostream>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "Fetcher.h"
 #include "Lexer.h"
@@ -19,13 +21,21 @@ void App::run(int argc, char** argv)
         [&]() { runShellMode(); });
 }
 
-void App::runFileMode(std::filesystem::path&& filepath)
+void App::runFileMode(std::vector<std::filesystem::path>&& filepaths)
 {
-    auto fetchedResult = fetch::Fetcher::run(std::move(filepath));
+    for (auto& filepath : filepaths) {
+        auto fetchedResult = fetch::Fetcher::run(std::move(filepath));
 
-    auto lexedResult = lexer.run(std::move(fetchedResult));
+        auto lexedResult = lexer.run(std::move(fetchedResult));
 
-    std::cin.get();
+        if (!lexedResult.ok()) [[unlikely]] {
+            std::cout << lexedResult.status().message() << '\n';
+
+            std::exit(-1);
+        }
+
+        std::cin.get();
+    }
 }
 
 void App::runShellMode()

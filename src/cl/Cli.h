@@ -14,7 +14,8 @@ public:
     Cli& operator=(const Cli&) = delete;
     ~Cli() = default;
 
-    [[nodiscard]] static absl::StatusOr<std::filesystem::path>
+    [[nodiscard]] static absl::StatusOr<
+        std::vector<std::filesystem::path>>
     getUserFilesPath(int argc, const char* const* argv);
 };
 } // namespace compiler::cl
