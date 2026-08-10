@@ -71,7 +71,7 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
 }
 
 std::string App::queryUserCommand() {
-    std::cout << "Input a command.\n";
+    std::cout << "Input a command...\n";
 
     std::string userCommand;
     std::getline(std::cin, userCommand);
@@ -103,6 +103,8 @@ void App::runShellIteration() {
 }
 
 void App::runShellMode() {
+    std::cout << "Shell mode:\n";
+
     for (;;) {
         runShellIteration();
     }
