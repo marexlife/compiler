@@ -4,7 +4,7 @@
 
 namespace compiler::parse {
 class PrintNode final : public SingalNode {
-public:
+  public:
 };
 } // namespace compiler::parse
 #endif // COMPILER_PARSE_PRINTNODE_H

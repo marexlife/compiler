@@ -7,8 +7,7 @@
 #include "VarNode.h"
 
 namespace compiler::parse {
-std::unique_ptr<Node> NodeFactory::newNode(lex::Token& input)
-{
+std::unique_ptr<Node> NodeFactory::newNode(lex::Token &input) {
     switch (input.getKind()) {
     case lex::TokenKind::Identifier:
         return std::make_unique<IdentNode>(input.getLexeme());

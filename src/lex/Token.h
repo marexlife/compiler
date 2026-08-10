@@ -12,19 +12,15 @@
 namespace compiler::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
-public:
-    Token(core::Passkey<TokenFactory>&& passkey, std::string&& lexeme,
-        TokenKind tokenKind)
-        : lexeme(std::move(lexeme))
-        , kind(tokenKind)
-    {
-    }
+  public:
+    Token(core::Passkey<TokenFactory> &&passkey, std::string &&lexeme,
+          TokenKind tokenKind)
+        : lexeme(std::move(lexeme)), kind(tokenKind) {}
 
     [[nodiscard]] std::string getLexeme() const { return lexeme; }
     [[nodiscard]] TokenKind getKind() const { return kind; }
 
-    [[nodiscard]] auto getBindingPower()
-    {
+    [[nodiscard]] auto getBindingPower() {
         switch (kind) {
         case compiler::lex::TokenKind::Print:
         case TokenKind::None:
@@ -38,9 +34,9 @@ public:
         }
     }
 
-private:
+  private:
     std::string lexeme;
-    TokenKind kind { };
+    TokenKind kind{};
 };
 } // namespace compiler::lex
 #endif // COMPILER_LEX_TOKEN_H

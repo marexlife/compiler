@@ -14,27 +14,25 @@
 #include "Parser.h"
 
 namespace compiler::app {
-void App::run(int argc, char** argv)
-{
+void App::run(int argc, char **argv) {
     auto userFilePaths = cl::Cli::getUserFilesPath(argc, argv);
 
     App::selectAction(
         std::move(userFilePaths),
-        [&](auto&& filepath) {
+        [&](auto &&filepath) {
             App::compileFiles(std::move(filepath));
         },
         [&]() { App::runShellMode(); });
 }
 
-void App::compileFiles(std::vector<std::filesystem::path>&& filepaths)
-{
-    for (auto& filepath : filepaths) {
+void App::compileFiles(
+    std::vector<std::filesystem::path> &&filepaths) {
+    for (auto &filepath : filepaths) {
         App::compileFile(filepath);
     }
 }
 
-void App::compileFile(std::filesystem::path& filepath)
-{
+void App::compileFile(std::filesystem::path &filepath) {
     auto sourceCode = fetch::Fetcher::run(std::move(filepath));
 
     const auto lexedResult = lexer.run(std::move(sourceCode));
@@ -46,8 +44,7 @@ void App::compileFile(std::filesystem::path& filepath)
     std::cin.get();
 }
 
-std::string App::queryUserCommand()
-{
+std::string App::queryUserCommand() {
     std::cout << "Input a command.\n";
 
     std::string userCommand;
@@ -56,8 +53,7 @@ std::string App::queryUserCommand()
     return userCommand;
 }
 
-void App::executeUserCommand(std::string&& userCommand)
-{
+void App::executeUserCommand(std::string &&userCommand) {
     auto lexerResult = lexer.run(std::move(userCommand));
 
     if (!lexerResult.ok()) {
@@ -73,8 +69,7 @@ void App::executeUserCommand(std::string&& userCommand)
     parse::Parser::run(std::move(*lexerResult));
 }
 
-void App::runShellMode()
-{
+void App::runShellMode() {
     for (;;) {
         std::string userCommand = queryUserCommand();
 

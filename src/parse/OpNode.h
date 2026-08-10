@@ -4,10 +4,10 @@
 
 namespace compiler::parse {
 class OpNode final : public Node {
-public:
+  public:
     OpNode() = default;
 
-private:
+  private:
 };
 } // namespace compiler::parse
 #endif // COMPILER_PARSE_OPNODE_H

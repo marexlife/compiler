@@ -2,20 +2,17 @@
 #define COMPILER_CORE_DEFER_H
 namespace compiler::core {
 template <typename Functor> class Defer final {
-public:
-    explicit Defer(Functor functor)
-        : deferdFunc(functor)
-    {
-    }
+  public:
+    explicit Defer(Functor functor) : deferdFunc(functor) {}
 
-    Defer(Defer&&) = delete;
-    Defer& operator=(Defer&&) = delete;
-    Defer(const Defer&) = delete;
-    Defer& operator=(const Defer&) = delete;
+    Defer(Defer &&) = delete;
+    Defer &operator=(Defer &&) = delete;
+    Defer(const Defer &) = delete;
+    Defer &operator=(const Defer &) = delete;
 
     ~Defer() { deferdFunc(); }
 
-private:
+  private:
     Functor deferdFunc;
 };
 } // namespace compiler::core

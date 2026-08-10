@@ -6,18 +6,17 @@
 
 namespace compiler::cl {
 class Cli final {
-public:
+  public:
     Cli() = delete;
-    Cli(Cli&&) = delete;
-    Cli& operator=(Cli&&) = delete;
-    Cli(const Cli&) = delete;
-    Cli& operator=(const Cli&) = delete;
+    Cli(Cli &&) = delete;
+    Cli &operator=(Cli &&) = delete;
+    Cli(const Cli &) = delete;
+    Cli &operator=(const Cli &) = delete;
     ~Cli() = delete;
 
     [[nodiscard]] static absl::StatusOr<
         std::vector<std::filesystem::path>>
-    getUserFilesPath(int argc, 
-        char** argv);
+    getUserFilesPath(int argc, char **argv);
 };
 } // namespace compiler::cl
 #endif // COMPILER_CL_CLI_H

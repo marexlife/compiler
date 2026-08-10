@@ -5,12 +5,11 @@
 #include "TokenStream.h"
 
 namespace compiler::lex {
-void LexerPrinter::printLexerResult(lex::TokenStream& tokenStream)
-{
+void LexerPrinter::printLexerResult(lex::TokenStream &tokenStream) {
     for (lex::Statement statement : tokenStream) {
         std::cout << "Statement:\n";
 
-        for (lex::Token& token : statement) {
+        for (lex::Token &token : statement) {
             std::cout << "  Token: " << token.getLexeme() << '\n';
         }
     }

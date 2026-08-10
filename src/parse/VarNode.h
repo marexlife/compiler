@@ -4,7 +4,7 @@
 
 namespace compiler::parse {
 class VarNode final : public SingalNode {
-public:
+  public:
     VarNode() = default;
 };
 } // namespace compiler::parse

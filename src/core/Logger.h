@@ -4,16 +4,16 @@
 
 namespace compiler::core {
 class Logger final {
-public:
+  public:
     Logger() = delete;
-    Logger(Logger&&) = delete;
-    Logger& operator=(Logger&&) = delete;
-    Logger(const Logger&) = delete;
-    Logger& operator=(const Logger&) = delete;
+    Logger(Logger &&) = delete;
+    Logger &operator=(Logger &&) = delete;
+    Logger(const Logger &) = delete;
+    Logger &operator=(const Logger &) = delete;
     ~Logger() = delete;
 
     static void logError(absl::Status error);
     static void logFatal(absl::Status error);
 };
-}
+} // namespace compiler::core
 #endif // COMPILER_CORE_LOGGER_H
