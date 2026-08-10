@@ -43,7 +43,7 @@ void App::compileFiles(int argc, char *argv[]) {
 void App::showHelpScreen() {
     static const std::string_view helpScreen = R"(Help screen:
 A. --help to get to here
-B. clear to clear the screen in Shell mode
+B. 'clear;' to clear the screen in Shell mode
 C. list files that should be compiled)";
 
     std::cout << helpScreen;
