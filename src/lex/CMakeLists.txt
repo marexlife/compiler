@@ -21,8 +21,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     absl::inlined_vector
     absl::flat_hash_map
 
-    llvm::ADT
-
     spdlog
 )
 
