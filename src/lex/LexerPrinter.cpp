@@ -6,7 +6,7 @@
 
 namespace compiler::lex {
 void LexerPrinter::printLexerResult(lex::TokenStream &tokenStream) {
-    for (lex::Statement statement : tokenStream) {
+    for (lex::Statement &statement : tokenStream) {
         std::cout << "Statement:\n";
 
         for (lex::Token &token : statement) {
