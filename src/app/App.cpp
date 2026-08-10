@@ -58,7 +58,7 @@ std::string App::queryUserCommand()
 
 void App::executeUserCommand(std::string&& userCommand)
 {
-    auto lexerResult = this->lexer.run(std::move(userCommand));
+    auto lexerResult = lexer.run(std::move(userCommand));
 
     if (!lexerResult.ok()) {
         core::Logger::logError(lexerResult.status());

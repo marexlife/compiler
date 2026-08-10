@@ -40,11 +40,11 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
             break;
         case ' ':
             if (lastCharKind == LastCharKind::WasDefault) {
-                pushToken();
+                Lexer::pushToken();
             }
             break;
         case ';':
-            pushStatement(result);
+            Lexer::pushStatement(result);
             break;
         default:
             thisCharKind = LastCharKind::WasDefault;
@@ -80,7 +80,7 @@ void Lexer::pushToken()
 
 void Lexer::pushStatement(TokenStream& result)
 {
-    pushToken();
+    Lexer::pushToken();
 
     result.push_back(Statement { lastStatement });
 
