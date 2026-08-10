@@ -21,11 +21,11 @@ public:
     template <typename FileAction, typename ShellAction>
     static void selectAction(
         absl::StatusOr<std::vector<std::filesystem::path>>&&
-            userFiles,
+            userFilePaths,
         FileAction fileAction, ShellAction shellAction)
     {
-        if (userFiles.ok() && userFiles->size() != 0) {
-            fileAction(std::move(*userFiles));
+        if (userFilePaths.ok() && userFilePaths->size() != 0) {
+            fileAction(std::move(*userFilePaths));
         } else {
             shellAction();
         }
@@ -33,6 +33,8 @@ public:
 
     void runFileMode(std::vector<std::filesystem::path>&& filepaths);
     void runShellMode();
+    [[nodiscard]] static std::string queryUserCommand();
+    void executeUserCommand(std::string &&);
 
 private:
     lex::Lexer lexer;

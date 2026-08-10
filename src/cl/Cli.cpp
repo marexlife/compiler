@@ -9,7 +9,7 @@
 
 namespace compiler::cl {
 [[nodiscard]] absl::StatusOr<std::vector<std::filesystem::path>>
-Cli::getUserFilesPath(const int argc, const char* const* const argv)
+Cli::getUserFilesPath(int argc, char** argv)
 {
     std::vector<std::filesystem::path> results;
 

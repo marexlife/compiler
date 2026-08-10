@@ -54,7 +54,7 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
     }
 
     if (!lastCharOptional.has_value()) [[unlikely]] {
-        return absl::AbortedError("Lexer: Empty.");
+        return absl::AbortedError("Source code is empty.");
     }
 
     if (*lastCharOptional != ';') [[unlikely]] {

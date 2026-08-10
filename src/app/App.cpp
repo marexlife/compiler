@@ -1,7 +1,6 @@
 #include "App.h"
 
 #include <cstdlib>
-#include <format>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -11,15 +10,16 @@
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
-#include "spdlog/spdlog.h"
+#include "Logger.h"
+#include "Parser.h"
 
 namespace compiler::app {
 void App::run(int argc, char** argv)
 {
-    auto userFiles = cl::Cli::getUserFilesPath(argc, argv);
+    auto userFilePaths = cl::Cli::getUserFilesPath(argc, argv);
 
     selectAction(
-        std::move(userFiles),
+        std::move(userFilePaths),
         [&](auto&& filepath) { runFileMode(std::move(filepath)); },
         [&]() { runShellMode(); });
 }
@@ -27,39 +27,51 @@ void App::run(int argc, char** argv)
 void App::runFileMode(std::vector<std::filesystem::path>&& filepaths)
 {
     for (auto& filepath : filepaths) {
-        auto fetchedResult = fetch::Fetcher::run(std::move(filepath));
+        auto sourceCode = fetch::Fetcher::run(std::move(filepath));
 
-        auto lexedResult = lexer.run(std::move(fetchedResult));
+        const auto lexedResult = lexer.run(std::move(sourceCode));
 
         if (!lexedResult.ok()) [[unlikely]] {
-            std::cout << lexedResult.status().message() << '\n';
-
-            std::exit(-1);
+            core::Logger::logFatal(lexedResult.status());
         }
 
         std::cin.get();
     }
 }
 
+std::string App::queryUserCommand()
+{
+    std::cout << "Input a command.\n";
+
+    std::string userCommand;
+    std::getline(std::cin, userCommand);
+
+    return userCommand;
+}
+
+void App::executeUserCommand(std::string&& userCommand)
+{
+    auto lexerResult = lexer.run(std::move(userCommand));
+
+    if (!lexerResult.ok()) {
+        core::Logger::logError(lexerResult.status());
+
+        std::cin.get();
+
+        return;
+    }
+
+    lex::LexerPrinter::printLexerResult(*lexerResult);
+
+    parse::Parser::run(std::move(*lexerResult));
+}
+
 void App::runShellMode()
 {
     for (;;) {
-        std::cout << "Input a command.\n";
+        std::string userCommand = queryUserCommand();
 
-        std::string userCommand;
-        std::getline(std::cin, userCommand);
-        auto result = lexer.run(std::move(userCommand));
-
-        if (!result.ok()) {
-            spdlog::error(
-                std::format("Error: {}", result.status().message()));
-
-            std::cin.get();
-
-            continue;
-        }
-
-        lex::LexerPrinter::printLexerResult(*result);
+        executeUserCommand(std::move(userCommand));
     }
 }
 } // namespace compiler::app
