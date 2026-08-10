@@ -20,23 +20,28 @@ void App::run(int argc, char** argv)
 
     selectAction(
         std::move(userFilePaths),
-        [&](auto&& filepath) { runFileMode(std::move(filepath)); },
+        [&](auto&& filepath) { compileFiles(std::move(filepath)); },
         [&]() { runShellMode(); });
 }
 
-void App::runFileMode(std::vector<std::filesystem::path>&& filepaths)
+void App::compileFiles(std::vector<std::filesystem::path>&& filepaths)
 {
     for (auto& filepath : filepaths) {
-        auto sourceCode = fetch::Fetcher::run(std::move(filepath));
-
-        const auto lexedResult = lexer.run(std::move(sourceCode));
-
-        if (!lexedResult.ok()) [[unlikely]] {
-            core::Logger::logFatal(lexedResult.status());
-        }
-
-        std::cin.get();
+        compileFile(filepath);
     }
+}
+
+void App::compileFile(std::filesystem::path& filepath)
+{
+    auto sourceCode = fetch::Fetcher::run(std::move(filepath));
+
+    const auto lexedResult = lexer.run(std::move(sourceCode));
+
+    if (!lexedResult.ok()) [[unlikely]] {
+        core::Logger::logFatal(lexedResult.status());
+    }
+
+    std::cin.get();
 }
 
 std::string App::queryUserCommand()
