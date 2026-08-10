@@ -2,9 +2,7 @@
 #define COMPILER_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
-#include <cstddef>
 #include <cstdlib>
-#include <iostream>
 #include <string>
 #include <string_view>
 
