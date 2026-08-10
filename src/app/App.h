@@ -19,10 +19,18 @@ public:
         if (auto user_filepath
             = cl::Cli::getUserFilesPath(argc, argv);
             user_filepath.ok()) [[likely]] {
+
+            if (user_filepath->size() == 0) {
+                goto shell;
+            }
+
             fileAction(std::move(*user_filepath));
-        } else {
-            shellAction();
+
+            return;
         }
+
+    shell:
+        shellAction();
     }
 
     void runFileMode(std::vector<std::filesystem::path>&& filepaths);
