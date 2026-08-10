@@ -16,20 +16,13 @@ public:
     static void selectAction(int argc, char** argv,
         FileAction fileAction, ShellAction shellAction)
     {
-        if (auto userFilepath = cl::Cli::getUserFilesPath(argc, argv);
-            userFilepath.ok()) [[likely]] {
+        auto userFilepath = cl::Cli::getUserFilesPath(argc, argv);
 
-            if (userFilepath->size() == 0) {
-                goto shell;
-            }
-
+        if (userFilepath.ok() && userFilepath->size() != 0) {
             fileAction(std::move(*userFilepath));
-
-            return;
+        } else {
+            shellAction();
         }
-
-    shell:
-        shellAction();
     }
 
     void runFileMode(std::vector<std::filesystem::path>&& filepaths);
