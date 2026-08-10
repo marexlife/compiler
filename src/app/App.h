@@ -1,10 +1,7 @@
 #ifndef COMPILER_APP_APP_H
 #define COMPILER_APP_APP_H
-#include <filesystem>
-#include <vector>
-
 #include "Lexer.h"
-#include "absl/status/statusor.h"
+#include <cstddef>
 
 namespace compiler::app {
 class App final {
@@ -19,19 +16,18 @@ class App final {
     void run(int argc, char **argv);
 
     template <typename FileAction, typename ShellAction>
-    static void
-    selectAction(absl::StatusOr<std::vector<std::filesystem::path>>
-                     &&userFilePaths,
-                 FileAction fileAction, ShellAction shellAction) {
-        if (userFilePaths.ok() && userFilePaths->size() != 0) {
-            fileAction(std::move(*userFilePaths));
-        } else {
+    static void selectAction(int argc, char *argv[],
+                             FileAction fileAction,
+                             ShellAction shellAction) {
+        if (argc < 2) {
             shellAction();
+        } else {
+            fileAction(argc, argv);
         }
     }
 
-    void compileFiles(std::vector<std::filesystem::path> &&filepaths);
-    void compileFile(std::filesystem::path &filepath);
+    void compileFiles(int argc, char *argv[]);
+    void compileFile(std::string_view argument, std::size_t fileId);
 
     void runShellMode();
     void runShellIteration();

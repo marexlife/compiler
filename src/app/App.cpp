@@ -1,9 +1,11 @@
 #include "App.h"
 
+#include <cstddef>
 #include <cstdlib>
 #include <filesystem>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -17,27 +19,30 @@
 #include "absl/status/statusor.h"
 
 namespace compiler::app {
-void App::run(int argc, char **argv) {
-    absl::StatusOr<std::vector<std::filesystem::path>> userFilePaths =
-        cl::Cli::getUserFilesPath(argc, argv);
-
+void App::run(int argc, char *argv[]) {
     App::selectAction(
-        std::move(userFilePaths),
-        [&](std::vector<std::filesystem::path> &&filepaths) {
-            App::compileFiles(std::move(filepaths));
+        argc, argv,
+        [&](int argc, char *argv[]) {
+            App::compileFiles(argc, argv);
         },
         [&]() { App::runShellMode(); });
 }
 
-void App::compileFiles(
-    std::vector<std::filesystem::path> &&filepaths) {
-    for (auto &filepath : filepaths) {
-        App::compileFile(filepath);
+void App::compileFiles(int argc, char *argv[]) {
+    for (std::size_t i = 0; std::cmp_less(i, argc); ++i) {
+        App::compileFile(std::string_view{argv[i]}, i + 1);
     }
 }
 
-void App::compileFile(std::filesystem::path &filepath) {
-    std::string sourceCode = fetch::Fetcher::run(std::move(filepath));
+void App::compileFile(std::string_view argument, std::size_t fileId) {
+    bool isDirectory = std::filesystem::is_directory(argument);
+
+    if (!isDirectory) [[unlikely]] {
+        core::Logger::logFatal(
+            std::string_view{"is not a directory"});
+    }
+
+    std::string sourceCode = fetch::Fetcher::run(std::move(argument));
 
     const absl::StatusOr<lex::TokenStream> lexedResult =
         lexer.run(std::move(sourceCode));

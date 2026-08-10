@@ -1,6 +1,7 @@
 #ifndef COMPILER_CORE_LOGGER_H
 #define COMPILER_CORE_LOGGER_H
 #include "absl/status/status.h"
+#include <string_view>
 
 namespace compiler::core {
 class Logger final {
@@ -12,6 +13,10 @@ class Logger final {
     Logger &operator=(const Logger &) = delete;
     ~Logger() = delete;
 
+    static void logError(std::string &&message);
+    static void logFatal(std::string &&message);
+    static void logError(std::string_view message);
+    static void logFatal(std::string_view message);
     static void logError(absl::Status error);
     static void logFatal(absl::Status error);
 };
