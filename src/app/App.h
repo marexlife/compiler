@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <vector>
 
-#include "Cli.h"
 #include "Lexer.h"
 #include "absl/status/statusor.h"
 
@@ -11,11 +10,18 @@ namespace compiler::app {
 class App final {
 public:
     App() = default;
+    App(App&&) = delete;
+    App& operator=(App&&) = delete;
+    App(const App&) = delete;
+    App& operator=(const App&) = delete;
+    ~App() = default;
 
     void run(int argc, char** argv);
 
     template <typename FileAction, typename ShellAction>
-    static void selectAction(absl::StatusOr<std::vector<std::filesystem::path>>&& userFiles,
+    static void selectAction(
+        absl::StatusOr<std::vector<std::filesystem::path>>&&
+            userFiles,
         FileAction fileAction, ShellAction shellAction)
     {
         if (userFiles.ok() && userFiles->size() != 0) {

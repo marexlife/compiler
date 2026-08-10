@@ -7,6 +7,7 @@
 #include <utility>
 #include <vector>
 
+#include "Cli.h"
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
