@@ -8,15 +8,15 @@ template <typename Factory>
 class [[nodiscard]] Passkey final {
     friend Factory;
 
-public:
-    Passkey(Passkey&&) = default;
+  public:
+    Passkey(Passkey &&) = default;
 
-    Passkey& operator=(Passkey&&) = delete;
-    Passkey(const Passkey&) = delete;
-    Passkey& operator=(const Passkey&) = delete;
+    Passkey &operator=(Passkey &&) = delete;
+    Passkey(const Passkey &) = delete;
+    Passkey &operator=(const Passkey &) = delete;
     ~Passkey() = default;
 
-private:
+  private:
     Passkey() = default;
 };
 } // namespace compiler::core

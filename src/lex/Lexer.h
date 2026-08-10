@@ -14,23 +14,23 @@ namespace compiler::lex {
 class [[nodiscard]] Lexer final {
     static constexpr std::size_t vectorDefaultSize = 10;
 
-public:
+  public:
     Lexer() = default;
-    Lexer(Lexer&&) = delete;
-    Lexer& operator=(Lexer&&) = delete;
-    Lexer(const Lexer&) = delete;
-    Lexer& operator=(const Lexer&) = delete;
+    Lexer(Lexer &&) = delete;
+    Lexer &operator=(Lexer &&) = delete;
+    Lexer(const Lexer &) = delete;
+    Lexer &operator=(const Lexer &) = delete;
     ~Lexer() = default;
 
-    [[nodiscard]] absl::StatusOr<TokenStream> run(
-        std::string&& sourceText);
+    [[nodiscard]] absl::StatusOr<TokenStream>
+    run(std::string &&sourceText);
 
-private:
+  private:
     void pushToken();
-    void pushStatement(TokenStream& result);
+    void pushStatement(TokenStream &result);
     void reset();
 
-    TokenFactory tokenFactory { };
+    TokenFactory tokenFactory{};
     Statement lastStatement;
     std::string lastWord;
 };

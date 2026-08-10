@@ -4,7 +4,7 @@
 
 namespace compiler::parse {
 class IfNode final : public SingalNode {
-public:
+  public:
 };
-} // namespace compiler::parse::nodes
+} // namespace compiler::parse
 #endif // COMPILER_PARSE_IFNODE_H

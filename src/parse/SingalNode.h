@@ -4,7 +4,7 @@
 
 namespace compiler::parse {
 class SingalNode : public Node {
-public:
+  public:
 };
 } // namespace compiler::parse
 #endif // COMPILER_PARSE_SIGNALNODE_H

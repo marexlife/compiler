@@ -1,6 +1,7 @@
 #include "App.h"
 
 #include <cstdlib>
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -12,30 +13,34 @@
 #include "LexerPrinter.h"
 #include "Logger.h"
 #include "Parser.h"
+#include "TokenStream.h"
+#include "absl/status/statusor.h"
 
 namespace compiler::app {
-void App::run(int argc, char** argv)
-{
-    auto userFilePaths = cl::Cli::getUserFilesPath(argc, argv);
+void App::run(int argc, char **argv) {
+    absl::StatusOr<std::vector<std::filesystem::path>> userFilePaths =
+        cl::Cli::getUserFilesPath(argc, argv);
 
-    selectAction(
+    App::selectAction(
         std::move(userFilePaths),
-        [&](auto&& filepath) { compileFiles(std::move(filepath)); },
-        [&]() { runShellMode(); });
+        [&](std::vector<std::filesystem::path> &&filepaths) {
+            App::compileFiles(std::move(filepaths));
+        },
+        [&]() { App::runShellMode(); });
 }
 
-void App::compileFiles(std::vector<std::filesystem::path>&& filepaths)
-{
-    for (auto& filepath : filepaths) {
-        compileFile(filepath);
+void App::compileFiles(
+    std::vector<std::filesystem::path> &&filepaths) {
+    for (auto &filepath : filepaths) {
+        App::compileFile(filepath);
     }
 }
 
-void App::compileFile(std::filesystem::path& filepath)
-{
-    auto sourceCode = fetch::Fetcher::run(std::move(filepath));
+void App::compileFile(std::filesystem::path &filepath) {
+    std::string sourceCode = fetch::Fetcher::run(std::move(filepath));
 
-    const auto lexedResult = lexer.run(std::move(sourceCode));
+    const absl::StatusOr<lex::TokenStream> lexedResult =
+        lexer.run(std::move(sourceCode));
 
     if (!lexedResult.ok()) [[unlikely]] {
         core::Logger::logFatal(lexedResult.status());
@@ -44,8 +49,7 @@ void App::compileFile(std::filesystem::path& filepath)
     std::cin.get();
 }
 
-std::string App::queryUserCommand()
-{
+std::string App::queryUserCommand() {
     std::cout << "Input a command.\n";
 
     std::string userCommand;
@@ -54,9 +58,9 @@ std::string App::queryUserCommand()
     return userCommand;
 }
 
-void App::executeUserCommand(std::string&& userCommand)
-{
-    auto lexerResult = lexer.run(std::move(userCommand));
+void App::executeUserCommand(std::string &&userCommand) {
+    absl::StatusOr<lex::TokenStream> lexerResult =
+        lexer.run(std::move(userCommand));
 
     if (!lexerResult.ok()) {
         core::Logger::logError(lexerResult.status());
@@ -71,8 +75,7 @@ void App::executeUserCommand(std::string&& userCommand)
     parse::Parser::run(std::move(*lexerResult));
 }
 
-void App::runShellMode()
-{
+void App::runShellMode() {
     for (;;) {
         std::string userCommand = queryUserCommand();
 

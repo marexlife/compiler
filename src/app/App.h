@@ -8,22 +8,21 @@
 
 namespace compiler::app {
 class App final {
-public:
+  public:
     App() = default;
-    App(App&&) = delete;
-    App& operator=(App&&) = delete;
-    App(const App&) = delete;
-    App& operator=(const App&) = delete;
+    App(App &&) = delete;
+    App &operator=(App &&) = delete;
+    App(const App &) = delete;
+    App &operator=(const App &) = delete;
     ~App() = default;
 
-    void run(int argc, char** argv);
+    void run(int argc, char **argv);
 
     template <typename FileAction, typename ShellAction>
-    static void selectAction(
-        absl::StatusOr<std::vector<std::filesystem::path>>&&
-            userFilePaths,
-        FileAction fileAction, ShellAction shellAction)
-    {
+    static void
+    selectAction(absl::StatusOr<std::vector<std::filesystem::path>>
+                     &&userFilePaths,
+                 FileAction fileAction, ShellAction shellAction) {
         if (userFilePaths.ok() && userFilePaths->size() != 0) {
             fileAction(std::move(*userFilePaths));
         } else {
@@ -31,14 +30,14 @@ public:
         }
     }
 
-    void compileFiles(std::vector<std::filesystem::path>&& filepaths);
-    void compileFile(std::filesystem::path& filepath);
+    void compileFiles(std::vector<std::filesystem::path> &&filepaths);
+    void compileFile(std::filesystem::path &filepath);
 
     void runShellMode();
     [[nodiscard]] static std::string queryUserCommand();
-    void executeUserCommand(std::string&&);
+    void executeUserCommand(std::string &&);
 
-private:
+  private:
     lex::Lexer lexer;
 };
 } // namespace compiler::app

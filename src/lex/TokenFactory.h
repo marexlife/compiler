@@ -9,24 +9,22 @@
 
 namespace compiler::lex {
 class TokenFactory final {
-public:
+  public:
     TokenFactory()
         : mapping({
-              { "print", TokenKind::Print },
-              { "var", TokenKind::Var },
-          })
-    {
-    }
+              {"print", TokenKind::Print},
+              {"var", TokenKind::Var},
+          }) {}
 
-    TokenFactory(TokenFactory&&) = delete;
-    TokenFactory& operator=(TokenFactory&&) = delete;
-    TokenFactory(const TokenFactory&) = delete;
-    TokenFactory& operator=(const TokenFactory&) = delete;
+    TokenFactory(TokenFactory &&) = delete;
+    TokenFactory &operator=(TokenFactory &&) = delete;
+    TokenFactory(const TokenFactory &) = delete;
+    TokenFactory &operator=(const TokenFactory &) = delete;
     ~TokenFactory() = default;
 
-    [[nodiscard]] Token createToken(std::string&& sourceWord);
+    [[nodiscard]] Token createToken(std::string &&sourceWord);
 
-private:
+  private:
     [[nodiscard]] TokenKind map(std::string_view sourceWord);
 
     absl::flat_hash_map<std::string_view, TokenKind> mapping;

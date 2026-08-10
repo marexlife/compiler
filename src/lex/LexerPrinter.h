@@ -4,10 +4,10 @@
 
 namespace compiler::lex {
 class LexerPrinter final {
-public:
+  public:
     LexerPrinter() = delete;
 
-    static void printLexerResult(lex::TokenStream& tokenStream);
+    static void printLexerResult(lex::TokenStream &tokenStream);
 };
-} // namespace compiler::debug
+} // namespace compiler::lex
 #endif // COMPILER_DEBUG_LEXPRINER_H

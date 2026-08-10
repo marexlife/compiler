@@ -6,29 +6,26 @@
 #include "TokenStream.h"
 
 namespace compiler::parse {
-void Parser::run(lex::TokenStream&& tokenStream)
-{
-    Node result { };
+void Parser::run(lex::TokenStream&& tokenStream) {
+    Node result{};
 
     for (auto& statement : tokenStream) {
-        processStatement(statement);
+        Parser::processStatement(statement);
     }
 }
 
-void Parser::processStatement(lex::Statement& statement)
-{
+void Parser::processStatement(lex::Statement& statement) {
     for (auto& token : statement) {
-        processToken(token);
+        Parser::processToken(token);
     }
 }
 
-void Parser::processToken(lex::Token& token)
-{
+void Parser::processToken(lex::Token& token) {
     switch (token.getKind()) {
-    case lex::TokenKind::Identifier:
-        break;
-    default:
-        break;
+        case lex::TokenKind::Identifier:
+            break;
+        default:
+            break;
     }
 }
-} // namespace compiler::parse
+}  // namespace compiler::parse

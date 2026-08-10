@@ -7,19 +7,16 @@
 namespace compiler::parse {
 template <typename WrappedType, typename Tag = WrappedType>
 class ValueNode : public Node {
-public:
-    explicit ValueNode(WrappedType&& value)
-        : value(std::move(value))
-    {
-    }
+  public:
+    explicit ValueNode(WrappedType &&value)
+        : value(std::move(value)) {}
 
-    [[nodiscard]] const WrappedType& getValue() const
-    {
+    [[nodiscard]] const WrappedType &getValue() const {
         return value;
     }
 
-private:
-    WrappedType value { };
+  private:
+    WrappedType value{};
 };
 } // namespace compiler::parse
 #endif // COMPILER_PARSE_VALUENODE_H

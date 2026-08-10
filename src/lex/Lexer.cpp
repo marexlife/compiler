@@ -13,11 +13,10 @@
 #include "absl/status/status.h"
 
 namespace compiler::lex {
-absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
-{
+absl::StatusOr<TokenStream> Lexer::run(std::string &&sourceText) {
     TokenStream result;
 
-    core::Defer deferReset { [&]() { reset(); } };
+    core::Defer deferReset{[&]() { reset(); }};
 
     result.reserve(vectorDefaultSize);
 
@@ -27,10 +26,10 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
     for (const auto sourceTextChar : sourceText) {
         LastCharKind thisCharKind = LastCharKind::WasNotDefault;
 
-        core::Defer defeIterEnd { [&]() {
+        core::Defer defeIterEnd{[&]() {
             lastCharOptional = sourceTextChar;
             lastCharKind = thisCharKind;
-        } };
+        }};
 
         switch (sourceTextChar) {
         case '\n':
@@ -40,11 +39,11 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
             break;
         case ' ':
             if (lastCharKind == LastCharKind::WasDefault) {
-                pushToken();
+                Lexer::pushToken();
             }
             break;
         case ';':
-            pushStatement(result);
+            Lexer::pushStatement(result);
             break;
         default:
             thisCharKind = LastCharKind::WasDefault;
@@ -64,25 +63,22 @@ absl::StatusOr<TokenStream> Lexer::run(std::string&& sourceText)
     return result;
 }
 
-void Lexer::reset()
-{
+void Lexer::reset() {
     lastStatement.clear();
     lastWord.clear();
 }
 
-void Lexer::pushToken()
-{
+void Lexer::pushToken() {
     lastStatement.emplace_back(
-        tokenFactory.createToken(std::string { lastWord }));
+        tokenFactory.createToken(std::string{lastWord}));
 
     lastWord.clear();
 }
 
-void Lexer::pushStatement(TokenStream& result)
-{
-    pushToken();
+void Lexer::pushStatement(TokenStream &result) {
+    Lexer::pushToken();
 
-    result.push_back(Statement { lastStatement });
+    result.push_back(Statement{lastStatement});
 
     lastStatement.clear();
 }
