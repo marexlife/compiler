@@ -12,6 +12,8 @@
 #include "LexerPrinter.h"
 #include "Logger.h"
 #include "Parser.h"
+#include "TokenStream.h"
+#include "absl/status/statusor.h"
 
 namespace compiler::app {
 void App::run(int argc, char **argv) {
@@ -33,9 +35,10 @@ void App::compileFiles(
 }
 
 void App::compileFile(std::filesystem::path &filepath) {
-    auto sourceCode = fetch::Fetcher::run(std::move(filepath));
+    std::string sourceCode = fetch::Fetcher::run(std::move(filepath));
 
-    const auto lexedResult = lexer.run(std::move(sourceCode));
+    const absl::StatusOr<lex::TokenStream> lexedResult =
+        lexer.run(std::move(sourceCode));
 
     if (!lexedResult.ok()) [[unlikely]] {
         core::Logger::logFatal(lexedResult.status());
@@ -54,7 +57,8 @@ std::string App::queryUserCommand() {
 }
 
 void App::executeUserCommand(std::string &&userCommand) {
-    auto lexerResult = lexer.run(std::move(userCommand));
+    absl::StatusOr<lex::TokenStream> lexerResult =
+        lexer.run(std::move(userCommand));
 
     if (!lexerResult.ok()) {
         core::Logger::logError(lexerResult.status());
