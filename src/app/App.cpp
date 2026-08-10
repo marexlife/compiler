@@ -1,7 +1,6 @@
 #include "App.h"
 
 #include <cstdlib>
-#include <format>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -11,7 +10,7 @@
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
-#include "spdlog/spdlog.h"
+#include "Logger.h"
 
 namespace compiler::app {
 void App::run(int argc, char** argv)
@@ -27,12 +26,12 @@ void App::run(int argc, char** argv)
 void App::runFileMode(std::vector<std::filesystem::path>&& filepaths)
 {
     for (auto& filepath : filepaths) {
-        auto fetchedResult = fetch::Fetcher::run(std::move(filepath));
+        auto sourceCode = fetch::Fetcher::run(std::move(filepath));
 
-        auto lexedResult = lexer.run(std::move(fetchedResult));
+        const auto lexedResult = lexer.run(std::move(sourceCode));
 
         if (!lexedResult.ok()) [[unlikely]] {
-            std::cout << lexedResult.status().message() << '\n';
+            core::Logger::log(lexedResult.status());
 
             std::exit(-1);
         }
@@ -51,8 +50,7 @@ void App::runShellMode()
         auto result = lexer.run(std::move(userCommand));
 
         if (!result.ok()) {
-            spdlog::error(
-                std::format("Error: {}", result.status().message()));
+            core::Logger::log(result.status());
 
             std::cin.get();
 

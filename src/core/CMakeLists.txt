@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
-    Passkey.cpp
+    Logger.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
