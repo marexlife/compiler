@@ -29,7 +29,7 @@ void App::run(int argc, char** argv)
 void App::compileFiles(std::vector<std::filesystem::path>&& filepaths)
 {
     for (auto& filepath : filepaths) {
-        compileFile(filepath);
+        App::compileFile(filepath);
     }
 }
 
