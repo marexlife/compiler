@@ -18,7 +18,7 @@ void App::run(int argc, char** argv)
 {
     auto userFilePaths = cl::Cli::getUserFilesPath(argc, argv);
 
-    selectAction(
+    App::selectAction(
         std::move(userFilePaths),
         [&](auto&& filepath) {
             App::compileFiles(std::move(filepath));
