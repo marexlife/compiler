@@ -75,11 +75,15 @@ void App::executeUserCommand(std::string &&userCommand) {
     parse::Parser::run(std::move(*lexerResult));
 }
 
+void App::runShellIteration() {
+    std::string userCommand = queryUserCommand();
+
+    executeUserCommand(std::move(userCommand));
+}
+
 void App::runShellMode() {
     for (;;) {
-        std::string userCommand = queryUserCommand();
-
-        executeUserCommand(std::move(userCommand));
+        runShellIteration();
     }
 }
 } // namespace compiler::app

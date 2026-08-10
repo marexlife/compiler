@@ -34,6 +34,7 @@ class App final {
     void compileFile(std::filesystem::path &filepath);
 
     void runShellMode();
+    void runShellIteration();
     [[nodiscard]] static std::string queryUserCommand();
     void executeUserCommand(std::string &&);
 
