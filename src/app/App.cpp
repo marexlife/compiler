@@ -1,6 +1,7 @@
 #include "App.h"
 
 #include <cstdlib>
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -17,7 +18,8 @@
 
 namespace compiler::app {
 void App::run(int argc, char **argv) {
-    auto userFilePaths = cl::Cli::getUserFilesPath(argc, argv);
+    absl::StatusOr<std::vector<std::filesystem::path>> userFilePaths =
+        cl::Cli::getUserFilesPath(argc, argv);
 
     App::selectAction(
         std::move(userFilePaths),
