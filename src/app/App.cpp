@@ -31,9 +31,7 @@ void App::runFileMode(std::vector<std::filesystem::path>&& filepaths)
         const auto lexedResult = lexer.run(std::move(sourceCode));
 
         if (!lexedResult.ok()) [[unlikely]] {
-            core::Logger::log(lexedResult.status());
-
-            std::exit(-1);
+            core::Logger::logFatal(lexedResult.status());
         }
 
         std::cin.get();
@@ -50,7 +48,7 @@ void App::runShellMode()
         auto result = lexer.run(std::move(userCommand));
 
         if (!result.ok()) {
-            core::Logger::log(result.status());
+            core::Logger::logError(result.status());
 
             std::cin.get();
 

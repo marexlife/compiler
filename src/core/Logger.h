@@ -12,7 +12,8 @@ public:
     Logger& operator=(const Logger&) = delete;
     ~Logger() = delete;
 
-    static void log(absl::Status error);
+    static void logError(absl::Status error);
+    static void logFatal(absl::Status error);
 };
 }
 #endif // COMPILER_CORE_LOGGER_H
