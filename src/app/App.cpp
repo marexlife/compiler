@@ -1,5 +1,6 @@
 #include "App.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdlib>
 #include <filesystem>
@@ -49,6 +50,19 @@ C. list files that should be compiled)";
     std::cout << helpScreen;
 }
 
+void App::compile(std::string &&sourceCode) {
+    absl::StatusOr<lex::TokenStream> lexerResult =
+        lexer.run(std::move(sourceCode));
+
+    if (!lexerResult.ok()) [[unlikely]] {
+        core::Logger::logFatal(lexerResult.status());
+    }
+
+    lex::LexerPrinter::printLexerResult(*lexerResult);
+
+    parse::Parser::run(std::move(*lexerResult));
+}
+
 void App::compileFile(std::string_view argument, std::size_t fileId) {
     bool isDirectory = std::filesystem::is_directory(argument);
 
@@ -59,12 +73,7 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
 
     std::string sourceCode = fetch::Fetcher::run(argument);
 
-    const absl::StatusOr<lex::TokenStream> lexedResult =
-        lexer.run(std::move(sourceCode));
-
-    if (!lexedResult.ok()) [[unlikely]] {
-        core::Logger::logFatal(lexedResult.status());
-    }
+    App::compile(std::move(sourceCode));
 
     std::cin.get();
 }
@@ -79,33 +88,20 @@ std::string App::queryUserCommand() {
 }
 
 void App::executeUserCommand(std::string &&userCommand) {
-    absl::StatusOr<lex::TokenStream> lexerResult =
-        lexer.run(std::move(userCommand));
-
-    if (!lexerResult.ok()) {
-        core::Logger::logError(lexerResult.status());
-
-        std::cin.get();
-
-        return;
-    }
-
-    lex::LexerPrinter::printLexerResult(*lexerResult);
-
-    parse::Parser::run(std::move(*lexerResult));
+    App::compile(std::move(userCommand));
 }
 
 void App::runShellIteration() {
     std::string userCommand = queryUserCommand();
 
-    executeUserCommand(std::move(userCommand));
+    App::executeUserCommand(std::move(userCommand));
 }
 
 void App::runShellMode() {
     std::cout << "Shell mode:\n\n";
 
     for (;;) {
-        runShellIteration();
+        App::runShellIteration();
     }
 }
 } // namespace compiler::app

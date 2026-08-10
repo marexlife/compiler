@@ -42,6 +42,7 @@ class App final {
     void compileFiles(int argc, char *argv[]);
     void compileFile(std::string_view argument, std::size_t fileId);
 
+    void compile(std::string &&sourceCode);
     void runShellMode();
     void runShellIteration();
     [[nodiscard]] static std::string queryUserCommand();
