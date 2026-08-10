@@ -7,12 +7,12 @@
 namespace compiler::cl {
 class Cli final {
 public:
-    Cli() = default;
+    Cli() = delete;
     Cli(Cli&&) = delete;
     Cli& operator=(Cli&&) = delete;
     Cli(const Cli&) = delete;
     Cli& operator=(const Cli&) = delete;
-    ~Cli() = default;
+    ~Cli() = delete;
 
     [[nodiscard]] static absl::StatusOr<
         std::vector<std::filesystem::path>>
