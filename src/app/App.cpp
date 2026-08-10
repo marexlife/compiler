@@ -103,7 +103,7 @@ void App::runShellIteration() {
 }
 
 void App::runShellMode() {
-    std::cout << "Shell mode:\n";
+    std::cout << "Shell mode:\n\n";
 
     for (;;) {
         runShellIteration();
