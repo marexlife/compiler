@@ -16,15 +16,14 @@ public:
     static void selectAction(int argc, char** argv,
         FileAction fileAction, ShellAction shellAction)
     {
-        if (auto user_filepath
-            = cl::Cli::getUserFilesPath(argc, argv);
-            user_filepath.ok()) [[likely]] {
+        if (auto userFilepath = cl::Cli::getUserFilesPath(argc, argv);
+            userFilepath.ok()) [[likely]] {
 
-            if (user_filepath->size() == 0) {
+            if (userFilepath->size() == 0) {
                 goto shell;
             }
 
-            fileAction(std::move(*user_filepath));
+            fileAction(std::move(*userFilepath));
 
             return;
         }
