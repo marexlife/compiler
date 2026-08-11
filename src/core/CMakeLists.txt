@@ -9,6 +9,7 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     Logger.cpp
+    ErrorFromater.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
