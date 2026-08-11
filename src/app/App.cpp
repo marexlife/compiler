@@ -37,7 +37,7 @@ void App::compileFiles(int argc, char *argv[]) {
         workers.emplace_back(std::jthread([&]() {
             App::compileFile(std::string_view{argv[i]}, i + 1);
         }));
-    }
+    }   
 }
 
 void App::showHelpScreen() {
