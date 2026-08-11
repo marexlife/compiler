@@ -59,10 +59,11 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
     if (!lexerResult.ok()) [[unlikely]] {
         switch (appModeKind) {
         case app::AppModeKind::FileMode:
-            core::Logger::logFatalError(lexerResult.status());
+            core::Logger::logFatalError(
+                lexerResult.status().message());
             break;
         case app::AppModeKind::ShellMode:
-            core::Logger::logError(lexerResult.status());
+            core::Logger::logError(lexerResult.status().message());
             break;
         case app::AppModeKind::Undecided: {
             static const std::string_view errorMessage =
@@ -94,7 +95,7 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
 
     std::string sourceCode = fetch::Fetcher::run(argument);
 
-    App::compile(std::move(sourceCode));
+    App::compile(std::move(sourceCode), AppModeKind::FileMode);
 }
 
 std::string App::queryUserCommand() {
@@ -107,7 +108,7 @@ std::string App::queryUserCommand() {
 }
 
 void App::executeUserCommand(std::string &&userCommand) {
-    App::compile(std::move(userCommand));
+    App::compile(std::move(userCommand), AppModeKind::ShellMode);
 }
 
 void App::runShellIteration() {
