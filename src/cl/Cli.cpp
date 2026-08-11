@@ -7,7 +7,7 @@
 
 #include "absl/status/status.h"
 
-namespace compiler::cl {
+namespace marex::cl {
 [[nodiscard]] absl::StatusOr<std::vector<std::filesystem::path>>
 Cli::getUserFilesPath(int argc, char **argv) {
     std::vector<std::filesystem::path> results;
@@ -37,4 +37,4 @@ Cli::getUserFilesPath(int argc, char **argv) {
 
     return results;
 }
-} // namespace compiler::cl
+} // namespace marex::cl

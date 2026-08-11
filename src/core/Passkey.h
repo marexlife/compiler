@@ -1,8 +1,8 @@
-#ifndef COMPILER_CORE_PASSKEY_H
-#define COMPILER_CORE_PASSKEY_H
+#ifndef MAREX_CORE_PASSKEY_H
+#define MAREX_CORE_PASSKEY_H
 #include <type_traits>
 
-namespace compiler::core {
+namespace marex::core {
 template <typename Factory>
     requires std::is_class_v<Factory>
 class [[nodiscard]] Passkey final {
@@ -20,4 +20,4 @@ class [[nodiscard]] Passkey final {
     Passkey() = default;
 };
 } // namespace compiler::core
-#endif // COMPILER_CORE_PASSKEY_H
+#endif // MAREX_CORE_PASSKEY_H

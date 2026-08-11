@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_TOKENFACTORY_H
-#define COMPILER_LEX_TOKENFACTORY_H
+#ifndef MAREX_LEX_TOKENFACTORY_H
+#define MAREX_LEX_TOKENFACTORY_H
 #include <absl/container/flat_hash_map.h>
 
 #include <string_view>
@@ -7,7 +7,7 @@
 #include "Token.h"
 #include "TokenKind.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 class TokenFactory final {
   public:
     TokenFactory()
@@ -30,4 +30,4 @@ class TokenFactory final {
     absl::flat_hash_map<std::string_view, TokenKind> mapping;
 };
 } // namespace compiler::lex
-#endif // COMPILER_LEX_TOKENFACTORY_H
+#endif // MAREX_LEX_TOKENFACTORY_H

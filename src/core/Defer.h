@@ -1,6 +1,6 @@
-#ifndef COMPILER_CORE_DEFER_H
-#define COMPILER_CORE_DEFER_H
-namespace compiler::core {
+#ifndef MAREX_CORE_DEFER_H
+#define MAREX_CORE_DEFER_H
+namespace marex::core {
 template <typename Functor> class Defer final {
   public:
     explicit Defer(Functor functor) : deferdFunc(functor) {}
@@ -15,5 +15,5 @@ template <typename Functor> class Defer final {
   private:
     Functor deferdFunc;
 };
-} // namespace compiler::core
-#endif // COMPILER_CORE_DEFER_H
+} // namespace marex::core
+#endif // MAREX_CORE_DEFER_H

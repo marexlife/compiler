@@ -7,7 +7,7 @@
 #include "TokenStream.h"
 #include <cstdint>
 
-namespace compiler::parse {
+namespace marex::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
     Node result{};
 

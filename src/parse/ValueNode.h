@@ -1,10 +1,10 @@
-#ifndef COMPILER_PARSE_VALUENODE_H
-#define COMPILER_PARSE_VALUENODE_H
+#ifndef MAREX_PARSE_VALUENODE_H
+#define MAREX_PARSE_VALUENODE_H
 #include <utility>
 
 #include "Node.h"
 
-namespace compiler::parse {
+namespace marex::parse {
 template <typename WrappedType, typename Tag>
 class ValueNode : public Node {
   public:
@@ -19,4 +19,4 @@ class ValueNode : public Node {
     WrappedType value{};
 };
 } // namespace compiler::parse
-#endif // COMPILER_PARSE_VALUENODE_H
+#endif // MAREX_PARSE_VALUENODE_H

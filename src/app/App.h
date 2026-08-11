@@ -1,10 +1,10 @@
-#ifndef COMPILER_APP_APP_H
-#define COMPILER_APP_APP_H
+#ifndef MAREX_APP_APP_H
+#define MAREX_APP_APP_H
 #include "Lexer.h"
 #include <cstddef>
 #include <string_view>
 
-namespace compiler::app {
+namespace marex::app {
 class App final {
   public:
     App() = default;
@@ -52,4 +52,4 @@ class App final {
     lex::Lexer lexer;
 };
 } // namespace compiler::app
-#endif // COMPILER_APP_APP_H
+#endif // MAREX_APP_APP_H
