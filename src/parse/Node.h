@@ -1,11 +1,15 @@
 #ifndef MAREX_PARSE_NODE_H
 #define MAREX_PARSE_NODE_H
 #include "Logger.h"
+#include "Token.h"
 #include <concepts>
 #include <cstdint>
 #include <utility>
 
 namespace marex::parse {
+class VarNode final {};
+class PrintNode final {};
+
 enum class [[nodiscard]] NodeKind : std::uint8_t {
     None = 0,
 
@@ -13,15 +17,9 @@ enum class [[nodiscard]] NodeKind : std::uint8_t {
 
 union TokenStorage final {};
 
-class VarNode final {};
-class PrintNode final {};
-
 class Node final {
   public:
-    template <typename T>
-        requires std::move_constructible<T>
-    explicit Node(T &&node, TokenStorage tokenStorage)
-        : tokenStorage{std::move(node)} {}
+    [[nodiscard]] static Node createNode(lex::Token &token);
 
     Node(Node &&) = default;
     Node &operator=(Node &&) = default;
@@ -46,6 +44,11 @@ class Node final {
     }
 
   private:
+    template <typename T>
+        requires std::move_constructible<T>
+    explicit Node(T &&node, TokenStorage tokenStorage)
+        : tokenStorage{std::move(node)} {}
+
     TokenStorage tokenStorage;
     NodeKind nodeKind = NodeKind::None;
 };

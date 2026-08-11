@@ -22,12 +22,9 @@ std::vector<Node>
 Parser::transformToNodes(lex::Statement &statement) {
     std::vector<Node> nodes;
 
-    /*
-     std::ranges::transform(statement, nodes.begin(),
-                            [&](lex::Token &token) {
-                                return NodeFactory::newNode(token);
-                            });
-     */
+    std::ranges::transform(
+        statement, nodes.begin(),
+        [&](lex::Token &token) { return Node::createNode(token); });
 
     return nodes;
 }
