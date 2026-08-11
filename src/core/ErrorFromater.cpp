@@ -1,16 +1,20 @@
+#include "ErorrFormater.h"
+#include <format>
 
-std::string Logger::mergeMessageWithSourceLocation(
+namespace marex::core {
+std::string ErrorFromater::mergeMessageWithSourceLocation(
     std::string_view message,
     const std::source_location &sourceLocation) {
     return std::format(
         "{}\n{}", message,
-        Logger::sourceLocationToString(sourceLocation));
+        ErrorFromater::sourceLocationToString(sourceLocation));
 }
 
-std::string Logger::sourceLocationToString(
+std::string ErrorFromater::sourceLocationToString(
     const std::source_location &sourceLocation) {
     return std::format(
         "at: {}, {}, {}:{}", sourceLocation.file_name(),
         sourceLocation.function_name(), sourceLocation.line(),
         sourceLocation.column());
 }
+} // namespace marex::core

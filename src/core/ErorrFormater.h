@@ -3,6 +3,7 @@
 #include <source_location>
 #include <string>
 
+namespace marex::core {
 class ErrorFromater final {
   public:
     [[nodiscard]] static std::string mergeMessageWithSourceLocation(
@@ -12,4 +13,5 @@ class ErrorFromater final {
     [[nodiscard]] static std::string sourceLocationToString(
         const std::source_location &sourceLocation);
 };
+} // namespace marex::core
 #endif // MAREX_CORE_ERRORFROMATER_H
