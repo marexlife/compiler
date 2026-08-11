@@ -65,7 +65,7 @@ void App::compile(std::string &&sourceCode) {
 }
 
 void App::compileFile(std::string_view argument, std::size_t fileId) {
-    bool isDirectory = std::filesystem::is_directory(argument);
+    const bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
         core::Logger::logFatal(
