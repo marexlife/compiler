@@ -6,6 +6,13 @@
 namespace marex::core {
 class ErrorFromater final {
   public:
+    ErrorFromater() = delete;
+    ErrorFromater(ErrorFromater &&) = delete;
+    ErrorFromater &operator=(ErrorFromater &&) = delete;
+    ErrorFromater(const ErrorFromater &) = delete;
+    ErrorFromater &operator=(const ErrorFromater &) = delete;
+    ~ErrorFromater() = delete;
+
     [[nodiscard]] static std::string mergeMessageWithSourceLocation(
         std::string_view message,
         const std::source_location &sourceLocation);
