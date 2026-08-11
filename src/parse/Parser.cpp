@@ -1,11 +1,12 @@
 #include "Parser.h"
 
 #include "Node.h"
+#include "NodeFactory.h"
 #include "Statement.h"
 #include "Token.h"
-#include "TokenKind.h"
 #include "TokenStream.h"
-#include <cstdint>
+#include <memory>
+#include <vector>
 
 namespace marex::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
@@ -17,19 +18,33 @@ void Parser::run(lex::TokenStream &&tokenStream) {
 }
 
 void Parser::processStatement(lex::Statement &statement) {
-    for (auto &token : statement) {
-        const std::uint8_t bindingPower = token.getBindingPower();
+    std::vector<std::unique_ptr<Node>> nodes =
+        transformToNodes(statement);
 
-        Parser::processToken(token);
+    Parser::processNodes(std::move(nodes));
+}
+
+std::vector<std::unique_ptr<Node>>
+Parser::transformToNodes(lex::Statement &statement) {
+    std::vector<std::unique_ptr<Node>> nodes;
+
+    std::ranges::transform(statement, nodes.begin(),
+                           [&](lex::Token &token) {
+                               return NodeFactory::newNode(token);
+                           });
+
+    return nodes;
+}
+
+void Parser::processNodes(
+    std::vector<std::unique_ptr<Node>> &&nodes) {
+
+    for (auto &node : nodes) {
+        Parser::processNode(*node);
     }
 }
 
-void Parser::processToken(lex::Token &token) {
-    switch (token.getKind()) {
-    case lex::TokenKind::Identifier:
-        break;
-    default:
-        break;
-    }
+void Parser::processNode(Node &node) {
+    
 }
 } // namespace marex::parse
