@@ -1,8 +1,8 @@
-#ifndef COMPILER_DEBUG_LEXPRINER_H
-#define COMPILER_DEBUG_LEXPRINER_H
+#ifndef MAREX_DEBUG_LEXPRINER_H
+#define MAREX_DEBUG_LEXPRINER_H
 #include "TokenStream.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 class LexerPrinter final {
   public:
     LexerPrinter() = delete;
@@ -10,4 +10,4 @@ class LexerPrinter final {
     static void printLexerResult(lex::TokenStream &tokenStream);
 };
 } // namespace compiler::lex
-#endif // COMPILER_DEBUG_LEXPRINER_H
+#endif // MAREX_DEBUG_LEXPRINER_H

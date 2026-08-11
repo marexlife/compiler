@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_TOKEN_H
-#define COMPILER_LEX_TOKEN_H
+#ifndef MAREX_LEX_TOKEN_H
+#define MAREX_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
 #include <cstdlib>
@@ -10,7 +10,7 @@
 #include "Passkey.h"
 #include "TokenKind.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
   public:
@@ -23,17 +23,17 @@ class [[nodiscard]] Token final {
 
     [[nodiscard]] std::uint8_t getBindingPower() const {
         switch (kind) {
-        case compiler::lex::TokenKind::Print: {
+        case lex::TokenKind::Print: {
             static const std::uint8_t bindingPower = 100;
 
             return bindingPower;
         } break;
-        case compiler::lex::TokenKind::Var: {
+        case lex::TokenKind::Var: {
             static const std::uint8_t bindingPower = 30;
 
             return bindingPower;
         } break;
-        case compiler::lex::TokenKind::Identifier: {
+        case lex::TokenKind::Identifier: {
             static const std::uint8_t bindingPower = 10;
 
             return bindingPower;
@@ -53,5 +53,5 @@ class [[nodiscard]] Token final {
     std::string lexeme;
     TokenKind kind{};
 };
-} // namespace compiler::lex
-#endif // COMPILER_LEX_TOKEN_H
+} // namespace marex::lex
+#endif // MAREX_LEX_TOKEN_H

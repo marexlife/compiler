@@ -1,10 +1,10 @@
-#ifndef COMPILER_PARSE_IFNODE_H
-#define COMPILER_PARSE_IFNODE_H
+#ifndef MAREX_PARSE_IFNODE_H
+#define MAREX_PARSE_IFNODE_H
 #include "SingalNode.h"
 
-namespace compiler::parse {
+namespace marex::parse {
 class IfNode final : public SingalNode {
   public:
 };
 } // namespace compiler::parse
-#endif // COMPILER_PARSE_IFNODE_H
+#endif // MAREX_PARSE_IFNODE_H

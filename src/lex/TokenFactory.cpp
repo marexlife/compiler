@@ -8,7 +8,7 @@
 #include "Token.h"
 #include "TokenKind.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 Token TokenFactory::createToken(std::string &&sourceWord) {
     return Token{
         core::Passkey<TokenFactory>{},

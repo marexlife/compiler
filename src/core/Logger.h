@@ -1,11 +1,11 @@
-#ifndef COMPILER_CORE_LOGGER_H
-#define COMPILER_CORE_LOGGER_H
+#ifndef MAREX_CORE_LOGGER_H
+#define MAREX_CORE_LOGGER_H
 #include "absl/status/status.h"
 #include <source_location>
 #include <string>
 #include <string_view>
 
-namespace compiler::core {
+namespace marex::core {
 class Logger final {
   public:
     Logger() = delete;
@@ -41,5 +41,5 @@ class Logger final {
     [[nodiscard]] static std::string sourceLocationToString(
         const std::source_location &sourceLocation);
 };
-} // namespace compiler::core
-#endif // COMPILER_CORE_LOGGER_H
+} // namespace marex::core
+#endif // MAREX_CORE_LOGGER_H

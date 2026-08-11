@@ -12,7 +12,7 @@
 #include "TokenStream.h"
 #include "absl/status/status.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 absl::StatusOr<TokenStream> Lexer::run(std::string &&sourceText) {
     TokenStream result;
 
@@ -82,4 +82,4 @@ void Lexer::pushStatement(TokenStream &result) {
 
     lastStatement.clear();
 }
-} // namespace compiler::lex
+} // namespace marex::lex

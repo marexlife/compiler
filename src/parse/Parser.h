@@ -1,11 +1,11 @@
-#ifndef COMPILER_PARSE_PARSER_H
-#define COMPILER_PARSE_PARSER_H
+#ifndef MAREX_PARSE_PARSER_H
+#define MAREX_PARSE_PARSER_H
 #include <cstddef>
 
 #include "Token.h"
 #include "TokenStream.h"
 
-namespace compiler::parse {
+namespace marex::parse {
 class Parser final {
     static const std::size_t nodesDefaultReserve = 100;
 
@@ -24,4 +24,4 @@ class Parser final {
     static void processToken(lex::Token &token);
 };
 } // namespace compiler::parse
-#endif // COMPILER_PARSE_PARSER_H
+#endif // MAREX_PARSE_PARSER_H

@@ -18,7 +18,7 @@
 #include "TokenStream.h"
 #include "absl/status/statusor.h"
 
-namespace compiler::app {
+namespace marex::app {
 void App::run(int argc, char *argv[]) {
     App::selectAction(
         argc, argv,
@@ -105,4 +105,4 @@ void App::runShellMode() {
         App::runShellIteration();
     }
 }
-} // namespace compiler::app
+} // namespace marex::app

@@ -5,7 +5,7 @@
 #include <string>
 #include <string_view>
 
-namespace compiler::core {
+namespace marex::core {
 void Logger::logInfo(std::string &&message) {
     Logger::logInfo(message);
 }
@@ -68,4 +68,4 @@ std::string Logger::sourceLocationToString(
         sourceLocation.function_name(), sourceLocation.line(),
         sourceLocation.column());
 }
-} // namespace compiler::core
+} // namespace marex::core

@@ -1,14 +1,12 @@
 #include "Fetcher.h"
 
-#include <filesystem>
 #include <fstream>
 #include <string>
+#include <string_view>
 
-namespace compiler::fetch {
-[[nodiscard]] std::string Fetcher::run(
-    std::filesystem::path&& filepath)
-{
-    std::ifstream inputFilestream { filepath };
+namespace marex::fetch {
+[[nodiscard]] std::string Fetcher::run(std::string_view filepath) {
+    std::ifstream inputFilestream{filepath.data()};
     std::string result;
 
     result.reserve(resultReserveAmount);
@@ -19,4 +17,4 @@ namespace compiler::fetch {
 
     return result;
 }
-} // namespace compiler::fetch
+} // namespace marex::fetch

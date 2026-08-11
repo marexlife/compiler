@@ -6,7 +6,7 @@
 #include "PrintNode.h"
 #include "VarNode.h"
 
-namespace compiler::parse {
+namespace marex::parse {
 std::unique_ptr<Node> NodeFactory::newNode(lex::Token &input) {
     switch (input.getKind()) {
     case lex::TokenKind::Identifier:

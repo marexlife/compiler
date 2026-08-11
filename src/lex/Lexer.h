@@ -1,5 +1,5 @@
-#ifndef COMPILER_LEX_LEXER_H
-#define COMPILER_LEX_LEXER_H
+#ifndef MAREX_LEX_LEXER_H
+#define MAREX_LEX_LEXER_H
 #include <absl/container/inlined_vector.h>
 #include <absl/strings/string_view.h>
 
@@ -10,7 +10,7 @@
 #include "TokenStream.h"
 #include "absl/status/statusor.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 class [[nodiscard]] Lexer final {
     static constexpr std::size_t vectorDefaultSize = 10;
 
@@ -35,4 +35,4 @@ class [[nodiscard]] Lexer final {
     std::string lastWord;
 };
 } // namespace compiler::lex
-#endif // COMPILER_LEXER_LEXER_H
+#endif // MAREX_LEXER_LEXER_H

@@ -1,10 +1,10 @@
-#ifndef COMPILER_LEX_TOKENSTREAM_H
-#define COMPILER_LEX_TOKENSTREAM_H
+#ifndef MAREX_LEX_TOKENSTREAM_H
+#define MAREX_LEX_TOKENSTREAM_H
 #include <vector>
 
 #include "Statement.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 using TokenStream = std::vector<Statement>;
 } // namespace compiler::lex
-#endif // COMPILER_LEX_TOKENSTREAM_H
+#endif // MAREX_LEX_TOKENSTREAM_H
