@@ -57,27 +57,15 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
         lexer.run(std::move(sourceCode));
 
     if (!lexerResult.ok()) [[unlikely]] {
-        switch (appModeKind) {
-        case app::AppModeKind::FileMode:
-            core::Logger::logFatalError(
-                lexerResult.status().message());
-            break;
-        case app::AppModeKind::ShellMode:
-            core::Logger::logError(lexerResult.status().message());
-            break;
-        case app::AppModeKind::Undecided: {
-            static const std::string_view errorMessage =
-                "compiler state is not deicded";
-
-            core::Logger::logFatalError(errorMessage);
-        } break;
-        default: {
-            static const std::string_view errorMessage =
-                "compile state is invalid";
-
-            core::Logger::logFatalError(errorMessage);
-        } break;
-        }
+        App::handleModeKind(
+            appModeKind,
+            [&](auto &&errorMessage) {
+                core::Logger::logFatalError(errorMessage);
+            },
+            [&](auto &&errorMessage) {
+                core::Logger::logError(errorMessage);
+            },
+            lexerResult.status().message());
     }
 
     parse::Parser::run(std::move(*lexerResult));

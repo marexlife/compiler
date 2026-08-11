@@ -2,8 +2,10 @@
 #define MAREX_APP_APP_H
 #include "AppModeKind.h"
 #include "Lexer.h"
+#include <concepts>
 #include <cstddef>
 #include <string_view>
+#include <utility>
 
 namespace marex::app {
 class App final {
@@ -30,13 +32,45 @@ class App final {
 
         static const std::string_view helpCommand = "--help";
 
-        if (firstArgument == helpCommand) {
+        if (firstArgument == helpCommand) [[unlikely]] {
             showHelpScreen();
 
             return;
         }
 
         fileAction(argc, argv);
+    }
+
+    template <typename FileModeAction, typename ShellModeAction,
+              typename... ActionArguments>
+        requires std::invocable<FileModeAction, ActionArguments...> &&
+                 std::invocable<ShellModeAction, ActionArguments...>
+    static void handleModeKind(AppModeKind appModeKind,
+                               FileModeAction &&fileModeAction,
+                               ShellModeAction &&shellModeAction,
+                               ActionArguments... actionArguments) {
+        switch (appModeKind) {
+        case app::AppModeKind::FileMode:
+            fileModeAction(
+                std::forward<ActionArguments>(actionArguments)...);
+            break;
+        case app::AppModeKind::ShellMode:
+            shellModeAction(
+                std::forward<ActionArguments>(actionArguments)...);
+            break;
+        case app::AppModeKind::Undecided: {
+            static const std::string_view errorMessage =
+                "compiler state is not deicded";
+
+            core::Logger::logFatalError(errorMessage);
+        } break;
+        default: {
+            static const std::string_view errorMessage =
+                "compile state is invalid";
+
+            core::Logger::logFatalError(errorMessage);
+        } break;
+        }
     }
 
     static void showHelpScreen();
