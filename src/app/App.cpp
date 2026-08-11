@@ -37,7 +37,7 @@ void App::compileFiles(int argc, char *argv[]) {
         workers.emplace_back(std::jthread([&]() {
             App::compileFile(std::string_view{argv[i]}, i + 1);
         }));
-    }   
+    }
 }
 
 void App::showHelpScreen() {
@@ -75,8 +75,6 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
     std::string sourceCode = fetch::Fetcher::run(argument);
 
     App::compile(std::move(sourceCode));
-
-    std::cin.get();
 }
 
 std::string App::queryUserCommand() {
@@ -96,6 +94,8 @@ void App::runShellIteration() {
     std::string userCommand = queryUserCommand();
 
     App::executeUserCommand(std::move(userCommand));
+
+    std::cin.get();
 }
 
 void App::runShellMode() {
