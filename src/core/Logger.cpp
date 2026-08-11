@@ -2,6 +2,7 @@
 #include "ErorrFormater.h"
 #include "spdlog/spdlog.h"
 #include <cstdlib>
+#include <iostream>
 #include <string>
 #include <string_view>
 
@@ -24,5 +25,11 @@ void Logger::logFatalError(std::string_view message,
     Logger::logError(message, sourceLocation);
 
     std::exit(-1);
+}
+
+void Logger::logFatalInternalError(
+    std::string_view message, std::source_location sourceLocation) {
+    std::cout << "Internal error:";
+    Logger::logFatalError(message, sourceLocation);
 }
 } // namespace marex::core
