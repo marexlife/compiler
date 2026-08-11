@@ -10,8 +10,6 @@
 
 namespace marex::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
-    Node result{};
-
     for (lex::Statement &statement : tokenStream) {
         Parser::processStatement(statement);
     }
@@ -44,7 +42,5 @@ void Parser::processNodes(
     }
 }
 
-void Parser::processNode(Node &node) {
-    
-}
+void Parser::processNode(Node &node) {}
 } // namespace marex::parse
