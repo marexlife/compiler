@@ -39,14 +39,14 @@ class [[nodiscard]] Token final {
             return bindingPower;
         } break;
         case TokenKind::None:
-            core::Logger::logFatal(
+            core::Logger::logFatalError(
                 std::string_view{"TokenKind is none"});
         default:
-            core::Logger::logFatal(
+            core::Logger::logFatalError(
                 std::string_view{"TokenKind is Invalid"});
         }
 
-        core::Logger::logFatal(std::string_view{"No Token selected"});
+        core::Logger::logFatalError(std::string_view{"No Token selected"});
     }
 
   private:

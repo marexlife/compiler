@@ -1,5 +1,6 @@
 #ifndef MAREX_APP_APP_H
 #define MAREX_APP_APP_H
+#include "AppModeKind.h"
 #include "Lexer.h"
 #include <cstddef>
 #include <string_view>
@@ -42,7 +43,7 @@ class App final {
     void compileFiles(int argc, char *argv[]);
     void compileFile(std::string_view argument, std::size_t fileId);
 
-    void compile(std::string &&sourceCode);
+    void compile(std::string &&sourceCode, AppModeKind appModeKind);
     void runShellMode();
     void runShellIteration();
     [[nodiscard]] static std::string queryUserCommand();
@@ -51,5 +52,5 @@ class App final {
   private:
     lex::Lexer lexer;
 };
-} // namespace compiler::app
+} // namespace marex::app
 #endif // MAREX_APP_APP_H

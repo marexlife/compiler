@@ -1,15 +1,19 @@
 class Player {
-    int32 health = 10;
-}
-
-int Main() {
-    player [Share] := new Player{};
-
-    Xs := [1, 2, 3];
-´
-    for (val X in Xs) {
-        Print("x {}", x);
+public:
+    void takeDamage(health: int) {
+        health -= health
     }
 
-    return 0;
+private:
+    int health = 10;
+}
+
+void main() {
+    Player player = new();
+
+    int[] xs = [1, 2, 3];
+
+    for (var x in xs) {
+        print("x {x}");
+    }
 }

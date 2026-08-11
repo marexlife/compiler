@@ -32,4 +32,4 @@ void Parser::processToken(lex::Token &token) {
         break;
     }
 }
-} // namespace compiler::parse
+} // namespace marex::parse

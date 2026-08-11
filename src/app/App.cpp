@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 
+#include "AppModeKind.h"
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
@@ -51,24 +52,43 @@ C. list files that should be compiled)";
     std::exit(-1);
 }
 
-void App::compile(std::string &&sourceCode) {
+void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
     absl::StatusOr<lex::TokenStream> lexerResult =
         lexer.run(std::move(sourceCode));
 
     if (!lexerResult.ok()) [[unlikely]] {
-        core::Logger::logFatal(lexerResult.status());
+        switch (appModeKind) {
+        case app::AppModeKind::FileMode:
+            core::Logger::logFatalError(lexerResult.status());
+            break;
+        case app::AppModeKind::ShellMode:
+            core::Logger::logError(lexerResult.status());
+            break;
+        case app::AppModeKind::Undecided: {
+            static const std::string_view errorMessage =
+                "compiler state is not deicded";
+
+            core::Logger::logFatalError(errorMessage);
+        } break;
+        default: {
+            static const std::string_view errorMessage =
+                "compile state is invalid";
+
+            core::Logger::logFatalError(errorMessage);
+        } break;
+        }
     }
 
-    lex::LexerPrinter::printLexerResult(*lexerResult);
-
     parse::Parser::run(std::move(*lexerResult));
+
+    lex::LexerPrinter::printLexerResult(*lexerResult);
 }
 
 void App::compileFile(std::string_view argument, std::size_t fileId) {
     const bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
-        core::Logger::logFatal(
+        core::Logger::logFatalError(
             std::string_view{"is not a directory"});
     }
 
