@@ -1,13 +1,15 @@
 #include "App.h"
 
+#include <cstddef>
 #include <cstdlib>
 #include <filesystem>
 #include <iostream>
 #include <string>
+#include <string_view>
+#include <thread>
 #include <utility>
 #include <vector>
 
-#include "Cli.h"
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
@@ -16,41 +18,67 @@
 #include "TokenStream.h"
 #include "absl/status/statusor.h"
 
-namespace compiler::app {
-void App::run(int argc, char **argv) {
-    absl::StatusOr<std::vector<std::filesystem::path>> userFilePaths =
-        cl::Cli::getUserFilesPath(argc, argv);
-
+namespace marex::app {
+void App::run(int argc, char *argv[]) {
     App::selectAction(
-        std::move(userFilePaths),
-        [&](std::vector<std::filesystem::path> &&filepaths) {
-            App::compileFiles(std::move(filepaths));
+        argc, argv,
+        [&](int argc, char *argv[]) {
+            App::compileFiles(argc, argv);
         },
         [&]() { App::runShellMode(); });
 }
 
-void App::compileFiles(
-    std::vector<std::filesystem::path> &&filepaths) {
-    for (auto &filepath : filepaths) {
-        App::compileFile(filepath);
+void App::compileFiles(int argc, char *argv[]) {
+    std::vector<std::jthread> workers;
+
+    workers.reserve(argc - 1);
+
+    for (std::size_t i = 1; std::cmp_less(i, argc); ++i) {
+        workers.emplace_back(std::jthread([&]() {
+            App::compileFile(std::string_view{argv[i]}, i + 1);
+        }));
     }
 }
 
-void App::compileFile(std::filesystem::path &filepath) {
-    std::string sourceCode = fetch::Fetcher::run(std::move(filepath));
+void App::showHelpScreen() {
+    static const std::string_view helpScreen = R"(Help screen:
+A. --help to get to here
+B. 'clear;' to clear the screen in Shell mode
+C. list files that should be compiled)";
 
-    const absl::StatusOr<lex::TokenStream> lexedResult =
+    std::cout << helpScreen;
+
+    std::exit(-1);
+}
+
+void App::compile(std::string &&sourceCode) {
+    absl::StatusOr<lex::TokenStream> lexerResult =
         lexer.run(std::move(sourceCode));
 
-    if (!lexedResult.ok()) [[unlikely]] {
-        core::Logger::logFatal(lexedResult.status());
+    if (!lexerResult.ok()) [[unlikely]] {
+        core::Logger::logFatal(lexerResult.status());
     }
 
-    std::cin.get();
+    lex::LexerPrinter::printLexerResult(*lexerResult);
+
+    parse::Parser::run(std::move(*lexerResult));
+}
+
+void App::compileFile(std::string_view argument, std::size_t fileId) {
+    bool isDirectory = std::filesystem::is_directory(argument);
+
+    if (!isDirectory) [[unlikely]] {
+        core::Logger::logFatal(
+            std::string_view{"is not a directory"});
+    }
+
+    std::string sourceCode = fetch::Fetcher::run(argument);
+
+    App::compile(std::move(sourceCode));
 }
 
 std::string App::queryUserCommand() {
-    std::cout << "Input a command.\n";
+    std::cout << "Input a command...\n";
 
     std::string userCommand;
     std::getline(std::cin, userCommand);
@@ -59,27 +87,22 @@ std::string App::queryUserCommand() {
 }
 
 void App::executeUserCommand(std::string &&userCommand) {
-    absl::StatusOr<lex::TokenStream> lexerResult =
-        lexer.run(std::move(userCommand));
+    App::compile(std::move(userCommand));
+}
 
-    if (!lexerResult.ok()) {
-        core::Logger::logError(lexerResult.status());
+void App::runShellIteration() {
+    std::string userCommand = queryUserCommand();
 
-        std::cin.get();
+    App::executeUserCommand(std::move(userCommand));
 
-        return;
-    }
-
-    lex::LexerPrinter::printLexerResult(*lexerResult);
-
-    parse::Parser::run(std::move(*lexerResult));
+    std::cin.get();
 }
 
 void App::runShellMode() {
-    for (;;) {
-        std::string userCommand = queryUserCommand();
+    std::cout << "Shell mode:\n\n";
 
-        executeUserCommand(std::move(userCommand));
+    for (;;) {
+        App::runShellIteration();
     }
 }
-} // namespace compiler::app
+} // namespace marex::app

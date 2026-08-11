@@ -1,10 +1,10 @@
-#ifndef COMPILER_CL_CLI_H
-#define COMPILER_CL_CLI_H
+#ifndef MAREX_CL_CLI_H
+#define MAREX_CL_CLI_H
 #include <filesystem>
 
 #include "absl/status/statusor.h"
 
-namespace compiler::cl {
+namespace marex::cl {
 class Cli final {
   public:
     Cli() = delete;
@@ -18,5 +18,5 @@ class Cli final {
         std::vector<std::filesystem::path>>
     getUserFilesPath(int argc, char **argv);
 };
-} // namespace compiler::cl
-#endif // COMPILER_CL_CLI_H
+} // namespace marex::cl
+#endif // MAREX_CL_CLI_H

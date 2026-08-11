@@ -1,10 +1,10 @@
-#ifndef COMPILER_LEX_STATEMENT_H
-#define COMPILER_LEX_STATEMENT_H
+#ifndef MAREX_LEX_STATEMENT_H
+#define MAREX_LEX_STATEMENT_H
 #include <vector>
 
 #include "Token.h"
 
-namespace compiler::lex {
+namespace marex::lex {
 using Statement = std::vector<Token>;
 } // namespace compiler::lex
 #endif // COMPILER_LEX_STATEMENT_H

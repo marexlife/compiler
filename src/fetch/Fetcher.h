@@ -1,22 +1,20 @@
-#ifndef COMPILER_FETCH_FETCHER_H
-#define COMPILER_FETCH_FETCHER_H
-#include <filesystem>
+#ifndef MAREX_FETCH_FETCHER_H
+#define MAREX_FETCH_FETCHER_H
 #include <string>
 
-namespace compiler::fetch {
+namespace marex::fetch {
 class Fetcher final {
-public:
+  public:
     static const std::size_t resultReserveAmount = 100;
 
     Fetcher() = delete;
-    Fetcher(Fetcher&&) = delete;
-    Fetcher& operator=(Fetcher&&) = delete;
-    Fetcher(const Fetcher&) = delete;
-    Fetcher& operator=(const Fetcher&) = delete;
+    Fetcher(Fetcher &&) = delete;
+    Fetcher &operator=(Fetcher &&) = delete;
+    Fetcher(const Fetcher &) = delete;
+    Fetcher &operator=(const Fetcher &) = delete;
     ~Fetcher() = delete;
 
-    [[nodiscard]] static std::string run(
-        std::filesystem::path&& filepath);
+    [[nodiscard]] static std::string run(std::string_view filepath);
 };
-} // namespace compiler::fetch
-#endif // COMPILER_FETCH_FETCHER_H
+} // namespace marex::fetch
+#endif // MAREX_FETCH_FETCHER_H

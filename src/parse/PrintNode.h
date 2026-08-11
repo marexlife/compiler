@@ -1,10 +1,10 @@
-#ifndef COMPILER_PARSE_PRINTNODE_H
-#define COMPILER_PARSE_PRINTNODE_H
+#ifndef MAREX_PARSE_PRINTNODE_H
+#define MAREX_PARSE_PRINTNODE_H
 #include "SingalNode.h"
 
-namespace compiler::parse {
+namespace marex::parse {
 class PrintNode final : public SingalNode {
   public:
 };
 } // namespace compiler::parse
-#endif // COMPILER_PARSE_PRINTNODE_H
+#endif // MAREX_PARSE_PRINTNODE_H

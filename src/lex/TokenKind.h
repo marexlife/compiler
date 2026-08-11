@@ -1,8 +1,8 @@
-#ifndef COMPILER_LEX_TOKENKIND_H
-#define COMPILER_LEX_TOKENKIND_H
+#ifndef MAREX_LEX_TOKENKIND_H
+#define MAREX_LEX_TOKENKIND_H
 #include <cstdint>
 
-namespace compiler::lex {
+namespace marex::lex {
 enum class [[nodiscard]] TokenKind : std::uint8_t {
     None = 0,
     Identifier,
@@ -10,4 +10,4 @@ enum class [[nodiscard]] TokenKind : std::uint8_t {
     Var,
 };
 }
-#endif // COMPILER_LEX_TOKENKIND_H
+#endif // MAREX_LEX_TOKENKIND_H

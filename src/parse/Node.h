@@ -1,14 +1,14 @@
-#ifndef COMPILER_PARSE_NODE_H
-#define COMPILER_PARSE_NODE_H
-namespace compiler::parse {
+#ifndef MAREX_PARSE_NODE_H
+#define MAREX_PARSE_NODE_H
+namespace marex::parse {
 class Node {
-   public:
+  public:
     Node() = default;
-    Node(Node&&) = default;
-    Node& operator=(Node&&) = default;
-    Node(const Node&) = delete;
-    Node& operator=(const Node&) = delete;
+    Node(Node &&) = default;
+    Node &operator=(Node &&) = default;
+    Node(const Node &) = delete;
+    Node &operator=(const Node &) = delete;
     virtual ~Node() = default;
 };
-}  // namespace compiler::parse
-#endif  // COMPILER_PARSE_NODE_H
+} // namespace compiler::parse
+#endif // MAREX_PARSE_NODE_H

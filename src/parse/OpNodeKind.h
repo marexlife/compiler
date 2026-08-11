@@ -1,8 +1,8 @@
-#ifndef COMPILER_PARSE_OPNODEKIND_H
-#define COMPILER_PARSE_OPNODEKIND_H
+#ifndef MAREX_PARSE_OPNODEKIND_H
+#define MAREX_PARSE_OPNODEKIND_H
 #include <cstdint>
 
-namespace compiler::parse {
+namespace marex::parse {
 enum class [[nodiscard]] OpNodeKind : std::uint8_t {
     None = 0,
     Plus,
@@ -11,4 +11,4 @@ enum class [[nodiscard]] OpNodeKind : std::uint8_t {
     Divide,
 };
 }
-#endif // COMPILER_PARSE_OPNODEKIND_H
+#endif // MAREX_PARSE_OPNODEKIND_H
