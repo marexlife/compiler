@@ -4,6 +4,8 @@
 #include "Token.h"
 #include <concepts>
 #include <cstdint>
+#include <functional>
+#include <optional>
 #include <utility>
 
 namespace marex::parse {
@@ -27,10 +29,14 @@ class Node final {
     Node &operator=(const Node &) = delete;
     ~Node() {
         switch (nodeKind) {
+            
         case NodeKind::None:
-            core::Logger::logFatalInternalError("none is selected!");
+            goto fatal;
             break;
         }
+
+    fatal:
+        core::Logger::logFatalInternalError("invalid node value!");
     }
 
     [[nodiscard]] NodeKind getNodeKind() const { return nodeKind; }
@@ -51,6 +57,9 @@ class Node final {
 
     TokenStorage tokenStorage;
     NodeKind nodeKind = NodeKind::None;
+
+    std::optional<std::reference_wrapper<Node>> lhs = std::nullopt;
+    std::optional<std::reference_wrapper<Node>> rhs = std::nullopt;
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_NODE_H
