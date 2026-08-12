@@ -14,7 +14,7 @@ struct VarNode final {
     }
 };
 
-struct IfNode final {
+struct IndentNode final {
     [[nodiscard]] static NodeKind getNodeKind() {
         return NodeKind::Var;
     }

@@ -29,10 +29,10 @@ class Node final {
         case NodeKind::None:
             core::Logger::logFatalInternalError("Node value is None");
             break;
+        default:
+            core::Logger::logFatalInternalError("Invalid node value");
+            break;
         }
-
-    fatal:
-        core::Logger::logFatalInternalError("Invalid node value");
     }
 
     [[nodiscard]] NodeKind getNodeKind() const { return nodeKind; }
@@ -46,13 +46,9 @@ class Node final {
         return nodeStorage;
     }
 
-    void setLhs(std::optional<std::reference_wrapper<Node>> value) {
-        lhs = value;
-    }
+    void setLhs(std::reference_wrapper<Node> value) { lhs = value; }
 
-    void setRhs(std::optional<std::reference_wrapper<Node>> value) {
-        rhs = value;
-    }
+    void setRhs(std::reference_wrapper<Node> value) { rhs = value; }
 
   private:
     template <IsNodeVariant T>
