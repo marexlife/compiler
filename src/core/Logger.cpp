@@ -16,7 +16,7 @@ void Logger::logError(std::string_view message,
         ErrorFromater::mergeMessageWithSourceLocation(message,
                                                       sourceLocation);
 
-    std::cout << "error: " << message << '\n';
+    std::cout << "error: " << formatResult << '\n';
 }
 
 void Logger::logFatalError(std::string_view message,

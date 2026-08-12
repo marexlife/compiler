@@ -42,16 +42,16 @@ class [[nodiscard]] Token final {
         case TokenKind::None:
             core::Logger::logFatalError(
                 std::string_view{"TokenKind is none"},
-                std::source_location{});
+                std::source_location::current());
         default:
             core::Logger::logFatalError(
                 std::string_view{"TokenKind is Invalid"},
-                std::source_location{});
+                std::source_location::current());
         }
 
         core::Logger::logFatalError(
             std::string_view{"No Token selected"},
-            std::source_location{});
+            std::source_location::current());
     }
 
   private:
