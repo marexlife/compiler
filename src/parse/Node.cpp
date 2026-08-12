@@ -15,7 +15,6 @@ namespace marex::parse {
     }
 
 fail:
-    core::Logger::logFatalInternalError(
-        "unhandled enum value", std::source_location::current());
+    core::Logger::logFatalInternalError("unhandled enum value");
 }
 } // namespace marex::parse

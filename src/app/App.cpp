@@ -80,9 +80,7 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
     const bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
-        core::Logger::logFatalError(
-            std::string_view{"is not a directory"},
-            std::source_location::current());
+        core::Logger::logFatalError("is not a directory");
     }
 
     std::string sourceCode = fetch::Fetcher::run(argument);

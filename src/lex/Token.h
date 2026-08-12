@@ -3,7 +3,6 @@
 #include <absl/status/statusor.h>
 
 #include <cstdlib>
-#include <source_location>
 #include <string>
 #include <string_view>
 
@@ -40,18 +39,12 @@ class [[nodiscard]] Token final {
             return bindingPower;
         } break;
         case TokenKind::None:
-            core::Logger::logFatalError(
-                std::string_view{"TokenKind is none"},
-                std::source_location::current());
+            core::Logger::logFatalError("TokenKind is none");
         default:
-            core::Logger::logFatalError(
-                std::string_view{"TokenKind is Invalid"},
-                std::source_location::current());
+            core::Logger::logFatalError("TokenKind is Invalid");
         }
 
-        core::Logger::logFatalError(
-            std::string_view{"No Token selected"},
-            std::source_location::current());
+        core::Logger::logFatalError("No Token selected");
     }
 
   private:

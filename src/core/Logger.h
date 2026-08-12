@@ -14,6 +14,7 @@ class Logger final {
     ~Logger() = delete;
 
     static void logInfo(std::string_view message);
+
     static void logError(std::string_view message,
                          std::source_location sourceLocation =
                              std::source_location::current());

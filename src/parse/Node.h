@@ -38,7 +38,7 @@ class Node final {
 
     fatal:
         core::Logger::logFatalInternalError(
-            "invalid node value!", std::source_location::current());
+            "invalid node value!");
     }
 
     [[nodiscard]] NodeKind getNodeKind() const { return nodeKind; }
