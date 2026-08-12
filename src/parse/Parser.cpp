@@ -22,9 +22,10 @@ std::vector<Node>
 Parser::transformToNodes(lex::Statement &statement) {
     std::vector<Node> nodes;
 
-    std::ranges::transform(
-        statement, nodes.begin(),
-        [&](lex::Token &token) { return Node::createNode(token); });
+    std::ranges::transform(statement, nodes.begin(),
+                           [&](lex::Token &token) -> Node {
+                               return Node::createNode(token);
+                           });
 
     return nodes;
 }
