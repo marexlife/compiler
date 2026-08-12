@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <filesystem>
+#include <format>
 #include <iostream>
 #include <source_location>
 #include <string>
@@ -33,7 +34,7 @@ void App::run(int argc, char *argv[]) {
 void App::compileFiles(int argc, char *argv[]) {
     std::vector<std::jthread> workers;
 
-    workers.reserve(argc - 1);
+    workers.reserve(static_cast<std::size_t>(argc - 1));
 
     for (std::size_t i = 1; std::cmp_less(i, argc); ++i) {
         workers.emplace_back(std::jthread([&]() {
@@ -80,7 +81,9 @@ void App::compileFile(std::string_view argument, std::size_t fileId) {
     const bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
-        core::Logger::logFatalError("is not a directory");
+        std::string errorMessage =
+            std::format("{} argument is not a directory", fileId);
+        core::Logger::logFatalError(errorMessage);
     }
 
     std::string sourceCode = fetch::Fetcher::run(argument);

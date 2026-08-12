@@ -8,7 +8,6 @@ set(MAREX_FLAGS
     -fno-rtti
     -Wall
     -Wextra
-    -Wpedantic
     -Wconversion
     -Werror
 )

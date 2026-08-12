@@ -4,6 +4,7 @@
 
 namespace marex::parse {
 union NoadeStorage final {
+    InvalidNode invalidNode;
     VarNode varNode;
     IndentNode identNode;
     PrintNode printNode;

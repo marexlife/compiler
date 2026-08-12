@@ -11,7 +11,7 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     Parser.cpp
-    Node.cpp
+    NodeDispatcher.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC

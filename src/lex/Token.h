@@ -14,8 +14,8 @@ namespace marex::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
   public:
-    Token(core::Passkey<TokenFactory> &&passkey, std::string &&lexeme,
-          TokenKind tokenKind)
+    Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
+          std::string &&lexeme, TokenKind tokenKind)
         : lexeme(std::move(lexeme)), kind(tokenKind) {}
 
     [[nodiscard]] std::string getLexeme() const { return lexeme; }
