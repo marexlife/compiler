@@ -16,7 +16,8 @@ class Node final {
     [[nodiscard]] static Node createNode(lex::Token &token);
 
     Node(Node &&) = default;
-    Node &operator=(Node &&) = default;
+
+    Node &operator=(Node &&) = delete;
     Node(const Node &) = delete;
     Node &operator=(const Node &) = delete;
 
