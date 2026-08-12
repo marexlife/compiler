@@ -60,7 +60,7 @@ class App final {
             break;
         case app::AppModeKind::Undecided: {
             static const std::string_view errorMessage =
-                "compiler state is not deicded";
+                "compiler state is not decided";
 
             core::Logger::logFatalError(errorMessage);
         } break;

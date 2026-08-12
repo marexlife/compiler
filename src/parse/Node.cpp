@@ -15,6 +15,6 @@ namespace marex::parse {
     }
 
 fail:
-    core::Logger::logFatalInternalError("invalid enum value");
+    core::Logger::logFatalInternalError("unhandled enum value");
 }
 } // namespace marex::parse

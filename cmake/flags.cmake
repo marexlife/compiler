@@ -5,3 +5,4 @@ message(FATAL "MSVC is not allowed")
 else()
 set(MAREX_FLAGS -fno-exceptions)
 endif()
+

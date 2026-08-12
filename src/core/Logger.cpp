@@ -28,7 +28,7 @@ void Logger::logFatalError(std::string_view message,
 
 void Logger::logFatalInternalError(
     std::string_view message, std::source_location sourceLocation) {
-    std::cout << "Internal error:";
+    std::cout << "Internal ";
     Logger::logFatalError(message, sourceLocation);
 }
 } // namespace marex::core
