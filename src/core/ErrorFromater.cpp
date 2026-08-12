@@ -13,7 +13,7 @@ std::string ErrorFromater::mergeMessageWithSourceLocation(
 
 std::string ErrorFromater::sourceLocationToString(
     const std::source_location &sourceLocation) {
-    return std::format("at: {}:{}:{}", sourceLocation.file_name(),
+    return std::format("\nat {}:{}:{}", sourceLocation.file_name(),
                        sourceLocation.line(),
                        sourceLocation.column());
 }
