@@ -1,0 +1,12 @@
+#ifndef MAREX_PARSE_NODESTORAGE_H
+#define MAREX_PARSE_NODESTORAGE_H
+#include "NodeVariants.h"
+
+namespace marex::parse {
+union NoadeStorage final {
+    VarNode varNode;
+    IfNode ifNode;
+    PrintNode printNode;
+};
+} // namespace marex::parse
+#endif // MAREX_PARSE_NODESTORAGE_H

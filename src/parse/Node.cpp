@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "Token.h"
 
 namespace marex::parse {
 [[nodiscard]] Node Node::createNode(lex::Token &token) {
@@ -7,14 +8,15 @@ namespace marex::parse {
 
         break;
     case lex::TokenKind::Print:
+        return Node{PrintNode{}, NodeKind::Print};
         break;
     case lex::TokenKind::Var:
-        break;
+        return Node{VarNode{}, NodeKind::Var};
     case lex::TokenKind::None:
-        goto fail;
+        core::Logger::logFatalInternalError("Enum value is None");
     }
 
 fail:
-    core::Logger::logFatalInternalError("unhandled enum value");
+    core::Logger::logFatalInternalError("Invalid enum value");
 }
 } // namespace marex::parse

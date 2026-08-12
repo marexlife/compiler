@@ -1,25 +1,16 @@
 #ifndef MAREX_PARSE_NODE_H
 #define MAREX_PARSE_NODE_H
 #include "Logger.h"
+#include "NodeKind.h"
+#include "NodeStorage.h"
+#include "NodeVariants.h"
 #include "Token.h"
 #include <concepts>
-#include <cstdint>
 #include <functional>
 #include <optional>
-#include <source_location>
 #include <utility>
 
 namespace marex::parse {
-class VarNode final {};
-class PrintNode final {};
-
-enum class [[nodiscard]] NodeKind : std::uint8_t {
-    None = 0,
-
-};
-
-union TokenStorage final {};
-
 class Node final {
   public:
     [[nodiscard]] static Node createNode(lex::Token &token);
@@ -28,36 +19,48 @@ class Node final {
     Node &operator=(Node &&) = default;
     Node(const Node &) = delete;
     Node &operator=(const Node &) = delete;
+
     ~Node() {
         switch (nodeKind) {
-
+        case NodeKind::Print:
+            break;
+        case NodeKind::Var:
+            break;
         case NodeKind::None:
-            goto fatal;
+            core::Logger::logFatalInternalError("Node value is None");
             break;
         }
 
     fatal:
-        core::Logger::logFatalInternalError(
-            "invalid node value!");
+        core::Logger::logFatalInternalError("Invalid node value");
     }
 
     [[nodiscard]] NodeKind getNodeKind() const { return nodeKind; }
 
-    template <typename T> [[nodiscard]] T &getTokenStorageAs() {
-        return tokenStorage;
+    template <IsNodeVariant T> [[nodiscard]] T &getTokenStorageAs() {
+        return nodeStorage;
     }
-    template <typename T>
+
+    template <IsNodeVariant T>
     [[nodiscard]] const T &getTokenStorageAs() const {
-        return tokenStorage;
+        return nodeStorage;
+    }
+
+    void setLhs(std::optional<std::reference_wrapper<Node>> value) {
+        lhs = value;
+    }
+
+    void setRhs(std::optional<std::reference_wrapper<Node>> value) {
+        rhs = value;
     }
 
   private:
-    template <typename T>
+    template <IsNodeVariant T>
         requires std::move_constructible<T>
-    explicit Node(T &&node, TokenStorage tokenStorage)
-        : tokenStorage{std::move(node)} {}
+    explicit Node(T &&node, NodeKind nodeKind)
+        : nodeStorage{std::move(node)} {}
 
-    TokenStorage tokenStorage;
+    NoadeStorage nodeStorage;
     NodeKind nodeKind = NodeKind::None;
 
     std::optional<std::reference_wrapper<Node>> lhs = std::nullopt;
