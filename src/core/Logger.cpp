@@ -1,6 +1,5 @@
 #include "Logger.h"
 #include "ErorrFormater.h"
-#include "spdlog/spdlog.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -8,7 +7,7 @@
 
 namespace marex::core {
 void Logger::logInfo(std::string_view message) {
-    spdlog::info(message);
+    std::cout << "info: " << message;
 }
 
 void Logger::logError(std::string_view message,
@@ -17,7 +16,7 @@ void Logger::logError(std::string_view message,
         ErrorFromater::mergeMessageWithSourceLocation(message,
                                                       sourceLocation);
 
-    spdlog::error(message);
+    std::cout << "error: " << message;
 }
 
 void Logger::logFatalError(std::string_view message,

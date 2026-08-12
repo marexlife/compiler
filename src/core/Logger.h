@@ -24,7 +24,6 @@ class Logger final {
     [[noreturn]] static void
     logFatalInternalError(std::string_view message,
                           std::source_location sourceLocation = {});
-
 };
 } // namespace marex::core
 #endif // MAREX_CORE_LOGGER_H

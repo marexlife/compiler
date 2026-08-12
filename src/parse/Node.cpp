@@ -1,7 +1,7 @@
 #include "Node.h"
 
 namespace marex::parse {
-[[nodiscard]] static Node createNode(lex::Token &token) {
+[[nodiscard]] Node Node::createNode(lex::Token &token) {
     switch (token.getKind()) {
     case lex::TokenKind::Identifier:
 
