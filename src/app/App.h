@@ -62,13 +62,15 @@ class App final {
             static const std::string_view errorMessage =
                 "compiler state is not decided";
 
-            core::Logger::logFatalError(errorMessage);
+            core::Logger::logFatalError(errorMessage,
+                                        std::source_location{});
         } break;
         default: {
             static const std::string_view errorMessage =
                 "compile state is invalid";
 
-            core::Logger::logFatalError(errorMessage);
+            core::Logger::logFatalError(errorMessage,
+                                        std::source_location{});
         } break;
         }
     }

@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <functional>
 #include <optional>
+#include <source_location>
 #include <utility>
 
 namespace marex::parse {
@@ -29,14 +30,15 @@ class Node final {
     Node &operator=(const Node &) = delete;
     ~Node() {
         switch (nodeKind) {
-            
+
         case NodeKind::None:
             goto fatal;
             break;
         }
 
     fatal:
-        core::Logger::logFatalInternalError("invalid node value!");
+        core::Logger::logFatalInternalError("invalid node value!",
+                                            std::source_location{});
     }
 
     [[nodiscard]] NodeKind getNodeKind() const { return nodeKind; }

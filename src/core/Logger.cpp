@@ -7,7 +7,7 @@
 
 namespace marex::core {
 void Logger::logInfo(std::string_view message) {
-    std::cout << "info: " << message;
+    std::cout << "info: " << message << '\n';
 }
 
 void Logger::logError(std::string_view message,
@@ -16,7 +16,7 @@ void Logger::logError(std::string_view message,
         ErrorFromater::mergeMessageWithSourceLocation(message,
                                                       sourceLocation);
 
-    std::cout << "error: " << message;
+    std::cout << "error: " << message << '\n';
 }
 
 void Logger::logFatalError(std::string_view message,
