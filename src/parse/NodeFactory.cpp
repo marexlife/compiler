@@ -1,22 +1,23 @@
 #include "NodeFactory.h"
-
-#include <exception>
-
-#include "IdentNode.h"
+#include "Logger.h"
+#include "Node.h"
 #include "PrintNode.h"
+#include "TokenKind.h"
 #include "VarNode.h"
+#include <memory>
 
 namespace marex::parse {
-std::unique_ptr<Node> NodeFactory::newNode(lex::Token &input) {
-    switch (input.getKind()) {
-    case lex::TokenKind::Identifier:
-        return std::make_unique<IdentNode>(input.getLexeme());
-    case lex::TokenKind::Print:
+std::unique_ptr<Node> NodeFactory::createNode(lex::Token &token) {
+    switch (token.getKind()) {
+    case marex::lex::TokenKind::Identifier:
+        return std::make_unique<Node>();
+    case marex::lex::TokenKind::Print:
         return std::make_unique<PrintNode>();
-    case lex::TokenKind::Var:
+    case marex::lex::TokenKind::Var:
         return std::make_unique<VarNode>();
     default:
-        std::terminate();
+        marex::core::Logger::logFatalInternalError(
+            "invalid node value");
     }
 }
-} // namespace compiler::parse
+} // namespace marex::parse

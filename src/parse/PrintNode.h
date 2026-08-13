@@ -1,9 +1,9 @@
 #ifndef MAREX_PARSE_PRINTNODE_H
 #define MAREX_PARSE_PRINTNODE_H
-#include "SingalNode.h"
+#include "Node.h"
 
 namespace marex::parse {
-class PrintNode final : public SingalNode {
+class PrintNode final : public Node {
   public:
 };
 } // namespace compiler::parse

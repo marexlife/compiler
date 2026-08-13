@@ -14,8 +14,8 @@ namespace marex::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
   public:
-    Token(core::Passkey<TokenFactory> &&passkey, std::string &&lexeme,
-          TokenKind tokenKind)
+    Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
+          std::string &&lexeme, TokenKind tokenKind)
         : lexeme(std::move(lexeme)), kind(tokenKind) {}
 
     [[nodiscard]] std::string getLexeme() const { return lexeme; }
@@ -39,14 +39,12 @@ class [[nodiscard]] Token final {
             return bindingPower;
         } break;
         case TokenKind::None:
-            core::Logger::logFatal(
-                std::string_view{"TokenKind is none"});
+            core::Logger::logFatalError("TokenKind is none");
         default:
-            core::Logger::logFatal(
-                std::string_view{"TokenKind is Invalid"});
+            core::Logger::logFatalError("TokenKind is Invalid");
         }
 
-        core::Logger::logFatal(std::string_view{"No Token selected"});
+        core::Logger::logFatalError("No Token selected");
     }
 
   private:

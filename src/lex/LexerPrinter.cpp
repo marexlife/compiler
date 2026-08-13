@@ -1,7 +1,5 @@
 #include "LexerPrinter.h"
 
-#include <spdlog/spdlog.h>
-
 #include "TokenStream.h"
 
 namespace marex::lex {

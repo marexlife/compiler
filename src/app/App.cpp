@@ -3,13 +3,16 @@
 #include <cstddef>
 #include <cstdlib>
 #include <filesystem>
+#include <format>
 #include <iostream>
+#include <source_location>
 #include <string>
 #include <string_view>
 #include <thread>
 #include <utility>
 #include <vector>
 
+#include "AppModeKind.h"
 #include "Fetcher.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
@@ -31,7 +34,7 @@ void App::run(int argc, char *argv[]) {
 void App::compileFiles(int argc, char *argv[]) {
     std::vector<std::jthread> workers;
 
-    workers.reserve(argc - 1);
+    workers.reserve(static_cast<std::size_t>(argc - 1));
 
     for (std::size_t i = 1; std::cmp_less(i, argc); ++i) {
         workers.emplace_back(std::jthread([&]() {
@@ -51,30 +54,41 @@ C. list files that should be compiled)";
     std::exit(-1);
 }
 
-void App::compile(std::string &&sourceCode) {
+void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
     absl::StatusOr<lex::TokenStream> lexerResult =
         lexer.run(std::move(sourceCode));
 
     if (!lexerResult.ok()) [[unlikely]] {
-        core::Logger::logFatal(lexerResult.status());
+        App::handleModeKind(
+            appModeKind,
+            [&](auto &&errorMessage) {
+                core::Logger::logFatalError(
+                    errorMessage, std::source_location::current());
+            },
+            [&](auto &&errorMessage) {
+                core::Logger::logError(
+                    errorMessage, std::source_location::current());
+            },
+            lexerResult.status().message());
     }
 
-    lex::LexerPrinter::printLexerResult(*lexerResult);
-
     parse::Parser::run(std::move(*lexerResult));
+
+    lex::LexerPrinter::printLexerResult(*lexerResult);
 }
 
 void App::compileFile(std::string_view argument, std::size_t fileId) {
-    bool isDirectory = std::filesystem::is_directory(argument);
+    const bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
-        core::Logger::logFatal(
-            std::string_view{"is not a directory"});
+        std::string errorMessage =
+            std::format("{} argument is not a directory", fileId);
+        core::Logger::logFatalError(errorMessage);
     }
 
     std::string sourceCode = fetch::Fetcher::run(argument);
 
-    App::compile(std::move(sourceCode));
+    App::compile(std::move(sourceCode), AppModeKind::FileMode);
 }
 
 std::string App::queryUserCommand() {
@@ -87,7 +101,7 @@ std::string App::queryUserCommand() {
 }
 
 void App::executeUserCommand(std::string &&userCommand) {
-    App::compile(std::move(userCommand));
+    App::compile(std::move(userCommand), AppModeKind::ShellMode);
 }
 
 void App::runShellIteration() {

@@ -1,9 +1,9 @@
 #ifndef MAREX_PARSE_VAR_NODE_H
 #define MAREX_PARSE_VAR_NODE_H
-#include "SingalNode.h"
+#include "Node.h"
 
 namespace marex::parse {
-class VarNode final : public SingalNode {
+class VarNode final : public Node {
   public:
     VarNode() = default;
 };
