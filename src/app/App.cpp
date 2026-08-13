@@ -71,9 +71,9 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
         return;
     }
 
-    parse::Parser::run(std::move(*lexerResult));
-
     lex::LexerPrinter::printLexerResult(*lexerResult);
+
+    parse::Parser::run(std::move(*lexerResult));
 }
 
 void App::compileFile(std::string_view argument, std::size_t fileId) {
