@@ -34,5 +34,5 @@ class [[nodiscard]] Lexer final {
     Statement lastStatement;
     std::string lastWord;
 };
-} // namespace compiler::lex
+} // namespace marex::lex
 #endif // MAREX_LEXER_LEXER_H

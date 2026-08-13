@@ -1,8 +1,13 @@
 #include "Token.h"
 #include "Logger.h"
 #include "TokenKind.h"
+#include <utility>
 
 namespace marex::lex {
+Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
+             std::string &&lexeme, TokenKind tokenKind)
+    : lexeme(std::move(lexeme)), kind(tokenKind) {}
+
 [[nodiscard]] std::uint8_t Token::getBindingPower() const {
     switch (kind) {
     case lex::TokenKind::Print: {
@@ -27,5 +32,23 @@ namespace marex::lex {
     }
 
     core::Logger::logFatalError("No Token selected");
+}
+
+[[nodiscard]] std::string_view Token::getLexeme() {
+    if (!lexeme) [[unlikely]] {
+        core::Logger::logFatalInternalError(
+            "trying to get lexeme when none is there");
+    }
+
+    return *lexeme;
+}
+
+[[nodiscard]] std::string Token::moveOutLexeme() {
+    if (!lexeme) [[unlikely]] {
+        core::Logger::logFatalInternalError(
+            "trying to move out a lexeme when none exists");
+    }
+
+    return *lexeme;
 }
 } // namespace marex::lex

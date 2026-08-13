@@ -25,7 +25,7 @@ class Parser final {
     transformToNodes(lex::Statement &statement);
     static void processStatement(lex::Statement &statement);
     static void
-    processNodes(std::vector<std::unique_ptr<Node>> &&nodes);
+    processNodes(std::vector<std::unique_ptr<Node>> nodes);
     static void processNode(std::unique_ptr<Node> &node);
 };
 } // namespace marex::parse

@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <format>
 #include <iostream>
+#include <print>
 #include <string>
 #include <string_view>
 #include <thread>
@@ -24,10 +25,8 @@ namespace marex::app {
 void App::run(int argc, char *argv[]) {
     App::selectAction(
         argc, argv,
-        [&](int argc, char *argv[]) {
-            App::compileFiles(argc, argv);
-        },
-        [&]() { App::runShellMode(); });
+        [&](int argc, char *argv[]) { compileFiles(argc, argv); },
+        [&]() { runShellMode(); });
 }
 
 void App::compileFiles(int argc, char *argv[]) {
@@ -43,30 +42,20 @@ void App::compileFiles(int argc, char *argv[]) {
 }
 
 void App::showHelpScreen() {
-    static const std::string_view helpScreen = R"(Help screen:
+    std::cout << R"(Help screen:
 A. --help to get to here
 B. 'clear;' to clear the screen in Shell mode
 C. list files that should be compiled)";
 
-    std::cout << helpScreen;
-
     std::exit(-1);
 }
 
-void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
+void App::compile(std::string sourceCode, AppModeKind appModeKind) {
     absl::StatusOr<lex::TokenStream> lexerResult =
         lexer.run(std::move(sourceCode));
 
     if (!lexerResult.ok()) [[unlikely]] {
-        App::handleModeKind(
-            appModeKind,
-            [&](std::string_view errorMessage) {
-                core::Logger::logFatalError(errorMessage);
-            },
-            [&](std::string_view errorMessage) {
-                core::Logger::logError(errorMessage);
-            },
-            lexerResult.status().message());
+        handleLexerFailure(lexerResult, appModeKind);
 
         return;
     }
@@ -74,6 +63,20 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
     lex::LexerPrinter::printLexerResult(*lexerResult);
 
     parse::Parser::run(std::move(*lexerResult));
+}
+
+void App::handleLexerFailure(
+    absl::StatusOr<lex::TokenStream> &lexerResult,
+    AppModeKind appModeKind) {
+    App::handleModeKind(
+        appModeKind,
+        [&](std::string_view errorMessage) {
+            core::Logger::logFatalError(errorMessage);
+        },
+        [&](std::string_view errorMessage) {
+            core::Logger::logError(errorMessage);
+        },
+        lexerResult.status().message());
 }
 
 void App::compileFile(std::string_view argument, std::size_t fileId) {
@@ -112,7 +115,7 @@ void App::runShellIteration() {
 }
 
 void App::runShellMode() {
-    std::cout << "Shell mode:\n\n";
+    std::cout << "Shell mode:\n";
 
     for (;;) {
         App::runShellIteration();

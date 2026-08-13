@@ -8,7 +8,6 @@
 #include <string_view>
 #include <utility>
 
-
 namespace marex::app {
 class App final {
   public:
@@ -75,11 +74,14 @@ class App final {
         }
     }
 
+    static void
+    handleLexerFailure(absl::StatusOr<lex::TokenStream> &lexerResult,
+                       AppModeKind appModeKind);
     static void showHelpScreen();
     void compileFiles(int argc, char *argv[]);
     void compileFile(std::string_view argument, std::size_t fileId);
 
-    void compile(std::string &&sourceCode, AppModeKind appModeKind);
+    void compile(std::string sourceCode, AppModeKind appModeKind);
     void runShellMode();
     void runShellIteration();
     [[nodiscard]] static std::string queryUserCommand();

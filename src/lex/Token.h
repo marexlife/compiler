@@ -3,6 +3,7 @@
 #include <absl/status/statusor.h>
 
 #include <cstdlib>
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -14,18 +15,18 @@ class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
   public:
     Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
-          std::string &&lexeme, TokenKind tokenKind)
-        : lexeme(std::move(lexeme)), kind(tokenKind) {}
+          std::string &&lexeme, TokenKind tokenKind);
 
-    [[nodiscard]] std::string_view getLexeme() const {
-        return lexeme;
-    }
+    [[nodiscard]] std::string_view getLexeme();
+
+    [[nodiscard]] std::string moveOutLexeme();
+
     [[nodiscard]] TokenKind getKind() const { return kind; }
 
     [[nodiscard]] std::uint8_t getBindingPower() const;
 
   private:
-    std::string lexeme;
+    std::optional<std::string> lexeme;
     TokenKind kind{};
 };
 } // namespace marex::lex

@@ -32,8 +32,7 @@ Parser::transformToNodes(lex::Statement &statement) {
     return nodes;
 }
 
-void Parser::processNodes(
-    [[maybe_unused]] std::vector<std::unique_ptr<Node>> &&nodes) {
+void Parser::processNodes(std::vector<std::unique_ptr<Node>> nodes) {
     for (std::unique_ptr<Node> &node : nodes) {
         Parser::processNode(node);
     }
