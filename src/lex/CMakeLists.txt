@@ -13,6 +13,7 @@ add_library(${PROJECT_NAME}
     Lexer.cpp
     TokenFactory.cpp
     LexerPrinter.cpp
+    Token.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC
