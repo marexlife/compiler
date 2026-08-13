@@ -61,10 +61,10 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
     if (!lexerResult.ok()) [[unlikely]] {
         App::handleModeKind(
             appModeKind,
-            [&](auto &&errorMessage) {
+            [&](std::string_view errorMessage) {
                 core::Logger::logFatalError(errorMessage);
             },
-            [&](auto &&errorMessage) {
+            [&](std::string_view errorMessage) {
                 core::Logger::logError(errorMessage);
             },
             lexerResult.status().message());
