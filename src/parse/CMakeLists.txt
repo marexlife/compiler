@@ -15,7 +15,6 @@ add_library(${PROJECT_NAME}
     Node.cpp
     OpNode.cpp
     PrintNode.cpp
-    SignalNode.cpp
     ValueNode.cpp
     VarNode.cpp
 )
