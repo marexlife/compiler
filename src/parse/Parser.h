@@ -21,12 +21,12 @@ class Parser final {
     static void run(lex::TokenStream &&tokenStream);
 
   private:
-    [[nodiscard]] static std::vector<std::shared_ptr<Node>>
+    [[nodiscard]] static std::vector<std::unique_ptr<Node>>
     transformToNodes(lex::Statement &statement);
     static void processStatement(lex::Statement &statement);
     static void
-    processNodes(std::vector<std::shared_ptr<Node>> &&nodes);
-    static void processNode(Node &node);
+    processNodes(std::vector<std::unique_ptr<Node>> &&nodes);
+    static void processNode(std::unique_ptr<Node> &node);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

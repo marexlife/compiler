@@ -15,29 +15,30 @@ void Parser::run(lex::TokenStream &&tokenStream) {
 }
 
 void Parser::processStatement(lex::Statement &statement) {
-    auto nodes = transformToNodes(statement);
+    std::vector<std::unique_ptr<Node>> nodes =
+        transformToNodes(statement);
 
     Parser::processNodes(std::move(nodes));
 }
 
-std::vector<std::shared_ptr<Node>>
-Parser::transformToNodes(lex::Statement &statement) {
-    std::vector<std::shared_ptr<Node>> nodes;
+std::vector<std::unique_ptr<Node>>
+Parser::transformToNodes([[maybe_unused]] lex::Statement &statement) {
+    std::vector<std::unique_ptr<Node>> nodes{};
 
-    std::ranges::transform(statement, nodes.begin(),
-                           [&](lex::Token &token) {
-                               return NodeFactory::createNode(token);
-                           });
+    for (auto &token : statement) {
+        nodes.emplace_back(NodeFactory::createNode(token));
+    }
 
     return nodes;
 }
 
 void Parser::processNodes(
-    std::vector<std::shared_ptr<Node>> &&nodes) {
-    for (std::shared_ptr<Node> &node : nodes) {
-        Parser::processNode(*node);
-    }
+    [[maybe_unused]] std::vector<std::unique_ptr<Node>> &&nodes) {
+    // for (std::unique_ptr<Node> &node : nodes) {
+    //     Parser::processNode(node);
+    // }
 }
 
-void Parser::processNode([[maybe_unused]] Node &node) {}
+void Parser::processNode(
+    [[maybe_unused]] std::unique_ptr<Node> &node) {}
 } // namespace marex::parse

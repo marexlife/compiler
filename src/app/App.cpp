@@ -62,12 +62,10 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
         App::handleModeKind(
             appModeKind,
             [&](auto &&errorMessage) {
-                core::Logger::logFatalError(
-                    errorMessage, std::source_location::current());
+                core::Logger::logFatalError(errorMessage);
             },
             [&](auto &&errorMessage) {
-                core::Logger::logError(
-                    errorMessage, std::source_location::current());
+                core::Logger::logError(errorMessage);
             },
             lexerResult.status().message());
     }

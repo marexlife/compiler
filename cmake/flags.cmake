@@ -4,7 +4,6 @@ if(MSVC)
 set(MAREX_FLAGS /W4)
 else()
 set(MAREX_FLAGS
-    -fno-rtti
     -Wall
     -Wextra
     -Wconversion
