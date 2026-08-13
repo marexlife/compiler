@@ -22,7 +22,7 @@ void Parser::processStatement(lex::Statement &statement) {
 }
 
 std::vector<std::unique_ptr<Node>>
-Parser::transformToNodes([[maybe_unused]] lex::Statement &statement) {
+Parser::transformToNodes(lex::Statement &statement) {
     std::vector<std::unique_ptr<Node>> nodes{};
 
     for (auto &token : statement) {
@@ -34,9 +34,9 @@ Parser::transformToNodes([[maybe_unused]] lex::Statement &statement) {
 
 void Parser::processNodes(
     [[maybe_unused]] std::vector<std::unique_ptr<Node>> &&nodes) {
-    // for (std::unique_ptr<Node> &node : nodes) {
-    //     Parser::processNode(node);
-    // }
+    for (std::unique_ptr<Node> &node : nodes) {
+        Parser::processNode(node);
+    }
 }
 
 void Parser::processNode(

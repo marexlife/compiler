@@ -68,6 +68,8 @@ void App::compile(std::string &&sourceCode, AppModeKind appModeKind) {
                 core::Logger::logError(errorMessage);
             },
             lexerResult.status().message());
+
+        return;
     }
 
     parse::Parser::run(std::move(*lexerResult));
