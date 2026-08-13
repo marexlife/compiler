@@ -2,10 +2,12 @@
 #define MAREX_APP_APP_H
 #include "AppModeKind.h"
 #include "Lexer.h"
+#include "Logger.h"
 #include <concepts>
 #include <cstddef>
 #include <string_view>
 #include <utility>
+
 
 namespace marex::app {
 class App final {
@@ -62,15 +64,13 @@ class App final {
             static const std::string_view errorMessage =
                 "compiler state is not decided";
 
-            core::Logger::logFatalError(
-                errorMessage);
+            core::Logger::logFatalError(errorMessage);
         } break;
         default: {
             static const std::string_view errorMessage =
                 "compile state is invalid";
 
-            core::Logger::logFatalError(
-                errorMessage);
+            core::Logger::logFatalError(errorMessage);
         } break;
         }
     }
