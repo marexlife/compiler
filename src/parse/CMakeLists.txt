@@ -11,7 +11,13 @@ set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
     Parser.cpp
+    NodeFactory.cpp
     Node.cpp
+    OpNode.cpp
+    PrintNode.cpp
+    SignalNode.cpp
+    ValueNode.cpp
+    VarNode.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC
