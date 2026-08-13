@@ -24,11 +24,10 @@ std::vector<std::shared_ptr<Node>>
 Parser::transformToNodes(lex::Statement &statement) {
     std::vector<std::shared_ptr<Node>> nodes;
 
-    std::ranges::transform(
-        statement, nodes.begin(),
-        [&](lex::Token &token) -> std::unique_ptr<Node> {
-            return NodeFactory::createNode(token);
-        });
+    std::ranges::transform(statement, nodes.begin(),
+                           [&](lex::Token &token) {
+                               return NodeFactory::createNode(token);
+                           });
 
     return nodes;
 }
