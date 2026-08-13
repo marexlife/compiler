@@ -1,6 +1,7 @@
 #include "Parser.h"
 
 #include "Node.h"
+#include "NodeFactory.h"
 #include "Statement.h"
 #include "TokenStream.h"
 #include <memory>
@@ -26,7 +27,7 @@ Parser::transformToNodes(lex::Statement &statement) {
     std::ranges::transform(
         statement, nodes.begin(),
         [&](lex::Token &token) -> std::unique_ptr<Node> {
-            return NodeDispatcher::createNode(token);
+            return NodeFactory::createNode(token);
         });
 
     return nodes;

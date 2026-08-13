@@ -1,19 +1,19 @@
 class Player {
 public:
-    void takeDamage(health: int) {
+    func takeDamage(health: int32) {
         health -= health
     }
 
 private:
-    int health = 10;
+    int32 health = 10;
 }
 
-void main() {
-    Player player = new();
+func main() {
+    var player : Player = new();
 
-    int[] xs = [1, 2, 3];
+    var xs : []int32 = [1, 2, 3];
 
-    for (var x in xs) {
+    for x: int32 in xs {
         print("x {x}");
     }
 }
