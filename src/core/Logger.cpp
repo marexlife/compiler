@@ -16,7 +16,7 @@ void Logger::logError(std::string_view message,
         ErrorFromater::mergeMessageWithSourceLocation(message,
                                                       sourceLocation);
 
-    std::cout << "error: " << message << '\n';
+    std::cout << "error: " << formatResult << '\n';
 }
 
 void Logger::logFatalError(std::string_view message,
@@ -28,7 +28,12 @@ void Logger::logFatalError(std::string_view message,
 
 void Logger::logFatalInternalError(
     std::string_view message, std::source_location sourceLocation) {
-    std::cout << "Internal ";
-    Logger::logFatalError(message, sourceLocation);
+    std::string formatResult =
+        ErrorFromater::mergeMessageWithSourceLocation(message,
+                                                      sourceLocation);
+
+    std::cout << "Internal error: " << formatResult << '\n';
+
+    std::exit(-1);
 }
 } // namespace marex::core

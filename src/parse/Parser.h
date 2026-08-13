@@ -1,10 +1,10 @@
 #ifndef MAREX_PARSE_PARSER_H
 #define MAREX_PARSE_PARSER_H
+#include "NodeDispatcher.h"
+#include "TokenStream.h"
 #include <cstddef>
 #include <vector>
 
-#include "Node.h"
-#include "TokenStream.h"
 
 namespace marex::parse {
 class Parser final {
@@ -21,11 +21,11 @@ class Parser final {
     static void run(lex::TokenStream &&tokenStream);
 
   private:
-    [[nodiscard]] static std::vector<Node>
+    [[nodiscard]] static std::vector<NodeDispatcher>
     transformToNodes(lex::Statement &statement);
     static void processStatement(lex::Statement &statement);
-    static void processNodes(std::vector<Node> &&nodes);
-    static void processNode(Node &node);
+    static void processNodes(std::vector<NodeDispatcher> &&nodes);
+    static void processNode(NodeDispatcher &node);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

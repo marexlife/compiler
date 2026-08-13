@@ -3,7 +3,6 @@
 #include <absl/status/statusor.h>
 
 #include <cstdlib>
-#include <source_location>
 #include <string>
 #include <string_view>
 
@@ -15,8 +14,8 @@ namespace marex::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
   public:
-    Token(core::Passkey<TokenFactory> &&passkey, std::string &&lexeme,
-          TokenKind tokenKind)
+    Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
+          std::string &&lexeme, TokenKind tokenKind)
         : lexeme(std::move(lexeme)), kind(tokenKind) {}
 
     [[nodiscard]] std::string getLexeme() const { return lexeme; }
@@ -40,18 +39,12 @@ class [[nodiscard]] Token final {
             return bindingPower;
         } break;
         case TokenKind::None:
-            core::Logger::logFatalError(
-                std::string_view{"TokenKind is none"},
-                std::source_location{});
+            core::Logger::logFatalError("TokenKind is none");
         default:
-            core::Logger::logFatalError(
-                std::string_view{"TokenKind is Invalid"},
-                std::source_location{});
+            core::Logger::logFatalError("TokenKind is Invalid");
         }
 
-        core::Logger::logFatalError(
-            std::string_view{"No Token selected"},
-            std::source_location{});
+        core::Logger::logFatalError("No Token selected");
     }
 
   private:
