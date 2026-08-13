@@ -35,5 +35,5 @@ void Parser::processNodes(std::vector<Node> &&nodes) {
     }
 }
 
-void Parser::processNode(Node &node) {}
+void Parser::processNode([[maybe_unused]] Node &node) {}
 } // namespace marex::parse
