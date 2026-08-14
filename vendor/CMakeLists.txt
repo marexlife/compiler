@@ -10,6 +10,11 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_TAG 12.2.0
 )
+FetchContent_Declare(
+    CORETYPES
+    GIT_REPOSITORY https://gitlab.com/marexlife/core-types.git
+    GIT_TAG v0.8
+)
 
 FetchContent_Declare(
     ABSEIL
@@ -17,14 +22,8 @@ FetchContent_Declare(
     GIT_TAG lts_2026_01_07
 )
 
-FetchContent_Declare(
-    LLVM
-    GIT_REPOSITORY https://github.com/llvm/llvm-project.git
-    GIT_TAG llvmorg-22.1.7
-)
-
 FetchContent_MakeAvailable(
     FMT
+    CORETYPES
     ABSEIL
-    LLVM
 )
