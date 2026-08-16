@@ -1,13 +1,14 @@
 #ifndef MAREX_PARSE_OPNODE_H
 #define MAREX_PARSE_OPNODE_H
 #include "Node.h"
+#include "Token.h"
 
 namespace marex::parse {
 class OpNode final : public Node {
   public:
-    OpNode() = default;
+    explicit OpNode(lex::Token &token);
 
   private:
 };
-} // namespace compiler::parse
+} // namespace marex::parse
 #endif // MAREX_PARSE_OPNODE_H

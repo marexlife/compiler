@@ -10,11 +10,11 @@ namespace marex::parse {
 std::unique_ptr<Node> NodeFactory::createNode(lex::Token &token) {
     switch (token.getKind()) {
     case lex::TokenKind::Identifier:
-        return std::make_unique<Node>();
+        return std::make_unique<Node>(token);
     case lex::TokenKind::Print:
-        return std::make_unique<PrintNode>();
+        return std::make_unique<PrintNode>(token);
     case lex::TokenKind::Var:
-        return std::make_unique<VarNode>();
+        return std::make_unique<VarNode>(token);
     case lex::TokenKind::None:
         core::Logger::logFatalInternalError("token kind is none");
     default:
