@@ -10,7 +10,7 @@
 namespace marex::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
     for (lex::Statement &statement : tokenStream) {
-        Parser::processStatement(statement);
+        processStatement(statement);
     }
 }
 
@@ -18,8 +18,17 @@ void Parser::processStatement(lex::Statement &statement) {
     std::vector<std::unique_ptr<Node>> nodes =
         transformToNodes(statement);
 
-    Parser::processNodes(std::move(nodes));
+    processNodes(std::move(nodes));
 }
+
+void Parser::processNodes(std::vector<std::unique_ptr<Node>> nodes) {
+    for (std::unique_ptr<Node> &node : nodes) {
+        processNode(node);
+    }
+}
+
+void Parser::processNode(
+    [[maybe_unused]] std::unique_ptr<Node> &node) {}
 
 std::vector<std::unique_ptr<Node>>
 Parser::transformToNodes(lex::Statement &statement) {
@@ -31,13 +40,4 @@ Parser::transformToNodes(lex::Statement &statement) {
 
     return nodes;
 }
-
-void Parser::processNodes(std::vector<std::unique_ptr<Node>> nodes) {
-    for (std::unique_ptr<Node> &node : nodes) {
-        Parser::processNode(node);
-    }
-}
-
-void Parser::processNode(
-    [[maybe_unused]] std::unique_ptr<Node> &node) {}
 } // namespace marex::parse
