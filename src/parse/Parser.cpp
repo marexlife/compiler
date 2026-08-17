@@ -11,7 +11,6 @@
 #include "TokenKind.h"
 #include "TokenStream.h"
 #include "VarNode.h"
-#include <cstdint>
 #include <functional>
 #include <optional>
 #include <utility>
@@ -80,6 +79,7 @@ JumpCount Parser::parseNode(Node &previousNode, Node &currentNode) {
 
 JumpCount Parser::parseVar([[maybe_unused]] VarNode &self,
                            [[maybe_unused]] Node &identNode) {
+    
     return 2;
 }
 JumpCount Parser::parsePrint([[maybe_unused]] PrintNode &self,

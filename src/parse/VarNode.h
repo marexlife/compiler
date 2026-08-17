@@ -1,12 +1,19 @@
 #ifndef MAREX_PARSE_VAR_NODE_H
 #define MAREX_PARSE_VAR_NODE_H
+#include "IdentNode.h"
 #include "Node.h"
 #include "Token.h"
+#include <functional>
+#include <optional>
+
 
 namespace marex::parse {
 class VarNode final : public Node {
   public:
     explicit VarNode(lex::Token &&token);
+
+  private:
+    std::optional<std::reference_wrapper<IdentNode>> identNode;
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_VAR_NODE_H
