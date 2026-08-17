@@ -1,6 +1,10 @@
 #ifndef MAREX_PARSE_NODE_H
 #define MAREX_PARSE_NODE_H
 #include "Token.h"
+#include "TokenKind.h"
+#include <cstdint>
+#include <string>
+#include <string_view>
 
 namespace marex::parse {
 class Node {
@@ -14,6 +18,18 @@ class Node {
     virtual ~Node() = default;
 
     [[nodiscard]] const lex::Token &getToken() const { return token; }
+
+    [[nodiscard]] std::uint8_t getBindingPower() const {
+        return token.getBindingPower();
+    }
+
+    [[nodiscard]] lex::TokenKind getKind() const {
+        return token.getKind();
+    }
+
+    [[nodiscard]] std::string_view getLexeme() const {
+        return token.getLexeme();
+    }
 
   private:
     lex::Token token;

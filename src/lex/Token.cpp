@@ -34,7 +34,7 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
     core::Logger::logFatalError("No Token selected");
 }
 
-[[nodiscard]] std::string_view Token::getLexeme() {
+[[nodiscard]] std::string_view Token::getLexeme() const {
     if (!lexeme) [[unlikely]] {
         core::Logger::logFatalInternalError(
             "trying to get lexeme when none is there");

@@ -17,7 +17,7 @@ class [[nodiscard]] Token final {
     Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
           std::string &&lexeme, TokenKind tokenKind);
 
-    [[nodiscard]] std::string_view getLexeme();
+    [[nodiscard]] std::string_view getLexeme() const;
 
     [[nodiscard]] std::string moveOutLexeme();
 
