@@ -32,7 +32,7 @@ void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
         std::nullopt;
 
     nodes.forEach([&](Node &node) -> void {
-        core::Defer deferSetPerviousNode = [&]() {
+        core::Defer deferSetPerviousNode = [&]() -> void {
             perviusNode = node;
         };
 
