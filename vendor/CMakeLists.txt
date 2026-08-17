@@ -12,7 +12,7 @@ FetchContent_Declare(
 )
 FetchContent_Declare(
     CORETYPES
-    GIT_REPOSITORY https://gitlab.com/marexlife/core-types.git
+    GIT_REPOSITORY https://github.com/marexlife/core-types.git
     GIT_TAG v0.8
 )
 

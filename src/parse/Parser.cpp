@@ -23,7 +23,7 @@ void Parser::processStatement(lex::Statement &statement) {
 }
 
 void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
-    nodes.forEach([](auto node) { processNode(*node); });
+    nodes.forEach([](Node &node) { processNode(*node); });
 }
 
 void Parser::processNode([[maybe_unused]] Node &node) {}
