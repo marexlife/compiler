@@ -2,9 +2,8 @@
 #define MAREX_PARSE_PARSER_H
 #include "Node.h"
 #include "TokenStream.h"
+#include "Visitor.h"
 #include <cstddef>
-#include <memory>
-#include <vector>
 
 namespace marex::parse {
 class Parser final {
@@ -22,11 +21,8 @@ class Parser final {
 
   private:
     static void processStatement(lex::Statement &statement);
-    static void
-    processNodes(std::vector<std::unique_ptr<Node>> nodes);
+    static void processNodes(ct::VisitorVector<Node> &nodes);
     static void processNode(Node &node);
-    [[nodiscard]] static std::vector<std::unique_ptr<Node>>
-    transformToNodes(lex::Statement &statement);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

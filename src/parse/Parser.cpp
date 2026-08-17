@@ -4,8 +4,6 @@
 #include "NodeFactory.h"
 #include "Statement.h"
 #include "TokenStream.h"
-#include <memory>
-#include <vector>
 
 namespace marex::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
@@ -15,28 +13,18 @@ void Parser::run(lex::TokenStream &&tokenStream) {
 }
 
 void Parser::processStatement(lex::Statement &statement) {
-    std::vector<std::unique_ptr<Node>> nodes =
-        transformToNodes(statement);
+    ct::VisitorVector<Node> nodes{};
 
-    processNodes(std::move(nodes));
+    for (auto &token : statement) {
+        nodes.push(NodeFactory::createNode(token));
+    }
+
+    processNodes(nodes);
 }
 
-void Parser::processNodes(std::vector<std::unique_ptr<Node>> nodes) {
-    for (std::unique_ptr<Node> &node : nodes) {
-        processNode(*node);
-    }
+void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
+    nodes.forEach([](auto node) { processNode(*node); });
 }
 
 void Parser::processNode([[maybe_unused]] Node &node) {}
-
-std::vector<std::unique_ptr<Node>>
-Parser::transformToNodes(lex::Statement &statement) {
-    std::vector<std::unique_ptr<Node>> nodes{};
-
-    for (auto &token : statement) {
-        nodes.emplace_back(NodeFactory::createNode(token));
-    }
-
-    return nodes;
-}
 } // namespace marex::parse
