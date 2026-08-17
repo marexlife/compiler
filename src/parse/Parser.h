@@ -26,6 +26,10 @@ class Parser final {
     static void processNodes(ct::VisitorVector<Node> &nodes);
     static void processNode([[maybe_unused]] Node &previousNode,
                             [[maybe_unused]] Node &currentNode);
+
+    static void parseVar();
+    static void parsePrint();
+    static void parseIdent();
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H
