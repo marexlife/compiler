@@ -8,7 +8,7 @@
 namespace marex::parse {
 void Parser::run(lex::TokenStream &&tokenStream) {
     for (lex::Statement &statement : tokenStream) {
-        processStatement(statement);
+        Parser::processStatement(statement);
     }
 }
 
@@ -19,7 +19,7 @@ void Parser::processStatement(lex::Statement &statement) {
         nodes.push(NodeFactory::createNode(token));
     }
 
-    processNodes(nodes);
+    Parser::processNodes(nodes);
 }
 
 void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
