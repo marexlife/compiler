@@ -1,5 +1,6 @@
 #ifndef MAREX_PARSE_PRINTNODE_H
 #define MAREX_PARSE_PRINTNODE_H
+#include "IdentNode.h"
 #include "Node.h"
 #include "Token.h"
 
@@ -9,6 +10,8 @@ class PrintNode final : public Node {
     explicit PrintNode(lex::Token &&token);
 
   private:
+    std::optional<std::reference_wrapper<IdentNode>> identNode =
+        std::nullopt;
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PRINTNODE_H
