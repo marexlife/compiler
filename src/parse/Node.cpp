@@ -2,7 +2,7 @@
 
 namespace marex::parse {
 Node::Node(lex::Token &token)
-    : bindingPower(token.GetBindingPower()) {}
+    : bindingPower(token.getBindingPower()) {}
 
 std::uint8_t Node::getBindingPower() const { return bindingPower; }
 

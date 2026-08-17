@@ -16,9 +16,9 @@ std::unique_ptr<Node> NodeFactory::createNode(lex::Token &token) {
     case lex::TokenKind::Var:
         return std::make_unique<VarNode>(token);
     case lex::TokenKind::None:
-        core::Logger::LogFatalInternalError("token kind is none");
+        core::Logger::logFatalInternalError("token kind is none");
     default:
-        core::Logger::LogFatalInternalError("invalid token kind");
+        core::Logger::logFatalInternalError("invalid token kind");
     }
 }
 } // namespace marex::parse

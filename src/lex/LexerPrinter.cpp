@@ -8,7 +8,7 @@ void LexerPrinter::printLexerResult(lex::TokenStream &tokenStream) {
         std::cout << "Statement:\n";
 
         for (lex::Token &token : statement) {
-            std::cout << "  Token: " << token.GetLexeme() << '\n';
+            std::cout << "  Token: " << token.getLexeme() << '\n';
         }
     }
 
