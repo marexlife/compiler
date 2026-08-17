@@ -79,7 +79,7 @@ class App final {
                        AppModeKind appModeKind);
     static void showHelpScreen();
     void compileFiles(int argc, char *argv[]);
-    void compileFile(std::string_view argument, std::size_t fileId);
+    void compileFile(std::string_view argument);
 
     void compile(std::string sourceCode, AppModeKind appModeKind);
     void runShellMode();

@@ -33,10 +33,9 @@ void App::compileFiles(int argc, char *argv[]) {
 
     workers.reserve(static_cast<std::size_t>(argc - 1));
 
-    for (std::size_t i = 1; std::cmp_less(i, argc); ++i) {
-        workers.emplace_back(std::jthread([&]() {
-            App::compileFile(std::string_view{argv[i]}, i + 1);
-        }));
+    for (char **arg = argv; arg != argv + argc; ++arg) {
+        workers.emplace_back(
+            std::jthread([&]() { App::compileFile(*arg); }));
     }
 }
 
@@ -46,7 +45,7 @@ A. --help to get to here
 B. 'clear;' to clear the screen in Shell mode
 C. list files that should be compiled)";
 
-    std::exit(-1);
+    std::exit(EXIT_SUCCESS);
 }
 
 void App::compile(std::string sourceCode, AppModeKind appModeKind) {
@@ -78,12 +77,12 @@ void App::handleLexerFailure(
         lexerResult.status().message());
 }
 
-void App::compileFile(std::string_view argument, std::size_t fileId) {
+void App::compileFile(std::string_view argument) {
     const bool isDirectory = std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
         std::string errorMessage =
-            std::format("{} argument is not a directory", fileId);
+            std::format("{} argument is not a directory", argument);
         core::Logger::logFatalError(errorMessage);
     }
 
