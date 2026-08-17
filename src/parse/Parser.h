@@ -24,7 +24,7 @@ class Parser final {
     static void processStatement(lex::Statement &statement);
     static void
     processNodes(std::vector<std::unique_ptr<Node>> nodes);
-    static void processNode(std::unique_ptr<Node> &node);
+    static void processNode(Node &node);
     [[nodiscard]] static std::vector<std::unique_ptr<Node>>
     transformToNodes(lex::Statement &statement);
 };

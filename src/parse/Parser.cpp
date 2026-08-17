@@ -23,14 +23,11 @@ void Parser::processStatement(lex::Statement &statement) {
 
 void Parser::processNodes(std::vector<std::unique_ptr<Node>> nodes) {
     for (std::unique_ptr<Node> &node : nodes) {
-        processNode(node);
+        processNode(*node);
     }
 }
 
-void Parser::processNode(
-    [[maybe_unused]] std::unique_ptr<Node> &node) {
-    
-    }
+void Parser::processNode([[maybe_unused]] Node &node) {}
 
 std::vector<std::unique_ptr<Node>>
 Parser::transformToNodes(lex::Statement &statement) {
