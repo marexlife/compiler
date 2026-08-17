@@ -19,14 +19,14 @@ void Logger::logError(std::string_view message,
     std::cout << "error: " << formatResult << '\n';
 }
 
-void Logger::logFatalError(std::string_view message,
+void Logger::LogFatalError(std::string_view message,
                            std::source_location sourceLocation) {
     Logger::logError(message, sourceLocation);
 
     std::exit(-1);
 }
 
-void Logger::logFatalInternalError(
+void Logger::LogFatalInternalError(
     std::string_view message, std::source_location sourceLocation) {
     std::string formatResult =
         ErrorFromater::mergeMessageWithSourceLocation(message,

@@ -22,7 +22,7 @@
 
 namespace marex::app {
 void App::run(int argc, char *argv[]) {
-    App::selectAction(
+    App::SelectAction(
         argc, argv,
         [&](int argc, char *argv[]) { compileFiles(argc, argv); },
         [&]() { runShellMode(); });
