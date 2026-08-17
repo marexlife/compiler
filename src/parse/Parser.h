@@ -1,11 +1,12 @@
 #ifndef MAREX_PARSE_PARSER_H
 #define MAREX_PARSE_PARSER_H
+#include "JumpCont.h"
 #include "Node.h"
+#include "PrintNode.h"
 #include "TokenStream.h"
+#include "VarNode.h"
 #include "Visitor.h"
 #include <cstddef>
-#include <functional>
-#include <optional>
 
 namespace marex::parse {
 class Parser final {
@@ -23,13 +24,14 @@ class Parser final {
 
   private:
     static void processStatement(lex::Statement &statement);
-    static void processNodes(ct::VisitorVector<Node> &nodes);
-    static void processNode([[maybe_unused]] Node &previousNode,
-                            [[maybe_unused]] Node &currentNode);
 
-    static void parseVar();
-    static void parsePrint();
-    static void parseIdent();
+    static void parseNodes(ct::VisitorVector<Node> &nodes);
+    [[nodiscard]] static JumpCount parseNode(Node &previousNode,
+                                             Node &currentNode);
+    [[nodiscard]] static JumpCount parseVar(VarNode &self,
+                                            Node &identNode);
+    [[nodiscard]] static JumpCount parsePrint(PrintNode &self,
+                                              Node &identNode);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H
