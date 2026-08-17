@@ -38,8 +38,7 @@ void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
 }
 
 void Parser::processNode(
-    Node &node,
-    std::optional<std::reference_wrapper<Node>> nextNode) {
-    
-    }
+    [[maybe_unused]] Node &node,
+    [[maybe_unused]] std::optional<std::reference_wrapper<Node>>
+        nextNode) {}
 } // namespace marex::parse
