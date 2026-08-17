@@ -28,19 +28,19 @@ void Parser::processStatement(lex::Statement &statement) {
 }
 
 void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
-    std::optional<std::reference_wrapper<Node>> perviusNode =
+    std::optional<std::reference_wrapper<Node>> perviusNodeOptional =
         std::nullopt;
 
     nodes.forEach([&](Node &node) -> void {
         core::Defer deferSetPerviousNode = [&]() -> void {
-            perviusNode = node;
+            perviusNodeOptional = node;
         };
 
-        if (perviusNode == std::nullopt) {
+        if (perviusNodeOptional == std::nullopt) {
             return;
         }
 
-        Parser::processNode(*perviusNode, node);
+        Parser::processNode(*perviusNodeOptional, node);
     });
 }
 
