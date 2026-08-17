@@ -24,9 +24,9 @@ class Parser final {
   private:
     static void processStatement(lex::Statement &statement);
     static void processNodes(ct::VisitorVector<Node> &nodes);
-    static void
-    processNode(Node &node,
-                std::optional<std::reference_wrapper<Node>> nextNode);
+    static void processNode(
+        Node &previousNode,
+        std::optional<std::reference_wrapper<Node>> currentNode);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

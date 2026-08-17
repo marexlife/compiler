@@ -1,5 +1,6 @@
 #include "Parser.h"
 
+#include "Defer.h"
 #include "Node.h"
 #include "NodeFactory.h"
 #include "Statement.h"
@@ -27,20 +28,24 @@ void Parser::processStatement(lex::Statement &statement) {
 }
 
 void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
-    std::optional<std::reference_wrapper<Node>> previousNode =
+    std::optional<std::reference_wrapper<Node>> perviusNode =
         std::nullopt;
 
-    nodes.forEach([&](Node &node) {
-        Parser::processNode(*previousNode, node);
+    nodes.forEach([&](Node &node) -> void {
+        core::Defer deferSetPerviousNode = [&]() {
+            perviusNode = node;
+        };
 
-        previousNode = node;
+        if (perviusNode == std::nullopt) {
+            return;
+        }
+
+        Parser::processNode(*perviusNode, node);
     });
 }
 
 void Parser::processNode(
-    [[maybe_unused]] Node &node,
+    [[maybe_unused]] Node &previousNode,
     [[maybe_unused]] std::optional<std::reference_wrapper<Node>>
-        nextNode) {
-    
-        }
+        currentNode) {}
 } // namespace marex::parse

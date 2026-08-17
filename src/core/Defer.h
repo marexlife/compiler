@@ -3,7 +3,7 @@
 namespace marex::core {
 template <typename Functor> class Defer final {
   public:
-    explicit Defer(Functor functor) : deferdFunc(functor) {}
+    /* implicit */ Defer(Functor functor) : deferdFunc(functor) {}
 
     Defer(Defer &&) = delete;
     Defer &operator=(Defer &&) = delete;

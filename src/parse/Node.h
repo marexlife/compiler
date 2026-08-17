@@ -3,7 +3,6 @@
 #include "Token.h"
 #include "TokenKind.h"
 #include <cstdint>
-#include <string>
 #include <string_view>
 
 namespace marex::parse {
