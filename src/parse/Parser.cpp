@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "NodeFactory.h"
 #include "Statement.h"
+#include "Token.h"
 #include "TokenStream.h"
 #include <utility>
 
@@ -16,7 +17,7 @@ void Parser::run(lex::TokenStream &&tokenStream) {
 void Parser::processStatement(lex::Statement &statement) {
     ct::VisitorVector<Node> nodes{};
 
-    for (auto &token : statement) {
+    for (lex::Token &token : statement) {
         nodes.push(NodeFactory::createNode(std::move(token)));
     }
 
