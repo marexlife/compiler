@@ -4,16 +4,17 @@
 #include "PrintNode.h"
 #include "TokenKind.h"
 #include "VarNode.h"
+#include <utility>
 
 namespace marex::parse {
-Node *NodeFactory::createNode(lex::Token &token) {
+Node *NodeFactory::createNode(lex::Token &&token) {
     switch (token.getKind()) {
     case lex::TokenKind::Identifier:
-        return new Node(token);
+        return new Node(std::move(token));
     case lex::TokenKind::Print:
-        return new PrintNode(token);
+        return new PrintNode(std::move(token));
     case lex::TokenKind::Var:
-        return new VarNode(token);
+        return new VarNode(std::move(token));
     case lex::TokenKind::None:
         core::Logger::logFatalInternalError("token kind is none");
     default:

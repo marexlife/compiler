@@ -6,7 +6,7 @@
 namespace marex::parse {
 class PrintNode final : public Node {
   public:
-    explicit PrintNode(lex::Token &token);
+    explicit PrintNode(lex::Token &&token);
 
   private:
 };

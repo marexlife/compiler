@@ -6,7 +6,7 @@
 namespace marex::parse {
 class VarNode final : public Node {
   public:
-    explicit VarNode(lex::Token &token);
+    explicit VarNode(lex::Token &&token);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_VAR_NODE_H

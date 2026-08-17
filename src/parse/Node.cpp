@@ -1,12 +1,9 @@
 #include "Node.h"
+#include "Token.h"
+#include <utility>
 
 namespace marex::parse {
-Node::Node(lex::Token &token)
-    : bindingPower(token.getBindingPower()) {}
+Node::Node(lex::Token &&token) : token(std::move(token)) {}
 
-std::uint8_t Node::getBindingPower() const { return bindingPower; }
 
-void Node::setBindingPower(std::uint8_t bindingPower) {
-    this->bindingPower = bindingPower;
-}
 } // namespace marex::parse
