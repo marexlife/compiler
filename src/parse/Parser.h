@@ -4,6 +4,8 @@
 #include "TokenStream.h"
 #include "Visitor.h"
 #include <cstddef>
+#include <functional>
+#include <optional>
 
 namespace marex::parse {
 class Parser final {
@@ -22,7 +24,9 @@ class Parser final {
   private:
     static void processStatement(lex::Statement &statement);
     static void processNodes(ct::VisitorVector<Node> &nodes);
-    static void processNode(Node &node);
+    static void
+    processNode(Node &node,
+                std::optional<std::reference_wrapper<Node>> nextNode);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

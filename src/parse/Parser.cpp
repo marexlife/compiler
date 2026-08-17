@@ -5,6 +5,8 @@
 #include "Statement.h"
 #include "Token.h"
 #include "TokenStream.h"
+#include <functional>
+#include <optional>
 #include <utility>
 
 namespace marex::parse {
@@ -25,8 +27,19 @@ void Parser::processStatement(lex::Statement &statement) {
 }
 
 void Parser::processNodes(ct::VisitorVector<Node> &nodes) {
-    nodes.forEach([](Node &node) { Parser::processNode(node); });
+    std::optional<std::reference_wrapper<Node>> previousNode =
+        std::nullopt;
+
+    nodes.forEach([&](Node &node) {
+        Parser::processNode(*previousNode, node);
+
+        previousNode = node;
+    });
 }
 
-void Parser::processNode([[maybe_unused]] Node &node) {}
+void Parser::processNode(
+    Node &node,
+    std::optional<std::reference_wrapper<Node>> nextNode) {
+    
+    }
 } // namespace marex::parse
