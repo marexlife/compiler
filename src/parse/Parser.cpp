@@ -33,26 +33,26 @@ void Parser::processStatement(lex::Statement &statement) {
 }
 
 void Parser::parseNodes(ct::VisitorVector<Node> &nodes) {
-    std::optional<std::reference_wrapper<Node>> perviusNodeOptional =
+    std::optional<std::reference_wrapper<Node>> perviousNodeOptional =
         std::nullopt;
     JumpCount forwardJumpCount = 0;
 
     nodes.forEach([&](Node &node) -> void {
         core::Defer iterDefer = [&]() -> void {
-            perviusNodeOptional = node;
+            perviousNodeOptional = node;
 
             if (forwardJumpCount > 0) {
                 --forwardJumpCount;
             }
         };
 
-        if (perviusNodeOptional == std::nullopt ||
+        if (perviousNodeOptional == std::nullopt ||
             forwardJumpCount != 0) {
             return;
         }
 
         forwardJumpCount =
-            Parser::parseNode(*perviusNodeOptional, node);
+            Parser::parseNode(*perviousNodeOptional, node);
     });
 }
 
@@ -79,7 +79,7 @@ JumpCount Parser::parseNode(Node &previousNode, Node &currentNode) {
 
 JumpCount Parser::parseVar([[maybe_unused]] VarNode &self,
                            [[maybe_unused]] Node &identNode) {
-    
+
     return 2;
 }
 JumpCount Parser::parsePrint([[maybe_unused]] PrintNode &self,
