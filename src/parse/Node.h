@@ -23,6 +23,8 @@ class Node {
         return static_cast<T &>(*this);
     }
 
+    void print();
+
     [[nodiscard]] const lex::Token &getToken() const { return token; }
 
     [[nodiscard]] std::uint8_t getBindingPower() const {

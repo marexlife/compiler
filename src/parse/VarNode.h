@@ -11,6 +11,8 @@ class VarNode final : public Node {
   public:
     explicit VarNode(lex::Token &&token);
 
+    void print();
+
     void setIdentNode(IdentNode &identNode) {
         this->identNode = identNode;
     }

@@ -69,14 +69,13 @@ void Parser::parseNodes(std::vector<std::unique_ptr<Node>> &nodes) {
     }
 }
 
-JumpCount Parser::parseNode(Node &previousNode, Node &currentNode) {
-    switch (previousNode.getKind()) {
+JumpCount Parser::parseNode(Node &self, Node &nextNode) {
+    switch (self.getKind()) {
     case lex::TokenKind::Var:
-        return Parser::tryParseVar(previousNode.cast<VarNode>(),
-                                   currentNode);
+        return Parser::tryParseVar(self.cast<VarNode>(), nextNode);
     case lex::TokenKind::Print:
-        return Parser::tryParsePrint(previousNode.cast<PrintNode>(),
-                                     currentNode);
+        return Parser::tryParsePrint(self.cast<PrintNode>(),
+                                     nextNode);
     case lex::TokenKind::Identifier:
         core::Logger::logFatalError("identifier not valid here");
         break;

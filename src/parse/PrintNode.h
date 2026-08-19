@@ -9,6 +9,8 @@ class PrintNode final : public Node {
   public:
     explicit PrintNode(lex::Token &&token);
 
+    void print();
+
     void setTargetNode(IdentNode &targetNode) {
         identNode = targetNode;
     }

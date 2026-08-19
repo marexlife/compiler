@@ -31,8 +31,8 @@ class Parser final {
     processStatement(lex::Statement &statement);
 
     static void parseNodes(std::vector<std::unique_ptr<Node>> &nodes);
-    [[nodiscard]] static JumpCount parseNode(Node &previousNode,
-                                             Node &currentNode);
+    [[nodiscard]] static JumpCount parseNode(Node &self,
+                                             Node &nextNode);
 
     [[nodiscard]] static JumpCount tryParseVar(VarNode &self,
                                                Node &identNode);
