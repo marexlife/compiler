@@ -50,7 +50,7 @@ void Parser::parseNodes(std::vector<std::unique_ptr<Node>> &nodes) {
 
         if (perviousNodeOptional == std::nullopt ||
             forwardJumpCount != 0) {
-            return;
+            continue;
         }
 
         forwardJumpCount =
