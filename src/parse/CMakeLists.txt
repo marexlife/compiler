@@ -17,6 +17,7 @@ add_library(${PROJECT_NAME}
     PrintNode.cpp
     ValueNode.cpp
     VarNode.cpp
+    IdentNode.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC

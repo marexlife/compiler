@@ -18,6 +18,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
+    core
     parse
 )
 

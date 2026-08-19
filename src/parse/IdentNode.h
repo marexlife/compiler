@@ -5,6 +5,8 @@
 namespace marex::parse {
 class IdentNode final : public Node {
   public:
+    void print();
+
   private:
 };
 } // namespace marex::parse
