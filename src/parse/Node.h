@@ -23,7 +23,7 @@ class Node {
         return static_cast<T &>(*this);
     }
 
-    void print();
+    [[nodiscard]] std::string asString();
 
     [[nodiscard]] const lex::Token &getToken() const { return token; }
 

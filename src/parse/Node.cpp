@@ -4,22 +4,20 @@
 #include "PrintNode.h"
 #include "Token.h"
 #include "VarNode.h"
+#include <string>
 #include <utility>
 
 namespace marex::parse {
 Node::Node(lex::Token &&token) : token(std::move(token)) {}
 
-void Node::print() {
+std::string Node::asString() {
     switch (getKind()) {
     case marex::lex::TokenKind::Identifier:
-        cast<parse::IdentNode>().print();
-        break;
+        return cast<parse::IdentNode>().asString();
     case marex::lex::TokenKind::Print:
-        cast<parse::PrintNode>().print();
-        break;
+        return cast<parse::PrintNode>().asString();
     case marex::lex::TokenKind::Var:
-        cast<parse::VarNode>().print();
-        break;
+        return cast<parse::VarNode>().asString();
     case marex::lex::TokenKind::None:
         [[fallthrough]];
     default:

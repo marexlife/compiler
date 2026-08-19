@@ -1,7 +1,8 @@
 #include "IdentNode.h"
+#include <string>
 
 namespace marex::parse {
-void IdentNode::print() {
-    
+[[nodiscard]] std::string IdentNode::asString() {
+    return std::string{IdentNode::getLexeme()};
 }
 } // namespace marex::parse

@@ -3,13 +3,14 @@
 #include "IdentNode.h"
 #include "Node.h"
 #include "Token.h"
+#include <string>
 
 namespace marex::parse {
 class PrintNode final : public Node {
   public:
     explicit PrintNode(lex::Token &&token);
 
-    void print();
+    [[nodiscard]] std::string asString();
 
     void setTargetNode(IdentNode &targetNode) {
         identNode = targetNode;

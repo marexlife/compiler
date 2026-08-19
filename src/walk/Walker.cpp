@@ -8,7 +8,9 @@ void Walker::run(
         &&listOfNodes) {
     for (auto &nodes : listOfNodes) {
         for (std::unique_ptr<parse::Node> &node : nodes) {
-            node->print();
+            auto result = node->asString();
+
+            std::cout << result << ",\n";
         }
     }
 }
