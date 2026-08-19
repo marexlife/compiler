@@ -12,6 +12,6 @@ void LexerPrinter::printLexerResult(lex::TokenStream &tokenStream) {
         }
     }
 
-    std::cout << '\n';
+    std::cout.flush();
 }
 } // namespace marex::lex
