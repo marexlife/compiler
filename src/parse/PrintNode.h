@@ -9,6 +9,10 @@ class PrintNode final : public Node {
   public:
     explicit PrintNode(lex::Token &&token);
 
+    void setTargetNode(IdentNode &targetNode) {
+        identNode = targetNode;
+    }
+
   private:
     std::optional<std::reference_wrapper<IdentNode>> identNode =
         std::nullopt;

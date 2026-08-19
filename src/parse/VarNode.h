@@ -11,6 +11,10 @@ class VarNode final : public Node {
   public:
     explicit VarNode(lex::Token &&token);
 
+    void setIdentNode(IdentNode &identNode) {
+        this->identNode = identNode;
+    }
+
   private:
     std::optional<std::reference_wrapper<IdentNode>> identNode =
         std::nullopt;
