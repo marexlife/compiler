@@ -8,7 +8,7 @@
 #include <utility>
 
 namespace marex::parse {
-std::unique_ptr<Node> NodeFactory::create_node(lex::Token &&token) {
+std::unique_ptr<Node> NodeFactory::createNode(lex::Token &&token) {
     switch (token.getKind()) {
     case lex::TokenKind::Identifier:
         return std::make_unique<Node>(std::move(token));
