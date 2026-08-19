@@ -60,7 +60,9 @@ void App::compile(std::string sourceCode, AppModeKind appModeKind) {
 
     lex::LexerPrinter::printLexerResult(*lexerResult);
 
-    parse::Parser::run(std::move(*lexerResult));
+    auto parserResult = parse::Parser::run(std::move(*lexerResult));
+
+    
 }
 
 void App::handleLexerFailure(

@@ -22,10 +22,13 @@ class Parser final {
     Parser &operator=(const Parser &) = delete;
     ~Parser() = delete;
 
-    static void run(lex::TokenStream &&tokenStream);
+    [[nodiscard]] static std::vector<
+        std::vector<std::unique_ptr<Node>>>
+    run(lex::TokenStream &&tokenStream);
 
   private:
-    static void processStatement(lex::Statement &statement);
+    [[nodiscard]] static std::vector<std::unique_ptr<Node>>
+    processStatement(lex::Statement &statement);
 
     static void parseNodes(std::vector<std::unique_ptr<Node>> &nodes);
     [[nodiscard]] static JumpCount parseNode(Node &previousNode,

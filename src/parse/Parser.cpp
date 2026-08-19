@@ -16,15 +16,24 @@
 #include <memory>
 #include <optional>
 #include <utility>
+#include <vector>
 
 namespace marex::parse {
-void Parser::run(lex::TokenStream &&tokenStream) {
+std::vector<std::vector<std::unique_ptr<Node>>>
+Parser::run(lex::TokenStream &&tokenStream) {
+    std::vector<std::vector<std::unique_ptr<Node>>> listOfNodes;
+
     for (lex::Statement &statement : tokenStream) {
-        Parser::processStatement(statement);
+        auto processResult = Parser::processStatement(statement);
+
+        listOfNodes.emplace_back(std::move(processResult));
     }
+
+    return listOfNodes;
 }
 
-void Parser::processStatement(lex::Statement &statement) {
+std::vector<std::unique_ptr<Node>>
+Parser::processStatement(lex::Statement &statement) {
     std::vector<std::unique_ptr<Node>> nodes{};
 
     for (lex::Token &token : statement) {
@@ -32,6 +41,8 @@ void Parser::processStatement(lex::Statement &statement) {
     }
 
     Parser::parseNodes(nodes);
+
+    return nodes;
 }
 
 void Parser::parseNodes(std::vector<std::unique_ptr<Node>> &nodes) {
@@ -40,7 +51,7 @@ void Parser::parseNodes(std::vector<std::unique_ptr<Node>> &nodes) {
     JumpCount forwardJumpCount = 0;
 
     for (std::unique_ptr<Node> &node : nodes) {
-        core::Defer iterDefer = [&]() -> void {
+        core::Defer iterDefer = [&]() {
             perviousNodeOptional = *node;
 
             if (forwardJumpCount > 0) {
@@ -81,7 +92,7 @@ JumpCount Parser::parseNode(Node &previousNode, Node &currentNode) {
 
 JumpCount Parser::tryParseVar(VarNode &self, Node &identNode) {
     switch (identNode.getKind()) {
-    case marex::lex::TokenKind::Identifier:
+    case lex::TokenKind::Identifier:
         return Parser::parseVar(self, identNode.cast<IdentNode>());
     default:
         core::Logger::logFatalError(
@@ -97,7 +108,7 @@ JumpCount Parser::parseVar(VarNode &self, IdentNode &identNode) {
 
 JumpCount Parser::tryParsePrint(PrintNode &self, Node &identNode) {
     switch (self.getKind()) {
-    case marex::lex::TokenKind::Identifier:
+    case lex::TokenKind::Identifier:
         return Parser::parsePrint(self, identNode.cast<IdentNode>());
     default:
         core::Logger::logFatalError(
