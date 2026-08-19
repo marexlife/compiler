@@ -6,7 +6,7 @@
 namespace marex::parse {
 class OpNode final : public Node {
   public:
-    explicit OpNode(lex::Token &token);
+    explicit OpNode(lex::Token &&token);
 
   private:
 };
