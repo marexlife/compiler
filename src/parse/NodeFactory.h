@@ -2,11 +2,12 @@
 #define MAREX_PARSE_NODEFACTORY_H
 #include "Node.h"
 #include "Token.h"
+#include <memory>
 
 namespace marex::parse {
 class NodeFactory final {
   public:
-    [[nodiscard]] static Node *createNode(lex::Token &&token);
+    [[nodiscard]] static std::unique_ptr<Node> createNode(lex::Token &&token);
 
   private:
 };
