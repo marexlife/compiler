@@ -22,6 +22,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     parse
     cl
     fetch
+    walk
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
