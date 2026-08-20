@@ -11,6 +11,7 @@
 #include <utility>
 #include <vector>
 
+#include "ActionPicker.h"
 #include "AppModeKind.h"
 #include "Fetcher.h"
 #include "Lexer.h"
@@ -23,10 +24,13 @@
 
 namespace marex::app {
 void App::run(int argc, char *argv[]) {
-    App::select_action(
+    marex::app::select_action(
         argc, argv,
-        [&](int argc, char *argv[]) { compile_files(argc, argv); },
-        [&]() { run_shell_mode(); });
+        [&](int argc, char *argv[]) {
+            App::compile_files(argc, argv);
+        },
+        [&]() { App::run_shell_mode(); },
+        [&]() { App::show_help_screen(); });
 }
 
 void App::compile_files(int argc, char *argv[]) {
@@ -51,26 +55,26 @@ C. list files that should be compiled)";
 
 void App::compile(std::string source_code,
                   AppModeKind app_mode_kind) {
-    absl::StatusOr<lex::TokenStream> lexerResult =
+    absl::StatusOr<lex::TokenStream> lexer_result =
         lexer.run(std::move(source_code));
 
-    if (!lexerResult.ok()) [[unlikely]] {
-        handle_lexer_failure(lexerResult, app_mode_kind);
+    if (!lexer_result.ok()) [[unlikely]] {
+        handle_lexer_failure(lexer_result, app_mode_kind);
 
         return;
     }
 
-    lex::LexerPrinter::print_lexer_result(*lexerResult);
+    lex::LexerPrinter::print_lexer_result(*lexer_result);
 
-    auto parserResult = parse::Parser::run(std::move(*lexerResult));
+    auto parser_result = parse::Parser::run(std::move(*lexer_result));
 
-    walk::Walker::run(std::move(parserResult));
+    walk::Walker::run(std::move(parser_result));
 }
 
 void App::handle_lexer_failure(
     absl::StatusOr<lex::TokenStream> &lexer_result,
     AppModeKind app_mode_kind) {
-    App::handle_mode_kind(
+    marex::app::handle_mode_kind(
         app_mode_kind,
         [&](std::string_view error_message) {
             core::Logger::log_fatal_error(error_message);
