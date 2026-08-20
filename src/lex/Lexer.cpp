@@ -13,41 +13,41 @@
 #include "absl/status/status.h"
 
 namespace marex::lex {
-absl::StatusOr<TokenStream> Lexer::run(std::string &&sourceText) {
+absl::StatusOr<TokenStream> Lexer::run(std::string &&source_text) {
     TokenStream result;
 
-    core::Defer deferReset{[&]() { reset(); }};
+    core::Defer defer_reset = [&]() { reset(); };
 
     result.reserve(vectorDefaultSize);
 
     std::optional<char> lastCharOptional = std::nullopt;
-    LastCharKind lastCharKind = LastCharKind::None;
+    LastCharKind last_char_kind = LastCharKind::None;
 
-    for (const auto sourceTextChar : sourceText) {
+    for (const auto source_text_char : source_text) {
         LastCharKind thisCharKind = LastCharKind::WasNotDefault;
 
-        core::Defer defeIterEnd{[&]() {
-            lastCharOptional = sourceTextChar;
-            lastCharKind = thisCharKind;
+        core::Defer defer_iter_end{[&]() {
+            lastCharOptional = source_text_char;
+            last_char_kind = thisCharKind;
         }};
 
-        switch (sourceTextChar) {
+        switch (source_text_char) {
         case '\n':
             [[fallthrough]];
         case '\0':
             // ignore
             break;
         case ' ':
-            if (lastCharKind == LastCharKind::WasDefault) {
-                Lexer::pushToken();
+            if (last_char_kind == LastCharKind::WasDefault) {
+                Lexer::push_token();
             }
             break;
         case ';':
-            Lexer::pushStatement(result);
+            Lexer::push_statement(result);
             break;
         default:
             thisCharKind = LastCharKind::WasDefault;
-            lastWord.push_back(sourceTextChar);
+            last_word.push_back(source_text_char);
             break;
         }
     }
@@ -64,22 +64,22 @@ absl::StatusOr<TokenStream> Lexer::run(std::string &&sourceText) {
 }
 
 void Lexer::reset() {
-    lastStatement.clear();
-    lastWord.clear();
+    last_statement.clear();
+    last_word.clear();
 }
 
-void Lexer::pushToken() {
-    lastStatement.emplace_back(
-        tokenFactory.createToken(std::string{lastWord}));
+void Lexer::push_token() {
+    last_statement.emplace_back(
+        token_factory.create_token(std::string{last_word}));
 
-    lastWord.clear();
+    last_word.clear();
 }
 
-void Lexer::pushStatement(TokenStream &result) {
-    Lexer::pushToken();
+void Lexer::push_statement(TokenStream &result) {
+    Lexer::push_token();
 
-    result.push_back(Statement{lastStatement});
+    result.push_back(Statement{last_statement});
 
-    lastStatement.clear();
+    last_statement.clear();
 }
 } // namespace marex::lex

@@ -5,7 +5,7 @@
 namespace marex::fetch {
 class Fetcher final {
   public:
-    static const std::size_t resultReserveAmount = 100;
+    static const std::size_t result_reserve_amount = 100;
 
     Fetcher() = delete;
     Fetcher(Fetcher &&) = delete;

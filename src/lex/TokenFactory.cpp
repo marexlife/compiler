@@ -9,7 +9,7 @@
 #include "TokenKind.h"
 
 namespace marex::lex {
-Token TokenFactory::createToken(std::string &&sourceWord) {
+Token TokenFactory::create_token(std::string &&sourceWord) {
     return Token{
         core::Passkey<TokenFactory>{},
         std::move(sourceWord),
@@ -25,4 +25,4 @@ TokenFactory::map(std::string_view sourceWord) {
 
     return TokenKind::Identifier;
 }
-} // namespace compiler::lex
+} // namespace marex::lex

@@ -7,12 +7,12 @@
 namespace marex::parse {
 VarNode::VarNode(lex::Token &&token) : Node(std::move(token)) {}
 
-std::string VarNode::asString() {
+std::string VarNode::as_string() {
     if (identNode) [[likely]] {
         return std::format("variable {}",
-                           identNode->get().asString());
+                           identNode->get().as_string());
     }
 
-    core::Logger::logFatalInternalError("no value for VarNode");
+    core::Logger::log_fatal_internal_error("no value for VarNode");
 }
 } // namespace marex::parse

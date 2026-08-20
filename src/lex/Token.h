@@ -2,7 +2,6 @@
 #define MAREX_LEX_TOKEN_H
 #include <absl/status/statusor.h>
 
-#include <cstdlib>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -17,13 +16,13 @@ class [[nodiscard]] Token final {
     Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
           std::string &&lexeme, TokenKind tokenKind);
 
-    [[nodiscard]] std::string_view getLexeme() const;
+    [[nodiscard]] std::string_view get_lexeme() const;
 
-    [[nodiscard]] std::string moveOutLexeme();
+    [[nodiscard]] std::string move_out_lexeme();
 
-    [[nodiscard]] TokenKind getKind() const { return kind; }
+    [[nodiscard]] TokenKind get_kind() const { return kind; }
 
-    [[nodiscard]] std::uint8_t getBindingPower() const;
+    [[nodiscard]] std::uint8_t get_binding_power() const;
 
   private:
     std::optional<std::string> lexeme;

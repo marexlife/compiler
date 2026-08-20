@@ -22,12 +22,12 @@ class TokenFactory final {
     TokenFactory &operator=(const TokenFactory &) = delete;
     ~TokenFactory() = default;
 
-    [[nodiscard]] Token createToken(std::string &&sourceWord);
+    [[nodiscard]] Token create_token(std::string &&sourceWord);
 
   private:
     [[nodiscard]] TokenKind map(std::string_view sourceWord);
 
     absl::flat_hash_map<std::string_view, TokenKind> mapping;
 };
-} // namespace compiler::lex
+} // namespace marex::lex
 #endif // MAREX_LEX_TOKENFACTORY_H

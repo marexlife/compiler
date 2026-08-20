@@ -4,21 +4,22 @@
 #include <string>
 
 namespace marex::core {
-class ErrorFromater final {
+class ErrorFormater final {
   public:
-    ErrorFromater() = delete;
-    ErrorFromater(ErrorFromater &&) = delete;
-    ErrorFromater &operator=(ErrorFromater &&) = delete;
-    ErrorFromater(const ErrorFromater &) = delete;
-    ErrorFromater &operator=(const ErrorFromater &) = delete;
-    ~ErrorFromater() = delete;
+    ErrorFormater() = delete;
+    ErrorFormater(ErrorFormater &&) = delete;
+    ErrorFormater &operator=(ErrorFormater &&) = delete;
+    ErrorFormater(const ErrorFormater &) = delete;
+    ErrorFormater &operator=(const ErrorFormater &) = delete;
+    ~ErrorFormater() = delete;
 
-    [[nodiscard]] static std::string mergeMessageWithSourceLocation(
+    [[nodiscard]] static std::string
+    merge_message_with_source_location(
         std::string_view message,
-        const std::source_location &sourceLocation);
+        const std::source_location &source_location);
 
-    [[nodiscard]] static std::string sourceLocationToString(
-        const std::source_location &sourceLocation);
+    [[nodiscard]] static std::string source_location_to_string(
+        const std::source_location &source_location);
 };
 } // namespace marex::core
 #endif // MAREX_CORE_ERRORFROMATER_H

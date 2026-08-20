@@ -2,7 +2,7 @@
 #include <string>
 
 namespace marex::parse {
-[[nodiscard]] std::string IdentNode::asString() {
-    return std::string{IdentNode::getLexeme()};
+[[nodiscard]] std::string IdentNode::as_string() {
+    return std::string{IdentNode::get_lexeme()};
 }
 } // namespace marex::parse

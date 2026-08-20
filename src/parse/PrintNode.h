@@ -10,9 +10,9 @@ class PrintNode final : public Node {
   public:
     explicit PrintNode(lex::Token &&token);
 
-    [[nodiscard]] std::string asString();
+    [[nodiscard]] std::string as_string();
 
-    void setTargetNode(IdentNode &targetNode) {
+    void set_target_node(IdentNode &targetNode) {
         identNode = targetNode;
     }
 

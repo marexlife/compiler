@@ -24,25 +24,26 @@ class Parser final {
 
     [[nodiscard]] static std::vector<
         std::vector<std::unique_ptr<Node>>>
-    run(lex::TokenStream &&tokenStream);
+    run(lex::TokenStream &&token_stream);
 
   private:
     [[nodiscard]] static std::vector<std::unique_ptr<Node>>
-    processStatement(lex::Statement &statement);
+    process_statement(lex::Statement &statement);
 
-    static void parseNodes(std::vector<std::unique_ptr<Node>> &nodes);
-    [[nodiscard]] static JumpCount parseNode(Node &self,
-                                             Node &nextNode);
+    static void
+    parse_nodes(std::vector<std::unique_ptr<Node>> &nodes);
+    [[nodiscard]] static JumpCount parse_node(Node &self,
+                                              Node &next_node);
 
-    [[nodiscard]] static JumpCount tryParseVar(VarNode &self,
-                                               Node &identNode);
-    [[nodiscard]] static JumpCount parseVar(VarNode &self,
-                                            IdentNode &identNode);
+    [[nodiscard]] static JumpCount try_parse_var(VarNode &self,
+                                                 Node &ident_node);
+    [[nodiscard]] static JumpCount parse_var(VarNode &self,
+                                             IdentNode &ident_node);
 
-    [[nodiscard]] static JumpCount tryParsePrint(PrintNode &self,
-                                                 Node &identNode);
-    [[nodiscard]] static JumpCount parsePrint(PrintNode &self,
-                                              IdentNode &targetNode);
+    [[nodiscard]] static JumpCount try_parse_print(PrintNode &self,
+                                                   Node &ident_node);
+    [[nodiscard]] static JumpCount parse_print(PrintNode &self,
+                                               IdentNode &target_node);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

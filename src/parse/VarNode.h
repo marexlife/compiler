@@ -12,9 +12,9 @@ class VarNode final : public Node {
   public:
     explicit VarNode(lex::Token &&token);
 
-    [[nodiscard]] std::string asString();
+    [[nodiscard]] std::string as_string();
 
-    void setIdentNode(IdentNode &identNode) {
+    void set_ident_node(IdentNode &identNode) {
         this->identNode = identNode;
     }
 

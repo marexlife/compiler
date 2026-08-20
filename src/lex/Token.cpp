@@ -8,7 +8,7 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
              std::string &&lexeme, TokenKind tokenKind)
     : lexeme(std::move(lexeme)), kind(tokenKind) {}
 
-[[nodiscard]] std::uint8_t Token::getBindingPower() const {
+[[nodiscard]] std::uint8_t Token::get_binding_power() const {
     switch (kind) {
     case lex::TokenKind::Print: {
         static const std::uint8_t bindingPower = 100;
@@ -26,26 +26,26 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
         return bindingPower;
     } break;
     case TokenKind::None:
-        core::Logger::logFatalError("TokenKind is none");
+        core::Logger::log_fatalError("TokenKind is none");
     default:
-        core::Logger::logFatalError("TokenKind is Invalid");
+        core::Logger::log_fatalError("TokenKind is Invalid");
     }
 
-    core::Logger::logFatalError("No Token selected");
+    core::Logger::log_fatalError("No Token selected");
 }
 
-[[nodiscard]] std::string_view Token::getLexeme() const {
+[[nodiscard]] std::string_view Token::get_lexeme() const {
     if (!lexeme) [[unlikely]] {
-        core::Logger::logFatalInternalError(
+        core::Logger::log_fatal_internal_error(
             "trying to get lexeme when none is there");
     }
 
     return *lexeme;
 }
 
-[[nodiscard]] std::string Token::moveOutLexeme() {
+[[nodiscard]] std::string Token::move_out_lexeme() {
     if (!lexeme) [[unlikely]] {
-        core::Logger::logFatalInternalError(
+        core::Logger::log_fatal_internal_error(
             "trying to move out a lexeme when none exists");
     }
 
