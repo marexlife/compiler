@@ -8,8 +8,8 @@ namespace marex::parse {
 PrintNode::PrintNode(lex::Token &&token) : Node(std::move(token)) {}
 
 std::string PrintNode::as_string() {
-    if (identNode) [[likely]] {
-        return std::format("print {}", identNode->get().as_string());
+    if (ident_node) [[likely]] {
+        return std::format("print {}", ident_node->get().as_string());
     }
 
     core::Logger::log_fatal_internal_error("no value for print node");

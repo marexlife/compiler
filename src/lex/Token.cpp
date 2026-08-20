@@ -11,19 +11,19 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
 [[nodiscard]] std::uint8_t Token::get_binding_power() const {
     switch (kind) {
     case lex::TokenKind::Print: {
-        static const std::uint8_t bindingPower = 100;
+        static const std::uint8_t binding_power = 100;
 
-        return bindingPower;
+        return binding_power;
     } break;
     case lex::TokenKind::Var: {
-        static const std::uint8_t bindingPower = 30;
+        static const std::uint8_t binding_power = 30;
 
-        return bindingPower;
+        return binding_power;
     } break;
     case lex::TokenKind::Identifier: {
-        static const std::uint8_t bindingPower = 10;
+        static const std::uint8_t binding_power = 10;
 
-        return bindingPower;
+        return binding_power;
     } break;
     case TokenKind::None:
         core::Logger::log_fatal_error("TokenKind is none");

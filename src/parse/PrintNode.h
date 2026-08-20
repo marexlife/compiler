@@ -13,11 +13,11 @@ class PrintNode final : public Node {
     [[nodiscard]] std::string as_string();
 
     void set_target_node(IdentNode &targetNode) {
-        identNode = targetNode;
+        ident_node = targetNode;
     }
 
   private:
-    std::optional<std::reference_wrapper<IdentNode>> identNode =
+    std::optional<std::reference_wrapper<IdentNode>> ident_node =
         std::nullopt;
 };
 } // namespace marex::parse

@@ -12,11 +12,11 @@ void Logger::log_info(std::string_view message) {
 
 void Logger::log_error(std::string_view message,
                        std::source_location source_location) {
-    std::string formatResult =
+    std::string format_result =
         ErrorFormater::merge_message_with_source_location(
             message, source_location);
 
-    std::cout << "error: " << formatResult << '\n';
+    std::cout << "error: " << format_result << '\n';
 }
 
 void Logger::log_fatal_error(std::string_view message,
