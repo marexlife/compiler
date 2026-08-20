@@ -18,7 +18,9 @@
 #include "Logger.h"
 #include "Parser.h"
 #include "TokenStream.h"
+#include "Walker.h"
 #include "absl/status/statusor.h"
+
 
 namespace marex::app {
 void App::run(int argc, char *argv[]) {
@@ -60,7 +62,9 @@ void App::compile(std::string sourceCode, AppModeKind appModeKind) {
 
     lex::LexerPrinter::printLexerResult(*lexerResult);
 
-    parse::Parser::run(std::move(*lexerResult));
+    auto parserResult = parse::Parser::run(std::move(*lexerResult));
+
+    walk::Walker::run(std::move(parserResult));
 }
 
 void App::handleLexerFailure(

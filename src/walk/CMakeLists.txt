@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(app)
+project(walk)
 
 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_CLANG_TIDY ON)
 
 add_library(${PROJECT_NAME}
-    App.cpp
+    Walker.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC
@@ -18,11 +18,8 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    lex
+    core
     parse
-    cl
-    fetch
-    walk
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

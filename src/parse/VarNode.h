@@ -5,11 +5,18 @@
 #include "Token.h"
 #include <functional>
 #include <optional>
+#include <string>
 
 namespace marex::parse {
 class VarNode final : public Node {
   public:
     explicit VarNode(lex::Token &&token);
+
+    [[nodiscard]] std::string asString();
+
+    void setIdentNode(IdentNode &identNode) {
+        this->identNode = identNode;
+    }
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> identNode =

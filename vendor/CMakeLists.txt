@@ -10,11 +10,6 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_TAG 12.2.0
 )
-FetchContent_Declare(
-    CORETYPES
-    GIT_REPOSITORY https://github.com/marexlife/core-types.git
-    GIT_TAG v0.8
-)
 
 FetchContent_Declare(
     ABSEIL
@@ -24,6 +19,5 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(
     FMT
-    CORETYPES
     ABSEIL
 )

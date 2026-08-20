@@ -17,6 +17,7 @@ add_library(${PROJECT_NAME}
     PrintNode.cpp
     ValueNode.cpp
     VarNode.cpp
+    IdentNode.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC
@@ -30,8 +31,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     absl::statusor
     absl::inlined_vector
     absl::flat_hash_map
-
-    coretypes_containers
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

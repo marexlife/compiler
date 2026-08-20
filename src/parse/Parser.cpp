@@ -1,6 +1,7 @@
 #include "Parser.h"
 
 #include "Defer.h"
+#include "IdentNode.h"
 #include "JumpCont.h"
 #include "Logger.h"
 #include "Node.h"
@@ -12,34 +13,46 @@
 #include "TokenStream.h"
 #include "VarNode.h"
 #include <functional>
+#include <memory>
 #include <optional>
 #include <utility>
+#include <vector>
 
 namespace marex::parse {
-void Parser::run(lex::TokenStream &&tokenStream) {
+std::vector<std::vector<std::unique_ptr<Node>>>
+Parser::run(lex::TokenStream &&tokenStream) {
+    std::vector<std::vector<std::unique_ptr<Node>>> listOfNodes;
+
     for (lex::Statement &statement : tokenStream) {
-        Parser::processStatement(statement);
+        auto processResult = Parser::processStatement(statement);
+
+        listOfNodes.emplace_back(std::move(processResult));
     }
+
+    return listOfNodes;
 }
 
-void Parser::processStatement(lex::Statement &statement) {
-    ct::VisitorVector<Node> nodes{};
+std::vector<std::unique_ptr<Node>>
+Parser::processStatement(lex::Statement &statement) {
+    std::vector<std::unique_ptr<Node>> nodes{};
 
     for (lex::Token &token : statement) {
-        nodes.push(NodeFactory::createNode(std::move(token)));
+        nodes.emplace_back(NodeFactory::createNode(std::move(token)));
     }
 
     Parser::parseNodes(nodes);
+
+    return nodes;
 }
 
-void Parser::parseNodes(ct::VisitorVector<Node> &nodes) {
+void Parser::parseNodes(std::vector<std::unique_ptr<Node>> &nodes) {
     std::optional<std::reference_wrapper<Node>> perviousNodeOptional =
         std::nullopt;
     JumpCount forwardJumpCount = 0;
 
-    nodes.forEach([&](Node &node) -> void {
-        core::Defer iterDefer = [&]() -> void {
-            perviousNodeOptional = node;
+    for (std::unique_ptr<Node> &node : nodes) {
+        core::Defer iterDefer = [&]() {
+            perviousNodeOptional = *node;
 
             if (forwardJumpCount > 0) {
                 --forwardJumpCount;
@@ -48,22 +61,21 @@ void Parser::parseNodes(ct::VisitorVector<Node> &nodes) {
 
         if (perviousNodeOptional == std::nullopt ||
             forwardJumpCount != 0) {
-            return;
+            continue;
         }
 
         forwardJumpCount =
-            Parser::parseNode(*perviousNodeOptional, node);
-    });
+            Parser::parseNode(*perviousNodeOptional, *node);
+    }
 }
 
-JumpCount Parser::parseNode(Node &previousNode, Node &currentNode) {
-    switch (previousNode.getKind()) {
+JumpCount Parser::parseNode(Node &self, Node &nextNode) {
+    switch (self.getKind()) {
     case lex::TokenKind::Var:
-        return Parser::parseVar(previousNode.cast<VarNode>(),
-                                currentNode);
+        return Parser::tryParseVar(self.cast<VarNode>(), nextNode);
     case lex::TokenKind::Print:
-        return Parser::parsePrint(previousNode.cast<PrintNode>(),
-                                  currentNode);
+        return Parser::tryParsePrint(self.cast<PrintNode>(),
+                                     nextNode);
     case lex::TokenKind::Identifier:
         core::Logger::logFatalError("identifier not valid here");
         break;
@@ -77,13 +89,35 @@ JumpCount Parser::parseNode(Node &previousNode, Node &currentNode) {
     return 0;
 }
 
-JumpCount Parser::parseVar([[maybe_unused]] VarNode &self,
-                           [[maybe_unused]] Node &identNode) {
+JumpCount Parser::tryParseVar(VarNode &self, Node &identNode) {
+    switch (identNode.getKind()) {
+    case lex::TokenKind::Identifier:
+        return Parser::parseVar(self, identNode.cast<IdentNode>());
+    default:
+        core::Logger::logFatalError(
+            "wrong thing after var. try: var x");
+    }
+}
+
+JumpCount Parser::parseVar(VarNode &self, IdentNode &identNode) {
+    self.setIdentNode(identNode);
 
     return 2;
 }
-JumpCount Parser::parsePrint([[maybe_unused]] PrintNode &self,
-                             [[maybe_unused]] Node &identNode) {
+
+JumpCount Parser::tryParsePrint(PrintNode &self, Node &identNode) {
+    switch (self.getKind()) {
+    case lex::TokenKind::Identifier:
+        return Parser::parsePrint(self, identNode.cast<IdentNode>());
+    default:
+        core::Logger::logFatalError(
+            "wrong thing after var. try: print hey");
+    }
+}
+
+JumpCount Parser::parsePrint(PrintNode &self, IdentNode &targetNode) {
+    self.setTargetNode(targetNode);
+
     return 2;
 }
 } // namespace marex::parse
