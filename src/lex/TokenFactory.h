@@ -22,10 +22,10 @@ class TokenFactory final {
     TokenFactory &operator=(const TokenFactory &) = delete;
     ~TokenFactory() = default;
 
-    [[nodiscard]] Token create_token(std::string &&sourceWord);
+    [[nodiscard]] Token create_token(std::string &&source_word);
 
   private:
-    [[nodiscard]] TokenKind map(std::string_view sourceWord);
+    [[nodiscard]] TokenKind map(std::string_view source_word);
 
     absl::flat_hash_map<std::string_view, TokenKind> mapping;
 };

@@ -20,14 +20,14 @@ absl::StatusOr<TokenStream> Lexer::run(std::string &&source_text) {
 
     result.reserve(vectorDefaultSize);
 
-    std::optional<char> lastCharOptional = std::nullopt;
+    std::optional<char> last_char_optional = std::nullopt;
     LastCharKind last_char_kind = LastCharKind::None;
 
     for (const auto source_text_char : source_text) {
         LastCharKind thisCharKind = LastCharKind::WasNotDefault;
 
         core::Defer defer_iter_end{[&]() {
-            lastCharOptional = source_text_char;
+            last_char_optional = source_text_char;
             last_char_kind = thisCharKind;
         }};
 
@@ -52,11 +52,11 @@ absl::StatusOr<TokenStream> Lexer::run(std::string &&source_text) {
         }
     }
 
-    if (!lastCharOptional.has_value()) [[unlikely]] {
+    if (!last_char_optional.has_value()) [[unlikely]] {
         return absl::AbortedError("Source code is empty.");
     }
 
-    if (*lastCharOptional != ';') [[unlikely]] {
+    if (*last_char_optional != ';') [[unlikely]] {
         return absl::AbortedError("The last has to be a ';'.");
     }
 
