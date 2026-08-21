@@ -17,9 +17,9 @@ class PrintNode final : public Node {
         ident_node = targetNode;
     }
 
-    JumpCount try_parse_print(Node &ident_node);
+    [[nodiscard]] JumpCount try_parse(Node &ident_node);
 
-    JumpCount parse_print(IdentNode &target_node);
+    [[nodiscard]] JumpCount parse(IdentNode &target_node);
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> ident_node =

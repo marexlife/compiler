@@ -28,11 +28,11 @@ std::string Node::as_string() {
 JumpCount Node::parse_node(Node &next_node) {
     switch (get_kind()) {
     case lex::TokenKind::Var:
-        return cast<VarNode>().try_parse_var(next_node);
+        return cast<VarNode>().try_parse(next_node);
     case lex::TokenKind::Print:
-        return cast<PrintNode>().try_parse_print(next_node);
+        return cast<PrintNode>().try_parse(next_node);
     case lex::TokenKind::Identifier:
-        core::Logger::log_fatal_error("identifier not valid here");
+        return cast<IdentNode>().parse();
         break;
     case lex::TokenKind::None:
         [[fallthrough]];

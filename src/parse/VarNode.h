@@ -19,9 +19,9 @@ class VarNode final : public Node {
         this->ident_node = identNode;
     }
 
-    [[nodiscard]] JumpCount try_parse_var(Node &ident_node);
+    [[nodiscard]] JumpCount try_parse(Node &ident_node);
 
-    [[nodiscard]] JumpCount parse_var(IdentNode &ident_node);
+    [[nodiscard]] JumpCount parse(IdentNode &ident_node);
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> ident_node =

@@ -6,9 +6,14 @@
 namespace marex::parse {
 class IdentNode final : public Node {
   public:
+    explicit IdentNode(lex::Token &&token);
+
     [[nodiscard]] std::string as_string();
 
+    [[nodiscard]] JumpCount parse();
+
   private:
+    std::string value;
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_IDENTNODE_H
