@@ -15,7 +15,7 @@ std::string PrintNode::as_string() {
     core::Logger::log_fatal_internal_error("no value for print node");
 }
 
-JumpCount PrintNode::parse(Node &ident_node) {
+JumpCount PrintNode::set(Node &ident_node) {
     switch (get_kind()) {
     case lex::TokenKind::Identifier:
         this->ident_node = ident_node.cast<IdentNode>();

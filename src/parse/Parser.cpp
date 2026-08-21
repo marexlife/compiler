@@ -60,7 +60,7 @@ void Parser::parse_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
             continue;
         }
 
-        forward_jump_count = node->parse(*pervious_node_optional);
+        forward_jump_count = node->set(*pervious_node_optional);
     }
 }
 } // namespace marex::parse

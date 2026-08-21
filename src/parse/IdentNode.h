@@ -8,9 +8,9 @@ class IdentNode final : public Node {
   public:
     explicit IdentNode(lex::Token &&token);
 
-    [[nodiscard]] std::string as_string();
+    [[nodiscard]] std::string as_string() override;
 
-    [[nodiscard]] static JumpCount parse();
+    [[nodiscard]] JumpCount set(Node &next_node) override;
 
   private:
     std::string value;

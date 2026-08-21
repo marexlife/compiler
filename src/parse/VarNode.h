@@ -13,9 +13,9 @@ class VarNode final : public Node {
   public:
     explicit VarNode(lex::Token &&token);
 
-    [[nodiscard]] std::string as_string();
+    [[nodiscard]] std::string as_string() override;
 
-    [[nodiscard]] JumpCount parse(Node &ident_node);
+    [[nodiscard]] JumpCount set(Node &ident_node) override;
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> ident_node =

@@ -24,7 +24,7 @@ class Node {
         return static_cast<T &>(*this);
     }
 
-    [[nodiscard]] std::string as_string();
+    [[nodiscard]] virtual std::string as_string() = 0;
 
     [[nodiscard]] const lex::Token &get_token() const {
         return token;
@@ -42,7 +42,7 @@ class Node {
         return token.get_lexeme();
     }
 
-    [[nodiscard]] JumpCount parse(Node &next_node);
+    [[nodiscard]] virtual JumpCount set(Node &next_node) = 0;
 
   private:
     lex::Token token;

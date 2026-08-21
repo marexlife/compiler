@@ -16,7 +16,7 @@ std::string VarNode::as_string() {
     core::Logger::log_fatal_internal_error("no value for VarNode");
 }
 
-JumpCount VarNode::parse(Node &ident_node) {
+JumpCount VarNode::set(Node &ident_node) {
     switch (ident_node.get_kind()) {
     case lex::TokenKind::Identifier:
         this->ident_node = ident_node.cast<IdentNode>();
