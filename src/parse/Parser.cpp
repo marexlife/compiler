@@ -1,17 +1,12 @@
 #include "Parser.h"
 
 #include "Defer.h"
-#include "IdentNode.h"
 #include "JumpCont.h"
-#include "Logger.h"
 #include "Node.h"
 #include "NodeFactory.h"
-#include "PrintNode.h"
 #include "Statement.h"
 #include "Token.h"
-#include "TokenKind.h"
 #include "TokenStream.h"
-#include "VarNode.h"
 #include <functional>
 #include <memory>
 #include <optional>
@@ -66,61 +61,7 @@ void Parser::parse_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
         }
 
         forward_jump_count =
-            Parser::parse_node(*pervious_node_optional, *node);
+            node->parse_node(*pervious_node_optional);
     }
-}
-
-JumpCount Parser::parse_node(Node &self, Node &next_node) {
-    switch (self.get_kind()) {
-    case lex::TokenKind::Var:
-        return Parser::try_parse_var(self.cast<VarNode>(), next_node);
-    case lex::TokenKind::Print:
-        return Parser::try_parse_print(self.cast<PrintNode>(),
-                                       next_node);
-    case lex::TokenKind::Identifier:
-        core::Logger::log_fatal_error("identifier not valid here");
-        break;
-    case lex::TokenKind::None:
-        [[fallthrough]];
-    default:
-        core::Logger::log_fatal_internal_error("invalid node kind");
-        break;
-    }
-
-    return 0;
-}
-
-JumpCount Parser::try_parse_var(VarNode &self, Node &ident_node) {
-    switch (ident_node.get_kind()) {
-    case lex::TokenKind::Identifier:
-        return Parser::parse_var(self, ident_node.cast<IdentNode>());
-    default:
-        core::Logger::log_fatal_error(
-            "wrong thing after var. try: var x");
-    }
-}
-
-JumpCount Parser::parse_var(VarNode &self, IdentNode &ident_node) {
-    self.set_ident_node(ident_node);
-
-    return 2;
-}
-
-JumpCount Parser::try_parse_print(PrintNode &self, Node &ident_node) {
-    switch (self.get_kind()) {
-    case lex::TokenKind::Identifier:
-        return Parser::parse_print(self,
-                                   ident_node.cast<IdentNode>());
-    default:
-        core::Logger::log_fatal_error(
-            "wrong thing after var. try: print hey");
-    }
-}
-
-JumpCount Parser::parse_print(PrintNode &self,
-                              IdentNode &target_node) {
-    self.set_target_node(target_node);
-
-    return 2;
 }
 } // namespace marex::parse

@@ -1,5 +1,6 @@
 #ifndef MAREX_PARSE_NODE_H
 #define MAREX_PARSE_NODE_H
+#include "JumpCont.h"
 #include "Token.h"
 #include "TokenKind.h"
 #include <concepts>
@@ -40,6 +41,8 @@ class Node {
     [[nodiscard]] std::string_view get_lexeme() const {
         return token.get_lexeme();
     }
+
+    JumpCount parse_node(Node &next_node);
 
   private:
     lex::Token token;
