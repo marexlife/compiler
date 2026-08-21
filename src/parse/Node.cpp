@@ -25,7 +25,7 @@ std::string Node::as_string() {
     }
 }
 
-JumpCount Node::parse_node(Node &next_node) {
+JumpCount Node::parse(Node &next_node) {
     switch (get_kind()) {
     case lex::TokenKind::Var:
         return cast<VarNode>().parse(next_node);

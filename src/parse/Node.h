@@ -42,7 +42,7 @@ class Node {
         return token.get_lexeme();
     }
 
-    [[nodiscard]] JumpCount parse_node(Node &next_node);
+    [[nodiscard]] JumpCount parse(Node &next_node);
 
   private:
     lex::Token token;
