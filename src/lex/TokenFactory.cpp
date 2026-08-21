@@ -9,20 +9,20 @@
 #include "TokenKind.h"
 
 namespace marex::lex {
-Token TokenFactory::createToken(std::string &&sourceWord) {
+Token TokenFactory::create_token(std::string &&source_word) {
     return Token{
         core::Passkey<TokenFactory>{},
-        std::move(sourceWord),
-        map(sourceWord),
+        std::move(source_word),
+        map(source_word),
     };
 }
 
 [[nodiscard]] TokenKind
-TokenFactory::map(std::string_view sourceWord) {
-    if (mapping.contains(sourceWord)) {
-        return mapping.at(sourceWord);
+TokenFactory::map(std::string_view source_word) {
+    if (mapping.contains(source_word)) {
+        return mapping.at(source_word);
     }
 
     return TokenKind::Identifier;
 }
-} // namespace compiler::lex
+} // namespace marex::lex

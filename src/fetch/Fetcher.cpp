@@ -6,13 +6,13 @@
 
 namespace marex::fetch {
 [[nodiscard]] std::string Fetcher::run(std::string_view filepath) {
-    std::ifstream inputFilestream{filepath.data()};
+    std::ifstream input_filestream{filepath.data()};
     std::string result;
 
-    result.reserve(resultReserveAmount);
+    result.reserve(result_reserve_amount);
 
-    while (!inputFilestream.eof()) {
-        result += static_cast<char>(inputFilestream.get());
+    while (!input_filestream.eof()) {
+        result += static_cast<char>(input_filestream.get());
     }
 
     return result;

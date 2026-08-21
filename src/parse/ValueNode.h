@@ -11,12 +11,12 @@ class ValueNode : public Node {
     explicit ValueNode(WrappedType &&value)
         : value(std::move(value)) {}
 
-    [[nodiscard]] const WrappedType &getValue() const {
+    [[nodiscard]] const WrappedType &get_value() const {
         return value;
     }
 
   private:
     WrappedType value{};
 };
-} // namespace compiler::parse
+} // namespace marex::parse
 #endif // MAREX_PARSE_VALUENODE_H

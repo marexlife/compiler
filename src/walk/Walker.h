@@ -9,7 +9,7 @@ class Walker final {
   public:
     static void
     run(std::vector<std::vector<std::unique_ptr<parse::Node>>>
-            &&listOfNodes);
+            &&list_of_nodes);
 };
 } // namespace marex::walk
 #endif // MAREX_WALK_WALKER_H

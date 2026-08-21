@@ -3,12 +3,13 @@
 #include "TokenStream.h"
 
 namespace marex::lex {
-void LexerPrinter::printLexerResult(lex::TokenStream &tokenStream) {
-    for (lex::Statement &statement : tokenStream) {
+void LexerPrinter::print_lexer_result(
+    lex::TokenStream &token_stream) {
+    for (lex::Statement &statement : token_stream) {
         std::cout << "Statement:\n";
 
         for (lex::Token &token : statement) {
-            std::cout << "  Token: " << token.getLexeme() << '\n';
+            std::cout << "  Token: " << token.get_lexeme() << '\n';
         }
     }
 

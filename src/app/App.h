@@ -4,7 +4,6 @@
 #include "Lexer.h"
 #include "Logger.h"
 #include <concepts>
-#include <cstddef>
 #include <string_view>
 #include <utility>
 
@@ -20,72 +19,18 @@ class App final {
 
     void run(int argc, char **argv);
 
-    template <typename FileAction, typename ShellAction>
-    static void selectAction(int argc, char *argv[],
-                             FileAction fileAction,
-                             ShellAction shellAction) {
-        if (argc < 2) {
-            shellAction();
-            return;
-        }
+    static void handle_lexer_failure(
+        absl::StatusOr<lex::TokenStream> &lexer_result,
+        AppModeKind app_mode_kind);
+    static void show_help_screen();
+    void compile_files(int argc, char *argv[]);
+    void compile_file(std::string_view argument);
 
-        const std::string_view firstArgument = argv[1];
-
-        static const std::string_view helpCommand = "--help";
-
-        if (firstArgument == helpCommand) [[unlikely]] {
-            showHelpScreen();
-
-            return;
-        }
-
-        fileAction(argc, argv);
-    }
-
-    template <typename FileModeAction, typename ShellModeAction,
-              typename... ActionArguments>
-        requires std::invocable<FileModeAction, ActionArguments...> &&
-                 std::invocable<ShellModeAction, ActionArguments...>
-    static void handleModeKind(AppModeKind appModeKind,
-                               FileModeAction &&fileModeAction,
-                               ShellModeAction &&shellModeAction,
-                               ActionArguments... actionArguments) {
-        switch (appModeKind) {
-        case app::AppModeKind::FileMode:
-            fileModeAction(
-                std::forward<ActionArguments>(actionArguments)...);
-            break;
-        case app::AppModeKind::ShellMode:
-            shellModeAction(
-                std::forward<ActionArguments>(actionArguments)...);
-            break;
-        case app::AppModeKind::Undecided: {
-            static const std::string_view errorMessage =
-                "compiler state is not decided";
-
-            core::Logger::logFatalError(errorMessage);
-        } break;
-        default: {
-            static const std::string_view errorMessage =
-                "compile state is invalid";
-
-            core::Logger::logFatalError(errorMessage);
-        } break;
-        }
-    }
-
-    static void
-    handleLexerFailure(absl::StatusOr<lex::TokenStream> &lexerResult,
-                       AppModeKind appModeKind);
-    static void showHelpScreen();
-    void compileFiles(int argc, char *argv[]);
-    void compileFile(std::string_view argument);
-
-    void compile(std::string sourceCode, AppModeKind appModeKind);
-    void runShellMode();
-    void runShellIteration();
-    [[nodiscard]] static std::string queryUserCommand();
-    void executeUserCommand(std::string &&);
+    void compile(std::string source_code, AppModeKind app_mode_kind);
+    void run_shell_mode();
+    void run_shell_iteration();
+    [[nodiscard]] static std::string query_user_command();
+    void execute_user_command(std::string &&);
 
   private:
     lex::Lexer lexer;

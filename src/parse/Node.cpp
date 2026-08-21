@@ -10,18 +10,35 @@
 namespace marex::parse {
 Node::Node(lex::Token &&token) : token(std::move(token)) {}
 
-std::string Node::asString() {
-    switch (getKind()) {
+std::string Node::as_string() {
+    switch (get_kind()) {
     case marex::lex::TokenKind::Identifier:
-        return cast<parse::IdentNode>().asString();
+        return cast<parse::IdentNode>().as_string();
     case marex::lex::TokenKind::Print:
-        return cast<parse::PrintNode>().asString();
+        return cast<parse::PrintNode>().as_string();
     case marex::lex::TokenKind::Var:
-        return cast<parse::VarNode>().asString();
+        return cast<parse::VarNode>().as_string();
     case marex::lex::TokenKind::None:
         [[fallthrough]];
     default:
-        core::Logger::logFatalInternalError("not a valid Node");
+        core::Logger::log_fatal_internal_error("not a valid Node");
+    }
+}
+
+JumpCount Node::parse_node(Node &next_node) {
+    switch (get_kind()) {
+    case lex::TokenKind::Var:
+        return cast<VarNode>().try_parse_var(next_node);
+    case lex::TokenKind::Print:
+        return cast<PrintNode>().try_parse_print(next_node);
+    case lex::TokenKind::Identifier:
+        core::Logger::log_fatal_error("identifier not valid here");
+        break;
+    case lex::TokenKind::None:
+        [[fallthrough]];
+    default:
+        core::Logger::log_fatal_internal_error("invalid node kind");
+        break;
     }
 }
 } // namespace marex::parse

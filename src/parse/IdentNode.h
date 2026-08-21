@@ -6,7 +6,7 @@
 namespace marex::parse {
 class IdentNode final : public Node {
   public:
-    [[nodiscard]] std::string asString();
+    [[nodiscard]] std::string as_string();
 
   private:
 };

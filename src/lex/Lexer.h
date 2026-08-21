@@ -23,16 +23,16 @@ class [[nodiscard]] Lexer final {
     ~Lexer() = default;
 
     [[nodiscard]] absl::StatusOr<TokenStream>
-    run(std::string &&sourceText);
+    run(std::string &&source_text);
 
   private:
-    void pushToken();
-    void pushStatement(TokenStream &result);
+    void push_token();
+    void push_statement(TokenStream &result);
     void reset();
 
-    TokenFactory tokenFactory{};
-    Statement lastStatement;
-    std::string lastWord;
+    TokenFactory token_factory{};
+    Statement last_statement;
+    std::string last_word;
 };
 } // namespace marex::lex
 #endif // MAREX_LEXER_LEXER_H
