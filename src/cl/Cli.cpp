@@ -9,7 +9,7 @@
 
 namespace marex::cl {
 [[nodiscard]] absl::StatusOr<std::vector<std::filesystem::path>>
-Cli::getUserFilesPath(int argc, char **argv) {
+Cli::get_user_files_path(int argc, char **argv) {
     std::vector<std::filesystem::path> results;
 
     for (std::size_t i = 0; std::cmp_less(i, argc); ++i) {

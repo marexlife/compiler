@@ -13,21 +13,21 @@ class Logger final {
     Logger &operator=(const Logger &) = delete;
     ~Logger() = delete;
 
-    static void logInfo(std::string_view message);
+    static void log_info(std::string_view message);
 
-    static void logError(std::string_view message,
-                         std::source_location sourceLocation =
-                             std::source_location::current());
-
-    [[noreturn]] static void
-    logFatalError(std::string_view message,
-                  std::source_location sourceLocation =
-                      std::source_location::current());
-
-    [[noreturn]] static void
-    logFatalInternalError(std::string_view message,
-                          std::source_location sourceLocation =
+    static void log_error(std::string_view message,
+                          std::source_location source_location =
                               std::source_location::current());
+
+    [[noreturn]] static void
+    log_fatal_error(std::string_view message,
+                    std::source_location source_location =
+                        std::source_location::current());
+
+    [[noreturn]] static void
+    log_fatal_internal_error(std::string_view message,
+                             std::source_location source_location =
+                                 std::source_location::current());
 };
 } // namespace marex::core
 #endif // MAREX_CORE_LOGGER_H

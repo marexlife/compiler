@@ -1,5 +1,6 @@
 #ifndef MAREX_PARSE_NODE_H
 #define MAREX_PARSE_NODE_H
+#include "JumpCont.h"
 #include "Token.h"
 #include "TokenKind.h"
 #include <concepts>
@@ -23,21 +24,25 @@ class Node {
         return static_cast<T &>(*this);
     }
 
-    [[nodiscard]] std::string asString();
+    [[nodiscard]] std::string as_string();
 
-    [[nodiscard]] const lex::Token &getToken() const { return token; }
-
-    [[nodiscard]] std::uint8_t getBindingPower() const {
-        return token.getBindingPower();
+    [[nodiscard]] const lex::Token &get_token() const {
+        return token;
     }
 
-    [[nodiscard]] lex::TokenKind getKind() const {
-        return token.getKind();
+    [[nodiscard]] std::uint8_t get_binding_power() const {
+        return token.get_binding_power();
     }
 
-    [[nodiscard]] std::string_view getLexeme() const {
-        return token.getLexeme();
+    [[nodiscard]] lex::TokenKind get_kind() const {
+        return token.get_kind();
     }
+
+    [[nodiscard]] std::string_view get_lexeme() const {
+        return token.get_lexeme();
+    }
+
+    JumpCount parse_node(Node &next_node);
 
   private:
     lex::Token token;

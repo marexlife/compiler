@@ -6,31 +6,31 @@
 #include <string_view>
 
 namespace marex::core {
-void Logger::logInfo(std::string_view message) {
+void Logger::log_info(std::string_view message) {
     std::cout << "info: " << message << '\n';
 }
 
-void Logger::logError(std::string_view message,
-                      std::source_location sourceLocation) {
-    std::string formatResult =
-        ErrorFromater::mergeMessageWithSourceLocation(message,
-                                                      sourceLocation);
+void Logger::log_error(std::string_view message,
+                       std::source_location source_location) {
+    std::string format_result =
+        ErrorFormater::merge_message_with_source_location(
+            message, source_location);
 
-    std::cout << "error: " << formatResult << '\n';
+    std::cout << "error: " << format_result << '\n';
 }
 
-void Logger::logFatalError(std::string_view message,
-                           std::source_location sourceLocation) {
-    Logger::logError(message, sourceLocation);
+void Logger::log_fatal_error(std::string_view message,
+                             std::source_location source_location) {
+    Logger::log_error(message, source_location);
 
     std::exit(-1);
 }
 
-void Logger::logFatalInternalError(
-    std::string_view message, std::source_location sourceLocation) {
+void Logger::log_fatal_internal_error(
+    std::string_view message, std::source_location source_location) {
     std::string formatResult =
-        ErrorFromater::mergeMessageWithSourceLocation(message,
-                                                      sourceLocation);
+        ErrorFormater::merge_message_with_source_location(
+            message, source_location);
 
     std::cout << "Internal error: " << formatResult << '\n';
 

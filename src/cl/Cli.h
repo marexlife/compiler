@@ -16,7 +16,7 @@ class Cli final {
 
     [[nodiscard]] static absl::StatusOr<
         std::vector<std::filesystem::path>>
-    getUserFilesPath(int argc, char **argv);
+    get_user_files_path(int argc, char **argv);
 };
 } // namespace marex::cl
 #endif // MAREX_CL_CLI_H
