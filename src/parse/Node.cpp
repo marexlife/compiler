@@ -32,7 +32,7 @@ JumpCount Node::parse_node(Node &next_node) {
     case lex::TokenKind::Print:
         return cast<PrintNode>().try_parse(next_node);
     case lex::TokenKind::Identifier:
-        return cast<IdentNode>().parse();
+        return IdentNode::parse();
         break;
     case lex::TokenKind::None:
         [[fallthrough]];

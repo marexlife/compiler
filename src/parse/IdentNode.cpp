@@ -12,5 +12,5 @@ IdentNode::IdentNode(lex::Token &&token) : Node(std::move(token)) {}
     return std::string{IdentNode::get_lexeme()};
 }
 
-[[nodiscard]] JumpCount parse_print() { return 1; }
+[[nodiscard]] JumpCount IdentNode::parse() { return 1; }
 } // namespace marex::parse

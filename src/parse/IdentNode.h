@@ -10,7 +10,7 @@ class IdentNode final : public Node {
 
     [[nodiscard]] std::string as_string();
 
-    [[nodiscard]] JumpCount parse();
+    [[nodiscard]] static JumpCount parse();
 
   private:
     std::string value;
