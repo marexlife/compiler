@@ -33,12 +33,10 @@ JumpCount Node::parse_node(Node &next_node) {
         return cast<PrintNode>().try_parse(next_node);
     case lex::TokenKind::Identifier:
         return IdentNode::parse();
-        break;
     case lex::TokenKind::None:
         [[fallthrough]];
     default:
         core::Logger::log_fatal_internal_error("invalid node kind");
-        break;
     }
 }
 } // namespace marex::parse
