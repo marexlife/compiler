@@ -15,19 +15,15 @@ std::string PrintNode::as_string() {
     core::Logger::log_fatal_internal_error("no value for print node");
 }
 
-JumpCount PrintNode::try_parse(Node &ident_node) {
+JumpCount PrintNode::parse(Node &ident_node) {
     switch (get_kind()) {
     case lex::TokenKind::Identifier:
-        return parse(ident_node.cast<IdentNode>());
+        this->ident_node = ident_node.cast<IdentNode>();
+
+        return 2;
     default:
         core::Logger::log_fatal_error(
             "wrong thing after var. try: print hey");
     }
-}
-
-JumpCount PrintNode::parse(IdentNode &target_node) {
-    set_target_node(target_node);
-
-    return 2;
 }
 } // namespace marex::parse

@@ -28,9 +28,9 @@ std::string Node::as_string() {
 JumpCount Node::parse_node(Node &next_node) {
     switch (get_kind()) {
     case lex::TokenKind::Var:
-        return cast<VarNode>().try_parse(next_node);
+        return cast<VarNode>().parse(next_node);
     case lex::TokenKind::Print:
-        return cast<PrintNode>().try_parse(next_node);
+        return cast<PrintNode>().parse(next_node);
     case lex::TokenKind::Identifier:
         return IdentNode::parse();
     case lex::TokenKind::None:
