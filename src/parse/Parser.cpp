@@ -7,6 +7,7 @@
 #include "Statement.h"
 #include "Token.h"
 #include "TokenStream.h"
+#include <cstddef>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -44,23 +45,12 @@ Parser::process_statement(lex::Statement &statement) {
 void Parser::set_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
     std::optional<std::reference_wrapper<Node>>
         pervious_node_optional = std::nullopt;
-    JumpCount forward_jump_count = 0;
-
-    for (std::unique_ptr<Node> &node : nodes) {
+    for (std::size_t i = 0; i < nodes.size(); ++i) {
         core::Defer iter_defer = [&]() {
-            pervious_node_optional = *node;
-
-            if (forward_jump_count > 0) {
-                --forward_jump_count;
-            }
+            pervious_node_optional = *nodes[i];
         };
 
-        if (pervious_node_optional == std::nullopt ||
-            forward_jump_count != 0) {
-            continue;
-        }
-
-        forward_jump_count = pervious_node_optional->get().set(*node);
+        i += pervious_node_optional->get().set(*nodes[i]);
     }
 }
 } // namespace marex::parse
