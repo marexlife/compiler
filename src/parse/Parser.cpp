@@ -1,7 +1,6 @@
 #include "Parser.h"
 
 #include "Defer.h"
-#include "JumpCont.h"
 #include "Node.h"
 #include "NodeFactory.h"
 #include "Statement.h"
@@ -43,14 +42,13 @@ Parser::process_statement(lex::Statement &statement) {
 }
 
 void Parser::set_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
-    std::optional<std::reference_wrapper<Node>>
-        pervious_node_optional = std::nullopt;
-    for (std::size_t i = 0; i < nodes.size(); ++i) {
-        core::Defer iter_defer = [&]() {
-            pervious_node_optional = *nodes[i];
-        };
+    std::size_t progress = 1;
 
-        i += pervious_node_optional->get().set(*nodes[i]);
+    while (progress < nodes.size()) {
+        auto &previous_node = *nodes.at(progress - 1);
+        auto &current_node = *nodes.at(progress);
+
+        progress += previous_node.set(current_node);
     }
 }
 } // namespace marex::parse
