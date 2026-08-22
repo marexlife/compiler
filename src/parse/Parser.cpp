@@ -1,15 +1,12 @@
 #include "Parser.h"
 
-#include "Defer.h"
 #include "Node.h"
 #include "NodeFactory.h"
 #include "Statement.h"
 #include "Token.h"
 #include "TokenStream.h"
 #include <cstddef>
-#include <functional>
 #include <memory>
-#include <optional>
 #include <utility>
 #include <vector>
 
