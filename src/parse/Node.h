@@ -31,7 +31,7 @@ class Node {
     }
 
     [[nodiscard]] std::uint8_t get_binding_power() const {
-        return token.get_binding_power();
+        return token.GetBindingPower();
     }
 
     [[nodiscard]] lex::TokenKind get_kind() const {

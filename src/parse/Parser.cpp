@@ -36,12 +36,12 @@ Parser::process_statement(lex::Statement &statement) {
             NodeFactory::create_node(std::move(token)));
     }
 
-    Parser::parse_nodes(nodes);
+    Parser::set_nodes(nodes);
 
     return nodes;
 }
 
-void Parser::parse_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
+void Parser::set_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
     std::optional<std::reference_wrapper<Node>>
         pervious_node_optional = std::nullopt;
     JumpCount forward_jump_count = 0;
@@ -60,7 +60,7 @@ void Parser::parse_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
             continue;
         }
 
-        forward_jump_count = node->set(*pervious_node_optional);
+        forward_jump_count = pervious_node_optional->get().set(*node);
     }
 }
 } // namespace marex::parse
