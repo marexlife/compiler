@@ -1,15 +1,12 @@
 #include "Parser.h"
 
-#include "Defer.h"
-#include "JumpCont.h"
 #include "Node.h"
 #include "NodeFactory.h"
 #include "Statement.h"
 #include "Token.h"
 #include "TokenStream.h"
-#include <functional>
+#include <cstddef>
 #include <memory>
-#include <optional>
 #include <utility>
 #include <vector>
 
@@ -36,32 +33,19 @@ Parser::process_statement(lex::Statement &statement) {
             NodeFactory::create_node(std::move(token)));
     }
 
-    Parser::parse_nodes(nodes);
+    Parser::set_nodes(nodes);
 
     return nodes;
 }
 
-void Parser::parse_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
-    std::optional<std::reference_wrapper<Node>>
-        pervious_node_optional = std::nullopt;
-    JumpCount forward_jump_count = 0;
+void Parser::set_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
+    std::size_t progress = 1;
 
-    for (std::unique_ptr<Node> &node : nodes) {
-        core::Defer iter_defer = [&]() {
-            pervious_node_optional = *node;
+    while (progress < nodes.size()) {
+        auto &previous_node = *nodes.at(progress - 1);
+        auto &current_node = *nodes.at(progress);
 
-            if (forward_jump_count > 0) {
-                --forward_jump_count;
-            }
-        };
-
-        if (pervious_node_optional == std::nullopt ||
-            forward_jump_count != 0) {
-            continue;
-        }
-
-        forward_jump_count =
-            node->parse_node(*pervious_node_optional);
+        progress += previous_node.set(current_node);
     }
 }
 } // namespace marex::parse

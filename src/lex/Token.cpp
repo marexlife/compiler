@@ -8,7 +8,7 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
              std::string &&lexeme, TokenKind token_kind)
     : lexeme(std::move(lexeme)), kind(token_kind) {}
 
-[[nodiscard]] std::uint8_t Token::get_binding_power() const {
+[[nodiscard]] std::uint8_t Token::GetBindingPower() const {
     switch (kind) {
     case lex::TokenKind::Print: {
         static const std::uint8_t binding_power = 100;
@@ -30,8 +30,6 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
     default:
         core::Logger::log_fatal_error("TokenKind is Invalid");
     }
-
-    core::Logger::log_fatal_error("No Token selected");
 }
 
 [[nodiscard]] std::string_view Token::get_lexeme() const {

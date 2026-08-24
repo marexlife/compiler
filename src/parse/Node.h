@@ -24,14 +24,14 @@ class Node {
         return static_cast<T &>(*this);
     }
 
-    [[nodiscard]] std::string as_string();
+    [[nodiscard]] virtual std::string as_string() = 0;
 
     [[nodiscard]] const lex::Token &get_token() const {
         return token;
     }
 
     [[nodiscard]] std::uint8_t get_binding_power() const {
-        return token.get_binding_power();
+        return token.GetBindingPower();
     }
 
     [[nodiscard]] lex::TokenKind get_kind() const {
@@ -42,7 +42,7 @@ class Node {
         return token.get_lexeme();
     }
 
-    JumpCount parse_node(Node &next_node);
+    [[nodiscard]] virtual JumpCount set(Node &next_node) = 0;
 
   private:
     lex::Token token;

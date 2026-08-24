@@ -22,7 +22,7 @@ class [[nodiscard]] Token final {
 
     [[nodiscard]] TokenKind get_kind() const { return kind; }
 
-    [[nodiscard]] std::uint8_t get_binding_power() const;
+    [[nodiscard]] std::uint8_t GetBindingPower() const;
 
   private:
     std::optional<std::string> lexeme;

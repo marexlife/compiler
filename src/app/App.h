@@ -2,10 +2,7 @@
 #define MAREX_APP_APP_H
 #include "AppModeKind.h"
 #include "Lexer.h"
-#include "Logger.h"
-#include <concepts>
 #include <string_view>
-#include <utility>
 
 namespace marex::app {
 class App final {

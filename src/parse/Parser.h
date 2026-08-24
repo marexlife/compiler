@@ -26,8 +26,7 @@ class Parser final {
     [[nodiscard]] static std::vector<std::unique_ptr<Node>>
     process_statement(lex::Statement &statement);
 
-    static void
-    parse_nodes(std::vector<std::unique_ptr<Node>> &nodes);
+    static void set_nodes(std::vector<std::unique_ptr<Node>> &nodes);
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PARSER_H

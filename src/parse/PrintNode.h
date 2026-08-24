@@ -11,15 +11,9 @@ class PrintNode final : public Node {
   public:
     explicit PrintNode(lex::Token &&token);
 
-    [[nodiscard]] std::string as_string();
+    [[nodiscard]] std::string as_string() override;
 
-    void set_target_node(IdentNode &targetNode) {
-        ident_node = targetNode;
-    }
-
-    JumpCount try_parse_print(Node &ident_node);
-
-    JumpCount parse_print(IdentNode &target_node);
+    [[nodiscard]] JumpCount set(Node &ident_node) override;
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> ident_node =
