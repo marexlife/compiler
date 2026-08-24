@@ -8,7 +8,7 @@
 
 namespace marex::parse {
 class Parser final {
-    static const std::size_t nodesDefaultReserve = 100;
+    static const std::size_t nodes_default_reserve = 100;
 
   public:
     Parser() = delete;
