@@ -7,28 +7,36 @@
 #include <string_view>
 
 #include "Passkey.h"
+#include "SourcePos.h"
 #include "TokenKind.h"
-#include "TokenPos.h"
+
 
 namespace marex::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
-  public:
-    Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
-          std::string &&lexeme, TokenKind token_kind);
+   public:
+    Token([[maybe_unused]] core::Passkey<
+              TokenFactory>&& passkey,
+          std::string&& lexeme, TokenKind token_kind);
 
     [[nodiscard]] std::string_view get_lexeme() const;
 
     [[nodiscard]] std::string move_out_lexeme();
 
-    [[nodiscard]] TokenKind get_kind() const { return kind; }
+    [[nodiscard]] TokenKind get_kind() const {
+        return kind;
+    }
 
-    [[nodiscard]] std::uint8_t get_binding_power() const;
+    [[nodiscard]] std::uint8_t get_binding_power()
+        const;
+    [[nodiscard]] SourcePos get_token_pos() const {
+        return token_pos;
+    }
 
-  private:
+   private:
     std::optional<std::string> lexeme = std::nullopt;
     TokenKind kind{};
-    TokenPos token_pos{};
+    SourcePos token_pos{};
 };
-} // namespace marex::lex
-#endif // MAREX_LEX_TOKEN_H
+}  // namespace marex::lex
+#endif  // MAREX_LEX_TOKEN_H
