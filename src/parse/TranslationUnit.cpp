@@ -1,5 +1,6 @@
 #include "TranslationUnit.h"
 
+#include <format>
 #include <memory>
 #include <utility>
 
@@ -8,6 +9,7 @@
 #include "FuncNode.h"
 #include "Logger.h"
 #include "TokenKind.h"
+#include "TokenKindUitls.h"
 
 namespace marex::parse {
 std::string TranslationUnit::as_string() {
@@ -36,9 +38,15 @@ TranslationUnit::create_file_item(ParserPack& pack) {
         case lex::TokenKind::Var:
             core::Logger::log_fatal_error(
                 "no global variables allowed");
-        default:
+        default: {
+            auto error_message =
+                std::format("invalid Token {}",
+                            lex::get_token_kind_name(
+                                pack.get_kind()));
+
             core::Logger::log_fatal_error(
-                "invalid Token");
+                error_message);
+        }
     }
 }
 }  // namespace marex::parse
