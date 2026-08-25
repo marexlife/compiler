@@ -38,8 +38,9 @@ void App::compile_files(int argc, char* argv[]) {
 
     for (char** arg = argv; arg != argv + argc;
          ++arg) {
-        workers.emplace_back(std::jthread(
-            [&]() { App::compile_file(*arg); }));
+        workers.emplace_back(std::jthread{
+            [&]() { App::compile_file(*arg); },
+        });
     }
 }
 
