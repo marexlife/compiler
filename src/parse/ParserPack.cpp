@@ -1,19 +1,21 @@
 #include "ParserPack.h"
 
 #include <format>
+#include <functional>
+#include <string_view>
 
+#include "Logger.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
 std::string ParserPack::advance_if_matches(
-    lex::TokenKind token_kind)
-{
+    lex::TokenKind token_kind) {
     auto pre_increment_token_borrow = get_token();
 
-    if (pre_increment_token_borrow.get_kind()
-        == token_kind) {
+    if (pre_increment_token_borrow.get_kind() ==
+        token_kind) {
         advance();
 
         return pre_increment_token_borrow
@@ -24,11 +26,30 @@ std::string ParserPack::advance_if_matches(
         get_pos(), token_kind);
 }
 
+bool ParserPack::is_at_end() const {
+    const auto is_finished =
+        start_token_size <= progress;
+
+    core::Logger::log_info(std::format(
+        "ParserPack: is_finished = ",
+        std::invoke([&]() {
+            static const std::string_view true_text =
+                "true";
+            static const std::string_view false_text =
+                "true";
+
+            return is_finished ? true_text
+                               : false_text;
+        })));
+
+    return is_finished;
+}
+
 [[nodiscard]] std::string
-ParserPack::get_error_message() const
-{
-    return std::format("invalid Token: '{}' at '{}'",
+ParserPack::get_error_message() const {
+    return std::format(
+        "invalid Token: '{}' at '{}'",
         lex::get_token_kind_name(get_kind()),
         get_pos().to_string());
 }
-} // namespace marex::parse
+}  // namespace marex::parse

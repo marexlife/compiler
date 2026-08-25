@@ -1,7 +1,6 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
 #include <cstddef>
-#include <functional>
 #include <string>
 #include <utility>
 
@@ -18,16 +17,7 @@ struct ParserPack final {
 
     void advance() { ++progress; }
 
-    [[nodiscard]] bool is_at_end() const {
-        auto is_finished =
-            start_token_size <= progress;
-        std::cout << "is_finished = "
-                  << std::invoke([&]() {
-                         return is_finished ? "true"
-                                            : "false";
-                     });
-        return is_finished;
-    }
+    [[nodiscard]] bool is_at_end() const;
 
     [[nodiscard]] std::size_t get_progress() const {
         return progress;
