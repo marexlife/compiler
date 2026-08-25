@@ -5,6 +5,7 @@
 
 #include "FileItem.h"
 #include "Node.h"
+#include "ParserPack.h"
 
 namespace marex::parse {
 class FileNode final : private AstNode {
@@ -13,6 +14,9 @@ class FileNode final : private AstNode {
     void parse(ParserPack& pack) override;
 
    private:
+    static std::unique_ptr<FileItem> visit_token_kind(
+        ParserPack& pack);
+
     std::vector<std::unique_ptr<FileItem>> file_items;
 };
 }  // namespace marex::parse

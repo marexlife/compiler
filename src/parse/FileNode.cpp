@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <memory>
+#include <utility>
 
 #include "FileItem.h"
 #include "FuncNode.h"
@@ -15,26 +16,27 @@ namespace marex::parse {
 
 void FileNode::parse(ParserPack& pack) {
     for (;;) {
-        auto result = std::invoke(
-            [&]() -> std::unique_ptr<FileItem> {
-                switch (pack.get_kind()) {
-                    case lex::TokenKind::Func:
-                        return std::make_unique<
-                            FuncNode>(
-                            pack.move_out_token());
-                    case lex::TokenKind::Var:
-                        throw exceptions::
-                            InvalidTokenException(
-                                pack.get_pos(),
-                                "no global variables "
-                                "allowed");
-                    default:
-                        throw exceptions::
-                            InvalidTokenException(
-                                pack.get_pos(),
-                                "invalid token");
-                }
-            });
+        std::unique_ptr<FileItem> result = std::invoke(
+            [&]() { return visit_token_kind(pack); });
+
+        file_items.emplace_back(std::move(result));
+    }
+}
+
+std::unique_ptr<FileItem> FileNode::visit_token_kind(
+    ParserPack& pack) {
+    switch (pack.get_kind()) {
+        case lex::TokenKind::Func:
+            return std::make_unique<FuncNode>(
+                pack.move_out_token());
+        case lex::TokenKind::Var:
+            throw exceptions::InvalidTokenException(
+                pack.get_pos(),
+                "no global variables "
+                "allowed");
+        default:
+            throw exceptions::InvalidTokenException(
+                pack.get_pos(), "invalid token");
     }
 }
 }  // namespace marex::parse

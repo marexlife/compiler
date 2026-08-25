@@ -3,7 +3,6 @@
 #include <exception>
 #include <format>
 #include <string>
-#include <string_view>
 
 #include "SourcePos.h"
 
@@ -13,7 +12,7 @@ class InvalidTokenException final
    public:
     explicit InvalidTokenException(
         lex::SourcePos source_pos,
-        std::string_view message)
+        std::string&& message)
         : full_message(std::format(
               "at {}\n{}", source_pos.to_string(),
               message)) {}

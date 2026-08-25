@@ -9,7 +9,6 @@
 #include "Token.h"
 #include "TokenKind.h"
 #include "TokenStream.h"
-#include "absl/status/statusor.h"
 
 namespace marex::parse {
 struct ParserPack final {
@@ -22,8 +21,8 @@ struct ParserPack final {
         return progress;
     }
 
-    [[nodiscard]] absl::StatusOr<std::string_view>
-    advance_if_matches(lex::TokenKind token_kind);
+    [[nodiscard]] std::string_view advance_if_matches(
+        lex::TokenKind token);
 
     [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();
