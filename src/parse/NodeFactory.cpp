@@ -1,5 +1,6 @@
 #include "NodeFactory.h"
 
+#include <format>
 #include <memory>
 #include <utility>
 
@@ -8,12 +9,15 @@
 #include "Node.h"
 #include "PrintNode.h"
 #include "TokenKind.h"
+#include "TokenKindUitls.h"
 #include "VarNode.h"
 
 namespace marex::parse {
 std::unique_ptr<AstNode> NodeFactory::create_node(
     lex::Token&& token) {
-    switch (token.get_kind()) {
+    auto token_kind = token.get_kind();
+
+    switch (token_kind) {
         case lex::TokenKind::Ident:
             return std::make_unique<IdentNode>(
                 std::move(token));
@@ -23,12 +27,11 @@ std::unique_ptr<AstNode> NodeFactory::create_node(
         case lex::TokenKind::Var:
             return std::make_unique<VarNode>(
                 std::move(token));
-        case lex::TokenKind::None:
-            core::Logger::log_fatal_internal_error(
-                "token kind is none");
         default:
             core::Logger::log_fatal_internal_error(
-                "invalid token kind");
+                std::format("invalid token kind '{}'",
+                            lex::get_token_kind_name(
+                                token_kind)));
     }
 }
 }  // namespace marex::parse
