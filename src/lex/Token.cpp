@@ -1,38 +1,49 @@
 #include "Token.h"
-#include "Logger.h"
-#include "TokenKind.h"
+
 #include <utility>
 
+#include "Logger.h"
+#include "TokenKind.h"
+
 namespace marex::lex {
-Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
-             std::string &&lexeme, TokenKind token_kind)
+Token::Token(
+    [[maybe_unused]] core::Passkey<TokenFactory>&&
+        passkey,
+    std::string&& lexeme, TokenKind token_kind)
     : lexeme(std::move(lexeme)), kind(token_kind) {}
 
-[[nodiscard]] std::uint8_t Token::get_binding_power() const {
+[[nodiscard]] std::uint8_t Token::get_binding_power()
+    const {
     switch (kind) {
-    case lex::TokenKind::Print: {
-        static const std::uint8_t binding_power = 100;
+        case lex::TokenKind::Print: {
+            static const std::uint8_t binding_power =
+                100;
 
-        return binding_power;
-    } break;
-    case lex::TokenKind::Var: {
-        static const std::uint8_t binding_power = 30;
+            return binding_power;
+        } break;
+        case lex::TokenKind::Var: {
+            static const std::uint8_t binding_power =
+                30;
 
-        return binding_power;
-    } break;
-    case lex::TokenKind::Identifier: {
-        static const std::uint8_t binding_power = 10;
+            return binding_power;
+        } break;
+        case lex::TokenKind::Ident: {
+            static const std::uint8_t binding_power =
+                10;
 
-        return binding_power;
-    } break;
-    case TokenKind::None:
-        core::Logger::log_fatal_error("TokenKind is none");
-    default:
-        core::Logger::log_fatal_error("TokenKind is Invalid");
+            return binding_power;
+        } break;
+        case TokenKind::None:
+            core::Logger::log_fatal_error(
+                "TokenKind is none");
+        default:
+            core::Logger::log_fatal_error(
+                "TokenKind is Invalid");
     }
 }
 
-[[nodiscard]] std::string_view Token::get_lexeme() const {
+[[nodiscard]] std::string_view Token::get_lexeme()
+    const {
     if (!lexeme) [[unlikely]] {
         core::Logger::log_fatal_internal_error(
             "trying to get lexeme when none is there");
@@ -44,9 +55,10 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
 [[nodiscard]] std::string Token::move_out_lexeme() {
     if (!lexeme) [[unlikely]] {
         core::Logger::log_fatal_internal_error(
-            "trying to move out a lexeme when none exists");
+            "trying to move out a lexeme when none "
+            "exists");
     }
 
     return *lexeme;
 }
-} // namespace marex::lex
+}  // namespace marex::lex
