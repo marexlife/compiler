@@ -10,8 +10,7 @@ namespace marex::parse {
 class TranslationUnit final {
    public:
     [[nodiscard]] static std::string as_string();
-    [[nodiscard]] TranslationUnit parse(
-        ParserPack& pack);
+    void parse(ParserPack& pack);
 
    private:
     [[nodiscard]] static std::unique_ptr<FileItem>

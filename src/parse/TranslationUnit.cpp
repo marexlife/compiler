@@ -12,14 +12,12 @@ std::string TranslationUnit::as_string() {
     return std::string{"file"};
 }
 
-TranslationUnit TranslationUnit::parse(
+void TranslationUnit::parse(
     ParserPack& pack) {
     while (!pack.is_at_end()) {
         file_items.emplace_back(
             create_file_item(pack));
     }
-
-    return *this;
 }
 
 std::unique_ptr<FileItem>

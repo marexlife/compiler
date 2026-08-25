@@ -15,6 +15,10 @@ TranslationUnit Parser::run(
 }
 
 TranslationUnit Parser::parse(ParserPack&& pack) {
-    return TranslationUnit().parse(pack);
+    TranslationUnit translation_unit{};
+
+    translation_unit.parse(pack);
+
+    return translation_unit;
 }
 }  // namespace marex::parse
