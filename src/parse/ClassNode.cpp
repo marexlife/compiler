@@ -2,13 +2,14 @@
 
 #include <utility>
 
+#include "FileItem.h"
 #include "Logger.h"
 #include "Node.h"
 #include "TokenKind.h"
 
 namespace marex::parse {
 ClassNode::ClassNode(lex::Token&& token)
-    : AstNode(std::move(token)) {}
+    : FileItem(std::move(token)) {}
 
 [[nodiscard]] std::string ClassNode::as_string() {
     if (class_name) {
