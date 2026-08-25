@@ -80,10 +80,11 @@ void App::handle_lexer_failure(
         app_mode_kind,
         [&](std::string_view error_message) {
             core::Logger::log_fatal_error(
-                error_message);
+                std::string{error_message});
         },
         [&](std::string_view error_message) {
-            core::Logger::log_error(error_message);
+            core::Logger::log_error(
+                std::string{error_message});
         },
         lexer_result.status().message());
 }
@@ -93,10 +94,9 @@ void App::compile_file(std::string_view argument) {
         std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
-        std::string error_message = std::format(
+        core::Logger::log_fatal_error(std::format(
             "{} argument is not a directory",
-            argument);
-        core::Logger::log_fatal_error(error_message);
+            argument));
     }
 
     std::string source_code =
