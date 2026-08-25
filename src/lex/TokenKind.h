@@ -16,7 +16,7 @@ enum struct [[nodiscard]] TokenKind : std::uint8_t {
     Colon,
     Class,
     Struct,
-    Indent,
+    Ident,
 };
 }
 #endif  // MAREX_LEX_TOKENKIND_H
