@@ -6,7 +6,8 @@
 #include <utility>
 
 namespace marex::parse {
-PrintNode::PrintNode(lex::Token &&token) : Node(std::move(token)) {}
+PrintNode::PrintNode(lex::Token &&token)
+    : AstNode(std::move(token)) {}
 
 std::string PrintNode::as_string() {
     if (ident_node) [[likely]] {

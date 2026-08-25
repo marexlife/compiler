@@ -5,7 +5,7 @@
 #include <string>
 
 namespace marex::parse {
-class IdentNode final : public Node {
+class IdentNode final : public AstNode {
   public:
     explicit IdentNode(lex::Token &&token);
 

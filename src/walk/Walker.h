@@ -8,7 +8,7 @@ namespace marex::walk {
 class Walker final {
   public:
     static void
-    run(std::vector<std::vector<std::unique_ptr<parse::Node>>>
+    run(std::vector<std::vector<std::unique_ptr<parse::AstNode>>>
             &&list_of_nodes);
 };
 } // namespace marex::walk

@@ -6,7 +6,8 @@
 #include <utility>
 
 namespace marex::parse {
-IdentNode::IdentNode(lex::Token &&token) : Node(std::move(token)) {}
+IdentNode::IdentNode(lex::Token &&token)
+    : AstNode(std::move(token)) {}
 
 [[nodiscard]] std::string IdentNode::as_string() {
     return std::string{IdentNode::get_lexeme()};

@@ -6,7 +6,7 @@
 #include <utility>
 
 namespace marex::parse {
-VarNode::VarNode(lex::Token &&token) : Node(std::move(token)) {}
+VarNode::VarNode(lex::Token &&token) : AstNode(std::move(token)) {}
 
 std::string VarNode::as_string() {
     if (ident_node) [[likely]] {

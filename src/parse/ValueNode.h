@@ -6,7 +6,7 @@
 
 namespace marex::parse {
 template <typename WrappedType, typename Tag>
-class ValueNode : public Node {
+class ValueNode : public AstNode {
   public:
     explicit ValueNode(WrappedType &&value)
         : value(std::move(value)) {}

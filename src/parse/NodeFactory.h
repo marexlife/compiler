@@ -7,7 +7,7 @@
 namespace marex::parse {
 class NodeFactory final {
   public:
-    [[nodiscard]] static std::unique_ptr<Node>
+    [[nodiscard]] static std::unique_ptr<AstNode>
     create_node(lex::Token &&token);
 
   private:

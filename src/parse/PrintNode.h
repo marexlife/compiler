@@ -7,7 +7,7 @@
 #include <string>
 
 namespace marex::parse {
-class PrintNode final : public Node {
+class PrintNode final : public AstNode {
   public:
     explicit PrintNode(lex::Token &&token);
 

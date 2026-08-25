@@ -4,7 +4,7 @@
 #include "Token.h"
 
 namespace marex::parse {
-class OpNode : public Node {
+class OpNode : public AstNode {
   public:
     explicit OpNode(lex::Token &&token);
 

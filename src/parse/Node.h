@@ -8,18 +8,18 @@
 #include <string_view>
 
 namespace marex::parse {
-class Node {
+class AstNode {
   public:
-    explicit Node(lex::Token &&token);
+    explicit AstNode(lex::Token &&token);
 
-    Node(Node &&) = default;
-    Node &operator=(Node &&) = default;
-    Node(const Node &) = delete;
-    Node &operator=(const Node &) = delete;
-    virtual ~Node() = default;
+    AstNode(AstNode &&) = default;
+    AstNode &operator=(AstNode &&) = default;
+    AstNode(const AstNode &) = delete;
+    AstNode &operator=(const AstNode &) = delete;
+    virtual ~AstNode() = default;
 
     template <typename T>
-        requires std::derived_from<T, Node>
+        requires std::derived_from<T, AstNode>
     [[nodiscard]] T &cast() {
         return static_cast<T &>(*this);
     }

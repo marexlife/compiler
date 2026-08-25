@@ -9,7 +9,7 @@
 #include <string>
 
 namespace marex::parse {
-class VarNode final : public Node {
+class VarNode final : public AstNode {
   public:
     explicit VarNode(lex::Token &&token);
 
