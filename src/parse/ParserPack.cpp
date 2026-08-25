@@ -36,7 +36,7 @@ bool ParserPack::is_at_end() const {
             static const std::string_view true_text =
                 "true";
             static const std::string_view false_text =
-                "true";
+                "false";
 
             return is_finished ? true_text
                                : false_text;
