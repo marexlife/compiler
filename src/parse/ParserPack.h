@@ -41,7 +41,6 @@ struct ParserPack final {
     }
 
     [[nodiscard]] lex::Token move_out_token() {
-        --progress;
         return std::move(token_stream.at(progress));
     }
 

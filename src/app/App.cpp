@@ -66,9 +66,6 @@ void App::compile(std::string source_code,
         return;
     }
 
-    lex::LexerPrinter::print_lexer_result(
-        *lexer_result);
-
     [[maybe_unused]] auto translation_unit =
         parse::Parser::run(std::move(*lexer_result));
 }
