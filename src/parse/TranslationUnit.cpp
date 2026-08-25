@@ -40,9 +40,7 @@ TranslationUnit::create_file_item(ParserPack& pack) {
                 "no global variables allowed");
         default: {
             auto error_message =
-                std::format("invalid Token: '{}'",
-                            lex::get_token_kind_name(
-                                pack.get_kind()));
+                pack.get_error_message();
 
             core::Logger::log_fatal_error(
                 error_message);

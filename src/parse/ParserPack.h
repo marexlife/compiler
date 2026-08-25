@@ -1,5 +1,6 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
+#include <string>
 #include <utility>
 
 #include "SourcePos.h"
@@ -40,6 +41,8 @@ struct ParserPack final {
     [[nodiscard]] lex::Token move_out_token() {
         return std::move(token_stream.at(progress));
     }
+
+    [[nodiscard]] std::string get_error_message() const;
 
    private:
     lex::TokenStream token_stream;

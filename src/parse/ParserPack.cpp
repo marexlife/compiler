@@ -25,4 +25,12 @@ std::string ParserPack::advance_if_matches(
             "expected {}",
             lex::get_token_kind_name(token_kind)));
 }
+
+[[nodiscard]] std::string
+ParserPack::get_error_message() const {
+    return std::format(
+        "invalid Token: '{}' at '{}'",
+        lex::get_token_kind_name(get_kind()),
+        get_pos().to_string());
+}
 }  // namespace marex::parse
