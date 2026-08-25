@@ -19,7 +19,6 @@
 #include "Logger.h"
 #include "Parser.h"
 #include "TokenStream.h"
-#include "Walker.h"
 #include "absl/status/statusor.h"
 
 namespace marex::app {

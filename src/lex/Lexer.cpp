@@ -18,19 +18,19 @@ absl::StatusOr<TokenStream> Lexer::run(
 
     core::Defer defer_reset = [&]() { reset(); };
 
-    result.reserve(vectorDefaultSize);
+    result.reserve(vector_default_size);
 
     std::optional<char> last_char_optional =
         std::nullopt;
     LastCharKind last_char_kind = LastCharKind::None;
 
     for (const auto source_text_char : source_text) {
-        LastCharKind thisCharKind =
+        LastCharKind this_char_kind =
             LastCharKind::WasNotDefault;
 
         core::Defer defer_iter_end{[&]() {
             last_char_optional = source_text_char;
-            last_char_kind = thisCharKind;
+            last_char_kind = this_char_kind;
         }};
 
         switch (source_text_char) {
@@ -46,10 +46,12 @@ absl::StatusOr<TokenStream> Lexer::run(
                 }
                 break;
             case ';':
-                Lexer::push_statement(result);
+                Lexer::push_token_and_current(
+                    result, source_text_char);
+
                 break;
             default:
-                thisCharKind =
+                this_char_kind =
                     LastCharKind::WasDefault;
                 last_word.push_back(source_text_char);
                 break;
@@ -76,5 +78,15 @@ void Lexer::push_token(TokenStream& result) {
         std::string{last_word}));
 
     last_word.clear();
+}
+void Lexer::push_token_and_current(TokenStream& result,
+                                   char current) {
+    result.emplace_back(token_factory.create_token(
+        std::string{last_word}));
+
+    last_word.clear();
+
+    result.emplace_back(token_factory.create_token(
+        std::string{current}));
 }
 }  // namespace marex::lex

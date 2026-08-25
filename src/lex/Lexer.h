@@ -12,9 +12,6 @@
 
 namespace marex::lex {
 class [[nodiscard]] Lexer final {
-    static constexpr std::size_t vectorDefaultSize =
-        10;
-
    public:
     Lexer() = default;
     Lexer(Lexer&&) = delete;
@@ -28,8 +25,9 @@ class [[nodiscard]] Lexer final {
 
    private:
     void push_token(TokenStream& result);
-    void push_statement(TokenStream& result);
     void reset();
+    void push_token_and_current(TokenStream& result,
+                                char current);
 
     TokenFactory token_factory{};
     std::string last_word;
