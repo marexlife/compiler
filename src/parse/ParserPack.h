@@ -1,6 +1,7 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
 #include <cstddef>
+#include <functional>
 #include <string>
 #include <utility>
 
@@ -12,53 +13,52 @@
 namespace marex::parse {
 struct ParserPack final {
     explicit ParserPack(lex::TokenStream&& toke_stream)
-        : token_stream(std::move(toke_stream))
-        , start_token_size(toke_stream.size())
-    {
-    }
+        : start_token_size(toke_stream.size()),
+          token_stream(std::move(toke_stream)) {}
 
     void advance() { ++progress; }
 
-    [[nodiscard]] bool is_at_end() const
-    {
-        return start_token_size <= progress;
+    [[nodiscard]] bool is_at_end() const {
+        auto is_finished =
+            start_token_size <= progress;
+        std::cout << "is_finished = "
+                  << std::invoke([&]() {
+                         return is_finished ? "true"
+                                            : "false";
+                     });
+        return is_finished;
     }
 
-    [[nodiscard]] std::size_t get_progress() const
-    {
+    [[nodiscard]] std::size_t get_progress() const {
         return progress;
     }
 
     /* NOT [[nodiscard]] */ std::string
     advance_if_matches(lex::TokenKind token_kind);
 
-    [[nodiscard]] lex::TokenKind get_kind() const
-    {
+    [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();
     }
 
-    [[nodiscard]] lex::SourcePos get_pos() const
-    {
+    [[nodiscard]] lex::SourcePos get_pos() const {
         return get_token().get_pos();
     }
 
-    [[nodiscard]] const lex::Token& get_token() const
-    {
+    [[nodiscard]] const lex::Token& get_token() const {
         return token_stream.at(progress);
     }
 
-    [[nodiscard]] lex::Token move_out_token()
-    {
+    [[nodiscard]] lex::Token move_out_token() {
         return std::move(token_stream.at(progress));
     }
 
-    [[nodiscard]] std::string
-    get_error_message() const;
+    [[nodiscard]] std::string get_error_message()
+        const;
 
-private:
+   private:
+    std::size_t start_token_size{};
     lex::TokenStream token_stream;
-    std::size_t start_token_size { };
-    std::size_t progress { };
+    std::size_t progress{};
 };
-} // namespace marex::parse
-#endif // MAREX_PARSE_PARSERPACK_H
+}  // namespace marex::parse
+#endif  // MAREX_PARSE_PARSERPACK_H
