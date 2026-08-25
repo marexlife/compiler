@@ -28,6 +28,7 @@ class App final {
     void execute_user_command(std::string&&);
 
    private:
+
     lex::Lexer lexer;
 };
 }  // namespace marex::app

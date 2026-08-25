@@ -13,10 +13,12 @@
 
 #include "ActionPicker.h"
 #include "Fetcher.h"
+#include "HelpScreen.h"
 #include "Lexer.h"
 #include "Logger.h"
 #include "Parser.h"
 #include "TokenStream.h"
+
 
 namespace marex::app {
 void App::run(int argc, char* argv[]) {
@@ -43,10 +45,7 @@ void App::compile_files(int argc, char* argv[]) {
 }
 
 void App::show_help_screen() {
-    std::cout << R"(Help screen:
-A. --help to get to here
-B. 'clear;' to clear the screen in Shell mode
-C. list files that should be compiled)";
+    std::cout << help_screen;
 
     std::exit(EXIT_SUCCESS);
 }
