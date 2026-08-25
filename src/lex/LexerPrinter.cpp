@@ -5,7 +5,8 @@
 
 namespace marex::lex {
 void LexerPrinter::print_lexer_result(
-    lex::TokenStream& token_stream) {
+    lex::TokenStream& token_stream)
+{
     for (lex::Token& token : token_stream) {
         std::cout << "  Token: " << token.get_lexeme()
                   << '\n';
@@ -13,4 +14,4 @@ void LexerPrinter::print_lexer_result(
 
     std::cout.flush();
 }
-}  // namespace marex::lex
+} // namespace marex::lex

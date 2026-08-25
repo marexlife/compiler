@@ -6,14 +6,14 @@
 
 namespace marex::parse {
 class IdentNode final : public AstNode {
-  public:
-    explicit IdentNode(lex::Token &&token);
+public:
+    explicit IdentNode(lex::Token&& token);
 
     [[nodiscard]] std::string as_string() override;
 
-    void parse(ParserPack &pack) override;
+    void parse(ParserPack& pack) override;
 
-  private:
+private:
     std::string value;
 };
 } // namespace marex::parse

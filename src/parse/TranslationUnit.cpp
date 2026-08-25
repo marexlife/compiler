@@ -10,14 +10,16 @@
 #include "TokenKind.h"
 
 namespace marex::parse {
-std::string TranslationUnit::as_string() {
-    return std::string{"file"};
+std::string TranslationUnit::as_string()
+{
+    return std::string { "file" };
 }
 
-void TranslationUnit::parse(ParserPack& pack) {
+void TranslationUnit::parse(ParserPack& pack)
+{
     while (!pack.is_at_end()) {
-        std::unique_ptr<FileItem> file_item =
-            create_file_item(pack);
+        std::unique_ptr<FileItem> file_item
+            = create_file_item(pack);
 
         file_item->parse(pack);
 
@@ -26,20 +28,21 @@ void TranslationUnit::parse(ParserPack& pack) {
 }
 
 std::unique_ptr<FileItem>
-TranslationUnit::create_file_item(ParserPack& pack) {
+TranslationUnit::create_file_item(ParserPack& pack)
+{
     switch (pack.get_kind()) {
-        case lex::TokenKind::Func:
-            return std::make_unique<FuncNode>(
-                pack.move_out_token());
-        case lex::TokenKind::Class:
-            return std::make_unique<ClassNode>(
-                pack.move_out_token());
-        case lex::TokenKind::Var:
-            core::Logger::log_fatal_error(
-                "no global variables allowed");
-        default:
-            core::Logger::log_fatal_error(
-                pack.get_error_message());
+    case lex::TokenKind::Func:
+        return std::make_unique<FuncNode>(
+            pack.move_out_token());
+    case lex::TokenKind::Class:
+        return std::make_unique<ClassNode>(
+            pack.move_out_token());
+    case lex::TokenKind::Var:
+        core::Logger::log_fatal_error(
+            "no global variables allowed");
+    default:
+        core::Logger::log_fatal_error(
+            pack.get_error_message());
     }
 }
-}  // namespace marex::parse
+} // namespace marex::parse

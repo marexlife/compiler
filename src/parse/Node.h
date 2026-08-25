@@ -9,42 +9,48 @@
 
 namespace marex::parse {
 class AstNode {
-  public:
-    explicit AstNode(lex::Token &&token);
+public:
+    explicit AstNode(lex::Token&& token);
 
-    AstNode(AstNode &&) = default;
-    AstNode &operator=(AstNode &&) = default;
-    AstNode(const AstNode &) = delete;
-    AstNode &operator=(const AstNode &) = delete;
+    AstNode(AstNode&&) = default;
+    AstNode& operator=(AstNode&&) = default;
+    AstNode(const AstNode&) = delete;
+    AstNode& operator=(const AstNode&) = delete;
     virtual ~AstNode() = default;
 
     template <typename T>
         requires std::derived_from<T, AstNode>
-    [[nodiscard]] T &cast() {
-        return static_cast<T &>(*this);
+    [[nodiscard]] T& cast()
+    {
+        return static_cast<T&>(*this);
     }
 
     [[nodiscard]] virtual std::string as_string() = 0;
 
-    [[nodiscard]] const lex::Token &get_token() const {
+    [[nodiscard]] const lex::Token& get_token() const
+    {
         return token;
     }
 
-    [[nodiscard]] std::uint8_t get_binding_power() const {
+    [[nodiscard]] std::uint8_t
+    get_binding_power() const
+    {
         return token.get_binding_power();
     }
 
-    [[nodiscard]] lex::TokenKind get_kind() const {
+    [[nodiscard]] lex::TokenKind get_kind() const
+    {
         return token.get_kind();
     }
 
-    [[nodiscard]] std::string_view get_lexeme() const {
+    [[nodiscard]] std::string_view get_lexeme() const
+    {
         return token.get_lexeme();
     }
 
-    virtual void parse(ParserPack &pack) = 0;
+    virtual void parse(ParserPack& pack) = 0;
 
-  private:
+private:
     lex::Token token;
 };
 } // namespace marex::parse

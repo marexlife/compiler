@@ -4,5 +4,8 @@
 #include <utility>
 
 namespace marex::parse {
-OpNode::OpNode(lex::Token &&token) : AstNode(std::move(token)) {}
+OpNode::OpNode(lex::Token&& token)
+    : AstNode(std::move(token))
+{
+}
 } // namespace marex::parse

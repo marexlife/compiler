@@ -6,7 +6,7 @@
 
 namespace marex::app {
 class App final {
-   public:
+public:
     App() = default;
     App(App&&) = delete;
     App& operator=(App&&) = delete;
@@ -27,9 +27,8 @@ class App final {
     query_user_command();
     void execute_user_command(std::string&&);
 
-   private:
-
+private:
     lex::Lexer lexer;
 };
-}  // namespace marex::app
-#endif  // MAREX_APP_APP_H
+} // namespace marex::app
+#endif // MAREX_APP_APP_H

@@ -11,16 +11,16 @@
 
 namespace marex::parse {
 class VarNode final : public FileItem {
-   public:
+public:
     explicit VarNode(lex::Token&& token);
 
     [[nodiscard]] std::string as_string() override;
 
     void parse(ParserPack& pack) override;
 
-   private:
+private:
     std::optional<std::reference_wrapper<IdentNode>>
         ident_node = std::nullopt;
 };
-}  // namespace marex::parse
-#endif  // MAREX_PARSE_VAR_NODE_H
+} // namespace marex::parse
+#endif // MAREX_PARSE_VAR_NODE_H

@@ -11,10 +11,10 @@
 
 namespace marex::lex {
 class [[nodiscard]] Lexer final {
-    constexpr static std::size_t vector_default_size =
-        100;
+    constexpr static std::size_t vector_default_size
+        = 100;
 
-   public:
+public:
     Lexer() = default;
     Lexer(Lexer&&) = delete;
     Lexer& operator=(Lexer&&) = delete;
@@ -25,14 +25,14 @@ class [[nodiscard]] Lexer final {
     [[nodiscard]] TokenStream run(
         std::string&& source_text);
 
-   private:
+private:
     void push_token(TokenStream& result);
     void reset();
-    void push_token_and_current(TokenStream& result,
-                                char current);
+    void push_token_and_current(
+        TokenStream& result, char current);
 
-    TokenFactory token_factory{};
+    TokenFactory token_factory { };
     std::string last_word;
 };
-}  // namespace marex::lex
-#endif  // MAREX_LEXER_LEXER_H
+} // namespace marex::lex
+#endif // MAREX_LEXER_LEXER_H

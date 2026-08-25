@@ -5,10 +5,10 @@
 
 namespace marex::parse {
 class OpNode : public AstNode {
-  public:
-    explicit OpNode(lex::Token &&token);
+public:
+    explicit OpNode(lex::Token&& token);
 
-  private:
+private:
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_OPNODE_H

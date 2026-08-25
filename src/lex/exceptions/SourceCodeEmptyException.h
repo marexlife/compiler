@@ -5,7 +5,7 @@
 namespace marex::lex {
 class SourceCodeEmptyException final
     : public std::exception {
-   public:
+public:
     explicit SourceCodeEmptyException() = default;
 
     SourceCodeEmptyException(
@@ -21,5 +21,5 @@ class SourceCodeEmptyException final
 
     const char* what() const noexcept override;
 };
-}  // namespace marex::lex
-#endif  // MAREX_LEX_SOURCECODEMPTYEXCEPTION_H
+} // namespace marex::lex
+#endif // MAREX_LEX_SOURCECODEMPTYEXCEPTION_H

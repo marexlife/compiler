@@ -10,15 +10,18 @@
 
 namespace marex::parse {
 TranslationUnit Parser::run(
-    lex::TokenStream&& token_stream) {
-    return parse(ParserPack{std::move(token_stream)});
+    lex::TokenStream&& token_stream)
+{
+    return parse(
+        ParserPack { std::move(token_stream) });
 }
 
-TranslationUnit Parser::parse(ParserPack&& pack) {
-    TranslationUnit translation_unit{};
+TranslationUnit Parser::parse(ParserPack&& pack)
+{
+    TranslationUnit translation_unit { };
 
     translation_unit.parse(pack);
 
     return translation_unit;
 }
-}  // namespace marex::parse
+} // namespace marex::parse

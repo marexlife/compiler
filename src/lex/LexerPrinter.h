@@ -4,10 +4,11 @@
 
 namespace marex::lex {
 class LexerPrinter final {
-  public:
+public:
     LexerPrinter() = delete;
 
-    static void print_lexer_result(lex::TokenStream &token_stream);
+    static void print_lexer_result(
+        lex::TokenStream& token_stream);
 };
 } // namespace marex::lex
 #endif // MAREX_DEBUG_LEXPRINER_H

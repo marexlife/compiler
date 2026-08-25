@@ -9,4 +9,4 @@ A. --help to get to here
 B. 'clear;' to clear the screen in Shell mode
 C. list files that should be compiled)";
 }
-#endif  // MAREX_APP_HELPSCREEN_H
+#endif // MAREX_APP_HELPSCREEN_H

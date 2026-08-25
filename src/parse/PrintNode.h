@@ -8,16 +8,16 @@
 
 namespace marex::parse {
 class PrintNode final : public AstNode {
-  public:
-    explicit PrintNode(lex::Token &&token);
+public:
+    explicit PrintNode(lex::Token&& token);
 
     [[nodiscard]] std::string as_string() override;
 
-    void parse(ParserPack &pack) override;
+    void parse(ParserPack& pack) override;
 
-  private:
-    std::optional<std::reference_wrapper<IdentNode>> ident_node =
-        std::nullopt;
+private:
+    std::optional<std::reference_wrapper<IdentNode>>
+        ident_node = std::nullopt;
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_PRINTNODE_H

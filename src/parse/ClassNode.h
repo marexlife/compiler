@@ -7,7 +7,7 @@
 
 namespace marex::parse {
 class ClassNode final : public FileItem {
-   public:
+public:
     explicit ClassNode(lex::Token&& token);
 
     [[nodiscard]] std::string as_string() override;
@@ -15,8 +15,8 @@ class ClassNode final : public FileItem {
     void parse(ParserPack& pack) override;
     void parse_class_head(ParserPack& pack);
 
-   private:
+private:
     std::optional<std::string> class_name;
 };
-}  // namespace marex::parse
-#endif  // MAREX_PARSE_CLASSNODE_H
+} // namespace marex::parse
+#endif // MAREX_PARSE_CLASSNODE_H

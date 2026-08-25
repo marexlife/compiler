@@ -8,11 +8,12 @@
 
 namespace marex::parse {
 std::string ParserPack::advance_if_matches(
-    lex::TokenKind token_kind) {
+    lex::TokenKind token_kind)
+{
     auto pre_increment_token_borrow = get_token();
 
-    if (pre_increment_token_borrow.get_kind() ==
-        token_kind) {
+    if (pre_increment_token_borrow.get_kind()
+        == token_kind) {
         advance();
 
         return pre_increment_token_borrow
@@ -24,10 +25,10 @@ std::string ParserPack::advance_if_matches(
 }
 
 [[nodiscard]] std::string
-ParserPack::get_error_message() const {
-    return std::format(
-        "invalid Token: '{}' at '{}'",
+ParserPack::get_error_message() const
+{
+    return std::format("invalid Token: '{}' at '{}'",
         lex::get_token_kind_name(get_kind()),
         get_pos().to_string());
 }
-}  // namespace marex::parse
+} // namespace marex::parse

@@ -8,9 +8,12 @@
 
 namespace marex::parse {
 ClassNode::ClassNode(lex::Token&& token)
-    : FileItem(std::move(token)) {}
+    : FileItem(std::move(token))
+{
+}
 
-[[nodiscard]] std::string ClassNode::as_string() {
+[[nodiscard]] std::string ClassNode::as_string()
+{
     if (class_name) {
         return *class_name;
     }
@@ -19,12 +22,13 @@ ClassNode::ClassNode(lex::Token&& token)
         "ClassName is empty");
 }
 
-void ClassNode::parse(ParserPack& pack) {
+void ClassNode::parse(ParserPack& pack)
+{
     core::Logger::log_info("parsing class");
 
     pack.advance_if_matches(lex::TokenKind::Class);
-    class_name =
-        pack.advance_if_matches(lex::TokenKind::Ident);
+    class_name = pack.advance_if_matches(
+        lex::TokenKind::Ident);
     pack.advance_if_matches(lex::TokenKind::Colon);
 }
-}  // namespace marex::parse
+} // namespace marex::parse

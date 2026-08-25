@@ -10,9 +10,9 @@ struct SourcePos final {
 
     [[nodiscard]] std::string to_string() const;
 
-   private:
-    std::size_t line{};
-    std::size_t column{};
+private:
+    std::size_t line { };
+    std::size_t column { };
 };
-}  // namespace marex::lex
-#endif  // MAREX_LEX_TOKENPOS_H
+} // namespace marex::lex
+#endif // MAREX_LEX_TOKENPOS_H

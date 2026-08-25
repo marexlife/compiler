@@ -6,11 +6,11 @@
 
 namespace marex::parse {
 class NodeFactory final {
-  public:
+public:
     [[nodiscard]] static std::unique_ptr<AstNode>
-    create_node(lex::Token &&token);
+    create_node(lex::Token&& token);
 
-  private:
+private:
 };
 } // namespace marex::parse
 #endif // MAREX_PARSE_NODEFACTORY_H
