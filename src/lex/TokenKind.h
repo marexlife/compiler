@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace marex::lex {
-enum class [[nodiscard]] TokenKind : std::uint8_t {
+enum struct [[nodiscard]] TokenKind : std::uint8_t {
     None = 0,
     Identifier,
     Set,

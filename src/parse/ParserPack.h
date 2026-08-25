@@ -22,8 +22,7 @@ struct ParserPack final {
     [[nodiscard]] absl::StatusOr<std::string_view>
     advance_if_matches(lex::TokenKind token_kind);
 
-  private:
-    [[nodiscard]] lex::TokenKind get_token_kind() const {
+    [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();
     }
 
@@ -31,6 +30,11 @@ struct ParserPack final {
         return token_stream.at(progress);
     }
 
+    [[nodiscard]] lex::Token move_out_token() {
+        return std::move(token_stream.at(progress));
+    }
+
+  private:
     lex::TokenStream token_stream;
     std::size_t progress{};
 };
