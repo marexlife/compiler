@@ -7,22 +7,12 @@
 #include "TokenStream.h"
 #include <cstddef>
 #include <memory>
+#include <sys/types.h>
 #include <utility>
 #include <vector>
 
 namespace marex::parse {
-std::vector<std::vector<std::unique_ptr<Node>>>
-Parser::run(lex::TokenStream &&token_stream) {
-    std::vector<std::vector<std::unique_ptr<Node>>> list_of_nodes;
-
-    for (lex::Statement &statement : token_stream) {
-        auto process_result = Parser::process_statement(statement);
-
-        list_of_nodes.emplace_back(std::move(process_result));
-    }
-
-    return list_of_nodes;
-}
+void Parser::run([[maybe_unused]] lex::TokenStream &&token_stream) {}
 
 std::vector<std::unique_ptr<Node>>
 Parser::process_statement(lex::Statement &statement) {
@@ -38,14 +28,6 @@ Parser::process_statement(lex::Statement &statement) {
     return nodes;
 }
 
-void Parser::set_nodes(std::vector<std::unique_ptr<Node>> &nodes) {
-    std::size_t progress = 1;
-
-    while (progress < nodes.size()) {
-        auto &previous_node = *nodes.at(progress - 1);
-        auto &current_node = *nodes.at(progress);
-
-        progress += previous_node.set(current_node);
-    }
-}
+void Parser::set_nodes(
+    [[maybe_unused]] std::vector<std::unique_ptr<Node>> &nodes) {}
 } // namespace marex::parse

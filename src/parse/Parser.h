@@ -18,9 +18,7 @@ class Parser final {
     Parser &operator=(const Parser &) = delete;
     ~Parser() = delete;
 
-    [[nodiscard]] static std::vector<
-        std::vector<std::unique_ptr<Node>>>
-    run(lex::TokenStream &&token_stream);
+    static void run(lex::TokenStream &&token_stream);
 
   private:
     [[nodiscard]] static std::vector<std::unique_ptr<Node>>
