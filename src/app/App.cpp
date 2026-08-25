@@ -23,24 +23,26 @@
 #include "absl/status/statusor.h"
 
 namespace marex::app {
-void App::run(int argc, char *argv[]) {
+void App::run(int argc, char* argv[]) {
     marex::app::select_action(
         argc, argv,
-        [&](int argc, char *argv[]) {
+        [&](int argc, char* argv[]) {
             App::compile_files(argc, argv);
         },
         [&]() { App::run_shell_mode(); },
         [&]() { App::show_help_screen(); });
 }
 
-void App::compile_files(int argc, char *argv[]) {
+void App::compile_files(int argc, char* argv[]) {
     std::vector<std::jthread> workers;
 
-    workers.reserve(static_cast<std::size_t>(argc - 1));
+    workers.reserve(
+        static_cast<std::size_t>(argc - 1));
 
-    for (char **arg = argv; arg != argv + argc; ++arg) {
-        workers.emplace_back(
-            std::jthread([&]() { App::compile_file(*arg); }));
+    for (char** arg = argv; arg != argv + argc;
+         ++arg) {
+        workers.emplace_back(std::jthread(
+            [&]() { App::compile_file(*arg); }));
     }
 }
 
@@ -59,25 +61,26 @@ void App::compile(std::string source_code,
         lexer.run(std::move(source_code));
 
     if (!lexer_result.ok()) [[unlikely]] {
-        handle_lexer_failure(lexer_result, app_mode_kind);
+        handle_lexer_failure(lexer_result,
+                             app_mode_kind);
 
         return;
     }
 
-    lex::LexerPrinter::print_lexer_result(*lexer_result);
+    lex::LexerPrinter::print_lexer_result(
+        *lexer_result);
 
-    auto parser_result = parse::Parser::run(std::move(*lexer_result));
-
-    walk::Walker::run(std::move(parser_result));
+    parse::Parser::run(std::move(*lexer_result));
 }
 
 void App::handle_lexer_failure(
-    absl::StatusOr<lex::TokenStream> &lexer_result,
+    absl::StatusOr<lex::TokenStream>& lexer_result,
     AppModeKind app_mode_kind) {
     marex::app::handle_mode_kind(
         app_mode_kind,
         [&](std::string_view error_message) {
-            core::Logger::log_fatal_error(error_message);
+            core::Logger::log_fatal_error(
+                error_message);
         },
         [&](std::string_view error_message) {
             core::Logger::log_error(error_message);
@@ -86,17 +89,21 @@ void App::handle_lexer_failure(
 }
 
 void App::compile_file(std::string_view argument) {
-    const bool isDirectory = std::filesystem::is_directory(argument);
+    const bool isDirectory =
+        std::filesystem::is_directory(argument);
 
     if (!isDirectory) [[unlikely]] {
-        std::string error_message =
-            std::format("{} argument is not a directory", argument);
+        std::string error_message = std::format(
+            "{} argument is not a directory",
+            argument);
         core::Logger::log_fatal_error(error_message);
     }
 
-    std::string source_code = fetch::Fetcher::run(argument);
+    std::string source_code =
+        fetch::Fetcher::run(argument);
 
-    App::compile(std::move(source_code), AppModeKind::FileMode);
+    App::compile(std::move(source_code),
+                 AppModeKind::FileMode);
 }
 
 std::string App::query_user_command() {
@@ -108,8 +115,10 @@ std::string App::query_user_command() {
     return user_command;
 }
 
-void App::execute_user_command(std::string &&user_command) {
-    App::compile(std::move(user_command), AppModeKind::ShellMode);
+void App::execute_user_command(
+    std::string&& user_command) {
+    App::compile(std::move(user_command),
+                 AppModeKind::ShellMode);
 }
 
 void App::run_shell_iteration() {
@@ -127,4 +136,4 @@ void App::run_shell_mode() {
         App::run_shell_iteration();
     }
 }
-} // namespace marex::app
+}  // namespace marex::app
