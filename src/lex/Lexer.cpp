@@ -63,11 +63,6 @@ absl::StatusOr<TokenStream> Lexer::run(
             "Source code is empty.");
     }
 
-    if (*last_char_optional != ';') [[unlikely]] {
-        return absl::AbortedError(
-            "The last has to be a ';'.");
-    }
-
     return result;
 }
 
