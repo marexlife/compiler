@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "ClassNode.h"
 #include "FileItem.h"
 #include "FuncNode.h"
 #include "Logger.h"
@@ -24,6 +25,9 @@ TranslationUnit::create_file_item(ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:
             return std::make_unique<FuncNode>(
+                pack.move_out_token());
+        case lex::TokenKind::Class:
+            return std::make_unique<ClassNode>(
                 pack.move_out_token());
         case lex::TokenKind::Var:
             core::Logger::log_fatal_error(
