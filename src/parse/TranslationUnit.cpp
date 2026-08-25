@@ -9,6 +9,7 @@
 #include "FuncNode.h"
 #include "Logger.h"
 #include "TokenKind.h"
+#include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
 std::string TranslationUnit::as_string() {
@@ -40,8 +41,8 @@ TranslationUnit::create_file_item(ParserPack& pack) {
             core::Logger::log_fatal_error(
                 "no global variables allowed");
         default:
-            core::Logger::log_fatal_error(
-                pack.get_error_message());
+            throw exceptions::InvalidTokenException(
+                pack.get_pos(), pack.get_kind());
     }
 }
 }  // namespace marex::parse
