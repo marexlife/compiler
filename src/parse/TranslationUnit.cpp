@@ -7,7 +7,6 @@
 #include "ClassNode.h"
 #include "FileItem.h"
 #include "FuncNode.h"
-#include "Logger.h"
 #include "TokenKind.h"
 #include "exceptions/InvalidTokenException.h"
 
