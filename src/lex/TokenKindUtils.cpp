@@ -12,7 +12,7 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "function keyword";
         case TokenKind::Colon:
             return ":";
-        case TokenKind::Identifier:
+        case TokenKind::Ident:
             return "identifier";
         case TokenKind::Literal:
             return "Literal";
@@ -30,8 +30,14 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "Class";
         case TokenKind::Struct:
             return "Struct";
-        case TokenKind::Ident:
-            return "Ident";
+        case TokenKind::OpenBrace:
+            return "{";
+        case TokenKind::CloseBrace:
+            return "}";
+        case TokenKind::OpenBracket:
+            return "(";
+        case TokenKind::CloseBracket:
+            return ")";
         case TokenKind::None:
             goto end;
     }

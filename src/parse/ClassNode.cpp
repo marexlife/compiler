@@ -20,9 +20,11 @@ ClassNode::ClassNode(lex::Token&& token)
 }
 
 void ClassNode::parse(ParserPack& pack) {
+    core::Logger::log_info("parsing class");
+
     pack.advance_if_matches(lex::TokenKind::Class);
-    class_name = pack.advance_if_matches(
-        lex::TokenKind::Identifier);
+    class_name =
+        pack.advance_if_matches(lex::TokenKind::Ident);
     pack.advance_if_matches(lex::TokenKind::Colon);
 }
 }  // namespace marex::parse

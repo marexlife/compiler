@@ -16,7 +16,8 @@ std::string TranslationUnit::as_string() {
 
 void TranslationUnit::parse(ParserPack& pack) {
     while (!pack.is_at_end()) {
-        auto file_item = create_file_item(pack);
+        std::unique_ptr<FileItem> file_item =
+            create_file_item(pack);
 
         file_item->parse(pack);
 
