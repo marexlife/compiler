@@ -1,11 +1,11 @@
-#include "App.h"
 #include <exception>
 #include <iostream>
 
-int main(int argc, char* argv[])
-{
+#include "App.h"
+
+int main(int argc, char* argv[]) {
     try {
-        marex::app::App app { };
+        marex::app::App app{};
 
         app.run(argc, argv);
     } catch (const std::exception& exception) {

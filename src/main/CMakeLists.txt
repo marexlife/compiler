@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(marex)
+project(main)
 
 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
