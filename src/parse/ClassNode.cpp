@@ -4,7 +4,6 @@
 
 #include "FileItem.h"
 #include "Logger.h"
-#include "Node.h"
 #include "TokenKind.h"
 
 namespace marex::parse {
