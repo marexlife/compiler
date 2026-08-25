@@ -2,11 +2,11 @@
 #define MAREX_PARSE_CLASSNODE_H
 #include <string>
 
-#include "Node.h"
+#include "FileItem.h"
 #include "Token.h"
 
 namespace marex::parse {
-class ClassNode final : public AstNode {
+class ClassNode final : public FileItem {
    public:
     explicit ClassNode(lex::Token&& token);
 
