@@ -3,7 +3,6 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
-#include <utility>
 
 #include "SourcePos.h"
 #include "Token.h"
@@ -13,9 +12,7 @@
 namespace marex::parse {
 struct ParserPack final {
     explicit ParserPack(
-        lex::TokenStream&& token_stream)
-        : start_token_size(token_stream.size()),
-          token_stream(std::move(token_stream)) {}
+        lex::TokenStream&& token_stream);
 
     void advance() { ++progress; }
 
@@ -37,13 +34,13 @@ struct ParserPack final {
     }
 
     [[nodiscard]] const lex::Token& get_token() const {
-        return token_stream.at(progress);
+        return token_stream.at(0);
     }
 
     [[nodiscard]] lex::Token move_out_token() {
         std::cin.get();
-        
-        return std::move(token_stream.at(progress));
+
+        return std::move(token_stream.at(0));
     }
 
     [[nodiscard]] std::string get_error_message()

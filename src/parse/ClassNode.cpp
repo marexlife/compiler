@@ -26,5 +26,7 @@ void ClassNode::parse(ParserPack& pack) {
     class_name =
         pack.advance_if_matches(lex::TokenKind::Ident);
     pack.advance_if_matches(lex::TokenKind::Colon);
+
+    core::Logger::log_info("end parsing class");
 }
 }  // namespace marex::parse

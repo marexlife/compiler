@@ -3,6 +3,7 @@
 #include <format>
 #include <functional>
 #include <string_view>
+#include <utility>
 
 #include "Logger.h"
 #include "TokenKind.h"
@@ -10,6 +11,10 @@
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
+ParserPack::ParserPack(lex::TokenStream&& token_stream)
+    : start_token_size(token_stream.size()),
+      token_stream(std::move(token_stream)) {}
+
 std::string ParserPack::advance_if_matches(
     lex::TokenKind token_kind) {
     auto pre_increment_token_borrow = get_token();
@@ -35,7 +40,7 @@ bool ParserPack::is_at_end() const {
         start_token_size <= progress;
 
     core::Logger::log_info(std::format(
-        "ParserPack: is_finished = ",
+        "ParserPack: is_finished = {}",
         std::invoke([&]() {
             static const std::string_view true_text =
                 "true";
