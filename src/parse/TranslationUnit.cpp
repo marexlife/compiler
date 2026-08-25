@@ -38,7 +38,7 @@ TranslationUnit::create_file_item(ParserPack& pack) {
             return std::make_unique<ClassNode>(
                 pack.move_out_token());
         case lex::TokenKind::Var:
-            core::Logger::log_fatal_error(
+            throw exceptions::InvalidTokenException(
                 "no global variables allowed");
         default:
             throw exceptions::InvalidTokenException(
