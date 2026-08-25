@@ -8,7 +8,7 @@ Token::Token([[maybe_unused]] core::Passkey<TokenFactory> &&passkey,
              std::string &&lexeme, TokenKind token_kind)
     : lexeme(std::move(lexeme)), kind(token_kind) {}
 
-[[nodiscard]] std::uint8_t Token::GetBindingPower() const {
+[[nodiscard]] std::uint8_t Token::get_binding_power() const {
     switch (kind) {
     case lex::TokenKind::Print: {
         static const std::uint8_t binding_power = 100;
