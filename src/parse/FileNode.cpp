@@ -1,8 +1,6 @@
 #include "FileNode.h"
 
-#include <functional>
 #include <memory>
-#include <utility>
 
 #include "FileItem.h"
 #include "FuncNode.h"
