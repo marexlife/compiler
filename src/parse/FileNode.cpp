@@ -17,13 +17,13 @@ namespace marex::parse {
 void FileNode::parse(ParserPack& pack) {
     while (!pack.is_at_end()) {
         std::unique_ptr<FileItem> result = std::invoke(
-            [&]() { return visit_token_kind(pack); });
+            [&]() { return create_file_item(pack); });
 
         file_items.emplace_back(std::move(result));
     }
 }
 
-std::unique_ptr<FileItem> FileNode::visit_token_kind(
+std::unique_ptr<FileItem> FileNode::create_file_item(
     ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:

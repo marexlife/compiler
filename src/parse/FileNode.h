@@ -14,7 +14,7 @@ class FileNode final : private AstNode {
     void parse(ParserPack& pack) override;
 
    private:
-    static std::unique_ptr<FileItem> visit_token_kind(
+    static std::unique_ptr<FileItem> create_file_item(
         ParserPack& pack);
 
     std::vector<std::unique_ptr<FileItem>> file_items;
