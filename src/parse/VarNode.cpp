@@ -6,7 +6,6 @@
 #include <string>
 #include <utility>
 
-
 namespace marex::parse {
 VarNode::VarNode(lex::Token &&token) : FileItem(std::move(token)) {}
 
