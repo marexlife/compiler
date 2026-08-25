@@ -5,7 +5,8 @@
 
 namespace marex::parse {
 class FileItem : public AstNode {
-    explicit FileItem(lex::Token &&token);
+   public:
+    explicit FileItem(lex::Token&& token);
 };
-} // namespace marex::parse
-#endif // MAREX_PARSE_FILEITEM_H
+}  // namespace marex::parse
+#endif  // MAREX_PARSE_FILEITEM_H
