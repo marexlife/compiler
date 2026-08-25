@@ -11,9 +11,10 @@
 
 namespace marex::parse {
 struct ParserPack final {
-    explicit ParserPack(lex::TokenStream&& toke_stream)
-        : start_token_size(toke_stream.size()),
-          token_stream(std::move(toke_stream)) {}
+    explicit ParserPack(
+        lex::TokenStream&& token_stream)
+        : start_token_size(token_stream.size()),
+          token_stream(std::move(token_stream)) {}
 
     void advance() { ++progress; }
 
