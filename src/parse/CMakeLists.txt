@@ -22,6 +22,7 @@ add_library(${PROJECT_NAME}
     FuncNode.cpp
     TranslationUnit.cpp
     FileItem.cpp
+    ClassNode.cpp
     
     exceptions/InvalidTokenException.cpp
 )

@@ -25,8 +25,8 @@ struct ParserPack final {
         return progress;
     }
 
-    [[nodiscard]] std::string_view advance_if_matches(
-        lex::TokenKind token);
+    /* NOT [[nodiscard]] */ std::string_view
+    advance_if_matches(lex::TokenKind token);
 
     [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();

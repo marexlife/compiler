@@ -6,7 +6,7 @@ namespace marex::lex {
 enum struct [[nodiscard]] TokenKind : std::uint8_t {
     None = 0,
     Identifier,
-    Set,
+    Assignment,
     Print,
     Var,
     Number,
@@ -14,6 +14,8 @@ enum struct [[nodiscard]] TokenKind : std::uint8_t {
     Func,
     StatementEnd,
     Colon,
+    Class,
+    Struct,
 };
 }
-#endif // MAREX_LEX_TOKENKIND_H
+#endif  // MAREX_LEX_TOKENKIND_H

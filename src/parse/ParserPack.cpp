@@ -7,8 +7,7 @@
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
-[[nodiscard]] std::string_view
-ParserPack::advance_if_matches(
+std::string_view ParserPack::advance_if_matches(
     lex::TokenKind token_kind) {
     const auto& pre_increment_token_borrow =
         get_token();

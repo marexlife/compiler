@@ -20,7 +20,7 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "Number";
         case TokenKind::Print:
             return "print";
-        case TokenKind::Set:
+        case TokenKind::Assignment:
             return "=";
         case TokenKind::StatementEnd:
             return ";";
