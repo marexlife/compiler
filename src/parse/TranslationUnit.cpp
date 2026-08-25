@@ -1,4 +1,4 @@
-#include "FileNode.h"
+#include "TranslationUnit.h"
 
 #include <memory>
 
@@ -8,19 +8,22 @@
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
-std::string FileNode::as_string() {
+std::string TranslationUnit::as_string() {
     return std::string{"file"};
 }
 
-void FileNode::parse(ParserPack& pack) {
+TranslationUnit TranslationUnit::parse(
+    ParserPack& pack) {
     while (!pack.is_at_end()) {
         file_items.emplace_back(
             create_file_item(pack));
     }
+
+    return *this;
 }
 
-std::unique_ptr<FileItem> FileNode::create_file_item(
-    ParserPack& pack) {
+std::unique_ptr<FileItem>
+TranslationUnit::create_file_item(ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:
             return std::make_unique<FuncNode>(

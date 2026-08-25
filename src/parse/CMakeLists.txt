@@ -20,7 +20,7 @@ add_library(${PROJECT_NAME}
     IdentNode.cpp
     ParserPack.cpp
     FuncNode.cpp
-    FileNode.cpp
+    TranslationUnit.cpp
     FileItem.cpp
     exceptions/InvalidTokenException.cpp
 )
