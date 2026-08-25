@@ -9,15 +9,18 @@
 namespace marex::parse::exceptions {
 class InvalidTokenException final
     : public std::exception {
-public:
+   public:
     explicit InvalidTokenException(
         lex::SourcePos source_pos,
         lex::TokenKind expected_token_kind);
 
+    explicit InvalidTokenException(
+        std::string&& full_message);
+
     const char* what() const noexcept override;
 
-private:
+   private:
     std::string full_message;
 };
-} // namespace marex::parse::exceptions
-#endif // MAREX_PARSE_EXCEPTIONS_INVALIDTOKENEXCEPTION_H
+}  // namespace marex::parse::exceptions
+#endif  // MAREX_PARSE_EXCEPTIONS_INVALIDTOKENEXCEPTION_H

@@ -1,6 +1,7 @@
 #include "InvalidTokenException.h"
 
 #include <format>
+#include <utility>
 
 #include "TokenKindUitls.h"
 
@@ -13,6 +14,10 @@ InvalidTokenException::InvalidTokenException(
                       source_pos.to_string(),
                       lex::get_token_kind_name(
                           expected_token_kind))) {}
+
+InvalidTokenException::InvalidTokenException(
+    std::string&& full_message)
+    : full_message(std::move(full_message)) {}
 
 const char* InvalidTokenException::what()
     const noexcept {
