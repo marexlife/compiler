@@ -1,16 +1,19 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
+#include <sys/types.h>
+
+#include <string_view>
+#include <utility>
+
+#include "SourcePos.h"
 #include "Token.h"
 #include "TokenKind.h"
 #include "TokenStream.h"
 #include "absl/status/statusor.h"
-#include <string_view>
-#include <sys/types.h>
-#include <utility>
 
 namespace marex::parse {
 struct ParserPack final {
-    explicit ParserPack(lex::TokenStream &&toke_stream)
+    explicit ParserPack(lex::TokenStream&& toke_stream)
         : token_stream(std::move(toke_stream)) {}
 
     void advance() { ++progress; }
@@ -26,7 +29,11 @@ struct ParserPack final {
         return get_token().get_kind();
     }
 
-    [[nodiscard]] const lex::Token &get_token() const {
+    [[nodiscard]] lex::SourcePos get_pos() const {
+        return get_token().get_pos();
+    }
+
+    [[nodiscard]] const lex::Token& get_token() const {
         return token_stream.at(progress);
     }
 
@@ -34,9 +41,9 @@ struct ParserPack final {
         return std::move(token_stream.at(progress));
     }
 
-  private:
+   private:
     lex::TokenStream token_stream;
     std::size_t progress{};
 };
-} // namespace marex::parse
-#endif // MAREX_PARSE_PARSERPACK_H
+}  // namespace marex::parse
+#endif  // MAREX_PARSE_PARSERPACK_H

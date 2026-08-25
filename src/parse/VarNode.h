@@ -1,25 +1,26 @@
 #ifndef MAREX_PARSE_VAR_NODE_H
 #define MAREX_PARSE_VAR_NODE_H
-#include "IdentNode.h"
-#include "Node.h"
-#include "ParserPack.h"
-#include "Token.h"
 #include <functional>
 #include <optional>
 #include <string>
 
+#include "FileItem.h"
+#include "IdentNode.h"
+#include "ParserPack.h"
+#include "Token.h"
+
 namespace marex::parse {
-class VarNode final : public AstNode {
-  public:
-    explicit VarNode(lex::Token &&token);
+class VarNode final : public FileItem {
+   public:
+    explicit VarNode(lex::Token&& token);
 
     [[nodiscard]] std::string as_string() override;
 
-    void parse(ParserPack &pack) override;
+    void parse(ParserPack& pack) override;
 
-  private:
-    std::optional<std::reference_wrapper<IdentNode>> ident_node =
-        std::nullopt;
+   private:
+    std::optional<std::reference_wrapper<IdentNode>>
+        ident_node = std::nullopt;
 };
-} // namespace marex::parse
-#endif // MAREX_PARSE_VAR_NODE_H
+}  // namespace marex::parse
+#endif  // MAREX_PARSE_VAR_NODE_H

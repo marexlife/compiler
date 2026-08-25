@@ -3,9 +3,9 @@
 #include <functional>
 #include <memory>
 
+#include "FuncNode.h"
 #include "Node.h"
 #include "TokenKind.h"
-#include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
@@ -17,14 +17,14 @@ void FileNode::parse(ParserPack& pack) {
     auto result =
         std::invoke([&]() -> std::unique_ptr<AstNode> {
             switch (pack.get_kind()) {
-                case lex::TokenKind::Var:
-                    return std::make_unique<VarNode>(
+                case lex::TokenKind::Func:
+                    return std::make_unique<FuncNode>(
                         pack.move_out_token());
                 default:
                     throw exceptions::
                         InvalidTokenException(
-                            pack.get_token().get_pos(),
-                            "");
+                            pack.get_pos(),
+                            "invalid token");
             }
         });
 }

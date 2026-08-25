@@ -1,12 +1,14 @@
 #include "VarNode.h"
+#include "FileItem.h"
 #include "Logger.h"
 #include "ParserPack.h"
 #include <format>
 #include <string>
 #include <utility>
 
+
 namespace marex::parse {
-VarNode::VarNode(lex::Token &&token) : AstNode(std::move(token)) {}
+VarNode::VarNode(lex::Token &&token) : FileItem(std::move(token)) {}
 
 std::string VarNode::as_string() {
     if (ident_node) [[likely]] {
