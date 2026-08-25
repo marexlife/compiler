@@ -6,7 +6,6 @@
 #include "FuncNode.h"
 #include "Logger.h"
 #include "TokenKind.h"
-#include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
 std::string TranslationUnit::as_string() {
