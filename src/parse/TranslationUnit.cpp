@@ -1,6 +1,7 @@
 #include "TranslationUnit.h"
 
 #include <memory>
+#include <utility>
 
 #include "ClassNode.h"
 #include "FileItem.h"
@@ -15,8 +16,11 @@ std::string TranslationUnit::as_string() {
 
 void TranslationUnit::parse(ParserPack& pack) {
     while (!pack.is_at_end()) {
-        file_items.emplace_back(
-            create_file_item(pack));
+        auto file_item = create_file_item(pack);
+
+        file_item->parse(pack);
+
+        file_items.emplace_back(std::move(file_item));
     }
 }
 
