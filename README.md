@@ -1,1 +1,2 @@
-# compiler
+# marex
+A simple programming language. 
