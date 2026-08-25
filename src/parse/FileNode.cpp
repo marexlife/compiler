@@ -15,7 +15,7 @@ namespace marex::parse {
 }
 
 void FileNode::parse(ParserPack& pack) {
-    for (;;) {
+    while (!pack.is_at_end()) {
         std::unique_ptr<FileItem> result = std::invoke(
             [&]() { return visit_token_kind(pack); });
 

@@ -17,6 +17,10 @@ struct ParserPack final {
 
     void advance() { ++progress; }
 
+    [[nodiscard]] bool is_at_end() const {
+        return token_stream.size() <= progress;
+    }
+
     [[nodiscard]] std::size_t get_progress() const {
         return progress;
     }
