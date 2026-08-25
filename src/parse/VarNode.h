@@ -1,8 +1,8 @@
 #ifndef MAREX_PARSE_VAR_NODE_H
 #define MAREX_PARSE_VAR_NODE_H
 #include "IdentNode.h"
-#include "JumpCont.h"
 #include "Node.h"
+#include "ParserPack.h"
 #include "Token.h"
 #include <functional>
 #include <optional>
@@ -15,7 +15,7 @@ class VarNode final : public Node {
 
     [[nodiscard]] std::string as_string() override;
 
-    [[nodiscard]] JumpCount set(Node &ident_node) override;
+    void parse(ParserPack &pack) override;
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> ident_node =

@@ -1,6 +1,7 @@
 #include "PrintNode.h"
 #include "IdentNode.h"
 #include "Logger.h"
+#include "ParserPack.h"
 #include <format>
 #include <utility>
 
@@ -15,15 +16,5 @@ std::string PrintNode::as_string() {
     core::Logger::log_fatal_internal_error("no value for print node");
 }
 
-JumpCount PrintNode::set(Node &ident_node) {
-    switch (get_kind()) {
-    case lex::TokenKind::Identifier:
-        this->ident_node = ident_node.cast<IdentNode>();
-
-        return 2;
-    default:
-        core::Logger::log_fatal_error(
-            "wrong thing after var. try: print hey");
-    }
-}
+void PrintNode::parse([[maybe_unused]] ParserPack &pack) {}
 } // namespace marex::parse

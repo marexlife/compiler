@@ -1,6 +1,7 @@
 #ifndef MAREX_PARSE_IDENTNODE_H
 #define MAREX_PARSE_IDENTNODE_H
 #include "Node.h"
+#include "ParserPack.h"
 #include <string>
 
 namespace marex::parse {
@@ -10,7 +11,7 @@ class IdentNode final : public Node {
 
     [[nodiscard]] std::string as_string() override;
 
-    [[nodiscard]] JumpCount set(Node &next_node) override;
+    void parse(ParserPack &pack) override;
 
   private:
     std::string value;

@@ -1,5 +1,6 @@
 #include "VarNode.h"
 #include "Logger.h"
+#include "ParserPack.h"
 #include <format>
 #include <string>
 #include <utility>
@@ -16,14 +17,5 @@ std::string VarNode::as_string() {
     core::Logger::log_fatal_internal_error("no value for VarNode");
 }
 
-JumpCount VarNode::set(Node &ident_node) {
-    switch (ident_node.get_kind()) {
-    case lex::TokenKind::Identifier:
-        this->ident_node = ident_node.cast<IdentNode>();
-        return 2;
-    default:
-        core::Logger::log_fatal_error(
-            "wrong thing after var. try: var x");
-    }
-}
+void VarNode::parse([[maybe_unused]] ParserPack &pack) {}
 } // namespace marex::parse

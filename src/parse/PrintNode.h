@@ -1,8 +1,8 @@
 #ifndef MAREX_PARSE_PRINTNODE_H
 #define MAREX_PARSE_PRINTNODE_H
 #include "IdentNode.h"
-#include "JumpCont.h"
 #include "Node.h"
+#include "ParserPack.h"
 #include "Token.h"
 #include <string>
 
@@ -13,7 +13,7 @@ class PrintNode final : public Node {
 
     [[nodiscard]] std::string as_string() override;
 
-    [[nodiscard]] JumpCount set(Node &ident_node) override;
+    void parse(ParserPack &pack) override;
 
   private:
     std::optional<std::reference_wrapper<IdentNode>> ident_node =

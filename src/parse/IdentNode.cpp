@@ -1,6 +1,6 @@
 #include "IdentNode.h"
-#include "JumpCont.h"
 #include "Node.h"
+#include "ParserPack.h"
 #include "Token.h"
 #include <string>
 #include <utility>
@@ -12,8 +12,5 @@ IdentNode::IdentNode(lex::Token &&token) : Node(std::move(token)) {}
     return std::string{IdentNode::get_lexeme()};
 }
 
-[[nodiscard]] JumpCount
-IdentNode::set([[maybe_unused]] Node &next_node) {
-    return 1;
-}
+void IdentNode::parse([[maybe_unused]] ParserPack &pack) {}
 } // namespace marex::parse

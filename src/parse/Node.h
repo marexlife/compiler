@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_NODE_H
 #define MAREX_PARSE_NODE_H
-#include "JumpCont.h"
+#include "ParserPack.h"
 #include "Token.h"
 #include "TokenKind.h"
 #include <concepts>
@@ -42,7 +42,7 @@ class Node {
         return token.get_lexeme();
     }
 
-    [[nodiscard]] virtual JumpCount set(Node &next_node) = 0;
+    virtual void parse(ParserPack &pack) = 0;
 
   private:
     lex::Token token;
