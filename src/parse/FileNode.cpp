@@ -16,10 +16,8 @@ namespace marex::parse {
 
 void FileNode::parse(ParserPack& pack) {
     while (!pack.is_at_end()) {
-        std::unique_ptr<FileItem> result = std::invoke(
-            [&]() { return create_file_item(pack); });
-
-        file_items.emplace_back(std::move(result));
+        file_items.emplace_back(
+            create_file_item(pack));
     }
 }
 
