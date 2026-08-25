@@ -13,6 +13,7 @@ class ClassNode final : public FileItem {
     [[nodiscard]] std::string as_string() override;
 
     void parse(ParserPack& pack) override;
+    void parse_class_head(ParserPack& pack);
 
    private:
     std::optional<std::string> class_name;
