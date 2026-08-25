@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <exception>
 #include <filesystem>
 #include <format>
 #include <iostream>
@@ -106,7 +107,16 @@ void App::run_shell_mode() {
     std::cout << message;
 
     for (;;) {
-        App::run_shell_iteration();
+        try {
+            App::run_shell_iteration();
+        } catch (const std::exception& exception) {
+            std::cout << exception.what() << '\n';
+        } catch (...) {
+            static const std::string_view
+                error_message = "unkown error\n";
+
+            std::cout << error_message;
+        }
     }
 }
 }  // namespace marex::app
