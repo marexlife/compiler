@@ -8,7 +8,6 @@
 
 #include "TokenFactory.h"
 #include "TokenStream.h"
-#include "absl/status/statusor.h"
 
 namespace marex::lex {
 class [[nodiscard]] Lexer final {
@@ -23,7 +22,7 @@ class [[nodiscard]] Lexer final {
     Lexer& operator=(const Lexer&) = delete;
     ~Lexer() = default;
 
-    [[nodiscard]] absl::StatusOr<TokenStream> run(
+    [[nodiscard]] TokenStream run(
         std::string&& source_text);
 
    private:

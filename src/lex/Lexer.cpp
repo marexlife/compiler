@@ -9,11 +9,10 @@
 #include "LastCharKind.h"
 #include "Token.h"
 #include "TokenStream.h"
-#include "absl/status/status.h"
+#include "exceptions/SourceCodeEmptyException.h"
 
 namespace marex::lex {
-absl::StatusOr<TokenStream> Lexer::run(
-    std::string&& source_text) {
+TokenStream Lexer::run(std::string&& source_text) {
     TokenStream result;
 
     core::Defer defer_reset = [&]() { reset(); };
@@ -59,8 +58,7 @@ absl::StatusOr<TokenStream> Lexer::run(
     }
 
     if (!last_char_optional.has_value()) [[unlikely]] {
-        return absl::AbortedError(
-            "Source code is empty.");
+        throw SourceCodeEmptyException();
     }
 
     return result;

@@ -12,14 +12,11 @@
 #include <vector>
 
 #include "ActionPicker.h"
-#include "AppModeKind.h"
 #include "Fetcher.h"
 #include "Lexer.h"
-#include "LexerPrinter.h"
 #include "Logger.h"
 #include "Parser.h"
 #include "TokenStream.h"
-#include "absl/status/statusor.h"
 
 namespace marex::app {
 void App::run(int argc, char* argv[]) {
@@ -54,36 +51,12 @@ C. list files that should be compiled)";
     std::exit(EXIT_SUCCESS);
 }
 
-void App::compile(std::string source_code,
-                  AppModeKind app_mode_kind) {
-    absl::StatusOr<lex::TokenStream> lexer_result =
+void App::compile(std::string source_code) {
+    lex::TokenStream lexer_result =
         lexer.run(std::move(source_code));
 
-    if (!lexer_result.ok()) [[unlikely]] {
-        handle_lexer_failure(lexer_result,
-                             app_mode_kind);
-
-        return;
-    }
-
     [[maybe_unused]] auto translation_unit =
-        parse::Parser::run(std::move(*lexer_result));
-}
-
-void App::handle_lexer_failure(
-    absl::StatusOr<lex::TokenStream>& lexer_result,
-    AppModeKind app_mode_kind) {
-    marex::app::handle_mode_kind(
-        app_mode_kind,
-        [&](std::string_view error_message) {
-            core::Logger::log_fatal_error(
-                std::string{error_message});
-        },
-        [&](std::string_view error_message) {
-            core::Logger::log_error(
-                std::string{error_message});
-        },
-        lexer_result.status().message());
+        parse::Parser::run(std::move(lexer_result));
 }
 
 void App::compile_file(std::string_view argument) {
@@ -99,8 +72,7 @@ void App::compile_file(std::string_view argument) {
     std::string source_code =
         fetch::Fetcher::run(argument);
 
-    App::compile(std::move(source_code),
-                 AppModeKind::FileMode);
+    App::compile(std::move(source_code));
 }
 
 std::string App::query_user_command() {
@@ -114,8 +86,7 @@ std::string App::query_user_command() {
 
 void App::execute_user_command(
     std::string&& user_command) {
-    App::compile(std::move(user_command),
-                 AppModeKind::ShellMode);
+    App::compile(std::move(user_command));
 }
 
 void App::run_shell_iteration() {
