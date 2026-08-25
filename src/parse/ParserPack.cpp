@@ -7,16 +7,16 @@
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
-std::string_view ParserPack::advance_if_matches(
+std::string ParserPack::advance_if_matches(
     lex::TokenKind token_kind) {
-    const auto& pre_increment_token_borrow =
-        get_token();
+    auto pre_increment_token_borrow = get_token();
 
     if (pre_increment_token_borrow.get_kind() ==
         token_kind) {
         advance();
 
-        return pre_increment_token_borrow.get_lexeme();
+        return pre_increment_token_borrow
+            .move_out_lexeme();
     }
 
     throw exceptions::InvalidTokenException(

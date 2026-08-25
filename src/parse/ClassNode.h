@@ -15,7 +15,7 @@ class ClassNode final : public AstNode {
     void parse(ParserPack& pack) override;
 
    private:
-    std::string class_name;
+    std::optional<std::string> class_name;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_CLASSNODE_H

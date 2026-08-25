@@ -1,8 +1,5 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
-#include <sys/types.h>
-
-#include <string_view>
 #include <utility>
 
 #include "SourcePos.h"
@@ -25,8 +22,8 @@ struct ParserPack final {
         return progress;
     }
 
-    /* NOT [[nodiscard]] */ std::string_view
-    advance_if_matches(lex::TokenKind token);
+    /* NOT [[nodiscard]] */ std::string
+    advance_if_matches(lex::TokenKind token_kind);
 
     [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();
