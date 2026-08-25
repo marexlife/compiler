@@ -18,6 +18,10 @@ std::string ParserPack::advance_if_matches(
         token_kind) {
         advance();
 
+        core::Logger::log_info(std::format(
+            "TokenKind {} matched",
+            lex::get_token_kind_name(token_kind)));
+
         return pre_increment_token_borrow
             .move_out_lexeme();
     }
