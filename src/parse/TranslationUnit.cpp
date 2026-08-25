@@ -4,6 +4,7 @@
 
 #include "FileItem.h"
 #include "FuncNode.h"
+#include "Logger.h"
 #include "TokenKind.h"
 #include "exceptions/InvalidTokenException.h"
 
@@ -12,8 +13,7 @@ std::string TranslationUnit::as_string() {
     return std::string{"file"};
 }
 
-void TranslationUnit::parse(
-    ParserPack& pack) {
+void TranslationUnit::parse(ParserPack& pack) {
     while (!pack.is_at_end()) {
         file_items.emplace_back(
             create_file_item(pack));
@@ -27,13 +27,11 @@ TranslationUnit::create_file_item(ParserPack& pack) {
             return std::make_unique<FuncNode>(
                 pack.move_out_token());
         case lex::TokenKind::Var:
-            throw exceptions::InvalidTokenException(
-                pack.get_pos(),
-                "no global variables "
-                "allowed");
+            core::Logger::log_fatal_error(
+                "no global variables allowed");
         default:
-            throw exceptions::InvalidTokenException(
-                pack.get_pos(), "invalid token");
+            core::Logger::log_fatal_error(
+                "invalid Token");
     }
 }
 }  // namespace marex::parse
