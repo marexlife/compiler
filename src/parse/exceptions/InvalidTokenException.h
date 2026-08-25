@@ -1,10 +1,10 @@
 #ifndef MAREX_PARSE_EXCEPTIONS_INVALIDTOKENEXCEPTION_H
 #define MAREX_PARSE_EXCEPTIONS_INVALIDTOKENEXCEPTION_H
 #include <exception>
-#include <format>
 #include <string>
 
 #include "SourcePos.h"
+#include "TokenKind.h"
 
 namespace marex::parse::exceptions {
 class InvalidTokenException final
@@ -12,10 +12,7 @@ class InvalidTokenException final
    public:
     explicit InvalidTokenException(
         lex::SourcePos source_pos,
-        std::string&& message)
-        : full_message(std::format(
-              "at {}\n{}", source_pos.to_string(),
-              message)) {}
+        lex::TokenKind& expected_token_kind);
 
     const char* what() const noexcept override;
 

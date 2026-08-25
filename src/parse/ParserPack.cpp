@@ -20,10 +20,7 @@ std::string ParserPack::advance_if_matches(
     }
 
     throw exceptions::InvalidTokenException(
-        get_pos(),
-        std::format(
-            "expected {}",
-            lex::get_token_kind_name(token_kind)));
+        get_pos(), token_kind);
 }
 
 [[nodiscard]] std::string
