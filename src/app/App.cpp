@@ -19,7 +19,6 @@
 #include "Parser.h"
 #include "TokenStream.h"
 
-
 namespace marex::app {
 void App::run(int argc, char* argv[]) {
     marex::app::select_action(
@@ -75,7 +74,10 @@ void App::compile_file(std::string_view argument) {
 }
 
 std::string App::query_user_command() {
-    std::cout << "Input a command...\n";
+    static const std::string_view message =
+        "Input a command...\n";
+
+    std::cout << message;
 
     std::string user_command;
     std::getline(std::cin, user_command);
@@ -97,7 +99,10 @@ void App::run_shell_iteration() {
 }
 
 void App::run_shell_mode() {
-    std::cout << "Shell mode:\n";
+    static const std::string_view message =
+        "Shell mode:\n";
+
+    std::cout << message;
 
     for (;;) {
         App::run_shell_iteration();
