@@ -12,6 +12,9 @@
 
 namespace marex::lex {
 class [[nodiscard]] Lexer final {
+    constexpr static std::size_t vector_default_size =
+        100;
+
    public:
     Lexer() = default;
     Lexer(Lexer&&) = delete;
