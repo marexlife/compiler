@@ -8,6 +8,7 @@
 
 #include "Passkey.h"
 #include "TokenKind.h"
+#include "TokenPos.h"
 
 namespace marex::lex {
 class [[nodiscard]] TokenFactory;
@@ -25,8 +26,9 @@ class [[nodiscard]] Token final {
     [[nodiscard]] std::uint8_t get_binding_power() const;
 
   private:
-    std::optional<std::string> lexeme;
+    std::optional<std::string> lexeme = std::nullopt;
     TokenKind kind{};
+    TokenPos token_pos{};
 };
 } // namespace marex::lex
 #endif // MAREX_LEX_TOKEN_H
