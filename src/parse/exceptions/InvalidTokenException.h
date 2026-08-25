@@ -14,7 +14,9 @@ class InvalidTokenException final
     explicit InvalidTokenException(
         lex::SourcePos source_pos,
         std::string_view message)
-        : full_message(std::format("at {}\n{}", source_pos, message)) {}
+        : full_message(std::format(
+              "at {}\n{}", source_pos.to_string(),
+              message)) {}
 
     const char* what() const noexcept override;
 

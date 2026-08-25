@@ -10,7 +10,6 @@
 #include "SourcePos.h"
 #include "TokenKind.h"
 
-
 namespace marex::lex {
 class [[nodiscard]] TokenFactory;
 class [[nodiscard]] Token final {
@@ -29,7 +28,7 @@ class [[nodiscard]] Token final {
 
     [[nodiscard]] std::uint8_t get_binding_power()
         const;
-    [[nodiscard]] SourcePos get_token_pos() const {
+    [[nodiscard]] SourcePos get_pos() const {
         return token_pos;
     }
 

@@ -8,6 +8,7 @@
 #include "IdentNode.h"
 #include "Node.h"
 #include "TokenKind.h"
+#include "VarNode.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
 #include "exceptions/InvalidTokenException.h"
@@ -21,12 +22,14 @@ void FileNode::parse(ParserPack& pack) {
     auto result =
         std::invoke([&]() -> std::unique_ptr<AstNode> {
             switch (pack.get_kind()) {
-                return std::make_unique<IdentNode>(
-                    pack.move_out_token());
-
+                case lex::TokenKind::Var:
+                    return std::make_unique<VarNode>(
+                        pack.move_out_token());
                 default:
                     throw exceptions::
-                        InvalidTokenException("");
+                        InvalidTokenException(
+                            pack.get_token().get_pos(),
+                            "");
             }
         });
 }

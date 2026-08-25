@@ -19,6 +19,7 @@ add_library(${PROJECT_NAME}
     VarNode.cpp
     IdentNode.cpp
     ParserPack.cpp
+    FuncNode.cpp
     exceptions/InvalidTokenException.cpp
 )
 
