@@ -12,27 +12,27 @@
 
 namespace marex::lex {
 class [[nodiscard]] Lexer final {
-    static constexpr std::size_t vectorDefaultSize = 10;
+    static constexpr std::size_t vectorDefaultSize =
+        10;
 
-  public:
+   public:
     Lexer() = default;
-    Lexer(Lexer &&) = delete;
-    Lexer &operator=(Lexer &&) = delete;
-    Lexer(const Lexer &) = delete;
-    Lexer &operator=(const Lexer &) = delete;
+    Lexer(Lexer&&) = delete;
+    Lexer& operator=(Lexer&&) = delete;
+    Lexer(const Lexer&) = delete;
+    Lexer& operator=(const Lexer&) = delete;
     ~Lexer() = default;
 
-    [[nodiscard]] absl::StatusOr<TokenStream>
-    run(std::string &&source_text);
+    [[nodiscard]] absl::StatusOr<TokenStream> run(
+        std::string&& source_text);
 
-  private:
-    void push_token();
-    void push_statement(TokenStream &result);
+   private:
+    void push_token(TokenStream& result);
+    void push_statement(TokenStream& result);
     void reset();
 
     TokenFactory token_factory{};
-    Statement last_statement;
     std::string last_word;
 };
-} // namespace marex::lex
-#endif // MAREX_LEXER_LEXER_H
+}  // namespace marex::lex
+#endif  // MAREX_LEXER_LEXER_H

@@ -8,7 +8,7 @@
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
-[[nodiscard]] std::string FileNode::as_string() {
+std::string FileNode::as_string() {
     return std::string{"file"};
 }
 

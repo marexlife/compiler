@@ -7,24 +7,26 @@
 
 #include "Defer.h"
 #include "LastCharKind.h"
-#include "Statement.h"
 #include "Token.h"
 #include "TokenStream.h"
 #include "absl/status/status.h"
 
 namespace marex::lex {
-absl::StatusOr<TokenStream> Lexer::run(std::string &&source_text) {
+absl::StatusOr<TokenStream> Lexer::run(
+    std::string&& source_text) {
     TokenStream result;
 
     core::Defer defer_reset = [&]() { reset(); };
 
     result.reserve(vectorDefaultSize);
 
-    std::optional<char> last_char_optional = std::nullopt;
+    std::optional<char> last_char_optional =
+        std::nullopt;
     LastCharKind last_char_kind = LastCharKind::None;
 
     for (const auto source_text_char : source_text) {
-        LastCharKind thisCharKind = LastCharKind::WasNotDefault;
+        LastCharKind thisCharKind =
+            LastCharKind::WasNotDefault;
 
         core::Defer defer_iter_end{[&]() {
             last_char_optional = source_text_char;
@@ -32,54 +34,47 @@ absl::StatusOr<TokenStream> Lexer::run(std::string &&source_text) {
         }};
 
         switch (source_text_char) {
-        case '\n':
-            [[fallthrough]];
-        case '\0':
-            // ignore
-            break;
-        case ' ':
-            if (last_char_kind == LastCharKind::WasDefault) {
-                Lexer::push_token();
-            }
-            break;
-        case ';':
-            Lexer::push_statement(result);
-            break;
-        default:
-            thisCharKind = LastCharKind::WasDefault;
-            last_word.push_back(source_text_char);
-            break;
+            case '\n':
+                [[fallthrough]];
+            case '\0':
+                // ignore
+                break;
+            case ' ':
+                if (last_char_kind ==
+                    LastCharKind::WasDefault) {
+                    Lexer::push_token(result);
+                }
+                break;
+            case ';':
+                Lexer::push_statement(result);
+                break;
+            default:
+                thisCharKind =
+                    LastCharKind::WasDefault;
+                last_word.push_back(source_text_char);
+                break;
         }
     }
 
     if (!last_char_optional.has_value()) [[unlikely]] {
-        return absl::AbortedError("Source code is empty.");
+        return absl::AbortedError(
+            "Source code is empty.");
     }
 
     if (*last_char_optional != ';') [[unlikely]] {
-        return absl::AbortedError("The last has to be a ';'.");
+        return absl::AbortedError(
+            "The last has to be a ';'.");
     }
 
     return result;
 }
 
-void Lexer::reset() {
-    last_statement.clear();
-    last_word.clear();
-}
+void Lexer::reset() { last_word.clear(); }
 
-void Lexer::push_token() {
-    last_statement.emplace_back(
-        token_factory.create_token(std::string{last_word}));
+void Lexer::push_token(TokenStream& result) {
+    result.emplace_back(token_factory.create_token(
+        std::string{last_word}));
 
     last_word.clear();
 }
-
-void Lexer::push_statement(TokenStream &result) {
-    Lexer::push_token();
-
-    result.push_back(Statement{last_statement});
-
-    last_statement.clear();
-}
-} // namespace marex::lex
+}  // namespace marex::lex
