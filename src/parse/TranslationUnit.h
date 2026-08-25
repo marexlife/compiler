@@ -1,5 +1,5 @@
-#ifndef MAREX_PARSE_FILENODE_H
-#define MAREX_PARSE_FILENODE_H
+#ifndef MAREX_PARSE_TRANSLATIONUNIT_H
+#define MAREX_PARSE_TRANSLATIONUNIT_H
 #include <memory>
 #include <vector>
 
@@ -10,13 +10,14 @@ namespace marex::parse {
 class TranslationUnit final {
    public:
     [[nodiscard]] static std::string as_string();
-    TranslationUnit parse(ParserPack& pack);
+    [[nodiscard]] TranslationUnit parse(
+        ParserPack& pack);
 
    private:
-    static std::unique_ptr<FileItem> create_file_item(
-        ParserPack& pack);
+    [[nodiscard]] static std::unique_ptr<FileItem>
+    create_file_item(ParserPack& pack);
 
     std::vector<std::unique_ptr<FileItem>> file_items;
 };
 }  // namespace marex::parse
-#endif  // MAREX_PARSE_FILENODE_H
+#endif  // MAREX_PARSE_TRANSLATIONUNIT_H
