@@ -60,10 +60,10 @@ void App::compile(std::string source_code) {
 }
 
 void App::compile_file(std::string_view argument) {
-    const bool isDirectory =
+    const bool is_directory =
         std::filesystem::is_directory(argument);
 
-    if (!isDirectory) [[unlikely]] {
+    if (!is_directory) [[unlikely]] {
         core::Logger::log_fatal_error(std::format(
             "{} argument is not a directory",
             argument));
