@@ -13,7 +13,7 @@ public:
     void parse(ParserPack& pack);
 
 private:
-    [[nodiscard]] static std::unique_ptr<FileItem>
+    [[nodiscard]] static  std::unique_ptr<FileItem>
     create_file_item(ParserPack& pack);
 
     std::vector<std::unique_ptr<FileItem>> file_items;

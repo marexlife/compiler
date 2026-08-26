@@ -4,7 +4,6 @@ project(parse)
 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CXX_CLANG_TIDY ON)
