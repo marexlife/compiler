@@ -45,7 +45,7 @@ TokenStream Lexer::run(std::string&& source_text)
                 Lexer::push_token(result);
             }
             break;
-        case ';':
+        case ';' | ':':
             Lexer::push_token_and_current(
                 result, source_text_char);
 
