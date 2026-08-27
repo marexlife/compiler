@@ -43,7 +43,8 @@ TokenStream Lexer::run(std::string&& source_text) {
                     Lexer::push_token_and_current(
                         result, source_text_char);
                 } else {
-                    Lexer::push_token(result);
+                    Lexer::push_current(
+                        result, source_text_char);
                 }
                 break;
             default:
