@@ -11,7 +11,7 @@ set(CXX_CLANG_TIDY ON)
 add_library(${PROJECT_NAME}
     Parser.cpp
     NodeFactory.cpp
-    Node.cpp
+    AstNode.cpp
     PrintNode.cpp
     ValueNode.cpp
     VarNode.cpp

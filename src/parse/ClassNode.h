@@ -4,7 +4,7 @@
 #include <string>
 
 #include "FileItem.h"
-#include "Node.h"
+#include "AstNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 

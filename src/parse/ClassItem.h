@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_CLASSITEM_H
 #define MAREX_PARSE_CLASSITEM_H
-#include "Node.h"
+#include "AstNode.h"
 #include "Token.h"
 
 namespace marex::parse {

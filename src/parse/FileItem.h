@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_FILEITEM_H
 #define MAREX_PARSE_FILEITEM_H
-#include "Node.h"
+#include "AstNode.h"
 #include "Token.h"
 
 namespace marex::parse {

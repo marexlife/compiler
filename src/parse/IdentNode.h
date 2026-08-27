@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_IDENTNODE_H
 #define MAREX_PARSE_IDENTNODE_H
-#include "Node.h"
+#include "AstNode.h"
 #include "ParserPack.h"
 #include <string>
 

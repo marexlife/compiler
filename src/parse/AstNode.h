@@ -1,15 +1,16 @@
-#ifndef MAREX_PARSE_NODE_H
-#define MAREX_PARSE_NODE_H
-#include "ParserPack.h"
-#include "Token.h"
-#include "TokenKind.h"
+#ifndef MAREX_PARSE_ASTNODE_H
+#define MAREX_PARSE_ASTNODE_H
 #include <concepts>
 #include <cstdint>
 #include <string_view>
 
+#include "ParserPack.h"
+#include "Token.h"
+#include "TokenKind.h"
+
 namespace marex::parse {
 class AstNode {
-public:
+   public:
     explicit AstNode(lex::Token&& token);
 
     AstNode(AstNode&&) = default;
@@ -20,38 +21,33 @@ public:
 
     template <typename T>
         requires std::derived_from<T, AstNode>
-    [[nodiscard]] T& cast()
-    {
+    [[nodiscard]] T& cast() {
         return static_cast<T&>(*this);
     }
 
     [[nodiscard]] virtual std::string as_string() = 0;
 
-    [[nodiscard]] const lex::Token& get_token() const
-    {
+    [[nodiscard]] const lex::Token& get_token() const {
         return token;
     }
 
-    [[nodiscard]] std::uint8_t
-    get_binding_power() const
-    {
+    [[nodiscard]] std::uint8_t get_binding_power()
+        const {
         return token.get_binding_power();
     }
 
-    [[nodiscard]] lex::TokenKind get_kind() const
-    {
+    [[nodiscard]] lex::TokenKind get_kind() const {
         return token.get_kind();
     }
 
-    [[nodiscard]] std::string_view get_lexeme() const
-    {
+    [[nodiscard]] std::string_view get_lexeme() const {
         return token.get_lexeme();
     }
 
     virtual void parse(ParserPack& pack) = 0;
 
-private:
+   private:
     lex::Token token;
 };
-} // namespace marex::parse
-#endif // MAREX_PARSE_NODE_H
+}  // namespace marex::parse
+#endif  // MAREX_PARSE_ASTNODE_H
