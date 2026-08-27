@@ -12,7 +12,6 @@ add_library(${PROJECT_NAME}
     Parser.cpp
     NodeFactory.cpp
     Node.cpp
-    OpNode.cpp
     PrintNode.cpp
     ValueNode.cpp
     VarNode.cpp
@@ -22,7 +21,7 @@ add_library(${PROJECT_NAME}
     TranslationUnit.cpp
     FileItem.cpp
     ClassNode.cpp
-    
+
     exceptions/InvalidTokenException.cpp
 )
 
