@@ -6,9 +6,10 @@
 #include <cstddef>
 #include <string>
 
+#include "LastCharKind.h"
+#include "SourcePos.h"
 #include "TokenFactory.h"
 #include "TokenStream.h"
-#include "absl/status/statusor.h"
 
 namespace marex::lex {
 class [[nodiscard]] Lexer final {
@@ -23,15 +24,26 @@ class [[nodiscard]] Lexer final {
     Lexer& operator=(const Lexer&) = delete;
     ~Lexer() = default;
 
-    [[nodiscard]] absl::StatusOr<TokenStream> run(
+    [[nodiscard]] TokenStream run(
         std::string&& source_text);
 
    private:
     void push_token(TokenStream& result);
     void reset();
+    void push_current(TokenStream& result,
+                      char current);
     void push_token_and_current(TokenStream& result,
                                 char current);
 
+    [[nodiscard]] bool is_flushable() const {
+        return last_char_kind ==
+               LastCharKind::WasDefault;
+    }
+
+    std::optional<char> last_char_optional =
+        std::nullopt;
+    SourcePos source_pos{};
+    LastCharKind last_char_kind = LastCharKind::None;
     TokenFactory token_factory{};
     std::string last_word;
 };

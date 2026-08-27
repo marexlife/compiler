@@ -1,3 +1,3 @@
 cmake . -B build -GNinja
 cmake --build build
-./build/src/main/marex
+./build/src/main/main

@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <exception>
 #include <filesystem>
 #include <format>
 #include <iostream>
@@ -12,14 +13,13 @@
 #include <vector>
 
 #include "ActionPicker.h"
-#include "AppModeKind.h"
 #include "Fetcher.h"
+#include "HelpScreen.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
 #include "Logger.h"
 #include "Parser.h"
 #include "TokenStream.h"
-#include "absl/status/statusor.h"
 
 namespace marex::app {
 void App::run(int argc, char* argv[]) {
@@ -40,74 +40,50 @@ void App::compile_files(int argc, char* argv[]) {
 
     for (char** arg = argv; arg != argv + argc;
          ++arg) {
-        workers.emplace_back(std::jthread(
-            [&]() { App::compile_file(*arg); }));
+        workers.emplace_back(std::jthread{
+            [&]() { App::compile_file(*arg); },
+        });
     }
 }
 
 void App::show_help_screen() {
-    std::cout << R"(Help screen:
-A. --help to get to here
-B. 'clear;' to clear the screen in Shell mode
-C. list files that should be compiled)";
+    std::cout << help_screen;
 
     std::exit(EXIT_SUCCESS);
 }
 
-void App::compile(std::string source_code,
-                  AppModeKind app_mode_kind) {
-    absl::StatusOr<lex::TokenStream> lexer_result =
+void App::compile(std::string source_code) {
+    lex::TokenStream token_stream =
         lexer.run(std::move(source_code));
 
-    if (!lexer_result.ok()) [[unlikely]] {
-        handle_lexer_failure(lexer_result,
-                             app_mode_kind);
-
-        return;
-    }
-
-    lex::LexerPrinter::print_lexer_result(
-        *lexer_result);
+    lex::LexerPrinter::print_token_stream(
+        token_stream);
 
     [[maybe_unused]] auto translation_unit =
-        parse::Parser::run(std::move(*lexer_result));
-}
-
-void App::handle_lexer_failure(
-    absl::StatusOr<lex::TokenStream>& lexer_result,
-    AppModeKind app_mode_kind) {
-    marex::app::handle_mode_kind(
-        app_mode_kind,
-        [&](std::string_view error_message) {
-            core::Logger::log_fatal_error(
-                error_message);
-        },
-        [&](std::string_view error_message) {
-            core::Logger::log_error(error_message);
-        },
-        lexer_result.status().message());
+        parse::Parser::run(std::move(token_stream));
 }
 
 void App::compile_file(std::string_view argument) {
-    const bool isDirectory =
+    const bool is_directory =
         std::filesystem::is_directory(argument);
 
-    if (!isDirectory) [[unlikely]] {
-        std::string error_message = std::format(
+    if (!is_directory) [[unlikely]] {
+        core::Logger::log_fatal_error(std::format(
             "{} argument is not a directory",
-            argument);
-        core::Logger::log_fatal_error(error_message);
+            argument));
     }
 
     std::string source_code =
         fetch::Fetcher::run(argument);
 
-    App::compile(std::move(source_code),
-                 AppModeKind::FileMode);
+    App::compile(std::move(source_code));
 }
 
 std::string App::query_user_command() {
-    std::cout << "Input a command...\n";
+    static const std::string_view message =
+        "Input a command...\n";
+
+    std::cout << message;
 
     std::string user_command;
     std::getline(std::cin, user_command);
@@ -117,8 +93,7 @@ std::string App::query_user_command() {
 
 void App::execute_user_command(
     std::string&& user_command) {
-    App::compile(std::move(user_command),
-                 AppModeKind::ShellMode);
+    App::compile(std::move(user_command));
 }
 
 void App::run_shell_iteration() {
@@ -130,10 +105,22 @@ void App::run_shell_iteration() {
 }
 
 void App::run_shell_mode() {
-    std::cout << "Shell mode:\n";
+    static const std::string_view message =
+        "Shell mode:\n";
+
+    std::cout << message;
 
     for (;;) {
-        App::run_shell_iteration();
+        try {
+            App::run_shell_iteration();
+        } catch (const std::exception& exception) {
+            std::cout << exception.what() << '\n';
+        } catch (...) {
+            static const std::string_view
+                error_message = "unkown error\n";
+
+            std::cout << error_message;
+        }
     }
 }
 }  // namespace marex::app

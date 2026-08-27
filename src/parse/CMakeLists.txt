@@ -4,7 +4,6 @@ project(parse)
 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CXX_CLANG_TIDY ON)
@@ -12,8 +11,8 @@ set(CXX_CLANG_TIDY ON)
 add_library(${PROJECT_NAME}
     Parser.cpp
     NodeFactory.cpp
-    Node.cpp
-    OpNode.cpp
+    AstNode.cpp
+    ClassItem.cpp
     PrintNode.cpp
     ValueNode.cpp
     VarNode.cpp
@@ -23,7 +22,7 @@ add_library(${PROJECT_NAME}
     TranslationUnit.cpp
     FileItem.cpp
     ClassNode.cpp
-    
+
     exceptions/InvalidTokenException.cpp
 )
 

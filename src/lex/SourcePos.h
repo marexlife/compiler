@@ -7,6 +7,7 @@ namespace marex::lex {
 struct SourcePos final {
     void advance_column();
     void advance_line();
+    void reset();
 
     [[nodiscard]] std::string to_string() const;
 

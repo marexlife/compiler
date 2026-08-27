@@ -8,10 +8,10 @@
 
 namespace marex::parse {
 class Parser final {
-    static const std::size_t nodes_default_reserve =
-        100;
+    static const std::size_t nodes_default_reserve
+        = 100;
 
-   public:
+public:
     Parser() = delete;
     Parser(Parser&&) = delete;
     Parser& operator=(Parser&&) = delete;
@@ -22,9 +22,9 @@ class Parser final {
     [[nodiscard]] static TranslationUnit run(
         lex::TokenStream&& token_stream);
 
-   private:
+private:
     [[nodiscard]] static TranslationUnit parse(
         ParserPack&& pack);
 };
-}  // namespace marex::parse
-#endif  // MAREX_PARSE_PARSER_H
+} // namespace marex::parse
+#endif // MAREX_PARSE_PARSER_H

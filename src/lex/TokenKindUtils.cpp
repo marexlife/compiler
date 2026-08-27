@@ -30,8 +30,14 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "Class";
         case TokenKind::Struct:
             return "Struct";
-        case TokenKind::Ident:
-            return "Ident";
+        case TokenKind::OpenBrace:
+            return "{";
+        case TokenKind::CloseBrace:
+            return "}";
+        case TokenKind::OpenBracket:
+            return "(";
+        case TokenKind::CloseBracket:
+            return ")";
         case TokenKind::None:
             goto end;
     }

@@ -4,7 +4,10 @@
 
 namespace marex::lex {
 void SourcePos::advance_column() { ++column; }
-
+void SourcePos::reset() {
+    line = {};
+    column = {};
+}
 void SourcePos::advance_line() {
     ++line;
     column = {};

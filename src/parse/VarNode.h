@@ -4,13 +4,13 @@
 #include <optional>
 #include <string>
 
-#include "FileItem.h"
+#include "ClassItem.h"
 #include "IdentNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 
 namespace marex::parse {
-class VarNode final : public FileItem {
+class VarNode final : public ClassItem {
    public:
     explicit VarNode(lex::Token&& token);
 

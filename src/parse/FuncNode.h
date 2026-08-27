@@ -1,10 +1,10 @@
 #ifndef MAREX_PARSE_FUNCNODE_H
 #define MAREX_PARSE_FUNCNODE_H
-#include "FileItem.h"
+#include "ClassItem.h"
 #include "Token.h"
 
 namespace marex::parse {
-class FuncNode final : public FileItem {
+class FuncNode final : public ClassItem {
    public:
     explicit FuncNode(lex::Token&& token);
 
