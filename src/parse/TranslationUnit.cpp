@@ -31,11 +31,11 @@ TranslationUnit::create_file_item(ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:
             return std::make_unique<FuncNode>(
-                pack.move_out_token());
+                pack.copy_out_token());
         case lex::TokenKind::Class:
             std::cout << "Class\n";
             return std::make_unique<ClassNode>(
-                pack.move_out_token());
+                pack.copy_out_token());
         case lex::TokenKind::Var:
             throw exceptions::InvalidTokenException(
                 "no global variables allowed");

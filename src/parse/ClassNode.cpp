@@ -23,8 +23,13 @@ void ClassNode::parse(ParserPack& pack) {
     core::Logger::log_info("parsing class");
 
     pack.advance_if_matches(lex::TokenKind::Class);
+    core::Logger::log_info(
+        "now expecteing a class name");
+
     class_name =
         pack.advance_if_matches(lex::TokenKind::Ident);
+
+    core::Logger::log_info("now expecteing a colon");
     pack.advance_if_matches(lex::TokenKind::Colon);
 
     core::Logger::log_info("end parsing class");

@@ -34,20 +34,19 @@ struct ParserPack final {
     }
 
     [[nodiscard]] const lex::Token& get_token() const {
-        return token_stream.at(0);
+        return token_stream.at(progress);
     }
 
-    [[nodiscard]] lex::Token move_out_token() {
+    [[nodiscard]] lex::Token copy_out_token() {
         std::cin.get();
 
-        return std::move(token_stream.at(0));
+        return lex::Token(token_stream.at(progress));
     }
 
     [[nodiscard]] std::string get_error_message()
         const;
 
    private:
-    std::size_t start_token_size{};
     lex::TokenStream token_stream;
     std::size_t progress{};
 };

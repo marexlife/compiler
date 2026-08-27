@@ -10,8 +10,7 @@
 
 namespace marex::parse {
 ParserPack::ParserPack(lex::TokenStream&& token_stream)
-    : start_token_size(token_stream.size()),
-      token_stream(std::move(token_stream)) {}
+    : token_stream(std::move(token_stream)) {}
 
 std::string ParserPack::advance_if_matches(
     lex::TokenKind token_kind) {
@@ -36,7 +35,7 @@ std::string ParserPack::advance_if_matches(
 
 bool ParserPack::is_at_end() const {
     const auto is_finished =
-        start_token_size <= progress;
+        token_stream.size() <= progress;
 
     core::Logger::log_info(
         std::format("ParserPack: is_finished = {}",
