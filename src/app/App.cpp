@@ -53,11 +53,11 @@ void App::show_help_screen() {
 }
 
 void App::compile(std::string source_code) {
-    lex::TokenStream lexer_stream =
+    lex::TokenStream token_stream =
         lexer.run(std::move(source_code));
 
     [[maybe_unused]] auto translation_unit =
-        parse::Parser::run(std::move(lexer_stream));
+        parse::Parser::run(std::move(token_stream));
 }
 
 void App::compile_file(std::string_view argument) {
