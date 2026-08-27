@@ -20,6 +20,7 @@ std::string ParserPack::advance_if_matches(
     auto pre_increment_token_borrow = get_token();
     const auto got_token_kind =
         pre_increment_token_borrow.get_kind();
+
     if (got_token_kind == token_kind) {
         advance();
 
