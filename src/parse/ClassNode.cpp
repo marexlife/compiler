@@ -29,6 +29,18 @@ void ClassNode::parse_class_signature(
     pack.advance_if_matches(lex::TokenKind::Class);
     class_name =
         pack.advance_if_matches(lex::TokenKind::Ident);
+
+    if (pack.matches(lex::TokenKind::Colon)) {
+        pack.advance();
+        return;
+    }
+
+    pack.advance_if_matches(
+        lex::TokenKind::OpenBracket);
+    parent_class_name =
+        pack.advance_if_matches(lex::TokenKind::Ident);
+    pack.advance_if_matches(
+        lex::TokenKind::CloseBracket);
     pack.advance_if_matches(lex::TokenKind::Colon);
 }
 }  // namespace marex::parse
