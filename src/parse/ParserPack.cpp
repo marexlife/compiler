@@ -40,17 +40,9 @@ bool ParserPack::is_at_end() const {
     const auto is_finished =
         start_token_size <= progress;
 
-    core::Logger::log_info(std::format(
-        "ParserPack: is_finished = {}",
-        std::invoke([&]() {
-            static const std::string_view true_text =
-                "true";
-            static const std::string_view false_text =
-                "false";
-
-            return is_finished ? true_text
-                               : false_text;
-        })));
+    core::Logger::log_info(
+        std::format("ParserPack: is_finished = {}",
+                    is_finished ? "true" : "false"));
 
     return is_finished;
 }
