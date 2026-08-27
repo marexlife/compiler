@@ -5,7 +5,7 @@
 
 namespace marex::core {
 class Logger final {
-public:
+   public:
     Logger() = delete;
     Logger(Logger&&) = delete;
     Logger& operator=(Logger&&) = delete;
@@ -13,21 +13,24 @@ public:
     Logger& operator=(const Logger&) = delete;
     ~Logger() = delete;
 
+    static void flush();
+
     static void log_info(std::string&& message);
 
-    static void log_error(std::string&& message,
-        std::source_location source_location
-        = std::source_location::current());
+    static void log_error(
+        std::string&& message,
+        std::source_location source_location =
+            std::source_location::current());
 
     [[noreturn]] static void log_fatal_error(
         std::string&& message,
-        std::source_location source_location
-        = std::source_location::current());
+        std::source_location source_location =
+            std::source_location::current());
 
     [[noreturn]] static void log_fatal_internal_error(
         std::string&& message,
-        std::source_location source_location
-        = std::source_location::current());
+        std::source_location source_location =
+            std::source_location::current());
 };
-} // namespace marex::core
-#endif // MAREX_CORE_LOGGER_H
+}  // namespace marex::core
+#endif  // MAREX_CORE_LOGGER_H
