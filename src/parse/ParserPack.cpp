@@ -1,6 +1,7 @@
 #include "ParserPack.h"
 
 #include <format>
+#include <string_view>
 #include <utility>
 
 #include "Logger.h"
@@ -11,6 +12,10 @@
 namespace marex::parse {
 ParserPack::ParserPack(lex::TokenStream&& token_stream)
     : token_stream(std::move(token_stream)) {}
+
+std::string_view ParserPack::get_kind_string() const {
+    return lex::get_token_kind_name(get_kind());
+}
 
 std::string ParserPack::advance_if_matches(
     lex::TokenKind token_kind) {

@@ -2,6 +2,7 @@
 
 #include <format>
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "ClassItem.h"
@@ -84,10 +85,12 @@ ClassNode::visit_class_entry(ParserPack& pack) {
                 pack.copy_out_token());
         case lex::TokenKind::Class:
             throw exceptions::InvalidTokenException(
+                pack.get_pos(),
                 "class in class not allowed");
         default:
             throw exceptions::InvalidTokenException(
-                "invalid token");
+                pack.get_pos(),
+                std::string{pack.get_kind_string()});
     }
 }
 }  // namespace marex::parse

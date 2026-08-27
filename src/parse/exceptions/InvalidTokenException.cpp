@@ -27,9 +27,11 @@ InvalidTokenException::InvalidTokenException(
               unexpected_token_kind))) {}
 
 InvalidTokenException::InvalidTokenException(
+    lex::SourcePos source_pos,
     std::string&& full_message)
     : full_message(
-          std::format("Invalid token: {}",
+          std::format("at {}\nInvalid token: {}",
+                      source_pos.to_string(),
                       std::move(full_message))) {}
 
 const char* InvalidTokenException::what()

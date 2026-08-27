@@ -19,8 +19,8 @@ class InvalidTokenException final
         lex::SourcePos source_pos,
         lex::TokenKind unexpected_token_kind);
 
-    explicit InvalidTokenException(
-        std::string&& full_message);
+    InvalidTokenException(lex::SourcePos source_pos,
+                          std::string&& full_message);
 
     const char* what() const noexcept override;
 

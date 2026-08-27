@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
+#include <string_view>
 
 #include "SourcePos.h"
 #include "Token.h"
@@ -21,6 +22,9 @@ struct ParserPack final {
     [[nodiscard]] std::size_t get_progress() const {
         return progress;
     }
+
+    [[nodiscard]] std::string_view get_kind_string()
+        const;
 
     [[nodiscard]] bool matches(
         lex::TokenKind token_kind) const {
