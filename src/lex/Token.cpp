@@ -29,7 +29,7 @@ Token::get_binding_power() const
 
         return binding_power;
     } break;
-    case lex::TokenKind::Ident: {
+    case lex::TokenKind::Identifier: {
         static const std::uint8_t binding_power = 10;
 
         return binding_power;

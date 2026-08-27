@@ -19,7 +19,7 @@ std::unique_ptr<AstNode> NodeFactory::create_node(
     auto token_kind = token.get_kind();
 
     switch (token_kind) {
-    case lex::TokenKind::Ident:
+    case lex::TokenKind::Identifier:
         return std::make_unique<IdentNode>(
             std::move(token));
     case lex::TokenKind::Print:

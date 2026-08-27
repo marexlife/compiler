@@ -47,6 +47,6 @@ Token TokenFactory::create_token(
         return mapping.at(source_word);
     }
 
-    return TokenKind::Ident;
+    return TokenKind::Identifier;
 }
 } // namespace marex::lex
