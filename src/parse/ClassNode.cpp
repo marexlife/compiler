@@ -78,8 +78,6 @@ std::unique_ptr<ClassItem>
 ClassNode::visit_class_entry(ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:
-            return std::make_unique<FuncNode>(
-                pack.copy_out_token());
         case lex::TokenKind::Var:
             return std::make_unique<VarNode>(
                 pack.copy_out_token());
