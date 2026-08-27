@@ -28,6 +28,7 @@ public:
 private:
     void push_token(TokenStream& result);
     void reset();
+    void push_current(TokenStream& result, char current);
     void push_token_and_current(
         TokenStream& result, char current);
 
