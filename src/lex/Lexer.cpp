@@ -13,7 +13,11 @@ namespace marex::lex {
 TokenStream Lexer::run(std::string&& source_text) {
     TokenStream result;
 
-    core::Defer defer_reset = [&]() { reset(); };
+    core::Defer defer_reset = [&]() {
+        Lexer::push_token(result);
+
+        reset();
+    };
 
     result.reserve(vector_default_size);
 
