@@ -93,7 +93,7 @@ void Lexer::push_current(TokenStream& result,
     core::Logger::log_info("Lexer: push_current");
 
     result.emplace_back(token_factory.create_token(
-        std::string{current}));
+        std::string{current}, source_pos));
 }
 
 void Lexer::push_token_and_current(TokenStream& result,
