@@ -1,5 +1,6 @@
 #include "ClassNode.h"
 
+#include <format>
 #include <utility>
 
 #include "FileItem.h"
@@ -32,6 +33,12 @@ void ClassNode::parse_class_signature(
 
     if (pack.matches(lex::TokenKind::Colon)) {
         pack.advance();
+
+        core::Logger::log_info(std::format(
+            "parsed class singature from class '{}' "
+            "without parent class",
+            *class_name));
+
         return;
     }
 
@@ -42,5 +49,10 @@ void ClassNode::parse_class_signature(
     pack.advance_if_matches(
         lex::TokenKind::CloseBracket);
     pack.advance_if_matches(lex::TokenKind::Colon);
+
+    core::Logger::log_info(std::format(
+        "parsed class singature from class '{}' "
+        "with parent class '{}'",
+        *class_name, *parent_class_name));
 }
 }  // namespace marex::parse
