@@ -4,7 +4,7 @@
 #include "TokenStream.h"
 
 namespace marex::lex {
-void LexerPrinter::print_lexer_result(
+void LexerPrinter::print_token_stream(
     lex::TokenStream& token_stream)
 {
     for (lex::Token& token : token_stream) {

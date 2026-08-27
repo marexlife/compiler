@@ -7,7 +7,7 @@ class LexerPrinter final {
 public:
     LexerPrinter() = delete;
 
-    static void print_lexer_result(
+    static void print_token_stream(
         lex::TokenStream& token_stream);
 };
 } // namespace marex::lex

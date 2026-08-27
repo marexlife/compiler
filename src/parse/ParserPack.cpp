@@ -18,9 +18,9 @@ ParserPack::ParserPack(lex::TokenStream&& token_stream)
 std::string ParserPack::advance_if_matches(
     lex::TokenKind token_kind) {
     auto pre_increment_token_borrow = get_token();
-
-    if (pre_increment_token_borrow.get_kind() ==
-        token_kind) {
+    auto got_token_kind =
+        pre_increment_token_borrow.get_kind();
+    if (got_token_kind == token_kind) {
         advance();
 
         core::Logger::log_info(std::format(
@@ -32,7 +32,7 @@ std::string ParserPack::advance_if_matches(
     }
 
     throw exceptions::InvalidTokenException(
-        get_pos(), token_kind);
+        get_pos(), token_kind, got_token_kind);
 }
 
 bool ParserPack::is_at_end() const {

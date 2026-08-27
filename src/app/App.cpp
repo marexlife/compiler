@@ -56,7 +56,7 @@ void App::compile(std::string source_code) {
     lex::TokenStream token_stream =
         lexer.run(std::move(source_code));
 
-    lex::LexerPrinter::print_lexer_result(
+    lex::LexerPrinter::print_token_stream(
         token_stream);
 
     [[maybe_unused]] auto translation_unit =

@@ -8,12 +8,14 @@
 namespace marex::parse::exceptions {
 InvalidTokenException::InvalidTokenException(
     lex::SourcePos source_pos,
-    lex::TokenKind expected_token_kind)
+    lex::TokenKind expected_token_kind,
+    lex::TokenKind got_token_kind)
     : full_message(std::format(
-          "Invalid token: at {}\nexpected: {}",
+          "Invalid token: at {}\nexpected: {}, got {}",
           source_pos.to_string(),
           lex::get_token_kind_name(
-              expected_token_kind))) {}
+              expected_token_kind),
+          lex::get_token_kind_name(got_token_kind))) {}
 
 InvalidTokenException::InvalidTokenException(
     std::string&& full_message)

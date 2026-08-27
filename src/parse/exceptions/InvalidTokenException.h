@@ -12,7 +12,8 @@ class InvalidTokenException final
    public:
     explicit InvalidTokenException(
         lex::SourcePos source_pos,
-        lex::TokenKind expected_token_kind);
+        lex::TokenKind expected_token_kind,
+        lex::TokenKind got_token_kind);
 
     explicit InvalidTokenException(
         std::string&& full_message);
