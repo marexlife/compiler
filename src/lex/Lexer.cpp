@@ -14,17 +14,15 @@ namespace marex::lex {
 TokenStream Lexer::run(std::string&& source_text) {
     TokenStream result;
 
+    result.reserve(vector_default_size);
+
     core::Defer defer_reset = [&]() {
-        Lexer::push_token(result);
+        if (is_flushable()) {
+            Lexer::push_token(result);
+        }
 
         reset();
     };
-
-    result.reserve(vector_default_size);
-
-    std::optional<char> last_char_optional =
-        std::nullopt;
-    LastCharKind last_char_kind = LastCharKind::None;
 
     for (const auto source_text_char : source_text) {
         LastCharKind this_char_kind =
@@ -37,8 +35,7 @@ TokenStream Lexer::run(std::string&& source_text) {
 
         switch (source_text_char) {
             case ' ':
-                if (last_char_kind ==
-                    LastCharKind::WasDefault) {
+                if (is_flushable()) {
                     Lexer::push_token(result);
                 }
                 break;
@@ -50,8 +47,7 @@ TokenStream Lexer::run(std::string&& source_text) {
             case ':':
                 [[fallthrough]];
             case ';':
-                if (last_char_kind ==
-                    LastCharKind::WasDefault) {
+                if (is_flushable()) {
                     Lexer::push_token_and_current(
                         result, source_text_char);
                 } else {
@@ -74,7 +70,12 @@ TokenStream Lexer::run(std::string&& source_text) {
     return result;
 }
 
-void Lexer::reset() { last_word.clear(); }
+void Lexer::reset() {
+    last_char_optional = std::nullopt;
+    last_char_kind = LastCharKind::None;
+
+    last_word.clear();
+}
 
 void Lexer::push_token(TokenStream& result) {
     core::Logger::log_info("Lexer: push_token");
