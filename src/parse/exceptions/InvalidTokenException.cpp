@@ -18,6 +18,15 @@ InvalidTokenException::InvalidTokenException(
           lex::get_token_kind_name(got_token_kind))) {}
 
 InvalidTokenException::InvalidTokenException(
+    lex::SourcePos source_pos,
+    lex::TokenKind unexpected_token_kind)
+    : full_message(std::format(
+          "at: {}, unexpected token kind: {}",
+          source_pos.to_string(),
+          lex::get_token_kind_name(
+              unexpected_token_kind))) {}
+
+InvalidTokenException::InvalidTokenException(
     std::string&& full_message)
     : full_message(
           std::format("Invalid token: {}",

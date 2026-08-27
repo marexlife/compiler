@@ -10,10 +10,14 @@ namespace marex::parse::exceptions {
 class InvalidTokenException final
     : public std::exception {
    public:
-    explicit InvalidTokenException(
+    InvalidTokenException(
         lex::SourcePos source_pos,
         lex::TokenKind expected_token_kind,
         lex::TokenKind got_token_kind);
+
+    InvalidTokenException(
+        lex::SourcePos source_pos,
+        lex::TokenKind unexpected_token_kind);
 
     explicit InvalidTokenException(
         std::string&& full_message);
