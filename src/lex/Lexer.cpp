@@ -42,7 +42,14 @@ TokenStream Lexer::run(std::string&& source_text) {
                     Lexer::push_token(result);
                 }
                 break;
-            case ';' | ':' | '\n' | '\0':
+            case '\n':
+                [[fallthrough]];
+            case '\0':
+                /* ignore */
+                break;
+            case ':':
+                [[fallthrough]];
+            case ';':
                 if (last_char_kind ==
                     LastCharKind::WasDefault) {
                     Lexer::push_token_and_current(
