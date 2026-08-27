@@ -5,6 +5,7 @@
 
 #include "Defer.h"
 #include "LastCharKind.h"
+#include "Logger.h"
 #include "Token.h"
 #include "TokenStream.h"
 #include "exceptions/SourceCodeEmptyException.h"
@@ -69,6 +70,8 @@ TokenStream Lexer::run(std::string&& source_text) {
 void Lexer::reset() { last_word.clear(); }
 
 void Lexer::push_token(TokenStream& result) {
+    core::Logger::log_info("Lexer: push_token");
+
     result.emplace_back(token_factory.create_token(
         std::string{last_word}));
 
@@ -77,12 +80,17 @@ void Lexer::push_token(TokenStream& result) {
 
 void Lexer::push_current(TokenStream& result,
                          char current) {
+    core::Logger::log_info("Lexer: push_current");
+
     result.emplace_back(token_factory.create_token(
         std::string{current}));
 }
 
 void Lexer::push_token_and_current(TokenStream& result,
                                    char current) {
+    core::Logger::log_info(
+        "Lexer: push_token_and_current");
+
     push_token(result);
     push_current(result, current);
 }
