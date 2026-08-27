@@ -1,7 +1,6 @@
 #include "LexerPrinter.h"
 
 #include <format>
-#include <iostream>
 
 #include "Logger.h"
 #include "Token.h"
