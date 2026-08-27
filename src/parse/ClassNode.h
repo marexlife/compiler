@@ -2,9 +2,10 @@
 #define MAREX_PARSE_CLASSNODE_H
 #include <memory>
 #include <string>
+#include <vector>
 
+#include "ClassItem.h"
 #include "FileItem.h"
-#include "AstNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 
@@ -20,12 +21,14 @@ class ClassNode final : public FileItem {
     void parse_class_signature(ParserPack& pack);
     void parse_class_body(ParserPack& pack);
 
-    [[nodiscard]] static std::unique_ptr<AstNode>
+    [[nodiscard]] static std::unique_ptr<ClassItem>
     visit_class_entry(ParserPack& pack);
 
    private:
     std::optional<std::string> class_name;
     std::optional<std::string> parent_class_name;
+    std::vector<std::unique_ptr<ClassItem>>
+        class_items;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_CLASSNODE_H

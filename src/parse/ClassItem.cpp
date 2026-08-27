@@ -2,10 +2,10 @@
 
 #include <utility>
 
-#include "AstNode.h"
+#include "FileItem.h"
 #include "Token.h"
 
 namespace marex::parse {
 ClassItem::ClassItem(lex::Token&& token)
-    : AstNode(std::move(token)) {}
+    : FileItem(std::move(token)) {}
 }  // namespace marex::parse

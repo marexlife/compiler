@@ -4,6 +4,7 @@
 #include <memory>
 #include <utility>
 
+#include "ClassItem.h"
 #include "FileItem.h"
 #include "FuncNode.h"
 #include "Logger.h"
@@ -27,6 +28,7 @@ ClassNode::ClassNode(lex::Token&& token)
 
 void ClassNode::parse(ParserPack& pack) {
     parse_class_signature(pack);
+    parse_class_body(pack);
 }
 
 void ClassNode::parse_class_signature(
@@ -66,12 +68,13 @@ void ClassNode::parse_class_body(ParserPack& pack) {
 
         class_entry->parse(pack);
 
-        
+        class_items.emplace_back(
+            std::move(class_entry));
     }
 }
 
-std::unique_ptr<AstNode> ClassNode::visit_class_entry(
-    ParserPack& pack) {
+std::unique_ptr<ClassItem>
+ClassNode::visit_class_entry(ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:
             return std::make_unique<FuncNode>(

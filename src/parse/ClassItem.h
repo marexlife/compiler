@@ -1,10 +1,10 @@
 #ifndef MAREX_PARSE_CLASSITEM_H
 #define MAREX_PARSE_CLASSITEM_H
-#include "AstNode.h"
+#include "FileItem.h"
 #include "Token.h"
 
 namespace marex::parse {
-class ClassItem : public AstNode {
+class ClassItem : public FileItem {
    public:
     explicit ClassItem(lex::Token&& token);
 };
