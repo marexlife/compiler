@@ -2,7 +2,7 @@
 #define MAREX_PARSE_VALUENODE_H
 #include <utility>
 
-#include "Node.h"
+#include "AstNode.h"
 
 namespace marex::parse {
 template <typename WrappedType, typename Tag>

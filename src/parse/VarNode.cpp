@@ -1,21 +1,21 @@
 #include "VarNode.h"
-#include "FileItem.h"
-#include "Logger.h"
-#include "ParserPack.h"
+
 #include <format>
 #include <string>
 #include <utility>
 
+#include "ClassItem.h"
+#include "Logger.h"
+#include "ParserPack.h"
+
 namespace marex::parse {
 VarNode::VarNode(lex::Token&& token)
-    : FileItem(std::move(token))
-{
-}
+    : ClassItem(std::move(token)) {}
 
-std::string VarNode::as_string()
-{
+std::string VarNode::as_string() {
     if (ident_node) [[likely]] {
-        return std::format("variable {}",
+        return std::format(
+            "variable {}",
             ident_node->get().as_string());
     }
 
@@ -23,7 +23,6 @@ std::string VarNode::as_string()
         "no value for VarNode");
 }
 
-void VarNode::parse([[maybe_unused]] ParserPack& pack)
-{
-}
-} // namespace marex::parse
+void VarNode::parse(
+    [[maybe_unused]] ParserPack& pack) {}
+}  // namespace marex::parse

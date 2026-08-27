@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_NODEFACTORY_H
 #define MAREX_PARSE_NODEFACTORY_H
-#include "Node.h"
+#include "AstNode.h"
 #include "Token.h"
 #include <memory>
 

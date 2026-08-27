@@ -1,5 +1,5 @@
 #include "Walker.h"
-#include "Node.h"
+#include "AstNode.h"
 #include <memory>
 
 namespace marex::walk {

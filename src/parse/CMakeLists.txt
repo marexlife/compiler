@@ -12,6 +12,7 @@ add_library(${PROJECT_NAME}
     Parser.cpp
     NodeFactory.cpp
     AstNode.cpp
+    ClassItem.cpp
     PrintNode.cpp
     ValueNode.cpp
     VarNode.cpp

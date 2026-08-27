@@ -6,7 +6,7 @@
 
 #include "IdentNode.h"
 #include "Logger.h"
-#include "Node.h"
+#include "AstNode.h"
 #include "PrintNode.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"

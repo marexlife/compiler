@@ -1,6 +1,6 @@
 #ifndef MAREX_WALK_WALKER_H
 #define MAREX_WALK_WALKER_H
-#include "Node.h"
+#include "AstNode.h"
 #include <memory>
 #include <vector>
 
