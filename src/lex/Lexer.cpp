@@ -31,6 +31,7 @@ TokenStream Lexer::run(std::string&& source_text) {
         core::Defer defer_iter_end = [&]() {
             last_char_optional = source_text_char;
             last_char_kind = this_char_kind;
+            source_pos.advance_column();
         };
 
         switch (source_text_char) {
@@ -40,7 +41,8 @@ TokenStream Lexer::run(std::string&& source_text) {
                 }
                 break;
             case '\n':
-                [[fallthrough]];
+                source_pos.advance_line();
+                break;
             case '\0':
                 /* ignore */
                 break;
@@ -81,7 +83,7 @@ void Lexer::push_token(TokenStream& result) {
     core::Logger::log_info("Lexer: push_token");
 
     result.emplace_back(token_factory.create_token(
-        std::string{last_word}));
+        std::string{last_word}, source_pos));
 
     last_word.clear();
 }

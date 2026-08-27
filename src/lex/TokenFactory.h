@@ -20,9 +20,10 @@ public:
     ~TokenFactory() = default;
 
     [[nodiscard]] Token create_token(
-        std::string&& source_word);
+        std::string&& source_word,
+        SourcePos source_pos);
 
-private:
+   private:
     [[nodiscard]] TokenKind map(
         std::string_view source_word);
 

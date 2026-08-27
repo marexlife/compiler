@@ -16,7 +16,8 @@ class [[nodiscard]] Token final {
    public:
     Token([[maybe_unused]] core::Passkey<
               TokenFactory>&& passkey,
-          std::string&& lexeme, TokenKind token_kind);
+          std::string&& lexeme, TokenKind token_kind,
+          SourcePos source_pos);
 
     [[nodiscard]] std::string_view get_lexeme() const;
 
@@ -29,13 +30,13 @@ class [[nodiscard]] Token final {
     [[nodiscard]] std::uint8_t get_binding_power()
         const;
     [[nodiscard]] SourcePos get_pos() const {
-        return token_pos;
+        return source_pos;
     }
 
    private:
     std::optional<std::string> lexeme = std::nullopt;
     TokenKind kind{};
-    SourcePos token_pos{};
+    SourcePos source_pos{};
 };
 }  // namespace marex::lex
 #endif  // MAREX_LEX_TOKEN_H

@@ -7,6 +7,7 @@
 #include <string>
 
 #include "LastCharKind.h"
+#include "SourcePos.h"
 #include "TokenFactory.h"
 #include "TokenStream.h"
 
@@ -41,6 +42,7 @@ class [[nodiscard]] Lexer final {
 
     std::optional<char> last_char_optional =
         std::nullopt;
+    SourcePos source_pos{};
     LastCharKind last_char_kind = LastCharKind::None;
     TokenFactory token_factory{};
     std::string last_word;
