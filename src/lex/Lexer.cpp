@@ -31,8 +31,9 @@ TokenStream Lexer::run(std::string&& source_text) {
         core::Defer defer_iter_end = [&]() {
             last_char_optional = source_text_char;
             last_char_kind = this_char_kind;
-            source_pos.advance_column();
         };
+
+        source_pos.advance_column();
 
         switch (source_text_char) {
             case ' ':
@@ -75,7 +76,7 @@ TokenStream Lexer::run(std::string&& source_text) {
 void Lexer::reset() {
     last_char_optional = std::nullopt;
     last_char_kind = LastCharKind::None;
-
+    source_pos.reset();
     last_word.clear();
 }
 
