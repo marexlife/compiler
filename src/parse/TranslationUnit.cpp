@@ -7,6 +7,7 @@
 #include "ClassNode.h"
 #include "FileItem.h"
 #include "FuncNode.h"
+#include "Logger.h"
 #include "TokenKind.h"
 #include "exceptions/InvalidTokenException.h"
 
@@ -33,7 +34,7 @@ TranslationUnit::create_file_item(ParserPack& pack) {
             return std::make_unique<FuncNode>(
                 pack.copy_out_token());
         case lex::TokenKind::Class:
-            std::cout << "Class\n";
+            core::Logger::log_info("Class\n");
             return std::make_unique<ClassNode>(
                 pack.copy_out_token());
         case lex::TokenKind::Var:
