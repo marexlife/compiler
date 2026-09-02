@@ -30,6 +30,8 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "Bool Literal";
         case lex::TokenKind::Arrow:
             return "arrow";
+        case lex::TokenKind::FatArrow:
+            return "fat arrow";
         case TokenKind::Print:
             return "print";
         case TokenKind::Assignment:

@@ -21,8 +21,15 @@ enum struct [[nodiscard]] TokenKind : std::uint8_t {
     Literal,
     Func,
     StatementEnd,
+
     Arrow,
+    FatArrow,
+
+    Match,
+
     Colon,
+    Comma,
+
     Class,
     Struct,
 
