@@ -1,7 +1,6 @@
 #include "FuncNode.h"
 
 #include <functional>
-#include <stdexcept>
 #include <utility>
 
 #include "FileItem.h"
