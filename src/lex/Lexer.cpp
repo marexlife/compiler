@@ -47,6 +47,16 @@ TokenStream Lexer::run(std::string&& source_text) {
             case '\0':
                 /* ignore */
                 break;
+            case '{':
+                [[fallthrough]];
+            case '}':
+                [[fallthrough]];
+            case '(':
+                [[fallthrough]];
+            case ')':
+                [[fallthrough]];
+            case '=':
+                [[fallthrough]];
             case ':':
                 [[fallthrough]];
             case ';':
