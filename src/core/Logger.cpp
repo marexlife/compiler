@@ -5,7 +5,7 @@
 #include <string>
 #include <utility>
 
-#include "ErorrFormater.h"
+#include "ErrorFormatter.h"
 
 namespace marex::core {
 void Logger::flush() { std::cout.flush(); }
