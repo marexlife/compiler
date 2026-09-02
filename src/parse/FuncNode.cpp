@@ -34,6 +34,7 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 
     if (pack.matches(lex::TokenKind::OpenBrace)) {
         type_kind = TypeKind::EmptyType;
+        return;
     }
 
     pack.advance_if_matches(lex::TokenKind::Arrow);
@@ -54,7 +55,7 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
         }
     });
 
-    pack.advance_if_matches(lex::TokenKind::Colon);
+    pack.advance_if_matches(lex::TokenKind::OpenBrace);
 }
 
 void FuncNode::parse_func_body(
