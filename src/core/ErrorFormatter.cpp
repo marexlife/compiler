@@ -1,4 +1,4 @@
-#include "ErorrFormater.h"
+#include "ErrorFormatter.h"
 #include <format>
 
 namespace marex::core {
