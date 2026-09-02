@@ -1,5 +1,6 @@
 #include "FuncNode.h"
 
+#include <functional>
 #include <stdexcept>
 #include <utility>
 
@@ -7,6 +8,7 @@
 #include "ParserPack.h"
 #include "TokenKind.h"
 #include "TypeKind.h"
+#include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
 FuncNode::FuncNode(lex::Token&& token)
@@ -35,7 +37,25 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
         type_kind = TypeKind::EmptyType;
     }
 
-    throw std::runtime_error("not implemented yet");
+    pack.advance_if_matches(lex::TokenKind::Arrow);
+
+    type_kind = std::invoke([&] {
+        switch (pack.get_kind()) {
+            case marex::lex::TokenKind::IntDecl:
+                return TypeKind::IntType;
+            case marex::lex::TokenKind::BoolDecl:
+                return TypeKind::BoolType;
+            case marex::lex::TokenKind::FloatDecl:
+                return TypeKind::FloatType;
+            default:
+                throw exceptions::
+                    InvalidTokenException(
+                        pack.get_pos(),
+                        "expected a type");
+        }
+    });
+
+    pack.advance_if_matches(lex::TokenKind::Colon);
 }
 
 void FuncNode::parse_func_body(
