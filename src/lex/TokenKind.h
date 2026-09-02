@@ -9,10 +9,19 @@ enum struct [[nodiscard]] TokenKind : std::uint8_t {
     Assignment,
     Print,
     Var,
-    Number,
+
+    IntDecl,
+    FloatDecl,
+    BoolDecl,
+
+    IntLiteral,
+    FloatLiteral,
+    BoolLiteral,
+
     Literal,
     Func,
     StatementEnd,
+    Arrow,
     Colon,
     Class,
     Struct,

@@ -16,8 +16,20 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "identifier";
         case TokenKind::Literal:
             return "Literal";
-        case TokenKind::Number:
-            return "Number";
+        case TokenKind::IntDecl:
+            return "Int Decl";
+        case TokenKind::FloatDecl:
+            return "Float Decl";
+        case lex::TokenKind::BoolDecl:
+            return "Bool Decl";
+        case lex::TokenKind::IntLiteral:
+            return "Int Literal";
+        case lex::TokenKind::FloatLiteral:
+            return "Int Literal";
+        case lex::TokenKind::BoolLiteral:
+            return "Bool Literal";
+        case lex::TokenKind::Arrow:
+            return "arrow";
         case TokenKind::Print:
             return "print";
         case TokenKind::Assignment:
