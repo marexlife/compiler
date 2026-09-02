@@ -3,37 +3,50 @@
 #include <format>
 #include <utility>
 
+#include "ErrorFormatter.h"
 #include "TokenKindUitls.h"
 
 namespace marex::parse::exceptions {
 InvalidTokenException::InvalidTokenException(
     lex::SourcePos source_pos,
     lex::TokenKind expected_token_kind,
-    lex::TokenKind got_token_kind)
+    lex::TokenKind got_token_kind,
+    std::source_location cpp_source_location)
     : full_message(std::format(
-          "Invalid token: at {}\nexpected: {}, got {}",
+          "Invalid token: at {}\nexpected: {}, got "
+          "{}, from {}",
           source_pos.to_string(),
           lex::token_kind_to_string(
               expected_token_kind),
-          lex::token_kind_to_string(got_token_kind))) {
-}
+          lex::token_kind_to_string(got_token_kind),
+          core::ErrorFormater::
+              source_location_to_string(
+                  cpp_source_location))) {}
 
 InvalidTokenException::InvalidTokenException(
     lex::SourcePos source_pos,
-    lex::TokenKind unexpected_token_kind)
+    lex::TokenKind unexpected_token_kind,
+    std::source_location cpp_source_location)
     : full_message(std::format(
-          "at: {}, unexpected token kind: {}",
+          "at: {}, unexpected token kind: {}, from {}",
           source_pos.to_string(),
           lex::token_kind_to_string(
-              unexpected_token_kind))) {}
+              unexpected_token_kind),
+          core::ErrorFormater::
+              source_location_to_string(
+                  cpp_source_location))) {}
 
 InvalidTokenException::InvalidTokenException(
     lex::SourcePos source_pos,
-    std::string&& full_message)
-    : full_message(
-          std::format("at {}\nInvalid token: {}",
-                      source_pos.to_string(),
-                      std::move(full_message))) {}
+    std::string&& full_message,
+    std::source_location cpp_source_location)
+    : full_message(std::format(
+          "at {}\nInvalid token: {}, from {}",
+          source_pos.to_string(),
+          std::move(full_message),
+          core::ErrorFormater::
+              source_location_to_string(
+                  cpp_source_location))) {}
 
 const char* InvalidTokenException::what()
     const noexcept {
