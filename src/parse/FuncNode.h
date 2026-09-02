@@ -15,7 +15,7 @@ class FuncNode final : public FileItem {
     void parse(ParserPack& pack) override;
 
     void parse_func_signature(ParserPack& pack);
-    void parse_func_body(ParserPack& pack);
+    static void parse_func_body(ParserPack& pack);
 
    private:
     TypeKind type_kind{};

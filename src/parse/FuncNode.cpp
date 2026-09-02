@@ -17,8 +17,7 @@ FuncNode::FuncNode(lex::Token&& token)
     return "func node";
 }
 
-void FuncNode::parse(
-    [[maybe_unused]] ParserPack& pack) {
+void FuncNode::parse(ParserPack& pack) {
     parse_func_signature(pack);
     parse_func_body(pack);
 }
@@ -58,6 +57,8 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
     pack.advance_if_matches(lex::TokenKind::OpenBrace);
 }
 
-void FuncNode::parse_func_body(
-    [[maybe_unused]] ParserPack& pack) {}
+void FuncNode::parse_func_body(ParserPack& pack) {
+    pack.advance_if_matches(
+        lex::TokenKind::CloseBrace);
+}
 }  // namespace marex::parse
