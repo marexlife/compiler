@@ -20,7 +20,7 @@ public:
     void compile_files(int argc, char* argv[]);
     void compile_file(std::string_view argument);
 
-    void compile(std::string source_code);
+    void compile(std::string &&source_code);
     void run_shell_mode();
     void run_shell_iteration();
     [[nodiscard]] static std::string

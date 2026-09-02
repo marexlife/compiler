@@ -1,12 +1,14 @@
 #ifndef MAREX_CORE_DEFER_H
 #define MAREX_CORE_DEFER_H
+#include <type_traits>
+
 namespace marex::core {
-template <typename Functor> class Defer final {
-public:
+template <typename Functor>
+    requires std::is_invocable_v<Functor>
+class Defer final {
+   public:
     /* implicit */ Defer(Functor functor)
-        : defer_func(functor)
-    {
-    }
+        : defer_func(functor) {}
 
     Defer(Defer&&) = delete;
     Defer& operator=(Defer&&) = delete;
@@ -15,8 +17,8 @@ public:
 
     ~Defer() { defer_func(); }
 
-private:
+   private:
     Functor defer_func;
 };
-} // namespace marex::core
-#endif // MAREX_CORE_DEFER_H
+}  // namespace marex::core
+#endif  // MAREX_CORE_DEFER_H

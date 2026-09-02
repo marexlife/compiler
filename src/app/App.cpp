@@ -52,7 +52,7 @@ void App::show_help_screen() {
     std::exit(EXIT_SUCCESS);
 }
 
-void App::compile(std::string source_code) {
+void App::compile(std::string&& source_code) {
     lex::TokenStream token_stream =
         lexer.run(std::move(source_code));
 
