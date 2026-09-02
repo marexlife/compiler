@@ -1,6 +1,7 @@
 #include "FuncNode.h"
 
 #include <functional>
+#include <print>
 #include <utility>
 
 #include "FileItem.h"
@@ -32,11 +33,18 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
         lex::TokenKind::CloseBracket);
 
     if (pack.matches(lex::TokenKind::OpenBrace)) {
+        std::println("empty");
+        pack.advance();
+
         type_kind = TypeKind::EmptyType;
         return;
     }
 
+    std::println("not empty and pre arrow");
+
     pack.advance_if_matches(lex::TokenKind::Arrow);
+
+    std::println("not empty and after arrow");
 
     type_kind = std::invoke([&] {
         switch (pack.get_kind()) {

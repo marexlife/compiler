@@ -2,6 +2,7 @@
 #define MAREX_LEX_TOKENFACTORY_H
 #include <absl/container/flat_hash_map.h>
 
+#include <charconv>
 #include <optional>
 #include <string_view>
 #include <type_traits>
@@ -36,12 +37,10 @@ class TokenFactory final {
     try_convert_to_number(
         std::string_view source_word) {
         NumberType target{};
-        const auto int_conversion_succeeded =
-            std::from_chars(source_word.begin(),
-                            source_word.end(), target)
-                .ec == std::errc{};
 
-        if (int_conversion_succeeded) {
+        if (std::from_chars(source_word.begin(),
+                            source_word.end(),
+                            target)) {
             return std::optional<TokenKind>{
                 OutputValue,
             };
