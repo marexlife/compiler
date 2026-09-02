@@ -5,6 +5,7 @@
 #include <charconv>
 #include <optional>
 #include <string_view>
+#include <system_error>
 #include <type_traits>
 
 #include "Token.h"
@@ -39,8 +40,8 @@ class TokenFactory final {
         NumberType target{};
 
         if (std::from_chars(source_word.begin(),
-                            source_word.end(),
-                            target)) {
+                            source_word.end(), target)
+                .ec == std::errc{}) {
             return std::optional<TokenKind>{
                 OutputValue,
             };
