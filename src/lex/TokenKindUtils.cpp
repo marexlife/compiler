@@ -6,7 +6,7 @@
 
 namespace marex {
 [[nodiscard]] std::string_view
-lex::get_token_kind_name(TokenKind token_kind) {
+lex::token_kind_to_string(TokenKind token_kind) {
     switch (token_kind) {
         case TokenKind::Func:
             return "function keyword";
@@ -32,6 +32,10 @@ lex::get_token_kind_name(TokenKind token_kind) {
             return "arrow";
         case lex::TokenKind::FatArrow:
             return "fat arrow";
+        case marex::lex::TokenKind::Match:
+            return "match";
+        case marex::lex::TokenKind::Comma:
+            return "comma";
         case TokenKind::Print:
             return "print";
         case TokenKind::Assignment:
