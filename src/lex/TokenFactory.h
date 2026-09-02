@@ -42,8 +42,12 @@ class TokenFactory final {
                 .ec == std::errc{};
 
         if (int_conversion_succeeded) {
-            return OutputValue;
+            return std::optional<TokenKind>{
+                OutputValue,
+            };
         }
+
+        return std::nullopt;
     }
 
     absl::flat_hash_map<std::string_view, TokenKind>
