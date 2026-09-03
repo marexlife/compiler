@@ -42,9 +42,9 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Arrow);
 
-    std::println("not empty and after arrow");
-
     type_kind = std::invoke([&] {
+        pack.advance();
+
         switch (pack.get_kind()) {
             case marex::lex::TokenKind::IntDecl:
                 return TypeKind::IntType;
