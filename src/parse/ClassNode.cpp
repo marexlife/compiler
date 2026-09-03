@@ -34,13 +34,13 @@ void ClassNode::parse(ParserPack& pack) {
 
 void ClassNode::parse_class_signature(
     ParserPack& pack) {
-    pack.advance_if_matches(lex::TokenKind::Class);
-    class_name = pack.advance_if_matches(
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::Class);
+    class_name = pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
 
-    if (pack.matches(lex::TokenKind::Colon)) {
-        pack.advance();
-
+    if (pack.advance_if_matches(
+            lex::TokenKind::Colon)) {
         core::Logger::log_info(std::format(
             "parsed class signature from class '{}' "
             "without parent class",
@@ -49,13 +49,15 @@ void ClassNode::parse_class_signature(
         return;
     }
 
-    pack.advance_if_matches(
+    pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBracket);
-    parent_class_name = pack.advance_if_matches(
-        lex::TokenKind::Identifier);
-    pack.advance_if_matches(
+    parent_class_name =
+        pack.advance_if_matches_or_throw(
+            lex::TokenKind::Identifier);
+    pack.advance_if_matches_or_throw(
         lex::TokenKind::CloseBracket);
-    pack.advance_if_matches(lex::TokenKind::Colon);
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::Colon);
 
     core::Logger::log_info(std::format(
         "parsed class signature from class '{}' "

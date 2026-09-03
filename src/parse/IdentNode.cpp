@@ -18,7 +18,7 @@ IdentNode::IdentNode(lex::Token&& token)
 
 void IdentNode::parse(
     [[maybe_unused]] ParserPack& pack) {
-    value = pack.advance_if_matches(
+    value = pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
 }
 }  // namespace marex::parse

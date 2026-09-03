@@ -26,13 +26,25 @@ struct ParserPack final {
     [[nodiscard]] std::string_view get_kind_string()
         const;
 
+    [[nodiscard]] bool advance_if_matches(
+        lex::TokenKind token_kind) {
+        const auto does_match = matches(token_kind);
+
+        if (does_match) {
+            advance();
+        }
+
+        return does_match;
+    }
+
     [[nodiscard]] bool matches(
         lex::TokenKind token_kind) const {
         return get_kind() == token_kind;
     }
 
     /* NOT [[nodiscard]] */ std::string
-    advance_if_matches(lex::TokenKind token_kind);
+    advance_if_matches_or_throw(
+        lex::TokenKind token_kind);
 
     [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();

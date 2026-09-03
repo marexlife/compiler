@@ -24,25 +24,23 @@ void FuncNode::parse(ParserPack& pack) {
 }
 
 void FuncNode::parse_func_signature(ParserPack& pack) {
-    pack.advance_if_matches(lex::TokenKind::Func);
-    pack.advance_if_matches(
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::Func);
+    pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
-    pack.advance_if_matches(
+    pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBracket);
-    pack.advance_if_matches(
+    pack.advance_if_matches_or_throw(
         lex::TokenKind::CloseBracket);
 
-    if (pack.matches(lex::TokenKind::OpenBrace)) {
-        std::println("empty");
-        pack.advance();
-
+    if (pack.advance_if_matches(
+            lex::TokenKind::OpenBrace)) {
         type_kind = TypeKind::EmptyType;
         return;
     }
 
-    std::println("not empty and pre arrow");
-
-    pack.advance_if_matches(lex::TokenKind::Arrow);
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::Arrow);
 
     std::println("not empty and after arrow");
 
@@ -62,11 +60,12 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
         }
     });
 
-    pack.advance_if_matches(lex::TokenKind::OpenBrace);
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::OpenBrace);
 }
 
 void FuncNode::parse_func_body(ParserPack& pack) {
-    pack.advance_if_matches(
+    pack.advance_if_matches_or_throw(
         lex::TokenKind::CloseBrace);
 }
 }  // namespace marex::parse

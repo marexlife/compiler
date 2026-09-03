@@ -17,7 +17,7 @@ std::string_view ParserPack::get_kind_string() const {
     return lex::token_kind_to_string(get_kind());
 }
 
-std::string ParserPack::advance_if_matches(
+std::string ParserPack::advance_if_matches_or_throw(
     lex::TokenKind token_kind) {
     auto pre_increment_token_borrow = get_token();
     const auto got_token_kind =
