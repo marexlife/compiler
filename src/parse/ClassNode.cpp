@@ -7,7 +7,6 @@
 
 #include "ClassItem.h"
 #include "FileItem.h"
-#include "FuncNode.h"
 #include "Logger.h"
 #include "ParserPack.h"
 #include "TokenKind.h"
