@@ -4,7 +4,7 @@
 #include <string>
 #include <string_view>
 
-#include "ExpectedCaseKind.h"
+#include "linter/ExpectedCaseKind.h"
 
 namespace marex::parse::exceptions {
 [[nodiscard]] std::string operator*(
