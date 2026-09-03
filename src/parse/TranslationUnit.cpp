@@ -3,11 +3,11 @@
 #include <memory>
 #include <utility>
 
-#include "ClassNode.h"
-#include "FileItem.h"
-#include "FuncNode.h"
 #include "TokenKind.h"
-#include "exceptions/InvalidTokenException.h"
+#include "nodes/ClassNode.h"
+#include "nodes/FileItem.h"
+#include "nodes/FuncNode.h"
+#include "nodes/exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
 std::string TranslationUnit::as_string() {

@@ -23,11 +23,10 @@ add_library(${PROJECT_NAME}
     nodes/FuncNode.cpp
     nodes/ClassNode.cpp
     nodes/FileItem.cpp
+    nodes/exceptions/InvalidTokenException.cpp
     
     linter/CaseCheck.cpp
-
-    exceptions/InvalidTokenException.cpp
-    exceptions/WrongCaseException.cpp
+    linter/exceptions/WrongCaseException.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC
