@@ -27,8 +27,8 @@ class Logger final {
 
     static void log_info(std::string&& message);
 
-    static consteval bool is_minimum_at_log_level(
-        LogLevelKind minimum) {
+    [[nodiscard]] static consteval bool
+    is_minimum_at_log_level(LogLevelKind minimum) {
         return std::to_underlying(log_level_kind) >=
                std::to_underlying(minimum);
     }
@@ -50,7 +50,7 @@ class Logger final {
 
    private:
     static const LogLevelKind log_level_kind =
-        LogLevelKind::Info;
+        LogLevelKind::FatalError;
 };
 }  // namespace marex::core
 #endif  // MAREX_CORE_LOGGER_H

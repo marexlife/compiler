@@ -22,6 +22,7 @@ add_library(${PROJECT_NAME}
     TranslationUnit.cpp
     FileItem.cpp
     ClassNode.cpp
+    CaseCheck.cpp
 
     exceptions/InvalidTokenException.cpp
 )
