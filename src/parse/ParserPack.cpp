@@ -7,8 +7,7 @@
 #include "Logger.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
-#include "exceptions/InvalidTokenException.h"
-#include "exceptions/WrongCaseException.h"
+#include "nodes/exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
 ParserPack::ParserPack(lex::TokenStream&& token_stream)
