@@ -43,8 +43,6 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
         lex::TokenKind::Arrow);
 
     type_kind = std::invoke([&] {
-        pack.advance();
-
         switch (pack.get_kind()) {
             case marex::lex::TokenKind::IntDecl:
                 return TypeKind::IntType;
@@ -59,6 +57,8 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
                         "expected a type");
         }
     });
+
+    pack.advance();
 
     pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBrace);
