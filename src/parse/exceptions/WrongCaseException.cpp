@@ -8,19 +8,18 @@ namespace marex::parse {
 [[nodiscard]] std::string exceptions::operator*(
     ExpectedCaseKind expected_case_kind) {
     switch (expected_case_kind) {
-        case marex::parse::exceptions::
-            ExpectedCaseKind::SnakeCase:
+        case marex::parse::ExpectedCaseKind::SnakeCase:
             return "snake_case";
-        case marex::parse::exceptions::
-            ExpectedCaseKind::PascalCase:
+        case marex::parse::ExpectedCaseKind::
+            PascalCase:
             return "PascalCase";
-        case marex::parse::exceptions::
-            ExpectedCaseKind::None:
+        case marex::parse::ExpectedCaseKind::None:
             goto end;
     }
 
 end:
-    throw std::out_of_range("no valid enum kind");
+    throw std::out_of_range(
+        "not a valid case enum kind");
 }
 
 namespace exceptions {

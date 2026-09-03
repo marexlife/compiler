@@ -8,13 +8,31 @@
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
 #include "exceptions/InvalidTokenException.h"
+#include "exceptions/WrongCaseException.h"
 
 namespace marex::parse {
 ParserPack::ParserPack(lex::TokenStream&& token_stream)
-    : token_stream(std::move(token_stream)) {}
+    : ParserPack(std::move(token_stream), {}) {}
+
+ParserPack::ParserPack(lex::TokenStream&& token_stream,
+                       bool is_in_lint_mode)
+    : token_stream(std::move(token_stream)),
+      progress(),
+      is_in_lint_mode(is_in_lint_mode) {}
 
 std::string_view ParserPack::get_kind_string() const {
     return *get_kind();
+}
+
+[[nodiscard]] bool ParserPack::advance_if_matches(
+    lex::TokenKind token_kind) {
+    const auto does_match = matches(token_kind);
+
+    if (does_match) {
+        advance();
+    }
+
+    return does_match;
 }
 
 std::string ParserPack::advance_if_matches_or_throw(
@@ -40,10 +58,6 @@ std::string ParserPack::advance_if_matches_or_throw(
 bool ParserPack::is_at_end() const {
     const auto is_finished =
         token_stream.size() <= progress;
-
-    core::Logger::log_info(
-        std::format("ParserPack: is_finished = {}",
-                    is_finished ? "true" : "false"));
 
     return is_finished;
 }

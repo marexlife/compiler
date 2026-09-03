@@ -1,7 +1,6 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
 #include <cstddef>
-#include <iostream>
 #include <string>
 #include <string_view>
 
@@ -15,6 +14,9 @@ struct ParserPack final {
     explicit ParserPack(
         lex::TokenStream&& token_stream);
 
+    ParserPack(lex::TokenStream&& token_stream,
+               bool is_in_lint_mode);
+
     void advance() { ++progress; }
 
     [[nodiscard]] bool is_at_end() const;
@@ -27,15 +29,7 @@ struct ParserPack final {
         const;
 
     [[nodiscard]] bool advance_if_matches(
-        lex::TokenKind token_kind) {
-        const auto does_match = matches(token_kind);
-
-        if (does_match) {
-            advance();
-        }
-
-        return does_match;
-    }
+        lex::TokenKind token_kind);
 
     [[nodiscard]] bool matches(
         lex::TokenKind token_kind) const {
@@ -59,9 +53,11 @@ struct ParserPack final {
     }
 
     [[nodiscard]] lex::Token copy_out_token() {
-        std::cin.get();
-
         return lex::Token(token_stream.at(progress));
+    }
+
+    [[nodiscard]] bool get_is_in_lint_mode() const {
+        return is_in_lint_mode;
     }
 
     [[nodiscard]] std::string get_error_message()
@@ -70,6 +66,7 @@ struct ParserPack final {
    private:
     lex::TokenStream token_stream;
     std::size_t progress{};
+    bool is_in_lint_mode{};
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_PARSERPACK_H

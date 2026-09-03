@@ -1,18 +1,12 @@
 #ifndef MAREX_PARSE_EXCEPTIONS_WRONGCASEEXCEPTION_H
 #define MAREX_PARSE_EXCEPTIONS_WRONGCASEEXCEPTION_H
-#include <cstdint>
 #include <exception>
 #include <string>
 #include <string_view>
 
-namespace marex::parse::exceptions {
-enum struct [[nodiscard]] ExpectedCaseKind : std::
-    uint8_t {
-        None = 0,
-        SnakeCase,
-        PascalCase,
-    };
+#include "ExpectedCaseKind.h"
 
+namespace marex::parse::exceptions {
 [[nodiscard]] std::string operator*(
     ExpectedCaseKind expected_case_kind);
 
