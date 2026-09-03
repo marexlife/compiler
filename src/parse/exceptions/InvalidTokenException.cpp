@@ -15,10 +15,8 @@ InvalidTokenException::InvalidTokenException(
     : full_message(std::format(
           "Invalid token: at {}\nexpected: {}, got "
           "{}, from {}",
-          source_pos.to_string(),
-          lex::token_kind_to_string(
-              expected_token_kind),
-          lex::token_kind_to_string(got_token_kind),
+          source_pos.to_string(), *expected_token_kind,
+          *got_token_kind,
           core::ErrorFormater::
               source_location_to_string(
                   cpp_source_location))) {}
@@ -30,8 +28,7 @@ InvalidTokenException::InvalidTokenException(
     : full_message(std::format(
           "at: {}, unexpected token kind: {}, from {}",
           source_pos.to_string(),
-          lex::token_kind_to_string(
-              unexpected_token_kind),
+          *unexpected_token_kind,
           core::ErrorFormater::
               source_location_to_string(
                   cpp_source_location))) {}

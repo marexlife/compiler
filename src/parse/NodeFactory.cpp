@@ -30,8 +30,7 @@ std::unique_ptr<AstNode> NodeFactory::create_node(
         default:
             core::Logger::log_fatal_internal_error(
                 std::format("invalid token kind '{}'",
-                            lex::token_kind_to_string(
-                                token_kind)));
+                            *token_kind));
     }
 }
 }  // namespace marex::parse

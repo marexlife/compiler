@@ -14,7 +14,7 @@ ParserPack::ParserPack(lex::TokenStream&& token_stream)
     : token_stream(std::move(token_stream)) {}
 
 std::string_view ParserPack::get_kind_string() const {
-    return lex::token_kind_to_string(get_kind());
+    return *get_kind();
 }
 
 std::string ParserPack::advance_if_matches_or_throw(
@@ -27,8 +27,7 @@ std::string ParserPack::advance_if_matches_or_throw(
         advance();
 
         core::Logger::log_info(std::format(
-            "TokenKind {} matched",
-            lex::token_kind_to_string(token_kind)));
+            "TokenKind {} matched", *token_kind));
 
         return pre_increment_token_borrow
             .move_out_lexeme();
@@ -51,9 +50,8 @@ bool ParserPack::is_at_end() const {
 
 [[nodiscard]] std::string
 ParserPack::get_error_message() const {
-    return std::format(
-        "invalid Token: '{}' at '{}'",
-        lex::token_kind_to_string(get_kind()),
-        get_pos().to_string());
+    return std::format("invalid Token: '{}' at '{}'",
+                       *get_kind(),
+                       get_pos().to_string());
 }
 }  // namespace marex::parse

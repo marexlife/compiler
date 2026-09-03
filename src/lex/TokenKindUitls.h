@@ -5,7 +5,7 @@
 #include "TokenKind.h"
 
 namespace marex::lex {
-[[nodiscard]] std::string_view token_kind_to_string(
+[[nodiscard]] std::string_view operator*(
     TokenKind token_kind);
 }
 #endif  // MAREX_LEX_TOKENKINDUTILS_H

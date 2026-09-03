@@ -5,8 +5,8 @@
 #include "TokenKindUitls.h"
 
 namespace marex {
-[[nodiscard]] std::string_view
-lex::token_kind_to_string(TokenKind token_kind) {
+[[nodiscard]] std::string_view lex::operator*(
+    TokenKind token_kind) {
     switch (token_kind) {
         case TokenKind::Func:
             return "function keyword";
