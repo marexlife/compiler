@@ -2,13 +2,13 @@
 #define MAREX_PARSE_PRINTNODE_H
 #include <string>
 
-#include "AstNode.h"
+#include "FileItem.h"
 #include "IdentNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 
 namespace marex::parse {
-class PrintNode final : public AstNode {
+class PrintNode final : public FileItem {
    public:
     explicit PrintNode(lex::Token&& token);
 

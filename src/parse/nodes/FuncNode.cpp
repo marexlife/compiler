@@ -1,12 +1,15 @@
 #include "FuncNode.h"
 
 #include <functional>
+#include <memory>
 #include <utility>
 
 #include "FileItem.h"
 #include "ParserPack.h"
+#include "PrintNode.h"
 #include "TokenKind.h"
 #include "TypeKind.h"
+#include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
 
 namespace marex::parse {
@@ -36,14 +39,14 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 
     if (pack.advance_if_matches(
             lex::TokenKind::OpenBrace)) {
-        type_kind = TypeKind::EmptyType;
+        return_type = TypeKind::EmptyType;
         return;
     }
 
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Arrow);
 
-    type_kind = std::invoke([&] {
+    return_type = std::invoke([&] {
         switch (pack.get_kind()) {
             case marex::lex::TokenKind::IntDecl:
                 return TypeKind::IntType;
@@ -66,7 +69,28 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 }
 
 void FuncNode::parse_func_body(ParserPack& pack) {
-    pack.advance_if_matches_or_throw(
-        lex::TokenKind::CloseBrace);
+    while (!pack.advance_if_matches(
+        lex::TokenKind::CloseBrace)) {
+        auto node = std::invoke([&] -> std::unique_ptr<
+                                        FileItem> {
+            switch (pack.get_kind()) {
+                case marex::lex::TokenKind::Var:
+                    return std::make_unique<VarNode>(
+                        pack.copy_out_token());
+                case marex::lex::TokenKind::Print:
+                    return std::make_unique<PrintNode>(
+                        pack.copy_out_token());
+                default:
+                    throw exceptions::
+                        InvalidTokenException(
+                            pack.get_pos(),
+                            pack.get_kind());
+            }
+        });
+
+        node->parse(pack);
+
+        func_items.emplace_back(std::move(node));
+    }
 }
 }  // namespace marex::parse
