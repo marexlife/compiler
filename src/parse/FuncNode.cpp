@@ -3,11 +3,13 @@
 #include <functional>
 #include <utility>
 
+#include "CaseCheck.h"
 #include "FileItem.h"
 #include "ParserPack.h"
 #include "TokenKind.h"
 #include "TypeKind.h"
 #include "exceptions/InvalidTokenException.h"
+#include "exceptions/WrongCaseException.h"
 
 namespace marex::parse {
 FuncNode::FuncNode(lex::Token&& token)
@@ -25,8 +27,16 @@ void FuncNode::parse(ParserPack& pack) {
 void FuncNode::parse_func_signature(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Func);
-    pack.advance_if_matches_or_throw(
+
+    func_name = pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
+
+    if (!is_snake_case(func_name)) {
+        throw exceptions::WrongCaseException(
+            exceptions::ExpectedCaseKind::SnakeCase,
+            "function name");
+    }
+
     pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBracket);
     pack.advance_if_matches_or_throw(

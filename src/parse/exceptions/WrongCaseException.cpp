@@ -27,8 +27,8 @@ namespace exceptions {
 WrongCaseException::WrongCaseException(
     ExpectedCaseKind expected_case_kind,
     std::string_view for_target)
-    : message(std::format("{} in {}",
-                          *expected_case_kind,
-                          for_target)) {}
+    : message(std::format(
+          "WrongCasing: Expected {} for {}",
+          *expected_case_kind, for_target)) {}
 }  // namespace exceptions
 }  // namespace marex::parse

@@ -1,5 +1,7 @@
 #ifndef MAREX_PARSE_FUNCNODE_H
 #define MAREX_PARSE_FUNCNODE_H
+#include <string>
+
 #include "FileItem.h"
 #include "Token.h"
 
@@ -18,6 +20,7 @@ class FuncNode final : public FileItem {
     static void parse_func_body(ParserPack& pack);
 
    private:
+    std::string func_name;
     TypeKind type_kind{};
 };
 }  // namespace marex::parse

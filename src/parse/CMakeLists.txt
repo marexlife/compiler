@@ -25,6 +25,7 @@ add_library(${PROJECT_NAME}
     CaseCheck.cpp
 
     exceptions/InvalidTokenException.cpp
+    exceptions/WrongCaseException.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PUBLIC
