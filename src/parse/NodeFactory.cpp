@@ -4,13 +4,13 @@
 #include <memory>
 #include <utility>
 
-#include "AstNode.h"
-#include "IdentNode.h"
 #include "Logger.h"
-#include "PrintNode.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
-#include "VarNode.h"
+#include "nodes/AstNode.h"
+#include "nodes/IdentNode.h"
+#include "nodes/PrintNode.h"
+#include "nodes/VarNode.h"
 
 namespace marex::parse {
 std::unique_ptr<AstNode> NodeFactory::create_node(
