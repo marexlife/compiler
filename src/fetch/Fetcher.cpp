@@ -16,6 +16,8 @@ namespace marex::fetch {
         result += static_cast<char>(stream.get());
     }
 
+    result.pop_back();
+
     return result;
 }
 }  // namespace marex::fetch
