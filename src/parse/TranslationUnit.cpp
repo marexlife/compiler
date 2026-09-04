@@ -12,7 +12,12 @@
 
 namespace marex::parse {
 std::string TranslationUnit::as_string() {
-    std::string result;
+    std::string result = R"(#include <stdio.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <malloc.h>
+)";
 
     for (auto& file_item : file_items) {
         result += file_item->as_string();
