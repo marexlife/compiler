@@ -9,9 +9,7 @@
 #include <print>
 #include <string>
 #include <string_view>
-#include <thread>
 #include <utility>
-#include <vector>
 
 #include "ActionPicker.h"
 #include "Fetcher.h"
@@ -35,26 +33,15 @@ void App::run(int argc, char* argv[]) {
 }
 
 void App::compile_files(int argc, char* argv[]) {
-    std::vector<std::jthread> workers;
-
-    workers.reserve(
-        static_cast<std::size_t>(argc - 1));
-
-    for (std::size_t i = 0; std::cmp_less(argc, i);
+    for (std::size_t i = 0; std::cmp_less(i, argc);
          ++i) {
-        workers.emplace_back(std::jthread{
-            [&]() {
-                try {
-                    std::println("compiling... {}",
-                                 argv[i]);
-                    App::compile_file(argv[i]);
-                } catch (
-                    const std::exception& exception) {
-                    std::println("{}",
-                                 exception.what());
-                }
-            },
-        });
+        try {
+            std::println("compiling {}...", argv[i]);
+
+            App::compile_file(argv[i]);
+        } catch (const std::exception& exception) {
+            std::println("{}", exception.what());
+        }
     }
 }
 
@@ -79,12 +66,11 @@ void App::compile(std::string&& source_code) {
 
 void App::compile_file(std::string_view argument) {
     const bool is_directory =
-        std::filesystem::is_directory(argument);
+        std::filesystem::is_regular_file(argument);
 
     if (!is_directory) [[unlikely]] {
         core::Logger::log_fatal_error(std::format(
-            "{} argument is not a directory",
-            argument));
+            "{} argument is not a file", argument));
 
         return;
     }
