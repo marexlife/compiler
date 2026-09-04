@@ -1,7 +1,9 @@
 #include "FuncNode.h"
 
+#include <format>
 #include <functional>
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "FileItem.h"
@@ -17,7 +19,14 @@ FuncNode::FuncNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_string() {
-    return "func node";
+    std::string func_results;
+
+    for (auto& func_item : func_items) {
+        func_results += func_item->as_string();
+    }
+
+    return std::format("{} {} {{\n{}}}", *return_type,
+                       func_name, func_results);
 }
 
 void FuncNode::parse(ParserPack& pack) {
