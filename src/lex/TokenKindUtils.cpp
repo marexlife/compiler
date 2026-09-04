@@ -56,6 +56,8 @@ namespace marex {
             return "(";
         case TokenKind::CloseBracket:
             return ")";
+        case TokenKind::Return:
+            return "return";
         case TokenKind::None:
             goto end;
     }
