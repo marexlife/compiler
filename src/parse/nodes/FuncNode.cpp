@@ -25,8 +25,9 @@ FuncNode::FuncNode(lex::Token&& token)
         func_results += func_item->as_string();
     }
 
-    return std::format("{} {} {{\n{}}}", *return_type,
-                       func_name, func_results);
+    return std::format("{} {}() {{\n{}}}",
+                       *return_type, func_name,
+                       func_results);
 }
 
 void FuncNode::parse(ParserPack& pack) {
