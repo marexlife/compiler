@@ -16,8 +16,8 @@ VarNode::VarNode(lex::Token&& token)
     : ClassItem(std::move(token)) {}
 
 std::string VarNode::as_string() {
-    return std::format("{} {} = {};", *type_kind, name,
-                       value);
+    return std::format("{} {} = {};\n", *type_kind,
+                       name, value);
 }
 
 void VarNode::parse(
@@ -44,6 +44,8 @@ void VarNode::parse(
                         "unsupported value");
         }
     });
+
+    value = pack.get_token().get_lexeme();
 
     pack.advance();
 }

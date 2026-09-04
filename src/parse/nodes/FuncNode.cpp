@@ -22,7 +22,8 @@ FuncNode::FuncNode(lex::Token&& token)
     std::string func_results;
 
     for (auto& func_item : func_items) {
-        func_results += func_item->as_string();
+        func_results += std::format(
+            "   {}", func_item->as_string());
     }
 
     return std::format("{} {}() {{\n{}}}",
