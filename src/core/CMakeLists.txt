@@ -4,7 +4,7 @@ project(core)
 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
 add_library(${PROJECT_NAME}
-    Logger.cpp
+    Logging.cpp
     ErrorFormatter.cpp
 )
 

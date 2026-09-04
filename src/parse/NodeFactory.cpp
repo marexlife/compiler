@@ -4,7 +4,7 @@
 #include <memory>
 #include <utility>
 
-#include "Logger.h"
+#include "Logging.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
 #include "nodes/AstNode.h"
@@ -28,7 +28,7 @@ std::unique_ptr<AstNode> NodeFactory::create_node(
             return std::make_unique<VarNode>(
                 std::move(token));
         default:
-            core::Logger::log_fatal_internal_error(
+            core::log_fatal_internal_error(
                 std::format("invalid token kind '{}'",
                             *token_kind));
     }

@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "Logger.h"
+#include "Logging.h"
 #include "SourcePos.h"
 #include "TokenKind.h"
 
@@ -38,10 +38,9 @@ Token::Token(
             return binding_power;
         } break;
         case TokenKind::None:
-            core::Logger::log_fatal_error(
-                "TokenKind is none");
+            core::log_fatal_error("TokenKind is none");
         default:
-            core::Logger::log_fatal_error(
+            core::log_fatal_error(
                 "TokenKind is Invalid");
     }
 }
@@ -49,7 +48,7 @@ Token::Token(
 [[nodiscard]] std::string_view Token::get_lexeme()
     const {
     if (!lexeme) [[unlikely]] {
-        core::Logger::log_fatal_internal_error(
+        core::log_fatal_internal_error(
             "trying to get lexeme when none is there");
     }
 
@@ -58,7 +57,7 @@ Token::Token(
 
 [[nodiscard]] std::string Token::move_out_lexeme() {
     if (!lexeme) [[unlikely]] {
-        core::Logger::log_fatal_internal_error(
+        core::log_fatal_internal_error(
             "trying to move out a lexeme when none "
             "exists");
     }

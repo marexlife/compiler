@@ -16,13 +16,11 @@ add_library(${PROJECT_NAME}
     TypeKind.cpp
     
     nodes/AstNode.cpp
-    nodes/ClassItem.cpp
     nodes/PrintNode.cpp
     nodes/ValueNode.cpp
     nodes/VarNode.cpp
     nodes/IdentNode.cpp
     nodes/FuncNode.cpp
-    nodes/ClassNode.cpp
     nodes/FileItem.cpp
     nodes/exceptions/InvalidTokenException.cpp
     

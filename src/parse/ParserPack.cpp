@@ -4,7 +4,7 @@
 #include <string_view>
 #include <utility>
 
-#include "Logger.h"
+#include "Logging.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
 #include "nodes/exceptions/InvalidTokenException.h"
@@ -43,7 +43,7 @@ std::string ParserPack::advance_if_matches_or_throw(
     if (got_token_kind == token_kind) {
         advance();
 
-        core::Logger::log_info(std::format(
+        core::log_info(std::format(
             "TokenKind {} matched", *token_kind));
 
         return pre_increment_token_borrow

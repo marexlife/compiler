@@ -1,6 +1,6 @@
 #include <string_view>
 
-#include "Logger.h"
+#include "Logging.h"
 #include "TokenKind.h"
 #include "TokenKindUitls.h"
 
@@ -63,7 +63,7 @@ namespace marex {
     }
 
 end:
-    core::Logger::log_fatal_internal_error(
+    core::log_fatal_internal_error(
         "Out of range TokenKind");
 }
 }  // namespace marex

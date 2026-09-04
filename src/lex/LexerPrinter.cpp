@@ -2,22 +2,22 @@
 
 #include <format>
 
-#include "Logger.h"
+#include "Logging.h"
 #include "Token.h"
 #include "TokenStream.h"
 
 namespace marex::lex {
 void LexerPrinter::print_token_stream(
     lex::TokenStream& token_stream) {
-    core::Logger::log_info("\nLexer print start\n");
+    core::log_info("\nLexer print start\n");
 
     for (lex::Token& token : token_stream) {
-        core::Logger::log_info(std::format(
+        core::log_info(std::format(
             "Token: {}\n", token.get_lexeme()));
     }
 
-    core::Logger::log_info("Lexer print end\n\n");
+    core::log_info("Lexer print end\n\n");
 
-    core::Logger::flush();
+    core::flush();
 }
 }  // namespace marex::lex

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string_view>
 
-#include "Logger.h"
+#include "Logging.h"
 
 namespace marex::walk {
 void Walker::run(
@@ -16,7 +16,7 @@ void Walker::run(
 
     stream << translation_unit.as_string();
 
-    core::Logger::log_info(
+    core::log_info(
         std::format("wrote {}", output_file));
 }
 }  // namespace marex::walk

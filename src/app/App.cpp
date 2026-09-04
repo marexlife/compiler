@@ -16,7 +16,7 @@
 #include "HelpScreen.h"
 #include "Lexer.h"
 #include "LexerPrinter.h"
-#include "Logger.h"
+#include "Logging.h"
 #include "Parser.h"
 #include "TokenStream.h"
 #include "Walker.h"
@@ -69,7 +69,7 @@ void App::compile_file(std::string_view argument) {
         std::filesystem::is_regular_file(argument);
 
     if (!is_directory) [[unlikely]] {
-        core::Logger::log_fatal_error(std::format(
+        core::log_fatal_error(std::format(
             "{} argument is not a file", argument));
 
         return;
@@ -78,7 +78,7 @@ void App::compile_file(std::string_view argument) {
     std::string source_code =
         fetch::Fetcher::run(argument);
 
-    core::Logger::log_info(
+    core::log_info(
         std::format("source code:\n{}", source_code));
 
     App::compile(std::move(source_code));
