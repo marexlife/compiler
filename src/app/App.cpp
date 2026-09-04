@@ -33,7 +33,7 @@ void App::run(int argc, char* argv[]) {
 }
 
 void App::compile_files(int argc, char* argv[]) {
-    for (std::size_t i = 0; std::cmp_less(i, argc);
+    for (std::size_t i = 1; std::cmp_less(i, argc);
          ++i) {
         try {
             std::println("compiling {}...", argv[i]);
@@ -77,6 +77,9 @@ void App::compile_file(std::string_view argument) {
 
     std::string source_code =
         fetch::Fetcher::run(argument);
+
+    core::Logger::log_info(
+        std::format("source code: {}", source_code));
 
     App::compile(std::move(source_code));
 }

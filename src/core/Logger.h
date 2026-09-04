@@ -33,7 +33,7 @@ class Logger final {
             std::source_location::current());
 
    private:
-    static const bool log_infos = false;
+    static const bool log_infos = true;
 };
 }  // namespace marex::core
 #endif  // MAREX_CORE_LOGGER_H
