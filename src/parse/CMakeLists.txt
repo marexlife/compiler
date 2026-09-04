@@ -13,7 +13,8 @@ add_library(${PROJECT_NAME}
     ParserPack.cpp
     NodeFactory.cpp
     TranslationUnit.cpp
-
+    TypeKind.cpp
+    
     nodes/AstNode.cpp
     nodes/ClassItem.cpp
     nodes/PrintNode.cpp
