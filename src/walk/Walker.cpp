@@ -1,5 +1,7 @@
 #include "Walker.h"
 
+#include <iostream>
+
 namespace marex::walk {
 void Walker::run(
     parse::TranslationUnit&& translation_unit) {

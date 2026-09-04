@@ -1,8 +1,5 @@
 #ifndef MAREX_LEX_LEXER_H
 #define MAREX_LEX_LEXER_H
-#include <absl/container/inlined_vector.h>
-#include <absl/strings/string_view.h>
-
 #include <cstddef>
 #include <string>
 

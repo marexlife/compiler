@@ -1,12 +1,11 @@
 #ifndef MAREX_LEX_TOKENFACTORY_H
 #define MAREX_LEX_TOKENFACTORY_H
-#include <absl/container/flat_hash_map.h>
-
 #include <charconv>
 #include <optional>
 #include <string_view>
 #include <system_error>
 #include <type_traits>
+#include <unordered_map>
 
 #include "Token.h"
 #include "TokenKind.h"
@@ -50,7 +49,7 @@ class TokenFactory final {
         return std::nullopt;
     }
 
-    absl::flat_hash_map<std::string_view, TokenKind>
+    std::unordered_map<std::string_view, TokenKind>
         mapping;
 };
 }  // namespace marex::lex

@@ -2,39 +2,40 @@
 
 #include <cstddef>
 #include <filesystem>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
-#include "absl/status/status.h"
-
 namespace marex::cl {
-[[nodiscard]] absl::StatusOr<std::vector<std::filesystem::path>>
-Cli::get_user_files_path(int argc, char **argv) {
+[[nodiscard]] std::vector<std::filesystem::path>
+Cli::get_user_files_path(int argc, char** argv) {
     std::vector<std::filesystem::path> results;
 
-    for (std::size_t i = 0; std::cmp_less(i, argc); ++i) {
+    for (std::size_t i = 0; std::cmp_less(i, argc);
+         ++i) {
         switch (i) {
-        case 0:
-            [[fallthrough]];
-        case 1:
-            continue;
-        default:
-            if (argv[i] == nullptr) {
-                return absl::InvalidArgumentError(
-                    "Argument is null.");
-            }
+            case 0:
+                [[fallthrough]];
+            case 1:
+                continue;
+            default:
+                if (argv[i] == nullptr) {
+                    throw std::invalid_argument(
+                        "Argument is null.");
+                }
 
-            const std::filesystem::path path = argv[i];
+                const std::filesystem::path path =
+                    argv[i];
 
-            if (path.is_relative()) [[unlikely]] {
-                return absl::InvalidArgumentError(
-                    "Path is relative.");
-            }
+                if (path.is_relative()) [[unlikely]] {
+                    throw std::invalid_argument(
+                        "path is relative.");
+                }
 
-            results.emplace_back(path);
+                results.emplace_back(path);
         }
     }
 
     return results;
 }
-} // namespace marex::cl
+}  // namespace marex::cl

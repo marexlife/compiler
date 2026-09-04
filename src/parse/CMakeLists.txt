@@ -36,11 +36,6 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     lex
-
-    absl::base
-    absl::statusor
-    absl::inlined_vector
-    absl::flat_hash_map
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

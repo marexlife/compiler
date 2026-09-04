@@ -1,7 +1,5 @@
 #ifndef MAREX_LEX_TOKEN_H
 #define MAREX_LEX_TOKEN_H
-#include <absl/status/statusor.h>
-
 #include <optional>
 #include <string>
 #include <string_view>

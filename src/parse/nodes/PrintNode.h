@@ -3,7 +3,6 @@
 #include <string>
 
 #include "FileItem.h"
-#include "IdentNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 
@@ -17,8 +16,6 @@ class PrintNode final : public FileItem {
     void parse(ParserPack& pack) override;
 
    private:
-    std::optional<std::reference_wrapper<IdentNode>>
-        ident_node = std::nullopt;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_PRINTNODE_H
