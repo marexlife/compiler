@@ -18,6 +18,14 @@ std::string TranslationUnit::as_string() {
 #include <stdbool.h>
 #include <memory.h>
 
+void run(void);
+
+int main(void) {
+    run();
+
+    return 0;
+}
+
 )";
 
     for (auto& file_item : file_items) {

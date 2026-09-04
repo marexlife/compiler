@@ -26,7 +26,7 @@ FuncNode::FuncNode(lex::Token&& token)
             "   {}", func_item->as_string());
     }
 
-    return std::format("{} {}(void) {{\n{}{}}}",
+    return std::format("{} {}(void) {{\n{}{}}}\n",
                        *return_type, func_name,
                        func_results,
                        return_value.value_or(""));
