@@ -44,5 +44,7 @@ void VarNode::parse(
                         "unsupported value");
         }
     });
+
+    pack.advance();
 }
 }  // namespace marex::parse
