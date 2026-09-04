@@ -20,6 +20,7 @@
 #include "Logger.h"
 #include "Parser.h"
 #include "TokenStream.h"
+#include "Walker.h"
 
 namespace marex::app {
 void App::run(int argc, char* argv[]) {
@@ -59,8 +60,10 @@ void App::compile(std::string&& source_code) {
     lex::LexerPrinter::print_token_stream(
         token_stream);
 
-    [[maybe_unused]] auto translation_unit =
+    auto translation_unit =
         parse::Parser::run(std::move(token_stream));
+
+    walk::Walker::run(std::move(translation_unit));
 }
 
 void App::compile_file(std::string_view argument) {
