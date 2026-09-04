@@ -1,13 +1,11 @@
 #ifndef MAREX_PARSE_VAR_NODE_H
 #define MAREX_PARSE_VAR_NODE_H
-#include <functional>
-#include <optional>
 #include <string>
 
 #include "ClassItem.h"
-#include "IdentNode.h"
 #include "ParserPack.h"
 #include "Token.h"
+#include "TypeKind.h"
 
 namespace marex::parse {
 class VarNode final : public ClassItem {
@@ -19,8 +17,9 @@ class VarNode final : public ClassItem {
     void parse(ParserPack& pack) override;
 
    private:
-    std::optional<std::reference_wrapper<IdentNode>>
-        ident_node = std::nullopt;
+    std::string name;
+    TypeKind type_kind{};
+    std::string value;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_VAR_NODE_H
