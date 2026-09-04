@@ -9,7 +9,7 @@
 namespace marex::parse {
 class TranslationUnit final {
    public:
-    [[nodiscard]] static std::string as_string();
+    [[nodiscard]] std::string as_string();
     void parse(ParserPack& pack);
 
    private:

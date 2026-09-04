@@ -1,6 +1,7 @@
 #include "TranslationUnit.h"
 
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "TokenKind.h"
@@ -11,7 +12,13 @@
 
 namespace marex::parse {
 std::string TranslationUnit::as_string() {
-    return std::string{"file"};
+    std::string result;
+
+    for (auto& file_item : file_items) {
+        result += file_item->as_string();
+    }
+
+    return result;
 }
 
 void TranslationUnit::parse(ParserPack& pack) {
