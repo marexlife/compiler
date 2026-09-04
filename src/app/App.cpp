@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <format>
 #include <iostream>
+#include <print>
 #include <string>
 #include <string_view>
 #include <thread>
@@ -39,10 +40,20 @@ void App::compile_files(int argc, char* argv[]) {
     workers.reserve(
         static_cast<std::size_t>(argc - 1));
 
-    for (char** arg = argv; arg != argv + argc;
-         ++arg) {
+    for (std::size_t i = 0; std::cmp_less(argc, i);
+         ++i) {
         workers.emplace_back(std::jthread{
-            [&]() { App::compile_file(*arg); },
+            [&]() {
+                try {
+                    std::println("compiling... {}",
+                                 argv[i]);
+                    App::compile_file(argv[i]);
+                } catch (
+                    const std::exception& exception) {
+                    std::println("{}",
+                                 exception.what());
+                }
+            },
         });
     }
 }
@@ -74,6 +85,8 @@ void App::compile_file(std::string_view argument) {
         core::Logger::log_fatal_error(std::format(
             "{} argument is not a directory",
             argument));
+
+        return;
     }
 
     std::string source_code =

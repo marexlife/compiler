@@ -1,3 +1,4 @@
 cmake . -B build -GNinja
 cmake --build build
-./build/src/main/main
+cd tests
+./../build/src/main/main main.mrx

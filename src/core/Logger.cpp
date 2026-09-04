@@ -1,6 +1,6 @@
 #include "Logger.h"
 
-#include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <print>
 #include <string>
@@ -31,7 +31,7 @@ void Logger::log_fatal_error(
     std::source_location source_location) {
     Logger::log_error(std::move(message),
                       source_location);
-    std::exit(-1);
+    throw std::exception();
 }
 
 void Logger::log_fatal_internal_error(
@@ -43,6 +43,6 @@ void Logger::log_fatal_internal_error(
 
     std::println("Internal error: {}", format_result);
 
-    std::exit(-1);
+    throw std::exception();
 }
 }  // namespace marex::core
