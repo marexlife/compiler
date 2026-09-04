@@ -16,7 +16,8 @@ std::string TranslationUnit::as_string() {
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <malloc.h>
+#include <memory.h>
+
 )";
 
     for (auto& file_item : file_items) {
