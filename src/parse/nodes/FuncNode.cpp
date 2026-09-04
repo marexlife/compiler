@@ -26,9 +26,9 @@ FuncNode::FuncNode(lex::Token&& token)
             "   {}", func_item->as_string());
     }
 
-    return std::format("{} {}() {{\n{}}}",
-                       *return_type, func_name,
-                       func_results);
+    return std::format(
+        "{} {}() {{\n{}{}}}", *return_type, func_name,
+        func_results, return_value.value_or(""));
 }
 
 void FuncNode::parse(ParserPack& pack) {
@@ -82,6 +82,16 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 void FuncNode::parse_func_body(ParserPack& pack) {
     while (!pack.advance_if_matches(
         lex::TokenKind::CloseBrace)) {
+        if (pack.advance_if_matches(
+                lex::TokenKind::Return)) {
+            return_value = std::format(
+                "return {};\n",
+                pack.get_token().get_lexeme());
+            pack.advance();
+
+            continue;
+        }
+
         auto node = std::invoke([&] -> std::unique_ptr<
                                         FileItem> {
             switch (pack.get_kind()) {

@@ -1,6 +1,7 @@
 #ifndef MAREX_PARSE_FUNCNODE_H
 #define MAREX_PARSE_FUNCNODE_H
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -25,6 +26,8 @@ class FuncNode final : public FileItem {
     std::string func_name;
     TypeKind return_type{};
     std::vector<std::unique_ptr<FileItem>> func_items;
+    std::optional<std::string> return_value =
+        std::nullopt;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_FUNCNODE_H
