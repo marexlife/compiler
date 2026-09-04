@@ -79,7 +79,7 @@ void App::compile_file(std::string_view argument) {
         fetch::Fetcher::run(argument);
 
     core::Logger::log_info(
-        std::format("source code: {}", source_code));
+        std::format("source code:\n{}", source_code));
 
     App::compile(std::move(source_code));
 }
