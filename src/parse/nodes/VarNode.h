@@ -2,13 +2,13 @@
 #define MAREX_PARSE_VAR_NODE_H
 #include <string>
 
-#include "ClassItem.h"
 #include "ParserPack.h"
 #include "Token.h"
 #include "TypeKind.h"
+#include "nodes/FileItem.h"
 
 namespace marex::parse {
-class VarNode final : public ClassItem {
+class VarNode final : public FileItem {
    public:
     explicit VarNode(lex::Token&& token);
 

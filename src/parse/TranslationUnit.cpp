@@ -5,7 +5,6 @@
 #include <utility>
 
 #include "TokenKind.h"
-#include "nodes/ClassNode.h"
 #include "nodes/FileItem.h"
 #include "nodes/FuncNode.h"
 #include "nodes/exceptions/InvalidTokenException.h"
@@ -51,9 +50,6 @@ TranslationUnit::create_file_item(ParserPack& pack) {
     switch (pack.get_kind()) {
         case lex::TokenKind::Func:
             return std::make_unique<FuncNode>(
-                pack.copy_out_token());
-        case lex::TokenKind::Class:
-            return std::make_unique<ClassNode>(
                 pack.copy_out_token());
         case lex::TokenKind::Var:
             throw exceptions::InvalidTokenException(

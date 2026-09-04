@@ -5,15 +5,15 @@
 #include <string>
 #include <utility>
 
-#include "ClassItem.h"
 #include "ParserPack.h"
 #include "TokenKind.h"
 #include "TypeKind.h"
 #include "exceptions/InvalidTokenException.h"
+#include "nodes/FileItem.h"
 
 namespace marex::parse {
 VarNode::VarNode(lex::Token&& token)
-    : ClassItem(std::move(token)) {}
+    : FileItem(std::move(token)) {}
 
 std::string VarNode::as_string() {
     return std::format("{} {} = {};\n", *type_kind,
