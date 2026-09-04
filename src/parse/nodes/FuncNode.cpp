@@ -26,9 +26,10 @@ FuncNode::FuncNode(lex::Token&& token)
             "   {}", func_item->as_string());
     }
 
-    return std::format(
-        "{} {}() {{\n{}{}}}", *return_type, func_name,
-        func_results, return_value.value_or(""));
+    return std::format("{} {}(void) {{\n{}{}}}",
+                       *return_type, func_name,
+                       func_results,
+                       return_value.value_or(""));
 }
 
 void FuncNode::parse(ParserPack& pack) {
@@ -85,7 +86,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         if (pack.advance_if_matches(
                 lex::TokenKind::Return)) {
             return_value = std::format(
-                "return {};\n",
+                "   return {};\n",
                 pack.get_token().get_lexeme());
             pack.advance();
 
