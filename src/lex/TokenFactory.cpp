@@ -29,6 +29,7 @@ TokenFactory::TokenFactory()
               {")", TokenKind::CloseBracket},
               {"true", TokenKind::BoolLiteral},
               {"false", TokenKind::BoolLiteral},
+              {"return", TokenKind::Return},
               {"->", TokenKind::Arrow},
               {"=>", TokenKind::FatArrow},
               {"match", TokenKind::Match},
