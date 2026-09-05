@@ -16,7 +16,7 @@ TokenFactory::TokenFactory()
               {"class", TokenKind::Class},
               {"float", TokenKind::FloatDecl},
               {"int", TokenKind::IntDecl},
-              {"bool", TokenKind::BoolLiteral},
+              {"bool", TokenKind::BoolDecl},
               {"fun", TokenKind::Func},
               {":", TokenKind::Colon},
               {"=", TokenKind::Assignment},
