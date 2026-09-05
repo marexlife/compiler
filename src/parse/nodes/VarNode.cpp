@@ -13,7 +13,7 @@ namespace marex::parse {
 VarNode::VarNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
-std::string VarNode::as_string() {
+std::string VarNode::as_c() {
     return std::format("{} {} = {};\n", *type_kind,
                        name, value);
 }

@@ -14,7 +14,7 @@ void Walker::run(
 
     std::ofstream stream{output_file.data()};
 
-    stream << translation_unit.as_string();
+    stream << translation_unit.as_c();
 
     core::log_info(
         std::format("wrote {}", output_file));

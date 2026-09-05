@@ -11,7 +11,7 @@ class PrintNode final : public FileItem {
    public:
     explicit PrintNode(lex::Token&& token);
 
-    [[nodiscard]] std::string as_string() override;
+    [[nodiscard]] std::string as_c() override;
 
     void parse(ParserPack& pack) override;
 

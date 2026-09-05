@@ -12,7 +12,8 @@ class VarNode final : public FileItem {
    public:
     explicit VarNode(lex::Token&& token);
 
-    [[nodiscard]] std::string as_string() override;
+   protected:
+    [[nodiscard]] std::string as_c() override;
 
     void parse(ParserPack& pack) override;
 

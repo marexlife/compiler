@@ -25,7 +25,7 @@ class AstNode {
         return static_cast<T&>(*this);
     }
 
-    [[nodiscard]] virtual std::string as_string() = 0;
+    [[nodiscard]] virtual std::string as_c() = 0;
 
     [[nodiscard]] const lex::Token& get_token() const {
         return token;

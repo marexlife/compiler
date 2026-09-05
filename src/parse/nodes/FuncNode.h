@@ -16,16 +16,18 @@ class FuncNode final : public FileItem {
    public:
     explicit FuncNode(lex::Token&& token);
 
-    [[nodiscard]] std::string as_string() override;
-
+   protected:
+    [[nodiscard]] std::string as_c() override;
     void parse(ParserPack& pack) override;
+
+   private:
+    [[nodiscard]] std::string func_args_as_c();
 
     void parse_func_signature(ParserPack& pack);
     void parse_func_body(ParserPack& pack);
 
     void parse_func_args(ParserPack& pack);
 
-   private:
     std::string func_name;
     TypeKind return_type{};
     std::vector<std::unique_ptr<FileItem>> func_items;

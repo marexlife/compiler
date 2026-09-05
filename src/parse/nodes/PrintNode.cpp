@@ -11,7 +11,7 @@ namespace marex::parse {
 PrintNode::PrintNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
-std::string PrintNode::as_string() {
+std::string PrintNode::as_c() {
     return std::format("printf(\"{}\");\n", message);
 }
 

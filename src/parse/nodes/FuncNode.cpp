@@ -18,12 +18,12 @@ namespace marex::parse {
 FuncNode::FuncNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
-[[nodiscard]] std::string FuncNode::as_string() {
+[[nodiscard]] std::string FuncNode::as_c() {
     std::string func_results;
 
     for (auto& func_item : func_items) {
-        func_results += std::format(
-            "   {}", func_item->as_string());
+        func_results +=
+            std::format("   {}", func_item->as_c());
     }
 
     return std::format("{} {}(void) {{\n{}{}}}\n",
