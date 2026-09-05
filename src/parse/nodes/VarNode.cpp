@@ -20,8 +20,7 @@ std::string VarNode::as_string() {
                        name, value);
 }
 
-void VarNode::parse(
-    [[maybe_unused]] ParserPack& pack) {
+void VarNode::parse(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Var);
     name = pack.advance_if_matches_or_throw(
