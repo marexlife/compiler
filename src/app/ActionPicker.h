@@ -14,7 +14,7 @@ static void select_action(
     FileAction file_action, ShellAction shell_action,
     ShowHelpScreenAction show_help_screen_action) {
     if (argc < 2) {
-        std::invoke(std::bind(shell_action, app));
+        std::invoke(shell_action, app);
 
         return;
     }
@@ -30,8 +30,7 @@ static void select_action(
         return;
     }
 
-    std::invoke(
-        std::bind(file_action, app, argc, argv));
+    std::invoke(file_action, app, argc, argv);
 }
 }  // namespace marex::app
 #endif  // MAREX_APP_ACTIONPICKER_H
