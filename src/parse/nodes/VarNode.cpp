@@ -44,7 +44,7 @@ void VarNode::parse(ParserPack& pack) {
         }
     });
 
-    value = pack.get_token().get_lexeme();
+    value = pack.get_lexeme();
 
     pack.advance();
 }

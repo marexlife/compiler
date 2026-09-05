@@ -48,6 +48,10 @@ struct ParserPack final {
         return get_token().get_pos();
     }
 
+    [[nodiscard]] std::string_view get_lexeme() const {
+        return get_token().get_lexeme();
+    }
+
     [[nodiscard]] const lex::Token& get_token() const {
         return token_stream.at(progress);
     }
