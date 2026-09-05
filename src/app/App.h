@@ -6,7 +6,7 @@
 
 namespace marex::app {
 class App final {
-public:
+   public:
     App() = default;
     App(App&&) = delete;
     App& operator=(App&&) = delete;
@@ -20,15 +20,15 @@ public:
     void compile_files(int argc, char* argv[]);
     void compile_file(std::string_view argument);
 
-    void compile(std::string &&source_code);
+    void compile(std::string&& source_code);
     void run_shell_mode();
     void run_shell_iteration();
     [[nodiscard]] static std::string
     query_user_command();
     void execute_user_command(std::string&&);
 
-private:
+   private:
     lex::Lexer lexer;
 };
-} // namespace marex::app
-#endif // MAREX_APP_APP_H
+}  // namespace marex::app
+#endif  // MAREX_APP_APP_H

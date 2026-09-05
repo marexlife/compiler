@@ -24,12 +24,8 @@
 namespace marex::app {
 void App::run(int argc, char* argv[]) {
     marex::app::select_action(
-        argc, argv,
-        [&](int argc, char* argv[]) {
-            App::compile_files(argc, argv);
-        },
-        [&]() { App::run_shell_mode(); },
-        [&]() { App::show_help_screen(); });
+        this, argc, argv, &App::compile_files,
+        &App::run_shell_mode, &App::show_help_screen);
 }
 
 void App::compile_files(int argc, char* argv[]) {
