@@ -1,12 +1,14 @@
 #ifndef MAREX_PARSE_FUNCNODE_H
 #define MAREX_PARSE_FUNCNODE_H
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include "FileItem.h"
 #include "ParserPack.h"
 #include "Token.h"
+#include "nodes/ReturnNode.h"
 
 namespace marex::parse {
 enum class [[nodiscard]] TypeKind : std::uint8_t;
@@ -33,7 +35,8 @@ class FuncNode final : public FileItem {
     std::string func_name;
     TypeKind return_type{};
     std::vector<std::unique_ptr<FileItem>> func_items;
-    std::string return_value;
+    std::optional<ReturnNode> return_node =
+        std::nullopt;
     std::vector<FuncArg> args;
 };
 }  // namespace marex::parse

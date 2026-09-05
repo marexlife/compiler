@@ -5,6 +5,7 @@
 #include <format>
 #include <functional>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -17,12 +18,18 @@
 #include "TypeKind.h"
 #include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
+#include "nodes/ReturnNode.h"
 
 namespace marex::parse {
 FuncNode::FuncNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_c() {
+    if (!return_node) {
+        throw std::runtime_error(
+            "return node not initalized");
+    }
+
     auto get_func_args = [&]() -> std::string {
         std::string func_args_string;
 
@@ -58,10 +65,11 @@ FuncNode::FuncNode(lex::Token&& token)
         return func_content_string;
     };
 
-    return std::format(
-        "{} {}({}) {{\n{}{}}}\n\n", *return_type,
-        func_name, std::invoke(get_func_args),
-        std::invoke(get_func_code), return_value);
+    return std::format("{} {}({}) {{\n{}{}}}\n\n",
+                       *return_type, func_name,
+                       std::invoke(get_func_args),
+                       std::invoke(get_func_code),
+                       return_node.value().as_c());
 }
 
 void FuncNode::parse(ParserPack& pack) {
@@ -147,11 +155,11 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         lex::TokenKind::CloseBrace)) {
         if (pack.advance_if_matches(
                 lex::TokenKind::Return)) {
-            return_value = std::format(
-                "    return {};\n", pack.get_lexeme());
-            pack.advance();
+            ReturnNode return_node{
+                pack.copy_out_token()};
+            return_node.parse(pack);
 
-            continue;
+            this->return_node = std::move(return_node);
         }
 
         auto node = std::invoke([&] -> std::unique_ptr<

@@ -21,6 +21,7 @@ add_library(${PROJECT_NAME}
     nodes/IdentNode.cpp
     nodes/FuncNode.cpp
     nodes/FileItem.cpp
+    nodes/ReturnNode.cpp
     nodes/exceptions/InvalidTokenException.cpp
     
     linter/CaseCheck.cpp
