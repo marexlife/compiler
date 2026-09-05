@@ -1,6 +1,7 @@
 #include "ParserPack.h"
 
 #include <format>
+#include <source_location>
 #include <string_view>
 #include <utility>
 
@@ -35,7 +36,8 @@ std::string_view ParserPack::get_kind_string() const {
 }
 
 std::string ParserPack::advance_if_matches_or_throw(
-    lex::TokenKind token_kind) {
+    lex::TokenKind token_kind,
+    std::source_location cpp_source_location) {
     auto pre_increment_token_borrow = get_token();
     const auto got_token_kind =
         pre_increment_token_borrow.get_kind();
@@ -51,7 +53,8 @@ std::string ParserPack::advance_if_matches_or_throw(
     }
 
     throw InvalidTokenException(get_pos(), token_kind,
-                                got_token_kind);
+                                got_token_kind,
+                                cpp_source_location);
 }
 
 bool ParserPack::is_at_end() const {

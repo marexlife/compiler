@@ -4,14 +4,13 @@
 #include <vector>
 
 #include "ParserPack.h"
-#include "nodes/AstNode.h"
 #include "nodes/FileItem.h"
 
 namespace marex::parse {
-class TranslationUnit final : private AstNode {
+class TranslationUnit final {
    public:
-    [[nodiscard]] std::string as_c() override;
-    void parse(ParserPack& pack) override;
+    [[nodiscard]] std::string as_c();
+    void parse(ParserPack& pack);
 
    private:
     [[nodiscard]] static std::unique_ptr<FileItem>

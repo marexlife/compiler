@@ -1,6 +1,7 @@
 #ifndef MAREX_PARSE_PARSERPACK_H
 #define MAREX_PARSE_PARSERPACK_H
 #include <cstddef>
+#include <source_location>
 #include <string>
 #include <string_view>
 
@@ -38,7 +39,9 @@ struct ParserPack final {
 
     /* NOT [[nodiscard]] */ std::string
     advance_if_matches_or_throw(
-        lex::TokenKind token_kind);
+        lex::TokenKind token_kind,
+        std::source_location cpp_source_location =
+            std::source_location::current());
 
     [[nodiscard]] lex::TokenKind get_kind() const {
         return get_token().get_kind();

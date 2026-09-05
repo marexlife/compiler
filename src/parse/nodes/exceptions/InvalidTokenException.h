@@ -26,6 +26,13 @@ class InvalidTokenException final
 
     InvalidTokenException(
         lex::SourcePos source_pos,
+        lex::TokenKind unexpected_token_kind,
+        std::string&& message,
+        std::source_location cpp_source_location =
+            std::source_location::current());
+
+    InvalidTokenException(
+        lex::SourcePos source_pos,
         std::string&& full_message,
         std::source_location cpp_source_location =
             std::source_location::current());

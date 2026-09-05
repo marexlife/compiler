@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "FileItem.h"
+#include "Logging.h"
 #include "ParserPack.h"
 #include "PrintNode.h"
 #include "TokenKind.h"
@@ -19,17 +20,36 @@ FuncNode::FuncNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_c() {
-    std::string func_results;
+    auto get_func_args = [&]() -> std::string {
+        std::string func_args_string;
 
-    for (auto& func_item : func_items) {
-        func_results +=
-            std::format("   {}", func_item->as_c());
-    }
+        for (auto& [arg_name, arg_type] : args) {
+            func_args_string += *arg_type;
+            func_args_string += arg_name;
+        }
 
-    return std::format("{} {}(void) {{\n{}{}}}\n",
-                       *return_type, func_name,
-                       func_results,
-                       return_value.value_or(""));
+        if (func_args_string.empty()) {
+            func_args_string = "void";
+        }
+
+        return func_args_string;
+    };
+
+    auto get_func_code = [&]() -> std::string {
+        std::string func_content_string;
+
+        for (auto& func_item : func_items) {
+            func_content_string += std::format(
+                "    {}", func_item->as_c());
+        }
+
+        return func_content_string;
+    };
+
+    return std::format(
+        "{} {}({}) {{\n{}{}}}\n", *return_type,
+        func_name, std::invoke(get_func_args),
+        std::invoke(get_func_code), return_value);
 }
 
 void FuncNode::parse(ParserPack& pack) {
@@ -68,16 +88,30 @@ void FuncNode::parse_func_args(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBracket);
 
+    core::log_info("pre: parsed func args");
+
     while (!pack.advance_if_matches(
         lex::TokenKind::CloseBracket)) {
-        pack.advance_if_matches_or_throw(
-            lex::TokenKind::Identifier);
-        pack.advance_if_matches_or_throw(
-            lex::TokenKind::Colon);
-        argument_types.emplace_back(
-            type_kind_from_decl(pack.get_kind(),
-                                pack.get_pos()));
+        auto func_arg = std::invoke([&] -> FuncArg {
+            auto name =
+                pack.advance_if_matches_or_throw(
+                    lex::TokenKind::Identifier);
+            pack.advance_if_matches_or_throw(
+                lex::TokenKind::Colon);
+            auto type = type_kind_from_decl(
+                pack.get_kind(), pack.get_pos());
+            pack.advance();
+
+            return FuncArg{
+                .arg_name = name,
+                .arg_type = type,
+            };
+        });
+
+        args.emplace_back(std::move(func_arg));
     }
+
+    core::log_info("post: parsed func args");
 }
 
 void FuncNode::parse_func_body(ParserPack& pack) {

@@ -1,5 +1,6 @@
 #include "TypeKind.h"
 
+#include <source_location>
 #include <stdexcept>
 
 #include "nodes/exceptions/InvalidTokenException.h"
@@ -26,7 +27,8 @@ end:
 
 parse::TypeKind parse::type_kind_from_decl(
     lex::TokenKind token_kind,
-    lex::SourcePos source_pos) {
+    lex::SourcePos source_pos,
+    std::source_location cpp_source_location) {
     switch (token_kind) {
         case marex::lex::TokenKind::IntDecl:
             return TypeKind::IntType;
@@ -36,13 +38,16 @@ parse::TypeKind parse::type_kind_from_decl(
             return TypeKind::FloatType;
         default:
             throw InvalidTokenException(
-                source_pos, "expected a type");
+                source_pos, token_kind,
+                "expected a type",
+                cpp_source_location);
     }
 }
 
 parse::TypeKind parse::type_kind_from_literal(
     lex::TokenKind token_kind,
-    lex::SourcePos source_pos) {
+    lex::SourcePos source_pos,
+    std::source_location cpp_source_location) {
     switch (token_kind) {
         case marex::lex::TokenKind::IntLiteral:
             return TypeKind::IntType;
@@ -52,7 +57,9 @@ parse::TypeKind parse::type_kind_from_literal(
             return TypeKind::FloatType;
         default:
             throw InvalidTokenException(
-                source_pos, "expected a type");
+                source_pos, token_kind,
+                "expected a type",
+                cpp_source_location);
     }
 }
 }  // namespace marex

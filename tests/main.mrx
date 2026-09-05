@@ -1,11 +1,11 @@
-fun run() { 
-    var x = 1 
-
-    print hello
-}
-
 fun some_func(x: int, y: int) -> int {
     var y = true 
 
     return 1
+}
+
+fun run() { 
+    var x = 1 
+
+    print hello
 }

@@ -17,7 +17,6 @@ add_library(${PROJECT_NAME}
     
     nodes/AstNode.cpp
     nodes/PrintNode.cpp
-    nodes/ValueNode.cpp
     nodes/VarNode.cpp
     nodes/IdentNode.cpp
     nodes/FuncNode.cpp
