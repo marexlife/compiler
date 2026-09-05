@@ -1,4 +1,4 @@
-fun some_func(x: int, y: int) -> int {
+fun some_func(x: int) -> int {
     var y = true 
 
     return 1

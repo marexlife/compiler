@@ -1,6 +1,6 @@
 #ifndef MAREX_LEX_TOKENPOS_H
 #define MAREX_LEX_TOKENPOS_H
-#include <cstddef>
+#include <cstdint>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -17,8 +17,8 @@ struct SourcePos final {
     [[nodiscard]] std::string as_string() const;
 
    private:
-    std::size_t line{};
-    std::size_t column{};
+    std::uintmax_t line = 1;
+    std::uintmax_t column = 1;
     std::optional<std::string_view> filename;
 };
 }  // namespace marex::lex
