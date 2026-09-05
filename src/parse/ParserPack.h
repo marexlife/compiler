@@ -44,6 +44,15 @@ struct ParserPack final {
         return get_token().get_kind();
     }
 
+    [[nodiscard]] lex::TokenKind
+    get_kind_and_advance() {
+        const auto kind = get_kind();
+
+        advance();
+
+        return kind;
+    }
+
     [[nodiscard]] lex::SourcePos get_pos() const {
         return get_token().get_pos();
     }
