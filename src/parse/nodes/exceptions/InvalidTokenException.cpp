@@ -15,7 +15,7 @@ InvalidTokenException::InvalidTokenException(
     : full_message(std::format(
           "Invalid token: at {}\nexpected: {}, got "
           "{}, from {}",
-          source_pos.to_string(), *expected_token_kind,
+          source_pos.as_string(), *expected_token_kind,
           *got_token_kind,
           core::ErrorFormater::
               source_location_to_string(
@@ -29,7 +29,7 @@ InvalidTokenException::InvalidTokenException(
     : full_message(std::format(
           "at: {}, unexpected token kind: {}, {}, "
           "from {}",
-          source_pos.to_string(),
+          source_pos.as_string(),
           *unexpected_token_kind, message,
           core::ErrorFormater::
               source_location_to_string(
@@ -41,7 +41,7 @@ InvalidTokenException::InvalidTokenException(
     std::source_location cpp_source_location)
     : full_message(std::format(
           "at: {}, unexpected token kind: {}, from {}",
-          source_pos.to_string(),
+          source_pos.as_string(),
           *unexpected_token_kind,
           core::ErrorFormater::
               source_location_to_string(
@@ -53,7 +53,7 @@ InvalidTokenException::InvalidTokenException(
     std::source_location cpp_source_location)
     : full_message(std::format(
           "at {}\nInvalid token: {}, from {}",
-          source_pos.to_string(),
+          source_pos.as_string(),
           std::move(full_message),
           core::ErrorFormater::
               source_location_to_string(

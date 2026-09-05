@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <format>
 #include <iostream>
+#include <optional>
 #include <print>
 #include <string>
 #include <string_view>
@@ -47,9 +48,11 @@ void App::show_help_screen() {
     std::exit(EXIT_SUCCESS);
 }
 
-void App::compile(std::string&& source_code) {
+void App::compile(
+    std::string&& source_code,
+    std::optional<std::string_view> filename) {
     lex::TokenStream token_stream =
-        lexer.run(std::move(source_code));
+        lexer.run(std::move(source_code), filename);
 
     lex::LexerPrinter::print_token_stream(
         token_stream);
@@ -77,7 +80,7 @@ void App::compile_file(std::string_view argument) {
     core::log_info(
         std::format("source code:\n{}", source_code));
 
-    App::compile(std::move(source_code));
+    App::compile(std::move(source_code), argument);
 }
 
 std::string App::query_user_command() {

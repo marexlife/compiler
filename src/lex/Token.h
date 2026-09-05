@@ -34,7 +34,7 @@ class [[nodiscard]] Token final {
    private:
     std::optional<std::string> lexeme = std::nullopt;
     TokenKind kind{};
-    SourcePos source_pos{};
+    SourcePos source_pos;
 };
 }  // namespace marex::lex
 #endif  // MAREX_LEX_TOKEN_H

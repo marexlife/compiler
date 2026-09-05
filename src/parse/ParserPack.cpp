@@ -68,6 +68,6 @@ bool ParserPack::is_at_end() const {
 ParserPack::get_error_message() const {
     return std::format("invalid Token: '{}' at '{}'",
                        *get_kind(),
-                       get_pos().to_string());
+                       get_pos().as_string());
 }
 }  // namespace marex::parse

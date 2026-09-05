@@ -2,6 +2,7 @@
 #define MAREX_LEX_LEXER_H
 #include <cstddef>
 #include <string>
+#include <string_view>
 
 #include "LastCharKind.h"
 #include "SourcePos.h"
@@ -22,15 +23,19 @@ class [[nodiscard]] Lexer final {
     ~Lexer() = default;
 
     [[nodiscard]] TokenStream run(
-        std::string&& source_text);
+        std::string&& source_text,
+        std::optional<std::string_view> filename);
 
    private:
-    void push_token(TokenStream& result);
-    void reset();
+    void push_token(TokenStream& result,
+                    SourcePos& source_pos);
+    void reset(SourcePos& source_pos);
     void push_current(TokenStream& result,
-                      char current);
+                      char current,
+                      SourcePos& source_pos);
     void push_token_and_current(TokenStream& result,
-                                char current);
+                                char current,
+                                SourcePos& source_pos);
 
     [[nodiscard]] bool is_flushable() const {
         return last_char_kind ==
@@ -39,7 +44,6 @@ class [[nodiscard]] Lexer final {
 
     std::optional<char> last_char_optional =
         std::nullopt;
-    SourcePos source_pos{};
     LastCharKind last_char_kind = LastCharKind::None;
     TokenFactory token_factory{};
     std::string last_word;

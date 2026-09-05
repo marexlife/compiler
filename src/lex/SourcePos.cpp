@@ -1,8 +1,14 @@
 #include "SourcePos.h"
 
 #include <format>
+#include <string>
+#include <string_view>
 
 namespace marex::lex {
+SourcePos::SourcePos(
+    std::optional<std::string_view> filename)
+    : filename(filename) {}
+
 void SourcePos::advance_column() { ++column; }
 void SourcePos::reset() {
     line = {};
@@ -13,8 +19,15 @@ void SourcePos::advance_line() {
     column = {};
 }
 
-[[nodiscard]] std::string SourcePos::to_string()
+[[nodiscard]] std::string SourcePos::as_string()
     const {
-    return std::format("{}:{}", line, column);
+    if (filename) {
+        return std::format("{}:{}:{}",
+                           filename.value(), line,
+                           column);
+    }
+
+    return std::format("{}:{}", filename.value(), line,
+                       column);
 }
 }  // namespace marex::lex
