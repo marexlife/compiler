@@ -1,11 +1,13 @@
 #include "FuncNode.h"
 
+#include <cstdint>
 #include <format>
 #include <functional>
 #include <memory>
 #include <string>
 #include <utility>
 
+#include "Defer.h"
 #include "FileItem.h"
 #include "Logging.h"
 #include "ParserPack.h"
@@ -89,9 +91,16 @@ void FuncNode::parse_func_args(ParserPack& pack) {
         lex::TokenKind::OpenBracket);
 
     core::log_info("pre: parsed func args");
+    uintmax_t arg_count = 1;
 
-    while (!pack.advance_if_matches(
-        lex::TokenKind::CloseBracket)) {
+    do {
+        core::Defer defer_arg_increment = [&] {
+            ++arg_count;
+        };
+
+        core::log_info(
+            std::format("arg count: {}", arg_count));
+
         auto func_arg = std::invoke([&] -> FuncArg {
             auto name =
                 pack.advance_if_matches_or_throw(
@@ -109,7 +118,11 @@ void FuncNode::parse_func_args(ParserPack& pack) {
         });
 
         args.emplace_back(std::move(func_arg));
-    }
+    } while (pack.advance_if_matches(
+        lex::TokenKind::Comma));
+
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::CloseBracket);
 
     core::log_info("post: parsed func args");
 }
