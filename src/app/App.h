@@ -16,6 +16,7 @@ class App final {
 
     void run(int argc, char** argv);
 
+   private:
     static void show_help_screen();
     void compile_files(int argc, char* argv[]);
     void compile_file(std::string_view argument);
@@ -27,7 +28,6 @@ class App final {
     query_user_command();
     void execute_user_command(std::string&&);
 
-   private:
     lex::Lexer lexer;
 };
 }  // namespace marex::app
