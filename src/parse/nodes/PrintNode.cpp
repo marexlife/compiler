@@ -1,9 +1,10 @@
 #include "PrintNode.h"
 
-#include <stdexcept>
+#include <format>
 #include <utility>
 
 #include "ParserPack.h"
+#include "TokenKind.h"
 #include "nodes/FileItem.h"
 
 namespace marex::parse {
@@ -11,9 +12,14 @@ PrintNode::PrintNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
 std::string PrintNode::as_string() {
-    throw std::runtime_error("not implemented yet");
+    return std::format("printf(\"{}\");\n", message);
 }
 
-void PrintNode::parse(
-    [[maybe_unused]] ParserPack& pack) {}
+void PrintNode::parse(ParserPack& pack) {
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::Print);
+
+    message = pack.advance_if_matches_or_throw(
+        lex::TokenKind::Identifier);
+}
 }  // namespace marex::parse

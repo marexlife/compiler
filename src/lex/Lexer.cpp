@@ -42,6 +42,9 @@ TokenStream Lexer::run(std::string&& source_text) {
                 }
                 break;
             case '\n':
+                if (is_flushable()) {
+                    Lexer::push_token(result);
+                }
                 source_pos.advance_line();
                 break;
             case '\0':

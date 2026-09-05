@@ -16,6 +16,7 @@ class PrintNode final : public FileItem {
     void parse(ParserPack& pack) override;
 
    private:
+    std::string message;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_PRINTNODE_H
