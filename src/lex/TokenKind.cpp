@@ -1,8 +1,8 @@
+#include "TokenKind.h"
+
 #include <string_view>
 
 #include "Logging.h"
-#include "TokenKind.h"
-#include "TokenKindUitls.h"
 
 namespace marex {
 [[nodiscard]] std::string_view lex::operator*(

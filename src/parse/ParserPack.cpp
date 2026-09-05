@@ -7,7 +7,6 @@
 
 #include "Logging.h"
 #include "TokenKind.h"
-#include "TokenKindUitls.h"
 #include "nodes/exceptions/InvalidTokenException.h"
 
 namespace marex::parse {

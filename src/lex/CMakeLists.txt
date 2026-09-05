@@ -9,7 +9,7 @@ add_library(${PROJECT_NAME}
     LexerPrinter.cpp
     Token.cpp
     SourcePos.cpp
-    TokenKindUtils.cpp
+    TokenKind.cpp
     exceptions/SourceCodeEmptyException.cpp
 )
 
