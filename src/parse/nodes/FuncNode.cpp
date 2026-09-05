@@ -101,7 +101,7 @@ void FuncNode::parse_func_args(ParserPack& pack) {
         lex::TokenKind::OpenBracket);
 
     core::log_info("pre: parsed func args");
-    uintmax_t arg_count = 1;
+    std::uintmax_t arg_count = 1;
 
     if (pack.advance_if_matches(
             lex::TokenKind::CloseBracket)) {
