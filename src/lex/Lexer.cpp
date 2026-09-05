@@ -13,8 +13,9 @@
 #include "exceptions/SourceCodeEmptyException.h"
 
 namespace marex::lex {
-TokenStream Lexer::run(std::string&& source_text,
-                       std::optional<std::string_view> filename) {
+TokenStream Lexer::run(
+    std::string&& source_text,
+    std::optional<std::string_view> filename) {
     TokenStream result;
 
     SourcePos source_pos{filename};
@@ -68,6 +69,8 @@ TokenStream Lexer::run(std::string&& source_text,
             case '=':
                 [[fallthrough]];
             case ':':
+                [[fallthrough]];
+            case ',':
                 [[fallthrough]];
             case ';':
                 if (is_flushable()) {

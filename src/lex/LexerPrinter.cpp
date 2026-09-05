@@ -13,7 +13,7 @@ void LexerPrinter::print_token_stream(
 
     for (lex::Token& token : token_stream) {
         core::log_info(std::format(
-            "Token kind: {}, Token lexeme: {}\n",
+            "Token lexeme: '{}', Token kind: '{}'\n",
             *token.get_kind(), token.get_lexeme()));
     }
 
