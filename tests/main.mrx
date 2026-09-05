@@ -1,5 +1,5 @@
 fun some_func(x: bool, y: int, z: float) -> int {
-    var y = true 
+    var t = true 
 
     return 1
 }

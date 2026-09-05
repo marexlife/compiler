@@ -1,5 +1,6 @@
 #include "FuncNode.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <format>
 #include <functional>
@@ -25,10 +26,18 @@ FuncNode::FuncNode(lex::Token&& token)
     auto get_func_args = [&]() -> std::string {
         std::string func_args_string;
 
+        std::size_t count{};
+
         for (auto& [arg_name, arg_type] : args) {
+            core::Defer iter_end = [&] { ++count; };
+
             func_args_string += *arg_type;
             func_args_string += ' ';
             func_args_string += arg_name;
+
+            if (count != args.size() - 1) {
+                func_args_string += ", ";
+            }
         }
 
         if (func_args_string.empty()) {
