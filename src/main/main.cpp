@@ -1,16 +1,26 @@
 #include <exception>
-#include <iostream>
+#include <format>
+#include <functional>
+#include <print>
+#include <string_view>
 
 #include "App.h"
 
 int main(int argc, char* argv[]) {
-    try {
-        marex::app::App app{};
+    const auto message =
+        std::invoke([&] -> std::string_view {
+            try {
+                marex::app::App app{};
 
-        app.run(argc, argv);
-    } catch (const std::exception& exception) {
-        std::cout << exception.what() << '\n';
-    } catch (...) {
-        std::cout << "unkown error\n";
-    }
+                app.run(argc, argv);
+
+                return "success";
+            } catch (const std::exception& exception) {
+                return exception.what();
+            } catch (...) {
+                return "unkown error";
+            }
+        });
+
+    std::println("{}", message);
 }

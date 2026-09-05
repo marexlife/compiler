@@ -3,6 +3,8 @@ project(main)
 
 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
+set(CMAKE_CXX_STANDARD 23)
+
 add_executable(${PROJECT_NAME}
     main.cpp
 )
