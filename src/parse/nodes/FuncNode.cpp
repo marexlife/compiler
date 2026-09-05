@@ -93,6 +93,11 @@ void FuncNode::parse_func_args(ParserPack& pack) {
     core::log_info("pre: parsed func args");
     uintmax_t arg_count = 1;
 
+    if (pack.advance_if_matches(
+            lex::TokenKind::CloseBracket)) {
+        return;
+    }
+
     do {
         core::Defer defer_arg_increment = [&] {
             ++arg_count;
