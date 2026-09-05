@@ -46,8 +46,8 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 
     pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBracket);
-    pack.advance_if_matches_or_throw(
-        lex::TokenKind::CloseBracket);
+
+    parse_func_args(pack);
 
     if (pack.advance_if_matches(
             lex::TokenKind::OpenBrace)) {
@@ -58,24 +58,26 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Arrow);
 
-    return_type = std::invoke([&] {
-        switch (pack.get_kind()) {
-            case marex::lex::TokenKind::IntDecl:
-                return TypeKind::IntType;
-            case marex::lex::TokenKind::BoolDecl:
-                return TypeKind::BoolType;
-            case marex::lex::TokenKind::FloatDecl:
-                return TypeKind::FloatType;
-            default:
-                throw InvalidTokenException(
-                    pack.get_pos(), "expected a type");
-        }
-    });
+    return_type = type_kind_from_decl(pack.get_kind(),
+                                      pack.get_pos());
 
     pack.advance();
 
     pack.advance_if_matches_or_throw(
         lex::TokenKind::OpenBrace);
+}
+
+void FuncNode::parse_func_args(ParserPack& pack) {
+    while (!pack.advance_if_matches(
+        lex::TokenKind::CloseBracket)) {
+        pack.advance_if_matches_or_throw(
+            lex::TokenKind::Identifier);
+        pack.advance_if_matches_or_throw(
+            lex::TokenKind::Colon);
+        argument_types.emplace_back(
+            type_kind_from_decl(pack.get_kind(),
+                                pack.get_pos()));
+    }
 }
 
 void FuncNode::parse_func_body(ParserPack& pack) {

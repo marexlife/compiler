@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "FileItem.h"
+#include "ParserPack.h"
 #include "Token.h"
 
 namespace marex::parse {
@@ -22,12 +23,15 @@ class FuncNode final : public FileItem {
     void parse_func_signature(ParserPack& pack);
     void parse_func_body(ParserPack& pack);
 
+    void parse_func_args(ParserPack& pack);
+
    private:
     std::string func_name;
     TypeKind return_type{};
     std::vector<std::unique_ptr<FileItem>> func_items;
     std::optional<std::string> return_value =
         std::nullopt;
+    std::vector<TypeKind> argument_types;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_FUNCNODE_H
