@@ -32,7 +32,7 @@ Cli::get_user_files_path(int argc, char** argv) {
                         "path is relative.");
                 }
 
-                results.emplace_back(path);
+                results.emplace_back(std::move(path));
         }
     }
 

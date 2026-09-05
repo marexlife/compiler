@@ -1,1 +1,3 @@
 fun run() { var x = 1 }
+
+fun some_func() -> int { var y = true return 1 }
