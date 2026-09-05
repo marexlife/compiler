@@ -44,9 +44,6 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
     func_name = pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
 
-    pack.advance_if_matches_or_throw(
-        lex::TokenKind::OpenBracket);
-
     parse_func_args(pack);
 
     if (pack.advance_if_matches(
@@ -68,6 +65,9 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 }
 
 void FuncNode::parse_func_args(ParserPack& pack) {
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::OpenBracket);
+
     while (!pack.advance_if_matches(
         lex::TokenKind::CloseBracket)) {
         pack.advance_if_matches_or_throw(
