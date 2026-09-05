@@ -27,6 +27,7 @@ FuncNode::FuncNode(lex::Token&& token)
 
         for (auto& [arg_name, arg_type] : args) {
             func_args_string += *arg_type;
+            func_args_string += ' ';
             func_args_string += arg_name;
         }
 
