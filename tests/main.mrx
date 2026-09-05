@@ -1,10 +1,10 @@
 fun run() { 
     var x = 1 
-    
+
     print hello
 }
 
-fun some_func() -> int {
+fun some_func(x: int, y: int) -> int {
     var y = true 
 
     return 1
