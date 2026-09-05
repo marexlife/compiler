@@ -50,8 +50,8 @@ std::string ParserPack::advance_if_matches_or_throw(
             .move_out_lexeme();
     }
 
-    throw exceptions::InvalidTokenException(
-        get_pos(), token_kind, got_token_kind);
+    throw InvalidTokenException(get_pos(), token_kind,
+                                got_token_kind);
 }
 
 bool ParserPack::is_at_end() const {

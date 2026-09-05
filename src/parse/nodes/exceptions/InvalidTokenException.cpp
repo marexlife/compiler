@@ -6,7 +6,7 @@
 #include "ErrorFormatter.h"
 #include "TokenKindUitls.h"
 
-namespace marex::parse::exceptions {
+namespace marex::parse {
 InvalidTokenException::InvalidTokenException(
     lex::SourcePos source_pos,
     lex::TokenKind expected_token_kind,
@@ -49,4 +49,4 @@ const char* InvalidTokenException::what()
     const noexcept {
     return full_message.data();
 }
-}  // namespace marex::parse::exceptions
+}  // namespace marex::parse

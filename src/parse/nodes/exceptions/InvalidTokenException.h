@@ -7,7 +7,7 @@
 #include "SourcePos.h"
 #include "TokenKind.h"
 
-namespace marex::parse::exceptions {
+namespace marex::parse {
 class InvalidTokenException final
     : public std::exception {
    public:
@@ -35,5 +35,5 @@ class InvalidTokenException final
    private:
     std::string full_message;
 };
-}  // namespace marex::parse::exceptions
+}  // namespace marex::parse
 #endif  // MAREX_PARSE_EXCEPTIONS_INVALIDTOKENEXCEPTION_H

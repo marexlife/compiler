@@ -37,10 +37,9 @@ void VarNode::parse(ParserPack& pack) {
             case lex::TokenKind::IntLiteral:
                 return TypeKind::IntType;
             default:
-                throw exceptions::
-                    InvalidTokenException(
-                        pack.get_pos(),
-                        "unsupported value");
+                throw InvalidTokenException(
+                    pack.get_pos(),
+                    "unsupported value");
         }
     });
 

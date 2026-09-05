@@ -67,10 +67,8 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
             case marex::lex::TokenKind::FloatDecl:
                 return TypeKind::FloatType;
             default:
-                throw exceptions::
-                    InvalidTokenException(
-                        pack.get_pos(),
-                        "expected a type");
+                throw InvalidTokenException(
+                    pack.get_pos(), "expected a type");
         }
     });
 
@@ -103,10 +101,9 @@ void FuncNode::parse_func_body(ParserPack& pack) {
                     return std::make_unique<PrintNode>(
                         pack.copy_out_token());
                 default:
-                    throw exceptions::
-                        InvalidTokenException(
-                            pack.get_pos(),
-                            pack.get_kind());
+                    throw InvalidTokenException(
+                        pack.get_pos(),
+                        pack.get_kind());
             }
         });
 

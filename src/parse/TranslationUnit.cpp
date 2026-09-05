@@ -52,11 +52,11 @@ TranslationUnit::create_file_item(ParserPack& pack) {
             return std::make_unique<FuncNode>(
                 pack.copy_out_token());
         case lex::TokenKind::Var:
-            throw exceptions::InvalidTokenException(
+            throw InvalidTokenException(
                 pack.get_pos(),
                 "no global variables allowed");
         default:
-            throw exceptions::InvalidTokenException(
+            throw InvalidTokenException(
                 pack.get_pos(), pack.get_kind());
     }
 }
