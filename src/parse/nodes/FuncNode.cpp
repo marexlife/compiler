@@ -148,7 +148,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         if (pack.advance_if_matches(
                 lex::TokenKind::Return)) {
             return_value = std::format(
-                "   return {};\n", pack.get_lexeme());
+                "    return {};\n", pack.get_lexeme());
             pack.advance();
 
             continue;
