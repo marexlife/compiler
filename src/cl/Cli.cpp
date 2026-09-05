@@ -24,8 +24,7 @@ Cli::get_user_files_path(int argc, char** argv) {
                         "Argument is null.");
                 }
 
-                const std::filesystem::path path =
-                    argv[i];
+                std::filesystem::path path = argv[i];
 
                 if (path.is_relative()) [[unlikely]] {
                     throw std::invalid_argument(
