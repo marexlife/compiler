@@ -7,15 +7,18 @@
 #include "nodes/FileItem.h"
 
 namespace marex::parse {
+enum struct TypeKind : std::uint8_t;
+
 class ReturnNode final : public FileItem {
    public:
+    explicit ReturnNode(lex::Token&& token);
+
     [[nodiscard]] std::string as_c() override;
 
     void parse(ParserPack& pack) override;
 
-    explicit ReturnNode(lex::Token&& token);
-
    private:
+    TypeKind type_kind{};
     std::optional<std::string> value;
 };
 }  // namespace marex::parse

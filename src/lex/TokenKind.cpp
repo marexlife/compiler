@@ -28,12 +28,10 @@ namespace marex {
             return "Int Literal";
         case lex::TokenKind::BoolLiteral:
             return "Bool Literal";
+        case marex::lex::TokenKind::StringLiteral:
+            return "String Literal";
         case lex::TokenKind::Arrow:
             return "arrow";
-        case lex::TokenKind::FatArrow:
-            return "fat arrow";
-        case marex::lex::TokenKind::Match:
-            return "match";
         case marex::lex::TokenKind::Comma:
             return "comma";
         case TokenKind::Print:
@@ -44,10 +42,6 @@ namespace marex {
             return ";";
         case TokenKind::Var:
             return "var";
-        case TokenKind::Class:
-            return "Class";
-        case TokenKind::Struct:
-            return "Struct";
         case TokenKind::OpenBrace:
             return "{";
         case TokenKind::CloseBrace:
