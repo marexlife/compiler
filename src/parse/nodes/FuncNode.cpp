@@ -5,6 +5,7 @@
 #include <format>
 #include <functional>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -114,6 +115,11 @@ void FuncNode::parse_func_body(ParserPack& pack) {
                             FuncCall>(
                             pack.copy_out_token());
                     }
+
+                    throw std::runtime_error(
+                        "identifiers in functions, "
+                        "that are not function calls "
+                        "are not supported yet");
                 } break;
                 case marex::lex::TokenKind::Print:
                     return std::make_unique<PrintNode>(
