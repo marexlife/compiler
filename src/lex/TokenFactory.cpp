@@ -50,13 +50,13 @@ Token TokenFactory::create_token(
     }
 
     if (auto result = try_convert_to_number<
-            std::int32_t, TokenKind::IntLiteral>(
+            float, TokenKind::IntLiteral>(
             source_word)) {
         return result.value();
     }
 
     if (auto result = try_convert_to_number<
-            float, TokenKind::IntLiteral>(
+            std::int32_t, TokenKind::IntLiteral>(
             source_word)) {
         return result.value();
     }
