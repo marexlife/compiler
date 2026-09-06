@@ -1,5 +1,5 @@
-#ifndef MAREX_PARSE_TYPEKIND_H
-#define MAREX_PARSE_TYPEKIND_H
+#ifndef MAREX_PARSE_EXPRESSIONKIND_H
+#define MAREX_PARSE_EXPRESSIONKIND_H
 #include <cstdint>
 #include <source_location>
 #include <string_view>
@@ -19,7 +19,7 @@ enum class [[nodiscard]] ExpressionKind : std::
     };
 
 [[nodiscard]] std::string_view operator*(
-    ExpressionKind token_kind);
+    ExpressionKind kind);
 
 ExpressionKind from_decl(
     lex::TokenKind token_kind,
@@ -33,4 +33,4 @@ ExpressionKind from_literal(
     std::source_location cpp_source_location =
         std::source_location::current());
 }  // namespace marex::parse
-#endif  // MAREX_PARSE_TYPEKIND_H
+#endif  // MAREX_PARSE_EXPRESSIONKIND_H

@@ -18,7 +18,7 @@ class ReturnNode final : public FileItem {
     void parse(ParserPack& pack) override;
 
    private:
-    ExpressionKind type_kind{};
+    ExpressionKind expression_kind{};
     std::optional<std::string> value;
 };
 }  // namespace marex::parse

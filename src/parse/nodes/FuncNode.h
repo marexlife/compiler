@@ -5,14 +5,13 @@
 #include <string>
 #include <vector>
 
+#include "ExpressionKind.h"
 #include "FileItem.h"
 #include "ParserPack.h"
 #include "Token.h"
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {
-enum class [[nodiscard]] ExpressionKind : std::uint8_t;
-
 struct FuncArg final {
     std::string arg_name;
     ExpressionKind arg_type{};

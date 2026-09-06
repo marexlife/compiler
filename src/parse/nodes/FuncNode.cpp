@@ -15,7 +15,6 @@
 #include "ParserPack.h"
 #include "PrintNode.h"
 #include "TokenKind.h"
-#include "TypeKind.h"
 #include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
 #include "nodes/ReturnNode.h"
@@ -95,8 +94,8 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Arrow);
 
-    return_type = type_kind_from_decl(pack.get_kind(),
-                                      pack.get_pos());
+    return_type =
+        from_decl(pack.get_kind(), pack.get_pos());
 
     pack.advance();
 
@@ -130,8 +129,8 @@ void FuncNode::parse_func_args(ParserPack& pack) {
                     lex::TokenKind::Identifier);
             pack.advance_if_matches_or_throw(
                 lex::TokenKind::Colon);
-            auto type = type_kind_from_decl(
-                pack.get_kind(), pack.get_pos());
+            auto type = from_decl(pack.get_kind(),
+                                  pack.get_pos());
             pack.advance();
 
             return FuncArg{

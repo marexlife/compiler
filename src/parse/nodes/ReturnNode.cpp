@@ -18,13 +18,12 @@ ReturnNode::ReturnNode(lex::Token&& token)
     : FileItem(std::move(token)) {}
 
 std::string ReturnNode::as_c() {
-    if (value) {
-        return std::format("return {};",
-                           value.value());
+    if (!value) {
+        throw std::runtime_error(
+            "no value in return node");
     }
 
-    throw std::runtime_error(
-        "no value in return node");
+    return std::format("return {};", value.value());
 }
 
 void ReturnNode::parse(ParserPack& pack) {
@@ -37,10 +36,10 @@ void ReturnNode::parse(ParserPack& pack) {
             return pack.get_lexeme();
         }
 
-        [[maybe_unused]] auto a =
+        expression_kind =
             from_decl(pack.get_kind(), pack.get_pos());
 
-        return "";
+        return pack.get_lexeme_and_advance();
     });
 }
 }  // namespace marex::parse

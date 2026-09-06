@@ -2,10 +2,11 @@
 #define MAREX_PARSE_VAR_NODE_H
 #include <string>
 
+#include "ExpressionKind.h"
 #include "ParserPack.h"
 #include "Token.h"
-#include "TypeKind.h"
 #include "nodes/FileItem.h"
+
 
 namespace marex::parse {
 class VarNode final : public FileItem {
