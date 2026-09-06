@@ -218,5 +218,4 @@ void FuncNode::parse_func_args(ParserPack& pack) {
 
     core::log_info("post: parsed func args");
 }
-
 }  // namespace marex::parse
