@@ -152,8 +152,7 @@ void FuncNode::parse_func_args(ParserPack& pack) {
 void FuncNode::parse_func_body(ParserPack& pack) {
     while (!pack.advance_if_matches(
         lex::TokenKind::CloseBrace)) {
-        if (pack.advance_if_matches(
-                lex::TokenKind::Return)) {
+        if (pack.matches(lex::TokenKind::Return)) {
             ReturnNode return_node{
                 pack.copy_out_token()};
             return_node.parse(pack);
