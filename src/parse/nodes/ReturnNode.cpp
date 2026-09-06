@@ -37,7 +37,7 @@ void ReturnNode::parse(ParserPack& pack) {
         }
 
         expression_kind =
-            from_decl(pack.get_kind(), pack.get_pos());
+            expression_kind_from_decl_or_throw(pack);
 
         return pack.get_lexeme_and_advance();
     });

@@ -95,7 +95,7 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
         lex::TokenKind::Arrow);
 
     return_type =
-        from_decl(pack.get_kind(), pack.get_pos());
+        expression_kind_from_decl_or_throw(pack);
 
     pack.advance();
 
@@ -129,8 +129,9 @@ void FuncNode::parse_func_args(ParserPack& pack) {
                     lex::TokenKind::Identifier);
             pack.advance_if_matches_or_throw(
                 lex::TokenKind::Colon);
-            auto type = from_decl(pack.get_kind(),
-                                  pack.get_pos());
+            auto type =
+                expression_kind_from_decl_or_throw(
+                    pack);
             pack.advance();
 
             return FuncArg{

@@ -4,10 +4,9 @@
 #include <source_location>
 #include <string_view>
 
-#include "SourcePos.h"
-#include "TokenKind.h"
-
 namespace marex::parse {
+class ParserPack;
+
 enum class [[nodiscard]] ExpressionKind : std::
     uint8_t {
         None = 0,
@@ -21,15 +20,13 @@ enum class [[nodiscard]] ExpressionKind : std::
 [[nodiscard]] std::string_view operator*(
     ExpressionKind kind);
 
-ExpressionKind from_decl(
-    lex::TokenKind token_kind,
-    lex::SourcePos source_pos,
+ExpressionKind expression_kind_from_decl_or_throw(
+    const parse::ParserPack& pack,
     std::source_location cpp_source_location =
         std::source_location::current());
 
-ExpressionKind from_literal(
-    lex::TokenKind token_kind,
-    lex::SourcePos source_pos,
+ExpressionKind expression_kind_from_literal_or_throw(
+    const parse::ParserPack& pack,
     std::source_location cpp_source_location =
         std::source_location::current());
 }  // namespace marex::parse

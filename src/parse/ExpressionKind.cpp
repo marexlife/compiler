@@ -3,6 +3,7 @@
 #include <source_location>
 #include <stdexcept>
 
+#include "ParserPack.h"
 #include "nodes/exceptions/InvalidTokenException.h"
 
 namespace marex {
@@ -27,11 +28,11 @@ end:
     throw std::out_of_range("Not a valid TypeKind");
 }
 
-parse::ExpressionKind parse::from_decl(
-    lex::TokenKind token_kind,
-    lex::SourcePos source_pos,
+parse::ExpressionKind
+parse::expression_kind_from_decl_or_throw(
+    const parse::ParserPack& pack,
     std::source_location cpp_source_location) {
-    switch (token_kind) {
+    switch (pack.get_kind()) {
         case marex::lex::TokenKind::IntDecl:
             return ExpressionKind::IntType;
         case marex::lex::TokenKind::BoolDecl:
@@ -40,17 +41,17 @@ parse::ExpressionKind parse::from_decl(
             return ExpressionKind::FloatType;
         default:
             throw InvalidTokenException(
-                source_pos, token_kind,
+                pack.get_pos(), pack.get_kind(),
                 "expected a type",
                 cpp_source_location);
     }
 }
 
-parse::ExpressionKind parse::from_literal(
-    lex::TokenKind token_kind,
-    lex::SourcePos source_pos,
+parse::ExpressionKind
+parse::expression_kind_from_literal_or_throw(
+    const parse::ParserPack& pack,
     std::source_location cpp_source_location) {
-    switch (token_kind) {
+    switch (pack.get_kind()) {
         case marex::lex::TokenKind::IntLiteral:
             return ExpressionKind::IntType;
         case marex::lex::TokenKind::BoolLiteral:
@@ -59,7 +60,7 @@ parse::ExpressionKind parse::from_literal(
             return ExpressionKind::FloatType;
         default:
             throw InvalidTokenException(
-                source_pos, token_kind,
+                pack.get_pos(), pack.get_kind(),
                 "expected a type",
                 cpp_source_location);
     }
