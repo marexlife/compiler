@@ -24,7 +24,7 @@ FuncNode::FuncNode(lex::Token&& token)
     : Parsable(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_c() {
-    auto get_func_args = [&]() -> std::string {
+    auto get_func_args = [&] -> std::string {
         std::string func_args_string;
 
         std::size_t count{};
@@ -48,7 +48,7 @@ FuncNode::FuncNode(lex::Token&& token)
         return func_args_string;
     };
 
-    auto get_func_code = [&]() -> std::string {
+    auto get_func_code = [&] -> std::string {
         std::string func_content_string;
 
         for (auto& func_item : func_items) {
@@ -104,7 +104,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         auto node = std::invoke([&] -> std::unique_ptr<
                                         Parsable> {
             switch (pack.get_kind()) {
-                case marex::lex::TokenKind::Var:
+                case lex::TokenKind::Var:
                     return std::make_unique<VarNode>(
                         pack.copy_out_token());
                 case lex::TokenKind::Identifier: {
@@ -123,7 +123,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
                         "that are not function calls "
                         "are not supported yet");
                 } break;
-                case marex::lex::TokenKind::Print:
+                case lex::TokenKind::Print:
                     return std::make_unique<PrintNode>(
                         pack.copy_out_token());
                 default:
@@ -140,6 +140,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         func_items.emplace_back(std::move(node));
     }
 }
+
 void FuncNode::parse(ParserPack& pack) {
     parse_func_signature(pack);
     parse_func_body(pack);
