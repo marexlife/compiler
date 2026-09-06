@@ -1,7 +1,9 @@
 #include "ParserPack.h"
 
+#include <exception>
 #include <format>
 #include <source_location>
+#include <stdexcept>
 #include <string_view>
 #include <utility>
 
@@ -18,6 +20,20 @@ ParserPack::ParserPack(lex::TokenStream&& token_stream,
     : token_stream(std::move(token_stream)),
       progress(),
       is_in_lint_mode(is_in_lint_mode) {}
+
+lex::TokenKind ParserPack::get_next_kind(
+    std::string_view error_message_on_failure) const {
+    try {
+        return token_stream.at(progress).get_kind();
+    } catch (const std::exception& exception) {
+        throw std::runtime_error(
+            error_message_on_failure.data());
+    } catch (...) {
+        throw std::runtime_error(
+            "unkown error when trying to reach for "
+            "next token in ParserPack");
+    }
+}
 
 std::string_view ParserPack::get_kind_string() const {
     return *get_kind();

@@ -21,6 +21,11 @@ class ParserPack final {
 
     void advance() { ++progress; }
 
+    [[nodiscard]] lex::TokenKind get_next_kind(
+        std::string_view error_message_on_failure =
+            "trying to access next token, when there "
+            "is none") const;
+
     [[nodiscard]] bool is_at_end() const;
 
     [[nodiscard]] std::size_t get_progress() const {

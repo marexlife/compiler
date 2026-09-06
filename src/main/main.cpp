@@ -7,20 +7,17 @@
 #include "App.h"
 
 int main(int argc, char* argv[]) {
-    const auto message =
-        std::invoke([&] -> std::string_view {
-            try {
-                marex::app::App app{};
+    try {
+        marex::app::App app{};
 
-                app.run(argc, argv);
+        app.run(argc, argv);
 
-                return "success";
-            } catch (const std::exception& exception) {
-                return exception.what();
-            } catch (...) {
-                return "unkown error";
-            }
-        });
+        return 0;
+    } catch (const std::exception& exception) {
+        std::println("{}", exception.what());
+    } catch (...) {
+        std::println("unkown error");
+    }
 
-    std::println("{}", message);
+    return -1;
 }

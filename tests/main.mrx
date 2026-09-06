@@ -7,5 +7,7 @@ fun some_func(x: bool, y: int, z: float) -> int {
 fun run() {
     var x = 1
 
+    some_func(true, 1, 1)
+    
     print hello
 }

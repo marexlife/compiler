@@ -15,6 +15,7 @@
 #include "TokenKind.h"
 #include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
+#include "nodes/FuncCall.h"
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {
@@ -103,14 +104,27 @@ void FuncNode::parse_func_body(ParserPack& pack) {
                 case marex::lex::TokenKind::Var:
                     return std::make_unique<VarNode>(
                         pack.copy_out_token());
+                case lex::TokenKind::Identifier: {
+                    if (pack.get_next_kind() ==
+                        lex::TokenKind::OpenBracket) {
+                        core::log_info(
+                            "function call");
+
+                        return std::make_unique<
+                            FuncCall>(
+                            pack.copy_out_token());
+                    }
+                } break;
                 case marex::lex::TokenKind::Print:
                     return std::make_unique<PrintNode>(
                         pack.copy_out_token());
                 default:
-                    throw InvalidTokenException(
-                        pack.get_pos(),
-                        pack.get_kind());
+                    goto end;
             }
+
+        end:
+            throw InvalidTokenException(
+                pack.get_pos(), pack.get_kind());
         });
 
         node->parse(pack);
