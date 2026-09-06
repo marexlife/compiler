@@ -32,13 +32,9 @@ void App::run(int argc, char* argv[]) {
 void App::compile_files(int argc, char* argv[]) {
     for (std::size_t i = 1; std::cmp_less(i, argc);
          ++i) {
-        try {
-            std::println("compiling {}...", argv[i]);
+        std::println("compiling {}...", argv[i]);
 
-            App::compile_file(argv[i]);
-        } catch (const std::exception& exception) {
-            std::println("{}", exception.what());
-        }
+        App::compile_file(argv[i]);
     }
 }
 
