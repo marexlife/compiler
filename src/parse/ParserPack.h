@@ -38,6 +38,11 @@ class ParserPack final {
         return get_kind() == token_kind;
     }
 
+    [[nodiscard]] lex::Token
+    copy_out_previous_token() {
+        return token_stream.at(progress - 1);
+    }
+
     /* NOT [[nodiscard]] */ std::string
     advance_if_matches_or_throw(
         lex::TokenKind token_kind,

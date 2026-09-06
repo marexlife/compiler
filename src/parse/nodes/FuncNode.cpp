@@ -5,7 +5,6 @@
 #include <format>
 #include <functional>
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -23,11 +22,6 @@ FuncNode::FuncNode(lex::Token&& token)
     : Parsable(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_c() {
-    if (!return_node) {
-        throw std::runtime_error(
-            "return node not initalized");
-    }
-
     auto get_func_args = [&]() -> std::string {
         std::string func_args_string;
 
@@ -63,13 +57,67 @@ FuncNode::FuncNode(lex::Token&& token)
         return func_content_string;
     };
 
-    return std::format("{} {}({}) {{\n{}{}}}\n\n",
-                       *return_type, func_name,
-                       std::invoke(get_func_args),
-                       std::invoke(get_func_code),
-                       return_node.value().as_c());
+    return std::format(
+        "{} {}({}) {{\n{}{}}}\n\n", *return_type,
+        func_name, std::invoke(get_func_args),
+        std::invoke(get_func_code),
+        std::invoke([&] -> std::string {
+            if (return_node) {
+                return return_node.value()->as_c();
+            }
+
+            return "";
+        }));
 }
 
+void FuncNode::parse_func_body(ParserPack& pack) {
+    while (true) {
+        if (pack.matches(lex::TokenKind::Return)) {
+            this->return_node = std::invoke([&] {
+                auto return_node =
+                    std::make_unique<ReturnNode>(
+                        pack.copy_out_token());
+
+                return_node->parse(pack);
+
+                return return_node;
+            });
+
+            if (this->return_node) {
+                core::log_info(
+                    "succeeded to set return node");
+            } else {
+                core::log_fatal_error(
+                    "failed to set return node");
+            }
+        }
+
+        if (pack.advance_if_matches(
+                lex::TokenKind::CloseBrace)) {
+            break;
+        }
+
+        auto node = std::invoke([&] -> std::unique_ptr<
+                                        Parsable> {
+            switch (pack.get_kind()) {
+                case marex::lex::TokenKind::Var:
+                    return std::make_unique<VarNode>(
+                        pack.copy_out_token());
+                case marex::lex::TokenKind::Print:
+                    return std::make_unique<PrintNode>(
+                        pack.copy_out_token());
+                default:
+                    throw InvalidTokenException(
+                        pack.get_pos(),
+                        pack.get_kind());
+            }
+        });
+
+        node->parse(pack);
+
+        func_items.emplace_back(std::move(node));
+    }
+}
 void FuncNode::parse(ParserPack& pack) {
     parse_func_signature(pack);
     parse_func_body(pack);
@@ -149,36 +197,4 @@ void FuncNode::parse_func_args(ParserPack& pack) {
     core::log_info("post: parsed func args");
 }
 
-void FuncNode::parse_func_body(ParserPack& pack) {
-    while (!pack.advance_if_matches(
-        lex::TokenKind::CloseBrace)) {
-        if (pack.matches(lex::TokenKind::Return)) {
-            ReturnNode return_node{
-                pack.copy_out_token()};
-            return_node.parse(pack);
-
-            this->return_node = std::move(return_node);
-        }
-
-        auto node = std::invoke([&] -> std::unique_ptr<
-                                        Parsable> {
-            switch (pack.get_kind()) {
-                case marex::lex::TokenKind::Var:
-                    return std::make_unique<VarNode>(
-                        pack.copy_out_token());
-                case marex::lex::TokenKind::Print:
-                    return std::make_unique<PrintNode>(
-                        pack.copy_out_token());
-                default:
-                    throw InvalidTokenException(
-                        pack.get_pos(),
-                        pack.get_kind());
-            }
-        });
-
-        node->parse(pack);
-
-        func_items.emplace_back(std::move(node));
-    }
-}
 }  // namespace marex::parse

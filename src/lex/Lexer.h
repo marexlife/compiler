@@ -2,7 +2,6 @@
 #define MAREX_LEX_LEXER_H
 #include <cstddef>
 #include <string>
-#include <string_view>
 
 #include "LastCharKind.h"
 #include "SourcePos.h"
@@ -24,7 +23,7 @@ class [[nodiscard]] Lexer final {
 
     [[nodiscard]] TokenStream run(
         std::string&& source_text,
-        std::optional<std::string_view> filename);
+        std::optional<std::string> filename);
 
    private:
     void push_token(TokenStream& result,

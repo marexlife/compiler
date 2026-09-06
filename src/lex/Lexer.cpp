@@ -2,7 +2,6 @@
 
 #include <optional>
 #include <string>
-#include <string_view>
 
 #include "Defer.h"
 #include "LastCharKind.h"
@@ -15,7 +14,7 @@
 namespace marex::lex {
 TokenStream Lexer::run(
     std::string&& source_text,
-    std::optional<std::string_view> filename) {
+    std::optional<std::string> filename) {
     TokenStream result;
 
     SourcePos source_pos{filename};

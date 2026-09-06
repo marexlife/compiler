@@ -33,8 +33,8 @@ class FuncNode final : public Parsable {
     std::string func_name;
     ExpressionKind return_type{};
     std::vector<std::unique_ptr<Parsable>> func_items;
-    std::optional<ReturnNode> return_node =
-        std::nullopt;
+    std::optional<std::unique_ptr<ReturnNode>>
+        return_node = std::nullopt;
     std::vector<FuncArg> args;
 };
 }  // namespace marex::parse
