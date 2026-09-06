@@ -1,6 +1,8 @@
 fun some_func(x: bool, y: int, z: float) -> int {
     var t = true 
 
+    print some_func
+    
     return 1
 }
 
