@@ -60,7 +60,7 @@ FuncNode::FuncNode(lex::Token&& token)
     };
 
     return std::format(
-        "{} {}({}) {{\n{}{}}}\n\n", *return_type,
+        "{} {}({}) {{\n{}\n    {}}}\n\n", *return_type,
         func_name, std::invoke(get_func_args),
         std::invoke(get_func_code),
         std::invoke([&] -> std::string {

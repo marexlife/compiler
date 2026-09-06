@@ -28,7 +28,7 @@ std::string FuncCall::as_c() {
         }
     }
 
-    return std::format("{}({});", func_name, result);
+    return std::format("{}({});\n", func_name, result);
 }
 
 void FuncCall::parse(ParserPack& pack) {
