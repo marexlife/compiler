@@ -1,13 +1,14 @@
-#ifndef MAREX_PARSE_COMPLEXEXPRESSION_H
-#define MAREX_PARSE_COMPLEXEXPRESSION_H
+#ifndef MAREX_PARSE_EXPRESSION_H
+#define MAREX_PARSE_EXPRESSION_H
 #include "Parsable.h"
+#include "Token.h"
 
 namespace marex::parse {
 class Expression : public Parsable {
    public:
-    [[nodiscard]] std::string as_c() override;
+    explicit Expression(lex::Token &&token);
 
-    void parse(ParserPack& pack) override;
+   private:
 };
 }  // namespace marex::parse
-#endif  // MAREX_PARSE_COMPLEXEXPRESSION_H
+#endif  // MAREX_PARSE_EXPRESSION_H

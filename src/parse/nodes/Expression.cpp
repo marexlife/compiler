@@ -1,12 +1,10 @@
 #include "Expression.h"
 
-#include <string>
+#include <utility>
 
-#include "ParserPack.h"
+#include "nodes/Parsable.h"
 
 namespace marex::parse {
-std::string Expression::as_c() { return ""; }
-
-void Expression::parse(
-    [[maybe_unused]] ParserPack& pack) {}
+Expression::Expression(lex::Token&& token)
+    : Parsable(std::move(token)) {}
 }  // namespace marex::parse

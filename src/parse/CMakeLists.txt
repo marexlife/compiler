@@ -16,6 +16,7 @@ add_library(${PROJECT_NAME}
     ExpressionKind.cpp
     
     nodes/Parsable.cpp
+    nodes/OpNode.cpp
     nodes/VarNode.cpp
     nodes/IdentNode.cpp
     nodes/FuncNode.cpp
