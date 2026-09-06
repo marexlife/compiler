@@ -8,7 +8,6 @@ enum struct [[nodiscard]] TokenKind : std::uint8_t {
     None = 0,
     Identifier,
     Assignment,
-    Print,
     Var,
     Return,
 

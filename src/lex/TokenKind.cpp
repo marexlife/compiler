@@ -32,8 +32,6 @@ namespace marex {
             return "arrow";
         case TokenKind::Comma:
             return "comma";
-        case TokenKind::Print:
-            return "print";
         case TokenKind::Assignment:
             return "=";
         case TokenKind::StatementEnd:

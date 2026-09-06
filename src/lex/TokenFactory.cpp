@@ -11,7 +11,6 @@ namespace marex::lex {
 TokenFactory::TokenFactory()
     : mapping{
           {
-              {"print", TokenKind::Print},
               {"var", TokenKind::Var},
               {"float", TokenKind::FloatDecl},
               {"int", TokenKind::IntDecl},
