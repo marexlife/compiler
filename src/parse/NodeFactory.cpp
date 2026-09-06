@@ -12,7 +12,7 @@
 #include "nodes/VarNode.h"
 
 namespace marex::parse {
-std::unique_ptr<AstNode> NodeFactory::create_node(
+std::unique_ptr<Parsable> NodeFactory::create_node(
     lex::Token&& token) {
     auto token_kind = token.get_kind();
 

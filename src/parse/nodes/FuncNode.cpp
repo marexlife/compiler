@@ -10,18 +10,18 @@
 #include <utility>
 
 #include "Defer.h"
-#include "FileItem.h"
 #include "Logging.h"
 #include "ParserPack.h"
 #include "PrintNode.h"
 #include "TokenKind.h"
 #include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
+#include "nodes/AstNode.h"
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {
 FuncNode::FuncNode(lex::Token&& token)
-    : FileItem(std::move(token)) {}
+    : Parsable(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_c() {
     if (!return_node) {
@@ -163,7 +163,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         }
 
         auto node = std::invoke([&] -> std::unique_ptr<
-                                        FileItem> {
+                                        Parsable> {
             switch (pack.get_kind()) {
                 case marex::lex::TokenKind::Var:
                     return std::make_unique<VarNode>(

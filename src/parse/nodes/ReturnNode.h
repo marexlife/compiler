@@ -3,13 +3,13 @@
 #include <optional>
 #include <string>
 
+#include "AstNode.h"
 #include "Token.h"
-#include "nodes/FileItem.h"
 
 namespace marex::parse {
 enum struct ExpressionKind : std::uint8_t;
 
-class ReturnNode final : public FileItem {
+class ReturnNode final : public Parsable {
    public:
     explicit ReturnNode(lex::Token&& token);
 

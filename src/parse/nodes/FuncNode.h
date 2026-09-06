@@ -6,9 +6,9 @@
 #include <vector>
 
 #include "ExpressionKind.h"
-#include "FileItem.h"
 #include "ParserPack.h"
 #include "Token.h"
+#include "nodes/AstNode.h"
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {
@@ -17,7 +17,7 @@ struct FuncArg final {
     ExpressionKind arg_type{};
 };
 
-class FuncNode final : public FileItem {
+class FuncNode final : public Parsable {
    public:
     explicit FuncNode(lex::Token&& token);
 
@@ -33,7 +33,7 @@ class FuncNode final : public FileItem {
 
     std::string func_name;
     ExpressionKind return_type{};
-    std::vector<std::unique_ptr<FileItem>> func_items;
+    std::vector<std::unique_ptr<Parsable>> func_items;
     std::optional<ReturnNode> return_node =
         std::nullopt;
     std::vector<FuncArg> args;

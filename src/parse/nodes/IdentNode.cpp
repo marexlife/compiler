@@ -10,7 +10,7 @@
 
 namespace marex::parse {
 IdentNode::IdentNode(lex::Token&& token)
-    : AstNode(std::move(token)) {}
+    : Parsable(std::move(token)) {}
 
 [[nodiscard]] std::string IdentNode::as_c() {
     return std::string{IdentNode::get_lexeme()};

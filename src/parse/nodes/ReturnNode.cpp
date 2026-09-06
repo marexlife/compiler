@@ -11,11 +11,11 @@
 #include "ParserPack.h"
 #include "Token.h"
 #include "TokenKind.h"
-#include "nodes/FileItem.h"
+#include "nodes/AstNode.h"
 
 namespace marex::parse {
 ReturnNode::ReturnNode(lex::Token&& token)
-    : FileItem(std::move(token)) {}
+    : Parsable(std::move(token)) {}
 
 std::string ReturnNode::as_c() {
     if (!value) {
