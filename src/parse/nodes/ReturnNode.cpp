@@ -21,7 +21,7 @@ std::string ReturnNode::as_c() {
             "no value in return node");
     }
 
-    return std::format("return {};", value.value());
+    return std::format("return {};\n", value.value());
 }
 
 void ReturnNode::parse(ParserPack& pack) {
