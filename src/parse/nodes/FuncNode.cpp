@@ -88,7 +88,7 @@ void FuncNode::parse_func_signature(ParserPack& pack) {
 
     if (pack.advance_if_matches(
             lex::TokenKind::OpenBrace)) {
-        return_type = TypeKind::EmptyType;
+        return_type = ExpressionKind::EmptyType;
         return;
     }
 

@@ -11,11 +11,11 @@
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {
-enum class [[nodiscard]] TypeKind : std::uint8_t;
+enum class [[nodiscard]] ExpressionKind : std::uint8_t;
 
 struct FuncArg final {
     std::string arg_name;
-    TypeKind arg_type{};
+    ExpressionKind arg_type{};
 };
 
 class FuncNode final : public FileItem {
@@ -33,7 +33,7 @@ class FuncNode final : public FileItem {
     void parse_func_args(ParserPack& pack);
 
     std::string func_name;
-    TypeKind return_type{};
+    ExpressionKind return_type{};
     std::vector<std::unique_ptr<FileItem>> func_items;
     std::optional<ReturnNode> return_node =
         std::nullopt;

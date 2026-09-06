@@ -26,8 +26,8 @@ void VarNode::parse(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Assignment);
 
-    type_kind = type_kind_from_literal(pack.get_kind(),
-                                       pack.get_pos());
+    type_kind =
+        from_literal(pack.get_kind(), pack.get_pos());
 
     value = pack.get_lexeme();
 

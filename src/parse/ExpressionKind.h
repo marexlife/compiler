@@ -8,24 +8,26 @@
 #include "TokenKind.h"
 
 namespace marex::parse {
-enum class [[nodiscard]] TypeKind : std::uint8_t {
-    None = 0,
-    EmptyType,
-    IntType,
-    BoolType,
-    FloatType,
-};
+enum class [[nodiscard]] ExpressionKind : std::
+    uint8_t {
+        None = 0,
+        Identifier,
+        EmptyType,
+        IntType,
+        BoolType,
+        FloatType,
+    };
 
 [[nodiscard]] std::string_view operator*(
-    TypeKind token_kind);
+    ExpressionKind token_kind);
 
-TypeKind type_kind_from_decl(
+ExpressionKind from_decl(
     lex::TokenKind token_kind,
     lex::SourcePos source_pos,
     std::source_location cpp_source_location =
         std::source_location::current());
 
-TypeKind type_kind_from_literal(
+ExpressionKind from_literal(
     lex::TokenKind token_kind,
     lex::SourcePos source_pos,
     std::source_location cpp_source_location =

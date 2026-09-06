@@ -7,7 +7,7 @@
 #include "nodes/FileItem.h"
 
 namespace marex::parse {
-enum struct TypeKind : std::uint8_t;
+enum struct ExpressionKind : std::uint8_t;
 
 class ReturnNode final : public FileItem {
    public:
@@ -18,7 +18,7 @@ class ReturnNode final : public FileItem {
     void parse(ParserPack& pack) override;
 
    private:
-    TypeKind type_kind{};
+    ExpressionKind type_kind{};
     std::optional<std::string> value;
 };
 }  // namespace marex::parse

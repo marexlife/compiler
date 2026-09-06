@@ -19,7 +19,7 @@ class VarNode final : public FileItem {
 
    private:
     std::string name;
-    TypeKind type_kind{};
+    ExpressionKind type_kind{};
     std::string value;
 };
 }  // namespace marex::parse
