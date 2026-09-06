@@ -1,5 +1,5 @@
 # TODO
 - add string literal
-- add proper expressions
 - make print less hacky
+- add proper expressions and replace ExpressionKind
 - add 'loop {}'
