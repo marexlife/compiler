@@ -19,12 +19,6 @@ Token::Token(
 [[nodiscard]] std::uint8_t Token::get_binding_power()
     const {
     switch (kind) {
-        case lex::TokenKind::Print: {
-            static const std::uint8_t binding_power =
-                100;
-
-            return binding_power;
-        } break;
         case lex::TokenKind::Var: {
             static const std::uint8_t binding_power =
                 30;
