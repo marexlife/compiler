@@ -24,7 +24,8 @@ ParserPack::ParserPack(lex::TokenStream&& token_stream,
 lex::TokenKind ParserPack::get_next_kind(
     std::string_view error_message_on_failure) const {
     try {
-        return token_stream.at(progress).get_kind();
+        return token_stream.at(progress + 1)
+            .get_kind();
     } catch (const std::exception& exception) {
         throw std::runtime_error(
             error_message_on_failure.data());
