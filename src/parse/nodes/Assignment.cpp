@@ -13,6 +13,15 @@ std::string Assignment::as_c() {
 
 void Assignment::parse(
     [[maybe_unused]] ParserPack& pack) {
+    parse_lhs(pack);
+    parse_rhs(pack);
+}
+
+void Assignment::parse_lhs(
+    [[maybe_unused]] ParserPack& pack) {
     
-    }
+}
+
+void Assignment::parse_rhs(
+    [[maybe_unused]] ParserPack& pack) {}
 }  // namespace marex::parse
