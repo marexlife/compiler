@@ -36,7 +36,8 @@ void ReturnNode::parse(ParserPack& pack) {
         }
 
         expression_kind =
-            expression_kind_from_decl_or_throw(pack);
+            expression_kind_from_literal_or_throw(
+                pack);
 
         return pack.get_lexeme_and_advance();
     });
