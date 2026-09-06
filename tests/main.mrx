@@ -12,4 +12,6 @@ fun run() {
     some_func(true, 1, 1)
     
     print "hello"
+
+    printf("hello")
 }

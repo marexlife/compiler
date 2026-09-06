@@ -15,6 +15,7 @@ enum class [[nodiscard]] ExpressionKind : std::
         IntType,
         BoolType,
         FloatType,
+        StringType,
     };
 
 [[nodiscard]] std::string_view operator*(

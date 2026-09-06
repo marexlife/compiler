@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "ParserPack.h"
+#include "TokenKind.h"
 #include "nodes/exceptions/InvalidTokenException.h"
 
 namespace marex {
@@ -18,6 +19,8 @@ namespace marex {
             return "float";
         case ExpressionKind::BoolType:
             return "bool";
+        case marex::parse::ExpressionKind::StringType:
+            return "str";
         case ExpressionKind::Identifier:
             return "identifier";
         case ExpressionKind::None:
@@ -58,6 +61,8 @@ parse::expression_kind_from_literal_or_throw(
             return ExpressionKind::BoolType;
         case marex::lex::TokenKind::FloatLiteral:
             return ExpressionKind::FloatType;
+        case marex::lex::TokenKind::StringLiteral:
+            return ExpressionKind::StringType;
         default:
             throw InvalidTokenException(
                 pack.get_pos(), pack.get_kind(),
