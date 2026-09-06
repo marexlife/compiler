@@ -28,11 +28,11 @@ std::string FuncCall::as_c() {
         }
     }
 
-    return std::format("{}({})", func_name, result);
+    return std::format("{}({});", func_name, result);
 }
 
 void FuncCall::parse(ParserPack& pack) {
-    pack.advance_if_matches_or_throw(
+    func_name = pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
 
     pack.advance_if_matches_or_throw(
@@ -48,6 +48,8 @@ void FuncCall::parse(ParserPack& pack) {
         auto expression_kind =
             expression_kind_from_literal_or_throw(
                 pack);
+
+        pack.advance();
 
         args.emplace_back(CallArg{
             .name = std::string{lexeme},
