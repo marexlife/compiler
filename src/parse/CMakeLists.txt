@@ -20,6 +20,7 @@ add_library(${PROJECT_NAME}
     nodes/VarNode.cpp
     nodes/IdentNode.cpp
     nodes/FuncNode.cpp
+    nodes/FuncCall.cpp
     nodes/ReturnNode.cpp
     nodes/ComplexExpression.cpp
     nodes/exceptions/InvalidTokenException.cpp
