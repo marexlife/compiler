@@ -1,15 +1,16 @@
 fun some_func(x: bool, y: int, z: float) -> int {
-    var t = true 
+    var t: bool = true 
 
     printf("some_func")
-    
+
     return 1
 }
 
 fun run() {
-    var x = 1
+    var x: int = 1
+    var y: float = 1.
 
-    some_func(true, 1, 1)
+    some_func(true, 1, 1.)
 
     printf("hello")
 }

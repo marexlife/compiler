@@ -22,10 +22,17 @@ void VarNode::parse(ParserPack& pack) {
         lex::TokenKind::Var);
     name = pack.advance_if_matches_or_throw(
         lex::TokenKind::Identifier);
+
+    pack.advance_if_matches_or_throw(
+        lex::TokenKind::Colon);
+    type_kind =
+        expression_kind_from_decl_or_throw(pack);
+    pack.advance();
+
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Assignment);
 
-    type_kind =
+    [[maybe_unused]] auto not_needed =
         expression_kind_from_literal_or_throw(pack);
 
     value = pack.get_lexeme();
