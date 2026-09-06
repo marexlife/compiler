@@ -10,7 +10,7 @@
 
 namespace marex::parse {
 VarNode::VarNode(lex::Token&& token)
-    : Parsable(std::move(token)) {}
+    : AstNode(std::move(token)) {}
 
 std::string VarNode::as_c() {
     return std::format("{} {} = {};\n", *type_kind,

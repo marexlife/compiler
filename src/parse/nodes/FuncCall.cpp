@@ -13,7 +13,7 @@
 
 namespace marex::parse {
 FuncCall::FuncCall(lex::Token&& token)
-    : Parsable(std::move(token)) {}
+    : AstNode(std::move(token)) {}
 
 std::string FuncCall::as_c() {
     std::string result;

@@ -4,9 +4,9 @@
 #include "Token.h"
 
 namespace marex::parse {
-class Expression : public Parsable {
+class Expression : public AstNode {
    public:
-    explicit Expression(lex::Token &&token);
+    explicit Expression(lex::Token&& token);
 
    private:
 };

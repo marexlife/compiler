@@ -9,7 +9,7 @@
 namespace marex::parse {
 enum struct ExpressionKind : std::uint8_t;
 
-class ReturnNode final : public Parsable {
+class ReturnNode final : public AstNode {
    public:
     explicit ReturnNode(lex::Token&& token);
 

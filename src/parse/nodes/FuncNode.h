@@ -16,7 +16,7 @@ struct FuncArg final {
     ExpressionKind arg_type{};
 };
 
-class FuncNode final : public Parsable {
+class FuncNode final : public AstNode {
    public:
     explicit FuncNode(lex::Token&& token);
 
@@ -32,7 +32,7 @@ class FuncNode final : public Parsable {
 
     std::string func_name;
     ExpressionKind return_type{};
-    std::vector<std::unique_ptr<Parsable>> func_items;
+    std::vector<std::unique_ptr<AstNode>> func_items;
     std::optional<std::unique_ptr<ReturnNode>>
         return_node = std::nullopt;
     std::vector<FuncArg> args;

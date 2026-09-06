@@ -13,7 +13,7 @@
 
 namespace marex::parse {
 ReturnNode::ReturnNode(lex::Token&& token)
-    : Parsable(std::move(token)) {}
+    : AstNode(std::move(token)) {}
 
 std::string ReturnNode::as_c() {
     if (!value) {

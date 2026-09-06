@@ -13,7 +13,7 @@ struct CallArg final {
     ExpressionKind expression_kind{};
 };
 
-class FuncCall final : public Parsable {
+class FuncCall final : public AstNode {
    public:
     explicit FuncCall(lex::Token&& token);
 

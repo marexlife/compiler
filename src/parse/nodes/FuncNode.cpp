@@ -20,7 +20,7 @@
 
 namespace marex::parse {
 FuncNode::FuncNode(lex::Token&& token)
-    : Parsable(std::move(token)) {}
+    : AstNode(std::move(token)) {}
 
 [[nodiscard]] std::string FuncNode::as_c() {
     auto get_func_args = [&] -> std::string {
@@ -101,7 +101,7 @@ void FuncNode::parse_func_body(ParserPack& pack) {
         }
 
         auto node = std::invoke([&] -> std::unique_ptr<
-                                        Parsable> {
+                                        AstNode> {
             switch (pack.get_kind()) {
                 case lex::TokenKind::Var:
                     return std::make_unique<VarNode>(

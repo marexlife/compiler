@@ -10,7 +10,7 @@ fun run() {
     var x: int = 1
     var y: float = 1.
 
-    var z: int = some_func(true, 1, 1.)
+    some_func(true, 1, 1.)
 
     printf("hello")
 }

@@ -13,10 +13,10 @@ class TranslationUnit final {
     void parse(ParserPack& pack);
 
    private:
-    [[nodiscard]] static std::unique_ptr<Parsable>
+    [[nodiscard]] static std::unique_ptr<AstNode>
     create_file_item(ParserPack& pack);
 
-    std::vector<std::unique_ptr<Parsable>> file_items;
+    std::vector<std::unique_ptr<AstNode>> file_items;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_TRANSLATIONUNIT_H

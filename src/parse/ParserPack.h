@@ -28,6 +28,16 @@ class ParserPack final {
 
     [[nodiscard]] bool is_at_end() const;
 
+    [[nodiscard]] lex::TokenKind token_kind_at(
+        std::size_t index) const {
+        return borrow_token_at(index).get_kind();
+    }
+
+    [[nodiscard]] const lex::Token& borrow_token_at(
+        std::size_t index) const {
+        return token_stream.at(index);
+    }
+
     [[nodiscard]] std::size_t get_progress() const {
         return progress;
     }

@@ -7,9 +7,8 @@
 #include "ParserPack.h"
 #include "Token.h"
 
-
 namespace marex::parse {
-class VarNode final : public Parsable {
+class VarNode final : public AstNode {
    public:
     explicit VarNode(lex::Token&& token);
 

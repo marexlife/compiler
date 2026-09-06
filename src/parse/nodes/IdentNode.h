@@ -6,7 +6,7 @@
 #include "ParserPack.h"
 
 namespace marex::parse {
-class IdentNode final : public Parsable {
+class IdentNode final : public AstNode {
    public:
     explicit IdentNode(lex::Token&& token);
 
