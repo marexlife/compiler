@@ -21,7 +21,6 @@ enum struct [[nodiscard]] TokenKind : std::uint8_t {
     FloatLiteral,
     BoolLiteral,
 
-    Literal,
     Func,
     StatementEnd,
 

@@ -49,6 +49,11 @@ Token TokenFactory::create_token(
         return mapping.at(source_word);
     }
 
+    if (source_word.at(0) == '"' &&
+        source_word.ends_with('"')) {
+        return TokenKind::StringLiteral;
+    }
+
     if (auto result = try_convert_to_number<
             float, TokenKind::IntLiteral>(
             source_word)) {

@@ -14,25 +14,23 @@ namespace marex {
             return ":";
         case TokenKind::Identifier:
             return "identifier";
-        case TokenKind::Literal:
-            return "Literal";
         case TokenKind::IntDecl:
             return "Int Decl";
         case TokenKind::FloatDecl:
             return "Float Decl";
-        case lex::TokenKind::BoolDecl:
+        case TokenKind::BoolDecl:
             return "Bool Decl";
-        case lex::TokenKind::IntLiteral:
+        case TokenKind::IntLiteral:
             return "Int Literal";
-        case lex::TokenKind::FloatLiteral:
+        case TokenKind::FloatLiteral:
             return "Int Literal";
-        case lex::TokenKind::BoolLiteral:
+        case TokenKind::BoolLiteral:
             return "Bool Literal";
-        case marex::lex::TokenKind::StringLiteral:
+        case TokenKind::StringLiteral:
             return "String Literal";
-        case lex::TokenKind::Arrow:
+        case TokenKind::Arrow:
             return "arrow";
-        case marex::lex::TokenKind::Comma:
+        case TokenKind::Comma:
             return "comma";
         case TokenKind::Print:
             return "print";
