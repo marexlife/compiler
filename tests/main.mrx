@@ -1,8 +1,8 @@
 fun some_func(x: bool, y: int, z: float) -> int {
     var t = true 
 
-    print some_func
-    
+    print "some_func"
+
     return 1
 }
 
@@ -11,5 +11,5 @@ fun run() {
 
     some_func(true, 1, 1)
     
-    print hello
+    print "hello"
 }

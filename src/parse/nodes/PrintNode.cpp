@@ -12,7 +12,7 @@ PrintNode::PrintNode(lex::Token&& token)
     : Parsable(std::move(token)) {}
 
 std::string PrintNode::as_c() {
-    return std::format("printf(\"{}\");\n", message);
+    return std::format("printf({});\n", message);
 }
 
 void PrintNode::parse(ParserPack& pack) {
@@ -20,6 +20,6 @@ void PrintNode::parse(ParserPack& pack) {
         lex::TokenKind::Print);
 
     message = pack.advance_if_matches_or_throw(
-        lex::TokenKind::Identifier);
+        lex::TokenKind::StringLiteral);
 }
 }  // namespace marex::parse
