@@ -29,17 +29,9 @@ void ReturnNode::parse(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Return);
 
-    value = std::invoke([&] -> std::string_view {
-        if (pack.advance_if_matches(
-                lex::TokenKind::Identifier)) {
-            return pack.get_lexeme();
-        }
+    expression_kind =
+        expression_kind_from_literal_or_throw(pack);
 
-        expression_kind =
-            expression_kind_from_literal_or_throw(
-                pack);
-
-        return pack.get_lexeme_and_advance();
-    });
+    value = pack.get_lexeme_and_advance();
 }
 }  // namespace marex::parse
