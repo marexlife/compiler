@@ -15,7 +15,7 @@ add_library(${PROJECT_NAME}
     TranslationUnit.cpp
     ExpressionKind.cpp
     
-    nodes/AstNode.cpp
+    nodes/Parsable.cpp
     nodes/PrintNode.cpp
     nodes/VarNode.cpp
     nodes/IdentNode.cpp

@@ -8,7 +8,6 @@
 #include "ExpressionKind.h"
 #include "ParserPack.h"
 #include "Token.h"
-#include "nodes/AstNode.h"
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {

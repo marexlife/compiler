@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_COMPLEXEXPRESSION_H
 #define MAREX_PARSE_COMPLEXEXPRESSION_H
-#include "nodes/AstNode.h"
+#include "Parsable.h"
 
 namespace marex::parse {
 class ComplexExpression final : public Parsable {

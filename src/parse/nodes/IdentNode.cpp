@@ -3,7 +3,6 @@
 #include <string>
 #include <utility>
 
-#include "AstNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 #include "TokenKind.h"

@@ -2,7 +2,7 @@
 #define MAREX_PARSE_PRINTNODE_H
 #include <string>
 
-#include "AstNode.h"
+#include "Parsable.h"
 #include "ParserPack.h"
 #include "Token.h"
 

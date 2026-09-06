@@ -11,7 +11,8 @@
 #include "TokenStream.h"
 
 namespace marex::parse {
-struct ParserPack final {
+class ParserPack final {
+   public:
     explicit ParserPack(
         lex::TokenStream&& token_stream);
 

@@ -16,7 +16,6 @@
 #include "TokenKind.h"
 #include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
-#include "nodes/AstNode.h"
 #include "nodes/ReturnNode.h"
 
 namespace marex::parse {

@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Token.h"
-#include "nodes/AstNode.h"
+#include "nodes/Parsable.h"
 
 namespace marex::parse {
 class NodeFactory final {
