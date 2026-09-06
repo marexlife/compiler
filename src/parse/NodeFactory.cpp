@@ -7,7 +7,6 @@
 #include "Logging.h"
 #include "TokenKind.h"
 #include "nodes/IdentNode.h"
-#include "nodes/PrintNode.h"
 #include "nodes/VarNode.h"
 
 namespace marex::parse {
@@ -18,9 +17,6 @@ std::unique_ptr<Parsable> NodeFactory::create_node(
     switch (token_kind) {
         case lex::TokenKind::Identifier:
             return std::make_unique<IdentNode>(
-                std::move(token));
-        case lex::TokenKind::Print:
-            return std::make_unique<PrintNode>(
                 std::move(token));
         case lex::TokenKind::Var:
             return std::make_unique<VarNode>(

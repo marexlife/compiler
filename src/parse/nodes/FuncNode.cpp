@@ -12,7 +12,6 @@
 #include "Defer.h"
 #include "Logging.h"
 #include "ParserPack.h"
-#include "PrintNode.h"
 #include "TokenKind.h"
 #include "VarNode.h"
 #include "exceptions/InvalidTokenException.h"
@@ -123,9 +122,6 @@ void FuncNode::parse_func_body(ParserPack& pack) {
                         "that are not function calls "
                         "are not supported yet");
                 } break;
-                case lex::TokenKind::Print:
-                    return std::make_unique<PrintNode>(
-                        pack.copy_out_token());
                 default:
                     goto end;
             }
