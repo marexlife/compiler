@@ -3,7 +3,7 @@
 #include "Parsable.h"
 
 namespace marex::parse {
-class ComplexExpression final : public Parsable {
+class Expression : public Parsable {
    public:
     [[nodiscard]] std::string as_c() override;
 

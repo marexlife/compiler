@@ -21,7 +21,7 @@ add_library(${PROJECT_NAME}
     nodes/FuncNode.cpp
     nodes/FuncCall.cpp
     nodes/ReturnNode.cpp
-    nodes/ComplexExpression.cpp
+    nodes/Expression.cpp
     nodes/exceptions/InvalidTokenException.cpp
     
     linter/CaseCheck.cpp
