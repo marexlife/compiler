@@ -2,11 +2,11 @@
 #define MAREX_PARSE_IDENTNODE_H
 #include <string>
 
-#include "AstNode.h"
+#include "Parsable.h"
 #include "ParserPack.h"
 
 namespace marex::parse {
-class IdentNode final : public AstNode {
+class IdentNode final : public Parsable {
    public:
     explicit IdentNode(lex::Token&& token);
 

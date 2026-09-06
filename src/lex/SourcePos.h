@@ -3,12 +3,11 @@
 #include <cstdint>
 #include <optional>
 #include <string>
-#include <string_view>
 
 namespace marex::lex {
 struct SourcePos final {
     explicit SourcePos(
-        std::optional<std::string_view> filename);
+        std::optional<std::string> filename);
 
     void advance_column();
     void advance_line();
@@ -19,7 +18,7 @@ struct SourcePos final {
    private:
     std::uintmax_t line = 1;
     std::uintmax_t column = 1;
-    std::optional<std::string_view> filename;
+    std::optional<std::string> filename;
 };
 }  // namespace marex::lex
 #endif  // MAREX_LEX_TOKENPOS_H

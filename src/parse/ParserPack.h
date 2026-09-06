@@ -11,7 +11,8 @@
 #include "TokenStream.h"
 
 namespace marex::parse {
-struct ParserPack final {
+class ParserPack final {
+   public:
     explicit ParserPack(
         lex::TokenStream&& token_stream);
 
@@ -37,6 +38,11 @@ struct ParserPack final {
         return get_kind() == token_kind;
     }
 
+    [[nodiscard]] lex::Token
+    copy_out_previous_token() {
+        return token_stream.at(progress - 1);
+    }
+
     /* NOT [[nodiscard]] */ std::string
     advance_if_matches_or_throw(
         lex::TokenKind token_kind,
@@ -47,14 +53,14 @@ struct ParserPack final {
         return get_token().get_kind();
     }
 
+    [[nodiscard]] lex::Token
+    copy_out_token_and_advance();
+
+    [[nodiscard]] std::string_view
+    get_lexeme_and_advance();
+
     [[nodiscard]] lex::TokenKind
-    get_kind_and_advance() {
-        const auto kind = get_kind();
-
-        advance();
-
-        return kind;
-    }
+    get_kind_and_advance();
 
     [[nodiscard]] lex::SourcePos get_pos() const {
         return get_token().get_pos();

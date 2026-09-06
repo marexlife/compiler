@@ -23,8 +23,8 @@ class App final {
     void compile_file(std::string_view argument);
 
     void compile(std::string&& source_code,
-                 std::optional<std::string_view>
-                     filename = std::nullopt);
+                 std::optional<std::string> filename =
+                     std::nullopt);
     void run_shell_mode();
     void run_shell_iteration();
     [[nodiscard]] static std::string

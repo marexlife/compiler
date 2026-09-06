@@ -13,7 +13,6 @@ TokenFactory::TokenFactory()
           {
               {"print", TokenKind::Print},
               {"var", TokenKind::Var},
-              {"class", TokenKind::Class},
               {"float", TokenKind::FloatDecl},
               {"int", TokenKind::IntDecl},
               {"bool", TokenKind::BoolDecl},
@@ -22,7 +21,6 @@ TokenFactory::TokenFactory()
               {"=", TokenKind::Assignment},
               {";", TokenKind::StatementEnd},
               {"\n", TokenKind::StatementEnd},
-              {"struct", TokenKind::Struct},
               {"{", TokenKind::OpenBrace},
               {"}", TokenKind::CloseBrace},
               {"(", TokenKind::OpenBracket},
@@ -31,8 +29,6 @@ TokenFactory::TokenFactory()
               {"false", TokenKind::BoolLiteral},
               {"return", TokenKind::Return},
               {"->", TokenKind::Arrow},
-              {"=>", TokenKind::FatArrow},
-              {"match", TokenKind::Match},
               {",", TokenKind::Comma},
           },
       } {}

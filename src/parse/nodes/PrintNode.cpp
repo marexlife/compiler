@@ -3,13 +3,13 @@
 #include <format>
 #include <utility>
 
+#include "Parsable.h"
 #include "ParserPack.h"
 #include "TokenKind.h"
-#include "nodes/FileItem.h"
 
 namespace marex::parse {
 PrintNode::PrintNode(lex::Token&& token)
-    : FileItem(std::move(token)) {}
+    : Parsable(std::move(token)) {}
 
 std::string PrintNode::as_c() {
     return std::format("printf(\"{}\");\n", message);

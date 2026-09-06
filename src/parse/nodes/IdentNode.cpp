@@ -3,14 +3,13 @@
 #include <string>
 #include <utility>
 
-#include "AstNode.h"
 #include "ParserPack.h"
 #include "Token.h"
 #include "TokenKind.h"
 
 namespace marex::parse {
 IdentNode::IdentNode(lex::Token&& token)
-    : AstNode(std::move(token)) {}
+    : Parsable(std::move(token)) {}
 
 [[nodiscard]] std::string IdentNode::as_c() {
     return std::string{IdentNode::get_lexeme()};

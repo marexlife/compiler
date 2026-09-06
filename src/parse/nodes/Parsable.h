@@ -1,6 +1,5 @@
 #ifndef MAREX_PARSE_ASTNODE_H
 #define MAREX_PARSE_ASTNODE_H
-#include <concepts>
 #include <cstdint>
 #include <string_view>
 
@@ -9,21 +8,15 @@
 #include "TokenKind.h"
 
 namespace marex::parse {
-class AstNode {
+class Parsable {
    public:
-    explicit AstNode(lex::Token&& token);
+    explicit Parsable(lex::Token&& token);
 
-    AstNode(AstNode&&) = default;
-    AstNode& operator=(AstNode&&) = default;
-    AstNode(const AstNode&) = delete;
-    AstNode& operator=(const AstNode&) = delete;
-    virtual ~AstNode() = default;
-
-    template <typename T>
-        requires std::derived_from<T, AstNode>
-    [[nodiscard]] T& cast() {
-        return static_cast<T&>(*this);
-    }
+    Parsable(Parsable&&) = default;
+    Parsable& operator=(Parsable&&) = default;
+    Parsable(const Parsable&) = delete;
+    Parsable& operator=(const Parsable&) = delete;
+    virtual ~Parsable() = default;
 
     [[nodiscard]] virtual std::string as_c() = 0;
 

@@ -4,14 +4,13 @@
 #include <string>
 #include <utility>
 
+#include "ExpressionKind.h"
 #include "ParserPack.h"
 #include "TokenKind.h"
-#include "TypeKind.h"
-#include "nodes/FileItem.h"
 
 namespace marex::parse {
 VarNode::VarNode(lex::Token&& token)
-    : FileItem(std::move(token)) {}
+    : Parsable(std::move(token)) {}
 
 std::string VarNode::as_c() {
     return std::format("{} {} = {};\n", *type_kind,
@@ -26,8 +25,8 @@ void VarNode::parse(ParserPack& pack) {
     pack.advance_if_matches_or_throw(
         lex::TokenKind::Assignment);
 
-    type_kind = type_kind_from_literal(pack.get_kind(),
-                                       pack.get_pos());
+    type_kind =
+        expression_kind_from_literal_or_throw(pack);
 
     value = pack.get_lexeme();
 

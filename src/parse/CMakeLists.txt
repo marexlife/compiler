@@ -13,14 +13,15 @@ add_library(${PROJECT_NAME}
     ParserPack.cpp
     NodeFactory.cpp
     TranslationUnit.cpp
-    TypeKind.cpp
+    ExpressionKind.cpp
     
-    nodes/AstNode.cpp
+    nodes/Parsable.cpp
     nodes/PrintNode.cpp
     nodes/VarNode.cpp
     nodes/IdentNode.cpp
     nodes/FuncNode.cpp
-    nodes/FileItem.cpp
+    nodes/ReturnNode.cpp
+    nodes/ComplexExpression.cpp
     nodes/exceptions/InvalidTokenException.cpp
     
     linter/CaseCheck.cpp

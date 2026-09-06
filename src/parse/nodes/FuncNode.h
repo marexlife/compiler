@@ -1,22 +1,22 @@
 #ifndef MAREX_PARSE_FUNCNODE_H
 #define MAREX_PARSE_FUNCNODE_H
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
-#include "FileItem.h"
+#include "ExpressionKind.h"
 #include "ParserPack.h"
 #include "Token.h"
+#include "nodes/ReturnNode.h"
 
 namespace marex::parse {
-enum class [[nodiscard]] TypeKind : std::uint8_t;
-
 struct FuncArg final {
     std::string arg_name;
-    TypeKind arg_type{};
+    ExpressionKind arg_type{};
 };
 
-class FuncNode final : public FileItem {
+class FuncNode final : public Parsable {
    public:
     explicit FuncNode(lex::Token&& token);
 
@@ -31,9 +31,10 @@ class FuncNode final : public FileItem {
     void parse_func_args(ParserPack& pack);
 
     std::string func_name;
-    TypeKind return_type{};
-    std::vector<std::unique_ptr<FileItem>> func_items;
-    std::string return_value;
+    ExpressionKind return_type{};
+    std::vector<std::unique_ptr<Parsable>> func_items;
+    std::optional<std::unique_ptr<ReturnNode>>
+        return_node = std::nullopt;
     std::vector<FuncArg> args;
 };
 }  // namespace marex::parse

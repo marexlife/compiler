@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "ParserPack.h"
-#include "nodes/FileItem.h"
+#include "nodes/Parsable.h"
 
 namespace marex::parse {
 class TranslationUnit final {
@@ -13,10 +13,10 @@ class TranslationUnit final {
     void parse(ParserPack& pack);
 
    private:
-    [[nodiscard]] static std::unique_ptr<FileItem>
+    [[nodiscard]] static std::unique_ptr<Parsable>
     create_file_item(ParserPack& pack);
 
-    std::vector<std::unique_ptr<FileItem>> file_items;
+    std::vector<std::unique_ptr<Parsable>> file_items;
 };
 }  // namespace marex::parse
 #endif  // MAREX_PARSE_TRANSLATIONUNIT_H

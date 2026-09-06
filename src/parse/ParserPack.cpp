@@ -56,6 +56,31 @@ std::string ParserPack::advance_if_matches_or_throw(
                                 cpp_source_location);
 }
 
+lex::Token ParserPack::copy_out_token_and_advance() {
+    const auto token = copy_out_token();
+
+    advance();
+
+    return token;
+}
+
+std::string_view ParserPack::get_lexeme_and_advance() {
+    const auto lexeme = get_lexeme();
+
+    advance();
+
+    return lexeme;
+}
+
+[[nodiscard]] lex::TokenKind
+ParserPack::get_kind_and_advance() {
+    const auto kind = get_kind();
+
+    advance();
+
+    return kind;
+}
+
 bool ParserPack::is_at_end() const {
     const auto is_finished =
         token_stream.size() <= progress;

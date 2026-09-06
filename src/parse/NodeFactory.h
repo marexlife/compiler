@@ -3,12 +3,12 @@
 #include <memory>
 
 #include "Token.h"
-#include "nodes/AstNode.h"
+#include "nodes/Parsable.h"
 
 namespace marex::parse {
 class NodeFactory final {
    public:
-    [[nodiscard]] static std::unique_ptr<AstNode>
+    [[nodiscard]] static std::unique_ptr<Parsable>
     create_node(lex::Token&& token);
 
    private:
