@@ -8,15 +8,15 @@
 #include "TokenKind.h"
 
 namespace marex::parse {
-class Parsable {
+class AstNode {
    public:
-    explicit Parsable(lex::Token&& token);
+    explicit AstNode(lex::Token&& token);
 
-    Parsable(Parsable&&) = default;
-    Parsable& operator=(Parsable&&) = default;
-    Parsable(const Parsable&) = delete;
-    Parsable& operator=(const Parsable&) = delete;
-    virtual ~Parsable() = default;
+    AstNode(AstNode&&) = default;
+    AstNode& operator=(AstNode&&) = default;
+    AstNode(const AstNode&) = delete;
+    AstNode& operator=(const AstNode&) = delete;
+    virtual ~AstNode() = default;
 
     [[nodiscard]] virtual std::string as_c() = 0;
 

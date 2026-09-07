@@ -3,7 +3,7 @@
 #include <optional>
 #include <string>
 
-#include "Parsable.h"
+#include "AstNode.h"
 #include "Token.h"
 
 namespace marex::parse {
