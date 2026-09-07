@@ -2,9 +2,9 @@
 
 #include <utility>
 
-#include "nodes/Parsable.h"
+#include "nodes/AstNode.h"
 
 namespace marex::parse {
 Expression::Expression(lex::Token&& token)
-    : Parsable(std::move(token)) {}
+    : AstNode(std::move(token)) {}
 }  // namespace marex::parse

@@ -2,7 +2,7 @@
 #define MAREX_PARSE_IDENTNODE_H
 #include <string>
 
-#include "Parsable.h"
+#include "AstNode.h"
 #include "ParserPack.h"
 
 namespace marex::parse {

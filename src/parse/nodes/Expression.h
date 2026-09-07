@@ -1,6 +1,6 @@
 #ifndef MAREX_PARSE_EXPRESSION_H
 #define MAREX_PARSE_EXPRESSION_H
-#include "Parsable.h"
+#include "AstNode.h"
 #include "Token.h"
 
 namespace marex::parse {

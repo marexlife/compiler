@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "ParserPack.h"
-#include "nodes/Parsable.h"
+#include "nodes/AstNode.h"
 
 namespace marex::parse {
 class TranslationUnit final {
